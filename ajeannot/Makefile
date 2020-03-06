@@ -6,15 +6,22 @@
 #    By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/04 13:29:11 by ajeannot          #+#    #+#              #
-#    Updated: 2020/03/04 16:36:42 by ajeannot         ###   ########.fr        #
+#    Updated: 2020/03/06 19:01:40 by ajeannot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = 	fct_annexes.c \
-		ft_split.c \
-		fct_execs.c \
+SRCS = 	annexes/display_string.c \
+		annexes/ft_split.c \
+		exec/exec_cd.c \
+		exec/exec_export.c \
+		exec/exec_program.c \
+		exec/exec_unset.c \
+		managers/manage_array.c \
+		managers/manage_env.c \
+		managers/manage_string.c \
+		minishell.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
 
