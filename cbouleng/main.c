@@ -27,16 +27,30 @@ static void	prompt()
 	write(1, "$ ", 2);
 }
 
-static t_list	*new_list(void)
+static t_list	*new_lst(void)
 {
 	return (NULL);
 }
 
-static bool		is_empty_lst(t_list *lst)
+static bool		is_empty_lst()
 {
 	if (!lst)
 		return (true);
 	return (false);
+}
+
+static int	is_valid(char *stock)
+{
+	int i;
+
+	i = 0;
+	while (stock[i])
+	{
+		if (stock[i] != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 static void		print_lst(void)
@@ -98,7 +112,7 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	elem->arg = trio.arg;
 	elem->pipe = pipe;
 	elem->next = NULL;
-	if (is_empty_lst(lst))
+	if (is_empty_lst())
 		lst = elem;
 	else
 	{
@@ -116,7 +130,7 @@ static void list_pipe(char *stock_elem_piped)
 
 	i = 0;
 	pipe_sep = ft_split_plus(stock_elem_piped, "|");
-	while (pipe_sep[i])
+	while (pipe_sep[i] && is_valid(pipe_sep[i]))
 	{
 		new_elem_lst(pipe_sep[i], 1);
 		i++;
@@ -128,7 +142,7 @@ static void	list_it(char **stock)
 	int i;
 
 	i = 0;
-	while (stock[i])
+	while (stock[i] && is_valid(stock[i]))
 	{
 		if (!is_pipe(stock[i]))
 			new_elem_lst(stock[i], 0);
@@ -148,30 +162,51 @@ static int	parsing(char *line)
 	return (1);
 }
 
-static int	init(char ac, char **av)
+static void	del_first(void)
+{
+	t_list *elem;
+
+	if (is_empty_lst())
+		lst = new_lst();
+	if (!(elem = malloc(sizeof(t_list))))
+		exit(1);
+	elem = lst->next;
+	free(lst);
+	lst = elem;
+}
+
+static void	clear_lst()
+{
+	if (is_empty_lst())
+		new_lst();
+	else
+		while (lst)
+			del_first();
+}
+
+static void	init(char ac, char **av)
 {
 	if (ac != 1)
-		return (0);
+		ft_exit(1);
 	(void)av;
-	lst = new_list();
-	return (1);
+	lst = new_lst();
 }
 
 int		main(int ac, char **av)
 {
 	char	*line;
 
-	if (init(ac, av))
+	init(ac, av);
+	prompt();
+	while (1)
 	{
-		prompt();
-		while (1)
-		{
-			if (get_next_line(0, &line))
-				prompt();
-			parsing(line);
-			free(line);
-		}
+		if (get_next_line(0, &line))
+			prompt();
+		parsing(line);
+		//exec();
+		clear_lst();
 		free(line);
 	}
+	free(line);
 	return (0);
 }
