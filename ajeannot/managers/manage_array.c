@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 17:26:14 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 18:59:47 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:38:36 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ int array_length(char **input_array)
     return (count);
 }
 
-char **duplicate_array(char **input_array, char sep)
+char **duplicate_array(char **input_array, char **free_array, char sep)
 {
     int count;
     int array_len;
     char **output_array;
+    char **split_result;
 
     count = 0;
     array_len = array_length(input_array);
@@ -37,12 +38,18 @@ char **duplicate_array(char **input_array, char sep)
     while (input_array[count])
     {
         if (sep)
-            output_array[count] = ft_strdup(ft_split(input_array[count], sep)[0]);
+        {
+            split_result = ft_split(input_array[count], sep);
+            output_array[count] = ft_strdup(split_result[0]);
+            free_str_array(split_result);
+        }
         else
             output_array[count] = ft_strdup(input_array[count]);
         count++;
     }
     output_array[count] = NULL;
+    if (free_array)
+        free_str_array(free_array);
     return (output_array);
 }
 
@@ -82,6 +89,7 @@ void free_str_array(char **input_array)
     {
         free(input_array[count]);
         input_array[count] = NULL;
+        count++;
     }
     free(input_array);
     input_array = NULL;
@@ -90,18 +98,24 @@ void free_str_array(char **input_array)
 int search_in_array(char **input_array, char* str, char sep)
 {
     int count;
+    char **split_result;
 
     count = 0;
     while (input_array[count])
     {
         if (sep)
         {
-            if ((strcmp(str, ft_split(input_array[count], sep)[0])) == 0)
+            split_result = ft_split(input_array[count], sep);
+            if ((ft_strcmp(str, split_result[0])) == 0)
+            {
+                free_str_array(split_result);
                 return (count);
+            }
+            free_str_array(split_result);
         }
         else
         {
-            if ((strcmp(str, input_array[count])) == 0)
+            if ((ft_strcmp(str, input_array[count])) == 0)
                 return (count);
         }
         count++;
@@ -129,6 +143,7 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
     int index_from;
     int index_add;
     char **output_array;
+    char **split_result;
 
     count_from = 0;
     count_add = 0;
@@ -142,19 +157,25 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
     index_add = count_from;
     while (add_array[count_add])
     {
-        if ((index_from = search_in_array(from_array, ft_split(add_array[count_add], '=')[0], '=')) >= 0)
+        split_result = ft_split(add_array[count_add], '=');
+        if ((index_from = search_in_array(from_array, split_result[0], '=')) >= 0)
         {
             free(output_array[index_from]);
-            output_array[index_from] = add_array[count_add];
+            output_array[index_from] = ft_strdup(add_array[count_add]);
         }
         else
         {
-            output_array[index_add] = add_array[count_add];
+            output_array[index_add] = ft_strdup(add_array[count_add]);
             index_add++;
         }
+        free(split_result);
         count_add++;
     }
     output_array[count_from + count_add] = NULL;
+//    printf("\n\n============= EXTEND =============\n\n");
+//    display_array(output_array);
+//    printf("\n\n============= EXTEND =============\n\n");
     free_str_array(from_array);
+//    printf("FIN FCT EXTEND\n");
     return (output_array);
 }

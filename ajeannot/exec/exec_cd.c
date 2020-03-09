@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 16:00:33 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 18:59:32 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 18:22:25 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ void update_env(char *new_path)
     old_pwd = (char *)malloc(sizeof(char) * ft_strlen(global_env[pwd_index]) + 4);
     old_pwd = ft_strncat(old_pwd, global_env[oldpwd_index], 7);
     old_pwd = ft_strcat(old_pwd, &global_env[pwd_index][4]);
+    free(global_env[oldpwd_index]);
     global_env[oldpwd_index] = old_pwd;
     new_pwd = (char *)malloc(sizeof(char) * ft_strlen(new_path) + 5);
     new_pwd = ft_strncat(new_pwd, global_env[pwd_index], 4);
     new_pwd = ft_strcat(new_pwd, new_path);
+    free(global_env[pwd_index]);
     global_env[pwd_index] = new_pwd;
+    free(new_path);
 }
 
 char *previous_dir(void)
@@ -74,6 +77,8 @@ void ft_cd(char *args)
 {
     char *path;
     char **tab_args;
+    //char **split_result;
+
 
     tab_args = ft_split(args, ' ');
     if (tab_args[1] == NULL)
@@ -88,7 +93,11 @@ void ft_cd(char *args)
         path = relative_path(tab_args[1]);
 
     if (chdir(path) == -1)
+    {
         printf("ERROR DIRECTORY\n");
+        free(path);
+    }
     else
         update_env(path);
+    free_str_array(tab_args);
 }

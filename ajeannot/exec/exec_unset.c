@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:45:12 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 18:59:41 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 18:29:40 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void ft_unset(char *args)
         new_env = cleared_env(global_env, new_env, tab_index);
         free_str_array(global_env);
         free(tab_index);
+        free_str_array(tab_args);
         global_env = new_env;
     }
 }

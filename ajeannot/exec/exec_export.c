@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:08:28 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 18:59:36 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:45:17 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char **sort_env(void)
 {
     char **new_env;
 
-    new_env = duplicate_array(global_env, '\0');
+    new_env = duplicate_array(global_env, NULL, '\0');
     new_env = sort_array(new_env);
     return (new_env);
 }
@@ -56,16 +56,22 @@ int is_init_var(char *str)
 {
     int count;
     char *str_cmp;
+    char **split_result;
 
     count = 0;
-    str_cmp = ft_split(str, '=')[0];
+    split_result = ft_split(str, '=');
+    str_cmp = split_result[0];
 
     while (init_env_var[count])
     {
-        if (strcmp(init_env_var[count], str_cmp) == 0)
+        if (ft_strcmp(init_env_var[count], str_cmp) == 0)
+        {
+            free_str_array(split_result);
             return (KO);
+        }
         count++;
     }
+    free_str_array(split_result);
     return (OK);
 }
 
@@ -99,9 +105,9 @@ void ft_export(char *args)
     char **add_args;
     char **sorted_env;
 
+    add_args = NULL;
     tab_args = ft_split(args, ' ');
     args_len = array_length(tab_args);
-    add_args = malloc(sizeof(char *) * args_len);
     if (tab_args[1] && tab_args[1][0] == '$' && is_init_var(&tab_args[1][1]))
         printf("EXPORT PATH ERROR\n");
     else if (!(tab_args[1]) || tab_args[1][0] == '$' || tab_args[1][0] == '#')
@@ -114,6 +120,7 @@ void ft_export(char *args)
     else
     {
         count = 1;
+        add_args = malloc(sizeof(char *) * args_len);
         while (tab_args[count])
         {
             /* Vérification si nom de variable OK */
@@ -150,4 +157,8 @@ void ft_export(char *args)
         add_args[count - 1] = NULL;
         global_env = extend_array(global_env, add_args, array_length(global_env), array_length(add_args));
     }
+    free_str_array(tab_args);
+    if (add_args)
+        free_str_array(add_args);
+//    printf("FIN FCT EXPORT\n");
 }

@@ -52,7 +52,7 @@ void    ft_unset(char *args);
 
 /* MANAGE_ARRAY */
 int     array_length(char **input_array);
-char    **duplicate_array(char **input_array, char sep);
+char    **duplicate_array(char **input_array, char **free_array, char sep);
 char    **sort_array(char **input_array);
 void    free_str_array(char **input_array);
 int     search_in_array(char **input_array, char* str, char sep);
@@ -72,6 +72,6 @@ int     ft_strcmp(char *s1, char *s2);
 
 /* MINISHELL */
 pid_t   ft_create_child(void);
-void    ft_exit(void);
+void    ft_exit(char **free_split);
 
 #endif

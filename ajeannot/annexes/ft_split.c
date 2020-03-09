@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 12:47:14 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 18:59:28 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:24:29 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char			**ft_split(char const *s, char c)
 	cmp_string = ft_cmp_string(s, c);
 	total_string = (char **)malloc(sizeof(char*) * (cmp_string + 1));
 	total_string = ft_sep_string(s, c, total_string);
-	total_string[cmp_string] = (char*)malloc(sizeof(char));
+//	total_string[cmp_string] = (char*)malloc(sizeof(char));
 	total_string[cmp_string] = 0;
 	return (total_string);
 }

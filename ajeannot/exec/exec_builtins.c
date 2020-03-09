@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:47:48 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/09 12:29:13 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:35:40 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void ft_builtins(char *args)
     char *path;
     char **tab_path;
     char **tab_args;
+//    char **split_result;
 
     tab_args = ft_split(args, ' ');
     count = 0;
@@ -36,6 +37,9 @@ void ft_builtins(char *args)
     tab_path[count] = NULL;
 
     count = 0;
+//    printf("\n\n=========== PRE BUILTINS =========== \n\n");
+//    display_array(global_env);
+//    printf("\n\n=========== PRE BUILTINS =========== \n\n");
     while (tab_path[count])
     {
         execve(tab_path[count], tab_args, global_env);
