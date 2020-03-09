@@ -1,6 +1,8 @@
 
 #include "minishell.h"
 
+t_list *lst;
+
 static int	ft_exit(int status)
 {
 	exit(status);
@@ -37,13 +39,13 @@ static bool		is_empty_lst(t_list *lst)
 	return (false);
 }
 
-static void		print_lst(t_stt *vs)
+static void		print_lst(void)
 {
 	t_list *tmp;
 	int 	i;
 	int		j;
 
-	tmp = vs->lst;
+	tmp = lst;
 	j = 0;
 	while (tmp)
 	{
@@ -62,27 +64,28 @@ static void		print_lst(t_stt *vs)
 
 static t_trio get_content_lst(char *stock, int pipe)
 {
-	t_uti	u;
+	int		i;
+	int		j;
 	t_trio	trio;
 	char	**content;
 
 	content = ft_split_plus(stock, " ");
 	trio.cmd = content[0];
-	u.i = 1;
-	while (content[u.i])
-		u.i++;
-	if (!(trio.arg = malloc(sizeof(char*) * u.i + 1)))
+	i = 1;
+	while (content[i])
+		i++;
+	if (!(trio.arg = malloc(sizeof(char*) * i + 1)))
 		return (trio);
-	u.i = 1;
-	u.j = 0;
-	while (content[u.i])
-		trio.arg[u.j++] = content[u.i++];
-	trio.arg[u.j] = NULL;
+	i = 1;
+	j = 0;
+	while (content[i])
+		trio.arg[j++] = content[i++];
+	trio.arg[j] = NULL;
 	trio.pipe = pipe; 
 	return (trio);
 }
 
-static void	new_elem_lst(t_stt *vs, char *stock_elem, int pipe)
+static void	new_elem_lst(char *stock_elem, int pipe)
 {
 	t_list	*elem;
 	t_list	*tmp;
@@ -95,18 +98,18 @@ static void	new_elem_lst(t_stt *vs, char *stock_elem, int pipe)
 	elem->arg = trio.arg;
 	elem->pipe = pipe;
 	elem->next = NULL;
-	if (is_empty_lst(vs->lst))
-		vs->lst = elem;
+	if (is_empty_lst(lst))
+		lst = elem;
 	else
 	{
-		tmp = vs->lst;
+		tmp = lst;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = elem;
 	}
 }
 
-static void list_pipe(char *stock_elem_piped, t_stt *vs)
+static void list_pipe(char *stock_elem_piped)
 {
 	int		i;
 	char	**pipe_sep;
@@ -115,12 +118,12 @@ static void list_pipe(char *stock_elem_piped, t_stt *vs)
 	pipe_sep = ft_split_plus(stock_elem_piped, "|");
 	while (pipe_sep[i])
 	{
-		new_elem_lst(vs, pipe_sep[i], 1);
+		new_elem_lst(pipe_sep[i], 1);
 		i++;
 	}
 }
 
-static void	list_it(char **stock, t_stt *vs)
+static void	list_it(char **stock)
 {
 	int i;
 
@@ -128,50 +131,47 @@ static void	list_it(char **stock, t_stt *vs)
 	while (stock[i])
 	{
 		if (!is_pipe(stock[i]))
-			new_elem_lst(vs, stock[i], 0);
+			new_elem_lst(stock[i], 0);
 		else
-			list_pipe(stock[i], vs);
+			list_pipe(stock[i]);
 		i++;
 	}
 }
 
-static int	parsing(char *line, t_stt *vs)
+static int	parsing(char *line)
 {
 	char **stock;
 
 	stock = ft_split_plus(line, ";");		
-	list_it(stock, vs);
-	print_lst(vs);
+	list_it(stock);
+	//print_lst();
 	return (1);
 }
 
-static t_stt	*init(char ac, char **av)
+static int	init(char ac, char **av)
 {
-	t_stt *vs;
-
 	if (ac != 1)
 		return (0);
 	(void)av;
-	if (!(vs = malloc(sizeof(t_stt))))
-		return (0);
-	vs->lst = new_list();
-	return (vs);
+	lst = new_list();
+	return (1);
 }
 
 int		main(int ac, char **av)
 {
-	t_stt	*vs;
 	char	*line;
 
-	vs = init(ac, av);
-	prompt();
-	while (1)
+	if (init(ac, av))
 	{
-		if (get_next_line(0, &line))
-			prompt();
-		parsing(line, vs);
+		prompt();
+		while (1)
+		{
+			if (get_next_line(0, &line))
+				prompt();
+			parsing(line);
+			free(line);
+		}
 		free(line);
 	}
-	free(line);
 	return (0);
 }
