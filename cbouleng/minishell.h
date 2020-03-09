@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:36:33 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/07 14:40:18 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:19:14 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 typedef	enum
 {
@@ -36,9 +37,14 @@ typedef struct	s_list
 	struct s_list 	*next;
 }				t_list;
 
+typedef struct	s_uti
+{
+	int i;
+	int j;
+}				t_uti;
+
 typedef struct	s_stt
 {
-	char		**stock;
 	t_list		*lst;
 }				t_stt;
 

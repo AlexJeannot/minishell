@@ -1,0 +1,1 @@
+echo test ;cat -e | ls -l ; exit ; cd 1 2; grep | more ; a | b 
