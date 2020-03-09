@@ -39,8 +39,11 @@ int     is_valid_value(char *str);
 int     find_special_car(char *str);
 void    ft_export(char *args);
 
-/* EXEC_EXPORT */
-void ft_path(char *cmd, char **env);
+/* EXEC_BUILTINS */
+void ft_builtins(char *args);
+
+/* EXEC_PROGRAM */
+void ft_program(char *args);
 
 /* EXEC_UNSET */
 int     is_deleted(int *tab_index, int index);
@@ -65,10 +68,10 @@ int     ft_strlen(const char *str);
 char	*ft_strdup(const char *s);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strncat(char *dest, char *src, unsigned int nb);
+int     ft_strcmp(char *s1, char *s2);
 
 /* MINISHELL */
 pid_t   ft_create_child(void);
-void    ft_path(char *cmd, char **env);
 void    ft_exit(void);
 
 #endif

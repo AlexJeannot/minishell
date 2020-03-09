@@ -6,11 +6,11 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 16:21:45 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 19:00:02 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:33:51 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "includes/minishell.h"
 
 
 pid_t ft_create_child(void)
@@ -64,18 +64,20 @@ int main(int argc, char **argv, char **env)
         /*TRAITEMENT*/
         if (ft_create_child() == 0)
         {
-            if (strcmp(cmd, "pwd") == 0 || strcmp(cmd, "echo") == 0 || strcmp(cmd, "env") == 0)
-                ft_path(line, global_env);
-            else if (strcmp(cmd, "cd") == 0)
+            if (ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "env") == 0)
+                ft_builtins(line);
+            else if (ft_strcmp(cmd, "cd") == 0)
                 ft_cd(line);
-            else if (strcmp(cmd, "export") == 0)
+            else if (ft_strcmp(cmd, "export") == 0)
                 ft_export(line);
-            else if (strcmp(cmd, "unset") == 0)
+            else if (ft_strcmp(cmd, "unset") == 0)
                 ft_unset(line);
+            else if (cmd[0] == '.')
+                ft_program(line);
         }
         else
         {
-            if (strcmp(cmd, "exit") == 0)
+            if (ft_strcmp(cmd, "exit") == 0)
                 ft_exit();
             wait(NULL);
         }

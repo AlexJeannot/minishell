@@ -6,7 +6,7 @@
 #    By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/04 13:29:11 by ajeannot          #+#    #+#              #
-#    Updated: 2020/03/06 19:01:40 by ajeannot         ###   ########.fr        #
+#    Updated: 2020/03/09 13:34:16 by ajeannot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ SRCS = 	annexes/display_string.c \
 		annexes/ft_split.c \
 		exec/exec_cd.c \
 		exec/exec_export.c \
-		exec/exec_program.c \
+		exec/exec_builtins.c \
 		exec/exec_unset.c \
+		exec/exec_program.c \
 		managers/manage_array.c \
 		managers/manage_env.c \
 		managers/manage_string.c \
@@ -51,6 +52,9 @@ fclean : 	clean
 			echo $(NAME) "\033[0;31m ==> deleted\033[0m"
 
 re:			fclean all
+
+prog:		test.c
+			$(CC) $(FLAGS) -o prog test.c
 
 test : 		re
 			echo

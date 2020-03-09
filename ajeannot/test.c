@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_program.c                                     :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 12:29:59 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/09 13:37:09 by ajeannot         ###   ########.fr       */
+/*   Created: 2020/03/09 11:28:51 by ajeannot          #+#    #+#             */
+/*   Updated: 2020/03/09 11:37:09 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "includes/minishell.h"
 
-void ft_program(char *args)
+int main(int argc, char **argv)
 {
-    char **tab_args;
+    int count;
 
-    tab_args = ft_split(args, ' ');
-    execve(tab_args[0], tab_args, global_env);
+    count = 1;
+    if (argc < 2)
+        printf("Less than 2 args\n");
+    else
+        while (count < argc)
+        {
+            printf("Argument %d = %s\n", count, argv[count]);
+            count++;
+        }
+    return (0);
 }
