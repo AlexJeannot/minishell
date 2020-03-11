@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:36:33 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/11 12:03:55 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:10:13 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+
 
 typedef	enum
 {
@@ -37,24 +38,24 @@ typedef struct	s_list
 	struct s_list 	*next;
 }				t_list;
 
-typedef struct	s_spl
-{
-
-}				t_spl;
-
-typedef struct	s_uti
-{
-	int i;
-	int j;
-}				t_uti;
-
-typedef struct	s_stt
-{
-	t_list		*lst;
-}				t_stt;
-
+t_list 			*lst;
 int				get_next_line(int fd, char **line);
 int				ft_strlen(char *str);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_substr(char *str, int start, int len);
 char			**split_plus(char *str, char charset);
+char			**clean_esc_quote(char **stk);
+void			print_lst(void);
+int				ft_exit(int status);
+void			prompt();
+int				check_quote(char *line);
+char			**clean_esc_quote(char **stk);
+t_list			*new_lst(void);
+bool			is_empty_lst();
+int				is_valid(char *stock);
+void			del_first(void);
+void			clear_lst();
+void			list_it(char **stock);
+int				is_escaped(char *str, int i);
+char			*map_double_quote(char *str);
+char			*map_simple_quote(char *str);

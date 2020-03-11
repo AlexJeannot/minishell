@@ -6,7 +6,7 @@
 #    By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/05 14:55:52 by cbouleng          #+#    #+#              #
-#    Updated: 2020/03/11 12:01:39 by cbouleng         ###   ########.fr        #
+#    Updated: 2020/03/11 16:06:54 by cbouleng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,12 @@ CFLAGS = -Wall -Wextra -Werror -o $(NAME)
 
 SRC = 	get_next_line.c \
 		get_next_line_utils.c \
+		clean_esc_quote.c \
+		list_it.c \
+		list_utils.c \
+		utils.c \
 		split_plus.c \
+		split_plus_utils.c \
 		main.c
 
 OBJ = $(SRC:.c=.o)

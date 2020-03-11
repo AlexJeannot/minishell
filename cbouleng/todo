@@ -1,7 +1,17 @@
 spot $ au fur et a mesure
-fonction qui recopie element avec \" \' sans le \.
+
+result of : echo "test" ; echo "test ;" ; echo "test 'oui' test" ; cat -e | file | pwd
+[0]cmd: echo }."test"(0)
+[1]cmd: echo }."test ;"(0)
+[2]cmd: echo }."test 'oui' test"(0)
+[3]cmd: cat }(1)
+[4]cmd: -e }(1)
+[5]cmd: file }(1)
+[6]cmd: pwd }(1)
+erreur avec "cat -e" qui devrait etre dans le meme element avec "cat" dans var cmd et "-e" en arg;
 ______________________________________________________________________________
 ne pas creer d'element avec espace ou null = done
 clear liste chaine = done
-spot " ' : 1.check if quotes closed = sinon exit // 2. split ';' ou '|' si ne se
-trouve pas entre quote. = donedone
+spot " ' : 1.check if quotes closed = sinon exit // 2. split ';' ou '|' ssi ne se
+trouve pas entre quote. = done
+fonction qui recopie element avec \" \' sans le \. = done
