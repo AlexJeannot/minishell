@@ -23,7 +23,8 @@ pid_t ft_create_child(void)
 
 void ft_exit(char **free_split)
 {
-    free_str_array(free_split);
+    if (free_split)
+        free_str_array(free_split);
     free_str_array(init_env_var);
     free_str_array(global_env);
 
@@ -85,6 +86,45 @@ void receipt_env(int *fd)
     free_str_array(tab_env);
 }
 
+void display_prompt(void)
+{
+    char *dir;
+    char **split_result_1;
+    char **split_result_2;
+    /*AFFICHAGE DIR*/
+    printf("\033[38;5;208m");
+    fflush(stdout);
+
+
+    split_result_1 = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
+    split_result_2 = ft_split(split_result_1[1], '/');
+    dir = split_result_2[array_length(split_result_2) - 1];
+    write(1, dir, ft_strlen(dir));
+    free_str_array(split_result_1);
+    free_str_array(split_result_2);
+    write(1, " ", 1);
+
+    /*AFFICHAGE PROMPT*/
+    printf("\033[38;5;196m");
+    fflush(stdout);
+    write(1, "}> ", 3);
+    printf("\033[0m");
+    fflush(stdout);
+}
+
+void signal_manager(int sig)
+{
+    if (sig == SIGINT)
+    {
+        write(1, "\n", 1);
+        display_prompt();
+    }
+    if (sig == SIGQUIT)
+    {
+        write(1, "\n", 1);
+    }
+}
+
 int main(int argc, char **argv, char **env)
 {
     (void)argc;
@@ -92,10 +132,11 @@ int main(int argc, char **argv, char **env)
     (void)env;
     char *line;
     char *cmd;
-    char *dir;
+    int ret_gnl;
+    //char *dir;
     //char **tab_dir;
     char **split_result_1;
-    char **split_result_2;
+    //char **split_result_2;
     pid_t child_pid;
     int fd[2];
 
@@ -109,37 +150,22 @@ int main(int argc, char **argv, char **env)
     //system("leaks minishell");
     //printf("\n\n===========    3    =============\n\n");
 
+    signal(SIGINT, signal_manager);
+    signal(SIGQUIT, signal_manager);
+
+
     while (1)
     {
 
+        display_prompt();
         pipe(fd);
 
 
 
-        /*AFFICHAGE DIR*/
-        printf("\033[38;5;208m");
-        fflush(stdout);
-
-
-        split_result_1 = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
-        split_result_2 = ft_split(split_result_1[1], '/');
-        dir = split_result_2[array_length(split_result_2) - 1];
-        write(1, dir, ft_strlen(dir));
-        free_str_array(split_result_1);
-        free_str_array(split_result_2);
-        write(1, " ", 1);
-
-        /*AFFICHAGE PROMPT*/
-        printf("\033[38;5;196m");
-        fflush(stdout);
-        write(1, "}> ", 3);
-        printf("\033[0m");
-        fflush(stdout);
-
         /*RECUPERATION INPUT*/
     //    system("leaks minishell");
-        get_next_line(0, &line);
-
+        ret_gnl = get_next_line(0, &line);
+    //    printf("----- LINE ------\nret_gnl = %d\nSIZE = %d\nSTR = %s\nSTR[0] = %c", ret_gnl, ft_strlen(line), line, line[0]);
         /*TRAITEMENT*/
         if (line && line[0])
         {
@@ -174,6 +200,8 @@ int main(int argc, char **argv, char **env)
             }
             free_str_array(split_result_1);
         }
+        else if (ret_gnl == 0)
+            ft_exit(NULL);
         free(line);
     }
 }

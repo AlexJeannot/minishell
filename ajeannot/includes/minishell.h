@@ -7,6 +7,7 @@
 # include <string.h>
 # include <errno.h>
 # include "../gnl/get_next_line.h"
+# include <signal.h>
 
 # define KO -1
 # define OK 1
