@@ -66,6 +66,7 @@ void receipt_env(int *fd)
     char buf[101];
     char *str_env;
     char **tab_env;
+    char **split_result;
 
     str_env = NULL;
     while ((ret = read(fd[0], buf, 100)) > 0)
@@ -77,6 +78,9 @@ void receipt_env(int *fd)
 	}
     tab_env = ft_split(str_env, '\n');
     global_env = duplicate_array(tab_env, global_env, '\0');
+    split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
+    chdir(split_result[1]);
+    free_str_array(split_result);
     free(str_env);
     free_str_array(tab_env);
 }
@@ -101,7 +105,6 @@ int main(int argc, char **argv, char **env)
 
     init_env_var = duplicate_array(env, NULL, '=');
     global_env = duplicate_array(env, NULL, '\0');
-
 
     //system("leaks minishell");
     //printf("\n\n===========    3    =============\n\n");

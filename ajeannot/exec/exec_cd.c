@@ -77,6 +77,7 @@ void ft_cd(char *args)
 {
     char *path;
     char **tab_args;
+    int result_chdir;
     //char **split_result;
 
 
@@ -92,7 +93,8 @@ void ft_cd(char *args)
     else
         path = relative_path(tab_args[1]);
 
-    if (chdir(path) == -1)
+    result_chdir = chdir(path);
+    if (result_chdir == -1)
     {
         printf("ERROR DIRECTORY\n");
         free(path);
