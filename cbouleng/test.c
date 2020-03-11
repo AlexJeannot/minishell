@@ -1,22 +1,18 @@
 #include <stdio.h>
-#include "minishell.h"
 
-char	**ft_split_plus(char *str, char *charset);
-
-void init(t_stt *vs)
-{
-	printf("%d\n", vs->i);
-	vs->i = 55;
-}
+char	**ft_split_plus_2(char *str, char charset);
 
 int main()
 {
-	t_stt *vs;
+	char **str;
+	int i;
 
-	vs = malloc(sizeof(t_stt));
-	vs->i = 50;
-	init(vs);
-	printf("!%d\n", vs->i);
-
+	str = ft_split_plus_2("echo \"line\" ; cat 'donc ; oui' ", ';');
+	i = 0;
+	while (str[i])
+	{
+		printf("%s\n", str[i]);
+		i++;
+	}
 	return (0);
 }

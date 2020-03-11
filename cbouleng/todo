@@ -1,4 +1,5 @@
 ne pas creer d'element avec espace ou null = done
 clear liste chaine = done
 spot $ au fur et a mesure
-spot " '
+spot " ' : 1.check if quotes closed = sinon exit // 2. split ';' ou '|' si ne se
+trouve pas entre quote.

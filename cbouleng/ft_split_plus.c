@@ -6,7 +6,7 @@
 /*   By: cbouleng <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 16:12:58 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/06 11:37:25 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:07:40 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		separator(char c, char *charset)
 	i = 0;
 	while (charset[i])
 	{
-		if (c == charset[i])
+		if (charset[i] == c)
 			return (1);
 		i++;
 	}

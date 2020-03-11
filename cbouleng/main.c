@@ -53,28 +53,28 @@ static int	is_valid(char *stock)
 	return (0);
 }
 
-static void		print_lst(void)
-{
-	t_list *tmp;
-	int 	i;
-	int		j;
-
-	tmp = lst;
-	j = 0;
-	while (tmp)
-	{
-		printf("[%d]", j++);
-		printf("cmd: %s }", tmp->cmd);
-		i = 0;
-		while (tmp->arg[i])
-		{
-			printf(".%s", tmp->arg[i]);
-			i++;
-		}
-		printf("(%d)\n", tmp->pipe);
-		tmp = tmp->next;
-	}
-}
+//static void		print_lst(void)
+//{
+//	t_list *tmp;
+//	int 	i;
+//	int		j;
+//
+//	tmp = lst;
+//	j = 0;
+//	while (tmp)
+//	{
+//		printf("[%d]", j++);
+//		printf("cmd: %s }", tmp->cmd);
+//		i = 0;
+//		while (tmp->arg[i])
+//		{
+//			printf(".%s", tmp->arg[i]);
+//			i++;
+//		}
+//		printf("(%d)\n", tmp->pipe);
+//		tmp = tmp->next;
+//	}
+//}
 
 static t_trio get_content_lst(char *stock, int pipe)
 {
@@ -155,10 +155,11 @@ static void	list_it(char **stock)
 static int	parsing(char *line)
 {
 	char **stock;
-
+	
+//	tmp = spot_quote(line);
 	stock = ft_split_plus(line, ";");		
 	list_it(stock);
-	print_lst();
+//	print_lst();
 	return (1);
 }
 
