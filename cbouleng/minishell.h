@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 14:36:33 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/09 15:19:14 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:03:55 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ typedef struct	s_list
 	struct s_list 	*next;
 }				t_list;
 
+typedef struct	s_spl
+{
+
+}				t_spl;
+
 typedef struct	s_uti
 {
 	int i;
@@ -52,5 +57,4 @@ int				get_next_line(int fd, char **line);
 int				ft_strlen(char *str);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_substr(char *str, int start, int len);
-char			**ft_split(char const *s, char c);
-char			**ft_split_plus(char *str, char *charset);
+char			**split_plus(char *str, char charset);

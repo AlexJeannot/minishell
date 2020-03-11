@@ -83,7 +83,7 @@ static t_trio get_content_lst(char *stock, int pipe)
 	t_trio	trio;
 	char	**content;
 
-	content = ft_split_plus(stock, " ");
+	content = split_plus(stock, ' ');
 	trio.cmd = content[0];
 	i = 1;
 	while (content[i])
@@ -129,7 +129,7 @@ static void list_pipe(char *stock_elem_piped)
 	char	**pipe_sep;
 
 	i = 0;
-	pipe_sep = ft_split_plus(stock_elem_piped, "|");
+	pipe_sep = split_plus(stock_elem_piped, '|');
 	while (pipe_sep[i] && is_valid(pipe_sep[i]))
 	{
 		new_elem_lst(pipe_sep[i], 1);
@@ -157,7 +157,8 @@ static int	parsing(char *line)
 	char **stock;
 	
 //	tmp = spot_quote(line);
-	stock = ft_split_plus(line, ";");		
+	printf("%s\n", line);
+	stock = split_plus(line, ';');		
 	list_it(stock);
 //	print_lst();
 	return (1);

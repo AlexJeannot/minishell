@@ -1,5 +1,7 @@
+spot $ au fur et a mesure
+fonction qui recopie element avec \" \' sans le \.
+______________________________________________________________________________
 ne pas creer d'element avec espace ou null = done
 clear liste chaine = done
-spot $ au fur et a mesure
 spot " ' : 1.check if quotes closed = sinon exit // 2. split ';' ou '|' si ne se
-trouve pas entre quote.
+trouve pas entre quote. = donedone
