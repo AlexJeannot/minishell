@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 15:40:05 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/11 16:10:42 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/03/12 09:19:56 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	parsing(char *line)
 	if (!(check_quote(line)))
 		ft_exit(1);
 	stock = split_plus(line, ';');
-	stock = clean_esc_quote(stock); // free required ?
+	stock = clean_esc_quote(stock);
 	list_it(stock);
 	print_lst();
 	return (1);
