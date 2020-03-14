@@ -39,6 +39,7 @@ char *previous_dir(void)
     char *path;
     int path_len;
 
+    printf("ENTREE PREVIOUS DIR\n");
     path = get_env_value("PWD");
     path_len = ft_strlen(path);
     while (path[path_len] != '/')
@@ -79,10 +80,13 @@ void ft_cd(char **args)
     int result_chdir;
     //char **split_result;
 
-
-    if (args[0] == NULL)
+    if (array_length(args) > 1)
+        printf("ERROR\n");
+    else if (args[0] == NULL)
         path = get_env_value("HOME");
-    else if (strcmp(args[0], "..") == 0)
+    else if (args[0][0] == '.' && !(args[0][1]))
+        path = get_env_value("PWD");
+    else if (ft_strcmp(args[0], "..") == 0)
         path = previous_dir();
     else if (args[0][0] == '~' && args[0][1] == '/')
         path = absolute_path(args[1]);

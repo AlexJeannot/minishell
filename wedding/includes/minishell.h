@@ -6,8 +6,11 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+#include <sys/types.h>
 # include "../gnl/get_next_line.h"
 # include <signal.h>
+#include <sys/stat.h>
+#include <time.h>
 
 # define KO -1
 # define OK 1
@@ -19,6 +22,9 @@ char **init_env_var;
 /* DISPLAY_STRING */
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
+void 	ft_putnbr_annex(int nb);
+void 	ft_putnbr(int nb);
+
 
 /* FT_SPLIT */
 //static int		ft_cmp_string(char const *s, char c);
@@ -104,7 +110,8 @@ typedef struct	s_list
 }				t_list;
 
 t_list 			*lst;
-
+pid_t			child_pid;
+char 			*piped_str;
 
 int	            parsing(char *line);
 char			*ft_strjoin(char *s1, char *s2);

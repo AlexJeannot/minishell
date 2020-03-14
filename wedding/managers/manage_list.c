@@ -72,11 +72,12 @@ static void list_pipe(char *stock_elem_piped)
 
 	i = 0;
 	pipe_sep = split_plus(stock_elem_piped, '|');
-	while (pipe_sep[i] && is_valid(pipe_sep[i]))
+	while (pipe_sep[i + 1] && is_valid(pipe_sep[i]))
 	{
 		new_elem_lst(pipe_sep[i], 1);
 		i++;
 	}
+	new_elem_lst(pipe_sep[i], 0);
 }
 
 void	list_it(char **stock)

@@ -31,7 +31,7 @@ void ft_builtins(char *cmd, char **args)
         path[ft_strlen(tab_path[count])] = '/';
         path = ft_strcat(path, cmd);
         tab_path[count] = path;
-    //    printf("tab_path[count] = %s\n", tab_path[count]);
+        //printf("tab_path[count] = %s\n", tab_path[count]);
         count++;
     }
     tab_path[count] = NULL;
@@ -45,7 +45,7 @@ void ft_builtins(char *cmd, char **args)
     while (tab_path[count])
     {
         ret = execve(tab_path[count], args, global_env);
-    //    printf("ret = %d\n", ret);
+        //printf("ret = %d\n", ret);
         count++;
     }
 }
