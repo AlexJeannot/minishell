@@ -4,7 +4,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-
 typedef	enum
 {
 	false,
@@ -17,6 +16,23 @@ typedef struct	s_trio
 	char	**arg;
 	int		pipe;
 }				t_trio;
+
+typedef struct	s_value
+{
+	char	*value;
+	char	*name;
+	int		i;
+	int		j;
+	int		y;
+}				t_value;
+
+typedef struct	s_dolls
+{
+	char	*value;
+	char 	*endline;
+	char 	*startline;
+	int		len;
+}				t_dolls;
 
 typedef struct	s_list
 {

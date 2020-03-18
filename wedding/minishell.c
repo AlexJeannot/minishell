@@ -213,7 +213,6 @@ int main(int argc, char **argv, char **env)
 {
     (void)argc;
     (void)argv;
-    (void)env;
     char *line;
     int ret_gnl;
     int fd[2];
