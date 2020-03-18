@@ -1,7 +1,9 @@
 TO DO LIST :
 ______________________________________________________________________________
-spot $ au fur et a mesure
-spot redirection
+spot $ au fur et a mesure : create snr_dollar();, a placer dans wedding pour recup $ au bon moment.
+spot redirection : etudier fonctionnement first. a gerer comme les pipes (meme endroit).
+clean quote : echo '$home' = $home. home = a;
+echo "$home" = a;
 
 
 

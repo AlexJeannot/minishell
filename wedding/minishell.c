@@ -236,7 +236,9 @@ int main(int argc, char **argv, char **env)
         //    printf("POST DISPLAY LIST\n");
             while (lst)
             {
+				//ici snr_dollar();
                 child_pid = ft_create_child();
+
                 if (child_pid == 0)
                 {
             //        printf("ENTREE COND CHILD PID\n");

@@ -130,25 +130,25 @@ int main(int argc, char **argv, char **env)
     (void)argc;
     (void)argv;
     (void)env;
-    char *line;
+    char *line;/Intra Profile Home
     char *cmd;
     int ret_gnl;
     //char *dir;
     //char **tab_dir;
     char **split_result_1;
-    //char **split_result_2;
+    //char **split_result_2;/
     pid_t child_pid;
     int fd[2];
-
+Intra Profile Home/
     //printf("\n\n===========   1   =============\n\n");
 //    system("leaks minishell");
-    //printf("\n\n============    2   ============\n\n");
+    //printf("\n\n============    2   ============\n\n")/;
 
     init_env_var = duplicate_array(env, NULL, '=');
     global_env = duplicate_array(env, NULL, '\0');
 
     //system("leaks minishell");
-    //printf("\n\n===========    3    =============\n\n");
+    //printf("\n\n===========    3    =============\n\n"/)Intra Profile Home;
 
     signal(SIGINT, signal_manager);
     signal(SIGQUIT, signal_manager);
@@ -171,7 +171,7 @@ int main(int argc, char **argv, char **env)
         {
             split_result_1 = ft_split(line, ' ');
             cmd = split_result_1[0];
-            child_pid = ft_create_child();
+            child_pid = ft_create_child();/
             if (child_pid == 0)
             {
                 if (ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "env") == 0)
