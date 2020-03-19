@@ -19,6 +19,27 @@ int		is_escaped(char *str, int i)
 	return (0);
 }
 
+int		is_paired(char *str, int i)
+{
+	if (str[i] == '"')
+	{
+		i++;
+		while (str[i] != '"' && str[i])
+			i++;
+		if (str[i] == '"')
+			return (1);
+	}
+	else
+	{
+		i++;
+		while (str[i] != '\'' && str[i])
+			i++;
+		if (str[i] == '\'')
+			return (1);
+	}
+	return (0);
+}
+
 char	*map_double_quote(char *str)
 {
 	char	*map_d;
@@ -30,7 +51,7 @@ char	*map_double_quote(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '"' && !is_escaped(str, i))
+		if (str[i] == '"' && !is_escaped(str, i) && is_paired(str, i))
 		{
 			map_d[i++] = '1';
 			while (str[i] != '"' && !is_escaped(str, i))
@@ -55,7 +76,7 @@ char	*map_simple_quote(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !is_escaped(str, i))
+		if (str[i] == '\'' && !is_escaped(str, i) && is_paired(str, i))
 		{
 			map_s[i++] = '2';
 			while (str[i] != '\'' && !is_escaped(str, i))

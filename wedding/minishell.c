@@ -235,7 +235,8 @@ int main(int argc, char **argv, char **env)
         //    printf("POST DISPLAY LIST\n");
             while (lst)
             {
-				//ici snr_dollar();
+				//ici get_dollar();
+				//ici clean_quote();
                 child_pid = ft_create_child();
 
                 if (child_pid == 0)

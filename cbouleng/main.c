@@ -16,8 +16,6 @@ static int	parsing(char *line)
 {
 	char **stock;
 
-	if (!(check_quote(line)))
-		ft_exit(1);
 	stock = split_plus(line, ';');
 	stock = clean_esc_quote(stock);
 	list_it(stock);

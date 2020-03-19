@@ -39,6 +39,20 @@ void	r_dollar(int i, int j, int ret)
 	free(res);
 }
 
+int		quote_stop(int i, int j)
+{
+	int	k;
+
+	k = j;
+	while (lst->arg[i][j] != ''' && lst->arg[i][j])
+		j--;
+	while (lst->arg[i][k] != ''' && lst->arg[i][k])
+		k++;
+	if (k == ''' && j == ''')
+		return (1);
+	return (0);
+}
+
 void	get_dollar(void)
 {
 	int	i;
@@ -51,7 +65,7 @@ void	get_dollar(void)
 		j = 0;
 		while (lst->arg[i][j])
 		{
-			if (lst->arg[i][j] == '$')
+			if (lst->arg[i][j] == '$' && !quote_stop(i, j))
 			{
 				if ((ret = is_env(lst->arg[i], j)))
 					r_dollar(i, j, ret);
