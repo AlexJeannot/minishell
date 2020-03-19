@@ -112,8 +112,7 @@ t_value
 	return (v);
 }
 
-char*
-	get_lil_path_value(t_value v)
+char*	get_lil_path_value(t_value v)
 {
 	int	y;
 
@@ -131,8 +130,7 @@ char*
 	return (value);
 }
 
-char*
-	get_env_value(int i, int j, int ret)
+char	*get_env_value(int i, int j, int ret)
 {
 	t_value v;
 
@@ -145,8 +143,7 @@ char*
 	return (value);
 }
 
-char *
-	get_startline(int i, int j)
+char	*get_startline(int i, int j)
 {
 	char *start;
 
@@ -161,8 +158,7 @@ char *
 	return (start);
 }
 
-char *
-	get_endline(int i, int j, t_dolls dls)
+char	*get_endline(int i, int j, t_dolls dls)
 {
 	char	*end;
 	int		len;
@@ -190,8 +186,7 @@ char *
 	return (end);
 }
 
-t_dolls
-	dolls_value(int i, int j, int ret)
+t_dolls		dolls_value(int i, int j, int ret)
 {
 	t_dolls dls;
 
@@ -203,8 +198,7 @@ t_dolls
 	return (dls);
 }
 
-void
-	r_dollar(int i, int j, int ret)
+void	r_dollar(int i, int j, int ret)
 {
 	t_dolls dls;
 	int		k;
@@ -228,8 +222,7 @@ void
 	free(res);
 }
 
-void
-	dollar_deal(int i, int j)
+void	dollar_deal(int i, int j)
 {
 	int ret;
 
@@ -237,8 +230,7 @@ void
 		r_dollar(lst->arg[i], j, ret);
 }
 
-void
-	snr_dollar(t_list *lst)
+void	snr_dollar(t_list *lst)
 {
 	int	i;
 	int j;
