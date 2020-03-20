@@ -40,26 +40,47 @@ int		is_paired(char *str, int i)
 	return (0);
 }
 
-char	*map_double_quote(char *str)
+static int		map_s_help(int i)
+{
+	if (map_s)
+	{
+		if (map_s[i] != '0')
+			return (0);
+	}
+	return (1);
+}
+
+static int		map_d_help(int i)
+{
+	if (map_d)
+	{
+		if (map_d[i] != '0')
+			return (0);
+	}
+	return (1);
+}
+
+char*	map_double_quote(char *str)
 {
 	char	*map_d;
 	int 	i;
 
 	i = ft_strlen(str);
 	if (!(map_d = malloc(i + 1)))
-		exit(1);
+		ft_exit(1);
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '"' && !is_escaped(str, i) && is_paired(str, i))
+		if (str[i] == '"' && !is_escaped(str, i) && is_paired(str, i)
+			&& map_s_help(i))
 		{
-			map_d[i++] = '1';
+			map_d[i++] = '2';
 			while (str[i] != '"' && !is_escaped(str, i))
-				map_d[i++] = '1';
-			map_d[i++] = '1';
+				map_d[i++] = '2';
+			map_d[i++] = '2';
 		}
-		map_d[i] = '0';
-		i++;
+		else
+			map_d[i++] = '0';
 	}
 	map_d[i] = '\0';
 	return (map_d);
@@ -76,15 +97,16 @@ char	*map_simple_quote(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !is_escaped(str, i) && is_paired(str, i))
+		if (str[i] == '\'' && !is_escaped(str, i) && is_paired(str, i)
+			&& map_d_help(i))
 		{
-			map_s[i++] = '2';
+			map_s[i++] = '1';
 			while (str[i] != '\'' && !is_escaped(str, i))
-				map_s[i++] = '2';
-			map_s[i++] = '2';
+				map_s[i++] = '1';
+			map_s[i++] = '1';
 		}
-		map_s[i] = '0';
-		i++;
+		else
+			map_s[i++] = '0';
 	}
 	map_s[i] = '\0';
 	return (map_s);

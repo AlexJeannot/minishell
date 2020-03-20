@@ -1,11 +1,27 @@
-TO DO LIST :
+// --------------------------------TODO LIST --------------------------------//
 ______________________________________________________________________________
+
+grep "exit" and replace with ft_exit.
+
+- escaping quote doesn't work. escape a quote should print it.
+
 delete paired quote before execution
 
 spot redirection : etudier fonctionnement first. a gerer comme les pipes (meme endroit).
 
 
-DONE LIST :	
+// --------------------------------DONE LIST --------------------------------//
+______________________________________________________________________________
+
+to check : quote should be paired except those within quotes. = done.
+- single quote paired may contain double quotes. = done.
+- double quote paired may contain single quotes. = done.
+______________________________________________________________________________
+
+ni pas get_dollar si export var env = done
+______________________________________________________________________________
+
+si \$USER , ne pas get_dollar. use is_escape(); = done
 ______________________________________________________________________________
 
 echo " oui ' " is now : oui ' . 
@@ -14,7 +30,7 @@ ______________________________________________________________________________
 spot $ au fur et a mesure : create get_dollar();, a placer dans wedding pour recup $ au bon moment. = done.
 ______________________________________________________________________________
 
-clear liste chaine = done
+clear_list = done
 ______________________________________________________________________________
 
 spot " ' : 1.check if quotes closed = sinon exit // 2. split ';' ou '|' ssi ne se

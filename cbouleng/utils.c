@@ -22,24 +22,45 @@ void	prompt()
 	write(1, "$ ", 2);
 }
 
-int		check_quote(char *line)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int i;
-	int	d;
-	int	s;
 
 	i = 0;
-	d = 0;
-	s = 0;
-	while (line[i])
+	while (s1[i] || s2[i])
 	{
-		if (line[i] == '"')
-			d++;
-		if (line[i] == '\'')
-			s++;
+		if (s1[i] == s2[i])
+			i++;
+		else
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (0);
+}
+
+int		check_quote(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+		{
+			i++;
+			while (str[i] != '"' && str[i])
+				i++;
+			if (str[i] != '"')
+				return (0);
+		}
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] != '\'' && str[i])
+				i++;
+			if (str[i] != '\'')
+				return (0);
+		}
 		i++;
 	}
-	if (!(d % 2) && !(s % 2))
-		return (1);
-	return (0);
+	return (1);
 }

@@ -159,9 +159,9 @@ void set_pipe(t_list *lst, int fd[2])
 
 void receive_pipe(int fd[2])
 {
-    int ret;
+    int		ret;
     char    buf[101];
-    struct stat sb;
+    struct	stat sb;
 
     fstat(fd[0], &sb);
     if (sb.st_size > 0)
