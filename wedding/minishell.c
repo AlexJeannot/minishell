@@ -85,6 +85,7 @@ void receive_env(int *fd)
     free_str_array(split_result);
     free(str_env);
     free_str_array(tab_env);
+    free_str(piped_str);
 }
 
 void display_prompt(void)
@@ -164,20 +165,16 @@ void receive_pipe(int fd[2])
     struct stat sb;
 
     fstat(fd[0], &sb);
-    //printf("sb.st_size = %lld\n", sb.st_size);
     if (sb.st_size > 0)
     {
         while ((ret = read(fd[0], buf, 100)) > 0)
     	{
-        //    printf("RET = %d\n", ret);
     		buf[ret] = '\0';
     		piped_str = ft_join(piped_str, buf, ft_len(piped_str), ft_len(buf));
             if (ret < 100)
                     break ;
     	}
     }
-    //printf("SORTIE RECEIVE PIPE\n");
-    //printf("piped_str = %s\n", piped_str);
 }
 
 int is_builtins(char *cmd)
@@ -209,6 +206,15 @@ void display_list(t_list *lst)
     }
 }
 
+void free_str(char *str)
+{
+    if (str)
+    {
+        free(str);
+        str = NULL;
+    }
+}
+
 int main(int argc, char **argv, char **env)
 {
     (void)argc;
@@ -223,31 +229,24 @@ int main(int argc, char **argv, char **env)
 
     signal(SIGINT, signal_manager);
     signal(SIGQUIT, signal_manager);
-    piped_str = NULL;
     while (1)
     {
+        free_str(piped_str);
         display_prompt();
         pipe(fd);
         ret_gnl = get_next_line(0, &line);
         if (line && line[0])
         {
             parsing(line);
-        //    display_list(lst);
-        //    printf("POST DISPLAY LIST\n");
             while (lst)
             {
                 child_pid = ft_create_child();
                 if (child_pid == 0)
                 {
-            //        printf("ENTREE COND CHILD PID\n");
                     if (lst->pipe == 1)
-                    {
-            //            printf("ENTREE COND PIPE LALA  MAIN\n");
                         set_pipe(lst, fd);
-                    }
                     else
                     {
-            //            printf("ENTREE COND PIPE 0 MAIN\n");
                         exec_instructions(lst);
                         send_env(fd);
                     }
@@ -255,13 +254,9 @@ int main(int argc, char **argv, char **env)
                 }
                 else
                 {
-        //            printf("ENTREE PARENT PROCESS\n");
                     wait(NULL);
                     if (lst->pipe == 1)
-                    {
-            //            printf("ENTREE PIPE PARENT\n");
                         receive_pipe(fd);
-                    }
                     else
                         if (!(is_builtins(lst->cmd)))
                             receive_env(fd);
@@ -276,7 +271,6 @@ int main(int argc, char **argv, char **env)
         free(line);
     	clear_lst();
         free(piped_str);
-        piped_str = NULL;
         child_pid = -1;
     }
 }

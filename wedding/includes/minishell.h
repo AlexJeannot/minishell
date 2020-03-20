@@ -113,6 +113,7 @@ t_list 			*lst;
 pid_t			child_pid;
 char 			*piped_str;
 
+void 			free_str(char *str);
 int	            parsing(char *line);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_substr(char *str, int start, int len);
