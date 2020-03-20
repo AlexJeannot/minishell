@@ -42,7 +42,8 @@ typedef struct	s_list
 	struct s_list 	*next;
 }				t_list;
 
-t_list 			*lst;
+t_list*			lst;
+char**			global_env;
 int				get_next_line(int fd, char **line);
 int				ft_strlen(char *str);
 char			*ft_strjoin(char *s1, char *s2);
@@ -63,3 +64,18 @@ void			list_it(char **stock);
 int				is_escaped(char *str, int i);
 char			*map_double_quote(char *str);
 char			*map_simple_quote(char *str);
+
+/*
+get_dollar utils
+*/
+
+void	get_dollar(void);
+int		is_path(char *str);
+char*	get_env_name_2check(char *str, int j);
+int		ft_envcmp(char *s1, char *s2);
+int		is_env(char *str, int j);
+t_value		new_value(int i, int j, int ret);
+char*		get_lil_path_value(t_value v);
+char*		get_env_value(int i, int j, int ret);
+char	*get_startline(int i, int j);
+char*	get_endline(int i, int j);

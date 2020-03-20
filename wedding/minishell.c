@@ -12,7 +12,6 @@
 
 #include "includes/minishell.h"
 
-
 pid_t ft_create_child(void)
 {
     pid_t pid;

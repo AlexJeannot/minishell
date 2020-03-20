@@ -1,19 +1,29 @@
 TO DO LIST :
 ______________________________________________________________________________
+delete paired quote before execution
+
 spot redirection : etudier fonctionnement first. a gerer comme les pipes (meme endroit).
 
 
 DONE LIST :	
 ______________________________________________________________________________
+
+echo " oui ' " is now : oui ' . 
+______________________________________________________________________________
+
 spot $ au fur et a mesure : create get_dollar();, a placer dans wedding pour recup $ au bon moment. = done.
 ______________________________________________________________________________
+
 clear liste chaine = done
 ______________________________________________________________________________
+
 spot " ' : 1.check if quotes closed = sinon exit // 2. split ';' ou '|' ssi ne se
 trouve pas entre quote. = done
 ______________________________________________________________________________
+
 fonction qui recopie element avec \" \' sans le \. = done
 ______________________________________________________________________________
+
 result of : echo "test" ; echo "test ;" ; echo "test 'oui' test" ; cat -e | file | pwd
 [0]cmd: echo }."test"(0)
 [1]cmd: echo }."test ;"(0)
