@@ -12,7 +12,6 @@
 
 #include "includes/minishell.h"
 
-
 pid_t ft_create_child(void)
 {
     pid_t pid;
@@ -219,7 +218,6 @@ int main(int argc, char **argv, char **env)
 {
     (void)argc;
     (void)argv;
-    (void)env;
     char *line;
     int ret_gnl;
     int fd[2];
@@ -240,7 +238,10 @@ int main(int argc, char **argv, char **env)
             parsing(line);
             while (lst)
             {
+				//ici get_dollar();
+				//ici clean_quote();
                 child_pid = ft_create_child();
+
                 if (child_pid == 0)
                 {
                     if (lst->pipe == 1)
