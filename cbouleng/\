@@ -44,7 +44,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-static char*	rm_void_quote(char *str, int i)
+char*	rm_void_quote(char *str, int i)
 {
 	char*	res;
 	int		j;
@@ -61,6 +61,7 @@ static char*	rm_void_quote(char *str, int i)
 		j++;
 	}
 	res[k] = '\0';
+	free(str);
 	return (res);
 }
 

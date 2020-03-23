@@ -1,25 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split_plus_utils.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:51:26 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/11 15:52:46 by cbouleng         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
-int		is_escaped(char *str, int i)
-{
-	if (str[i - 1] == '\\')
-		return (1);
-	return (0);
-}
-
-int		is_paired(char *str, int i)
+static int		is_paired(char *str, int i)
 {
 	if (str[i] == '"')
 	{
@@ -60,9 +41,8 @@ static int		map_d_help(int i)
 	return (1);
 }
 
-char*	map_double_quote(char *str)
+void	map_double_quote(char *str)
 {
-	char	*map_d;
 	int 	i;
 
 	i = ft_strlen(str);
@@ -83,12 +63,10 @@ char*	map_double_quote(char *str)
 			map_d[i++] = '0';
 	}
 	map_d[i] = '\0';
-	return (map_d);
 }
 
-char	*map_simple_quote(char *str)
+void	map_simple_quote(char *str)
 {
-	char	*map_s;
 	int 	i;
 
 	i = ft_strlen(str);
@@ -109,5 +87,50 @@ char	*map_simple_quote(char *str)
 			map_s[i++] = '0';
 	}
 	map_s[i] = '\0';
-	return (map_s);
+}
+
+void	fill_map(char *str)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(str);
+	if (!(map_s = malloc(len + 1)))
+		ft_exit(1);
+	if (!(map_d = malloc(len + 1)))
+		ft_exit(1);
+	while (str[i])
+	{
+		map_s[i] = '0';
+		map_d[i++] = '0';
+	}
+	map_s[i] = '\0';
+	map_d[i] = '\0';
+	printf("\n[%s]\n[%s]\n", map_d, map_s);
+}
+
+void	map_quote(char *str)
+{
+	int i;
+
+	i = 0;
+	map_d = NULL;
+	map_s = NULL;
+	while ((str[i] != '"' && str[i] != '\'') && str[i])
+		i++;
+	if (str[i] == '"')
+	{
+		map_double_quote(str);
+		map_simple_quote(str);
+		printf("\n[%s]\n[%s]\n", map_d, map_s);
+	}
+	else if (str[i] == '\'')
+	{
+		map_simple_quote(str);
+		map_double_quote(str);
+		printf("\n[%s]\n[%s]\n", map_s, map_d);
+	}
+	else
+		fill_map(str);
 }

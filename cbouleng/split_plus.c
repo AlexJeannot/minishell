@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 static int	sep(char c, int i, char charset)
 {
 	if (c == charset && map_s[i] == '0' && map_d[i] == '0')
@@ -64,36 +63,12 @@ static char	*finder(char *str, int i, char charset)
 	return (part);
 }
 
-static void	map_quote(char *str)
-{
-	int i;
-
-	i = 0;
-	map_d = NULL;
-	map_s = NULL;
-	while ((str[i] != '"' && str[i] != '\'') && str[i])
-		i++;
-	if (str[i] == '"')
-	{
-		map_d = map_double_quote(str);
-		map_s = map_simple_quote(str);
-		printf("\n[%s]\n[%s]\n", map_d, map_s);
-	}
-	else if (str[i] == '\'')
-	{
-		map_s = map_simple_quote(str);
-		map_d = map_double_quote(str);
-		printf("\n[%s]\n[%s]\n", map_s, map_d);
-	}
-}
-
 char		**split_plus(char *str, char charset)
 {
 	int		i;
 	int		j;
 	char	**tab;
 
-	map_quote(str);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
 		ft_exit(1);

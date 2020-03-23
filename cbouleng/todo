@@ -5,12 +5,13 @@ grep "exit" and replace with ft_exit.
 
 - escaping quote doesn't work. escape a quote should print it.
 
-delete paired quote before execution
-
 spot redirection : etudier fonctionnement first. a gerer comme les pipes (meme endroit).
 
 
 // --------------------------------DONE LIST --------------------------------//
+______________________________________________________________________________
+
+delete paired quote before execution = done. clean_quote.c
 ______________________________________________________________________________
 
 to check : quote should be paired except those within quotes. = done.
