@@ -56,7 +56,7 @@ static char*	rm_void_quote(char *str, int i)
 		ft_exit(1);
 	while (str[j])
 	{
-		if (k != i && k != i + 1)
+		if (j != i && j != i + 1)
 			res[k++] = str[j];
 		j++;
 	}
@@ -73,69 +73,17 @@ char*	clean_void_quote(char *str)
 	{
 		if (str[i] == '"' && str[i + 1] == '"'
 			&& (map_d[i] == '2' || map_d[i + 1] == '2'))
+		{
 			str = rm_void_quote(str, i);
+			map_quote(str);
+		}
 		if (str[i] == '\'' && str[i + 1] == '\''
 			&& (map_s[i] == '1' || map_s[i + 1] == '1'))
+		{
 			str = rm_void_quote(str, i);
+			map_quote(str);
+		}
 		i++;
 	}
 	return (str);
 }
-
-//int next_quote(char *str, int i, int quote_type)
-//{
-//	if (quote_type == 2)
-//	{
-//		if (str[i] == '"')
-//		{
-//			if (is_escaped(str, i))
-//				return (1);
-//			else
-//				return (0);
-//		}
-//	}
-//	if (quote_type == 1)
-//	{
-//		if (str[i] == '\'')
-//		{
-//			if (is_escaped(str, i))
-//				return (1);
-//			else
-//				return (0);
-//		}
-//	}
-//}
-//
-//int		check_quote(char *str)
-//{
-//	int i;
-//
-//	i = 0;
-//	while (str[i])
-//	{
-//		if (str[i] == '"' && !is_escaped(str, i))
-//		{
-//			i++;
-//			while (next_quote(str, i, 2) && str[i])
-//			{
-//				printf("[%c]\n", str[i]);
-//				i++;
-//			}
-//			if (str[i] != '"')
-//			{
-//				printf("KO[%c][%d]\n", str[i], i);
-//				return (0);
-//			}
-//		}
-//		if (str[i] == '\'' && !is_escaped(str, i))
-//		{
-//			i++;
-//			while (str[i] != '\'')
-//				i++;
-//			if (str[i] != '\'')
-//				return (0);
-//		}
-//		i++;
-//	}
-//	return (1);
-//}
