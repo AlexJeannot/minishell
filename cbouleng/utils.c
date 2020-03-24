@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		is_escaped(char *str, int i)
+int		is_esc(char *str, int i)
 {
 	if (str[i - 1] == '\\')
 		return (1);

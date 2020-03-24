@@ -1,6 +1,8 @@
 // --------------------------------TODO LIST --------------------------------//
 ______________________________________________________________________________
 
+refont du mapping pour map_s et map_d ensemble. Evite cas d'erreur.
+
 grep "exit" and replace with ft_exit.
 
 - escaping quote doesn't work. escape a quote should print it.
@@ -19,7 +21,7 @@ to check : quote should be paired except those within quotes. = done.
 - double quote paired may contain single quotes. = done.
 ______________________________________________________________________________
 
-ni pas get_dollar si export var env = done
+ne pas get_dollar si export var env = done
 ______________________________________________________________________________
 
 si \$USER , ne pas get_dollar. use is_escape(); = done

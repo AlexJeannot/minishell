@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int		is_esc(char *str, int i)
+static int		is_esc_spot(char *str, int i)
 {
 	if (str[i] == '\\' && (str[i + 1] == '"' || str[i + 1] == '\''))
 		return (1);
@@ -27,7 +27,7 @@ static int		spot_esc(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (is_esc(str, i))
+		if (is_esc_spot(str, i))
 			return (1);
 		i++;
 	}
@@ -46,7 +46,7 @@ static char		*rm_slash(char *str)
 	j = 0;
 	while (str[i])
 	{
-		if (!is_esc(str, i))
+		if (!is_esc_spot(str, i))
 			tmp[j++] = str[i];
 		i++;
 	}

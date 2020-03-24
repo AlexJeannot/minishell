@@ -52,7 +52,7 @@ char**			split_plus(char *str, char charset);
 
 t_list*			lst;
 char**			global_env;
-int				is_escaped(char *str, int i);
+int				is_esc(char *str, int i);
 
 /*              #quote
 -------------------------------------------------*/
@@ -62,8 +62,6 @@ void			map_quote(char *str);
 char*			clean_void_quote(char *str);
 char*			map_d;
 char*			map_s;
-void			map_double_quote(char *str);
-void			map_simple_quote(char *str);
 char**			clean_esc_quote(char **stk);
 
 /*              #chained_list

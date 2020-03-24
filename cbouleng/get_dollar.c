@@ -74,7 +74,7 @@ void	get_dollar(void)
 		j = 0;
 		while (lst->arg[i][j])
 		{
-			if (lst->arg[i][j] == '$' && !quote_stop(i, j) && !export_case(i, j) && 			!is_escaped(lst->arg[i], j))
+			if (lst->arg[i][j] == '$' && !quote_stop(i, j) && !export_case(i, j) && 			!is_esc(lst->arg[i], j))
 			{
 				if ((ret = is_env(lst->arg[i], j)))
 				{
