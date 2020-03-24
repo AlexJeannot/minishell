@@ -13,7 +13,8 @@ static t_dolls		dolls_value(int i, int j, int ret)
 }
 
 //static void		r_dollar(int i, int j, int ret)
-static char*		r_dollar(int i, int j, int ret)
+//static char*		r_dollar(int i, int j, int ret)
+static void		r_dollar(int i, int j, int ret)
 {
 	t_dolls dls;
 	int		y;
@@ -36,8 +37,8 @@ static char*		r_dollar(int i, int j, int ret)
 	while (dls.endline[k])
 		res[y++] = dls.endline[k++];
 	res[y] = '\0';
-	return (res);
-	//lst->arg[i] = res;
+	//return (res);
+	lst->arg[i] = res;
 	//free(res);
 }
 
@@ -74,8 +75,8 @@ void	get_dollar(void)
 			{
 				if ((ret = is_env(lst->arg[i], j)))
 				{
-					lst->arg[i] = r_dollar(i, j, ret);
-					//r_dollar(i, j, ret);
+					//lst->arg[i] = r_dollar(i, j, ret);
+					r_dollar(i, j, ret);
 				}
 			}
 			j++;
