@@ -1,7 +1,6 @@
 // --------------------------------TODO LIST --------------------------------//
 ______________________________________________________________________________
 
-refont du mapping pour map_s et map_d ensemble. Evite cas d'erreur.
 
 grep "exit" and replace with ft_exit.
 
@@ -11,6 +10,9 @@ spot redirection : etudier fonctionnement first. a gerer comme les pipes (meme e
 
 
 // --------------------------------DONE LIST --------------------------------//
+______________________________________________________________________________
+
+refont du mapping pour map_s et map_d ensemble. Evite cas d'erreur. = done.
 ______________________________________________________________________________
 
 delete paired quote before execution = done. clean_quote.c

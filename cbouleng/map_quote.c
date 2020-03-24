@@ -1,5 +1,16 @@
 #include "minishell.h"
 
+static void	check_conform(void)
+{
+	int end;
+
+	end = ft_strlen(map_s);
+	if (map_s[end - 1] == '1' && map_s[end - 2] == '0')
+		ft_exit(1);
+	if (map_d[end - 1] == '2' && map_d[end - 2] == '0')
+		ft_exit(1);
+}
+
 static void mapping(char *str)
 {
 	int	flag_d;
@@ -36,6 +47,7 @@ void	map_quote(char *str)
 	if (!(map_d = malloc(ft_strlen(str) + 1)))
 		ft_exit(1);
 	mapping(str);
+	check_conform();
 	printf("\nmap_s:[%s]\n", map_s);
 	printf("map_d:[%s]\n", map_d);
 }
