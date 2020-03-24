@@ -42,40 +42,54 @@ typedef struct	s_list
 	struct s_list 	*next;
 }				t_list;
 
+/*              #string
+-------------------------------------------------*/
+int				ft_strlen(char *str);
+int				ft_strcmp(char *s1, char *s2);
+char*			ft_strjoin(char *s1, char *s2);
+char*			ft_substr(char *str, int start, int len);
+char**			split_plus(char *str, char charset);
+
 t_list*			lst;
 char**			global_env;
-int				get_next_line(int fd, char **line);
-int				ft_strlen(char *str);
-char			*ft_strjoin(char *s1, char *s2);
-char			*ft_substr(char *str, int start, int len);
-char			**split_plus(char *str, char charset);
-char			**clean_esc_quote(char **stk);
+int				is_esc(char *str, int i);
+
+/*              #quote
+-------------------------------------------------*/
+int				check_quote(char *str);
+void			clean_quote(void);
+void			map_quote(char *str);
+char*			clean_void_quote(char *str);
+char*			map_d;
+char*			map_s;
+char**			clean_esc_quote(char **stk);
+
+/*              #chained_list
+-------------------------------------------------*/
 void			print_lst(void);
-int				ft_exit(int status);
-void			prompt();
-int				check_quote(char *line);
-char			**clean_esc_quote(char **stk);
 t_list			*new_lst(void);
 bool			is_empty_lst();
-int				is_valid(char *stock);
 void			del_first(void);
 void			clear_lst();
 void			list_it(char **stock);
-int				is_escaped(char *str, int i);
-char			*map_double_quote(char *str);
-char			*map_simple_quote(char *str);
+int				is_valid(char *stock);
 
-/*
-get_dollar utils
-*/
 
-void	get_dollar(void);
-int		is_path(char *str);
-char*	get_env_name_2check(char *str, int j);
-int		ft_envcmp(char *s1, char *s2);
-int		is_env(char *str, int j);
-t_value		new_value(int i, int j, int ret);
-char*		get_lil_path_value(t_value v);
-char*		get_env_value(int i, int j, int ret);
-char	*get_startline(int i, int j);
-char*	get_endline(int i, int j);
+/*              #get_dollar
+-------------------------------------------------*/
+void			get_dollar(void);
+int				is_path(char *str);
+int				ft_envcmp(char *s1, char *s2);
+int				is_env(char *str, int j);
+t_value			new_value(int i, int j, int ret);
+char*			get_env_name_2check(char *str, int j);
+char*			get_lil_path_value(t_value v);
+char*			get_env_value(int i, int j, int ret);
+char*			get_startline(int i, int j);
+char*			get_endline(int i, int j);
+
+/*              #utils
+-------------------------------------------------*/
+void			prompt();
+int				ft_exit(int status);
+int				get_next_line(int fd, char **line);

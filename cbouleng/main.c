@@ -15,7 +15,12 @@
 static int	parsing(char *line)
 {
 	char **stock;
-
+	
+//	if (!check_quote(line))
+//		printf("tilt\n");
+	//	ft_exit(1);
+	map_quote(line);
+	line = clean_void_quote(line);
 	stock = split_plus(line, ';');
 	stock = clean_esc_quote(stock);
 	list_it(stock);
@@ -47,6 +52,7 @@ int			main(int ac, char **av, char **env)
 		while (lst)
 		{
 			get_dollar();
+			clean_quote();
 			lst = lst->next;
 		}
 		lst = tmp;

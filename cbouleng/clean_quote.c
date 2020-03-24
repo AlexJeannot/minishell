@@ -1,42 +1,33 @@
 #include "minishell.h"
 
-int		to_del_quote(int i, int j, char ***pt_arg)
+static void	to_del_quote(int i)
 {
-	if (*pt_arg[i][j] == '"')
+	int		j;
+	int		len;
+	char*	tmp;
+
+	len = ft_strlen(lst->arg[i]);
+	if (!(tmp = malloc(len - 1)))
+		exit(1);
+	j = 0;
+	while (j < len - 2)
 	{
-		while (*pt_arg[i][j] != '"')
-		{
-			if (*pt_arg[i][j] == ''')
+		tmp[j] = lst->arg[i][j + 1];
+		j++;
+	}
+	tmp[j] = '\0';
+	lst->arg[i] = tmp;
 }
 
-void	clean_quote(char ***pt_arg)
-
+void		clean_quote(void)
 {
 	int	i;
 
 	i = 0;
-	while (*pt_arg[i])
+	while (lst->arg[i])
 	{
-		j = 0;
-		while (*pt_arg[i][j])
-		{
-			if (to_del_quote(i, j, pt_arg))
-				del_quote(i, j, pt_arg);
-			j++;
-		}
+		if (lst->arg[i][0] == '\'' || lst->arg[i][0] == '"')
+			to_del_quote(i);
 		i++;
 	}
-}
-
-int main(int ac, char **av)
-{
-	int i;
-	char **arg;
-
-	i = 0;
-	while (av[i])
-		i++;
-	arg = malloc(sizeof(char*) * i);
-	clean_quote(&arg);
-	return(0);
 }

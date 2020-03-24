@@ -18,15 +18,16 @@ CFLAGS = -Wall -Wextra -Werror -o $(NAME)
 
 SRC = 	get_next_line.c \
 		get_next_line_utils.c \
+		map_quote.c \
+		split_plus.c \
 		clean_esc_quote.c \
 		list_it.c \
 		list_utils.c \
-		utils.c \
-		split_plus.c \
-		split_plus_utils.c \
 		get_dollar.c \
 		get_dollar_utils.c \
 		get_dollar_utils_2.c \
+		clean_quote.c \
+		utils.c \
 		main.c
 
 OBJ = $(SRC:.c=.o)
