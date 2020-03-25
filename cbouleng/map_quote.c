@@ -46,8 +46,8 @@ static void mapping(char *str)
 	}
 	map_s[i] = '\0';
 	map_d[i] = '\0';
-	printf("\nmap_s[%s]\n", map_s);
-	printf("map_d[%s]\n", map_d);
+//	printf("\nmap_s[%s]\n", map_s);
+//	printf("map_d[%s]\n", map_d);
 }
 
 void	map_quote(char *str)

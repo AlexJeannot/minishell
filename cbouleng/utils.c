@@ -14,8 +14,20 @@
 
 int		is_esc(char *str, int i)
 {
+	int nb;
+	
+	nb = 0;
 	if (str[i - 1] == '\\')
-		return (1);
+	{
+		i--;
+		while (str[i] == '\\')
+		{
+			i--;
+			nb++;
+		}
+		if (nb % 2)
+			return (1);
+	}
 	return (0);
 }
 

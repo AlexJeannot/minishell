@@ -8,7 +8,7 @@ static int	is_pipe(char *stock)
 	i = 0;
 	while (stock[i])
 	{
-		if (stock[i] == '|')
+		if (stock[i] == '|' && !is_esc(stock, i))
 			return (1);
 		i++;
 	}
@@ -23,7 +23,6 @@ static t_cont get_content_lst(char *stock, int pipe)
 	char	**content;
 
 	//cont.rd = get_redir(&stock);
-	printf("[%s]\n", stock);
 	content = split_plus(stock, ' ');
 	cont.cmd = content[0];
 	i = 1;

@@ -50,6 +50,79 @@ static char*	clean_quote(char* str)
 	return (res);
 }
 
+static int		nb_del_backslash(char* str)
+{
+	int	i;
+	int	nb;
+	int	sum;
+
+	i = 0;
+	sum = 0;
+	nb = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\')
+		{
+			nb = 1;
+			while (str[i++] == '\\')
+				nb++;
+			nb /= 2;
+		}
+		sum = nb;
+		i++;
+	}
+	return (sum);
+}
+
+static int	print_it(char* str, int i)
+{
+	int nb;
+
+	nb = 0;
+	if (str[i] == '\\')
+	{
+		while (str[i--] == '\\')
+			nb++;
+		return (nb / 2);
+	}
+	return (0);
+}
+
+static char*	clean_backslash(char* str)
+{
+	char*	res;
+	int		nb;
+	int		i;
+	int		j;
+	int		ret;
+
+	ret = 0;
+	nb = nb_del_backslash(str);
+	if (!(res = malloc(ft_strlen(str) - nb + 1)))
+		ft_exit(1);
+	i = ft_strlen(str);
+	j = i - nb;
+	res[j--] = '\0';
+	i--;
+	while (i >= 0)
+	{
+		if (str[i] == '\\')
+		{
+			ret = print_it(str, i);
+			while (ret)
+			{
+				res[j--] = '\\';
+				i--;
+				ret--;
+			}
+		}
+		else
+			res[j--] = str[i];
+		i--;
+	}
+	return (res);
+}
+
 void	clean_before_print(void)
 {
 	int	i;
@@ -59,6 +132,8 @@ void	clean_before_print(void)
 	while (lst->arg[i])
 	{
 		lst->arg[i] = clean_quote(lst->arg[i]);
+		lst->arg[i] = clean_backslash(lst->arg[i]);
 		i++;
 	}
+//	defrag_arg();
 }
