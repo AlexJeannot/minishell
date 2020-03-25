@@ -14,8 +14,16 @@
 
 static int	sep(char c, int i, char charset)
 {
-	if (c == charset && map_s[i] == '0' && map_d[i] == '0')
-		return (1);
+	if (charset == ' ')
+	{
+		if (c == charset && map_s[i] == '0' && map_d[i] == '0')
+			return (1);
+	}
+	else
+	{
+		if (c == charset)
+			return (1);
+	}
 	return (0);
 }
 
@@ -69,6 +77,7 @@ char		**split_plus(char *str, char charset)
 	int		j;
 	char	**tab;
 
+	map_quote(str);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
 		ft_exit(1);

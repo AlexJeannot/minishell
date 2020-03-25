@@ -22,8 +22,8 @@ void		print_lst(void)
 	j = 0;
 	while (tmp)
 	{
-		printf("[%d]", j++);
-		printf("cmd: %s }", tmp->cmd);
+		printf("\n[%d]", j++);
+		printf("cmd:%s}", tmp->cmd);
 		i = 0;
 		while (tmp->arg[i])
 		{

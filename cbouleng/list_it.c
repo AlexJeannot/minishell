@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   list_it.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:36:45 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/12 09:33:46 by cbouleng         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
+#include "prod_utils.c"
 
 static int	is_pipe(char *stock)
 {
@@ -19,47 +8,49 @@ static int	is_pipe(char *stock)
 	i = 0;
 	while (stock[i])
 	{
-		if (stock[i] == '|')
+		if (stock[i] == '|' && !is_esc(stock, i))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-static t_trio get_content_lst(char *stock, int pipe)
+static t_cont get_content_lst(char *stock, int pipe)
 {
 	int		i;
 	int		j;
-	t_trio	trio;
+	t_cont	cont;
 	char	**content;
 
+	//cont.rd = get_redir(&stock);
 	content = split_plus(stock, ' ');
-	trio.cmd = content[0];
+	cont.cmd = content[0];
 	i = 1;
 	while (content[i])
 		i++;
-	if (!(trio.arg = malloc(sizeof(char*) * i + 1)))
-		return (trio);
+	if (!(cont.arg = malloc(sizeof(char*) * i + 1)))
+		return (cont);
 	i = 1;
 	j = 0;
 	while (content[i])
-		trio.arg[j++] = content[i++];
-	trio.arg[j] = NULL;
-	trio.pipe = pipe; 
-	return (trio);
+		cont.arg[j++] = content[i++];
+	cont.arg[j] = NULL;
+	cont.pipe = pipe; 
+	return (cont);
 }
 
 static void	new_elem_lst(char *stock_elem, int pipe)
 {
 	t_list	*elem;
 	t_list	*tmp;
-	t_trio	trio;
+	t_cont	cont;
 
 	if (!(elem = malloc(sizeof(t_list))))
 		ft_exit(1);
-	trio = get_content_lst(stock_elem, pipe);
-	elem->cmd = trio.cmd;
-	elem->arg = trio.arg;
+	cont = get_content_lst(stock_elem, pipe);
+	elem->cmd = cont.cmd;
+	elem->arg = cont.arg;
+//	elem->rd = cont.rd;
 	elem->pipe = pipe;
 	elem->next = NULL;
 	if (is_empty_lst())

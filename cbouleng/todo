@@ -1,15 +1,19 @@
 // --------------------------------TODO LIST --------------------------------//
 ______________________________________________________________________________
 
+clean() : void quote create new arg, will need to remalloc proper tab arg.
+
 
 grep "exit" and replace with ft_exit.
 
-- escaping quote doesn't work. escape a quote should print it.
 
 spot redirection : etudier fonctionnement first. a gerer comme les pipes (meme endroit).
 
 
 // --------------------------------DONE LIST --------------------------------//
+______________________________________________________________________________
+
+escaping quote doesn't work. escape a quote should print it. = done.
 ______________________________________________________________________________
 
 refont du mapping pour map_s et map_d ensemble. Evite cas d'erreur. = done.
