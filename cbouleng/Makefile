@@ -37,11 +37,14 @@ $(NAME): $(OBJ)
 all: $(NAME)
 
 clean:
-	@rm -f $(OBJ) $(NAME)
+	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
 
 re : fclean all
 
-.PHONY: clean fclean all re
+test : $(NAME)
+	./$(NAME)
+
+.PHONY: clean fclean all re test

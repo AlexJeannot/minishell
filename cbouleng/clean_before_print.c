@@ -68,8 +68,10 @@ static int		nb_del_backslash(char* str)
 				nb++;
 				i++;
 			}
-			if (nb != 1)
+			if (!(nb % 2))
 				nb /= 2;
+			else
+				nb = nb / 2 + 1;
 		}
 		sum += nb;
 		nb = 0;
