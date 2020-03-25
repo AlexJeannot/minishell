@@ -63,12 +63,16 @@ static int		nb_del_backslash(char* str)
 	{
 		if (str[i] == '\\')
 		{
-			nb = 1;
-			while (str[i++] == '\\')
+			while (str[i] == '\\')
+			{
 				nb++;
-			nb /= 2;
+				i++;
+			}
+			if (nb != 1)
+				nb /= 2;
 		}
-		sum = nb;
+		sum += nb;
+		nb = 0;
 		i++;
 	}
 	return (sum);
@@ -129,6 +133,7 @@ void	clean_before_print(void)
 
 	i = 0;
 	lst->cmd = clean_quote(lst->cmd);
+	lst->cmd = clean_backslash(lst->cmd);
 	while (lst->arg[i])
 	{
 		lst->arg[i] = clean_quote(lst->arg[i]);
