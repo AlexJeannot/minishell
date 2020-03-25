@@ -10,37 +10,39 @@ typedef	enum
 	true
 }		bool;
 
-typedef struct	s_trio
+typedef struct		s_cont
 {
-	char	*cmd;
-	char	**arg;
 	int		pipe;
-}				t_trio;
+	char*	cmd;
+	char*	rd;
+	char**	arg;
+}					t_cont;
 
-typedef struct	s_value
+typedef struct		s_value
 {
 	char	*value;
 	char	*name;
 	int		i;
 	int		j;
 	int		y;
-}				t_value;
+}					t_value;
 
-typedef struct	s_dolls
+typedef struct		s_dolls
 {
 	char	*value;
 	char 	*endline;
 	char 	*startline;
 	int		len;
-}				t_dolls;
+}					t_dolls;
 
-typedef struct	s_list
+typedef struct		s_list
 {
-	char			*cmd;
-	char 			**arg;
+	char*			cmd;
+	char*			rd;
+	char**			arg;
 	int				pipe;
-	struct s_list 	*next;
-}				t_list;
+	struct s_list*	next;
+}					t_list;
 
 /*              #string
 -------------------------------------------------*/
@@ -57,12 +59,9 @@ int				is_esc(char *str, int i);
 /*              #quote
 -------------------------------------------------*/
 int				check_quote(char *str);
-void			clean_quote(void);
 void			map_quote(char *str);
-char*			clean_void_quote(char *str);
 char*			map_d;
 char*			map_s;
-char**			clean_esc_quote(char **stk);
 
 /*              #chained_list
 -------------------------------------------------*/
@@ -93,3 +92,4 @@ char*			get_endline(int i, int j);
 void			prompt();
 int				ft_exit(int status);
 int				get_next_line(int fd, char **line);
+void			clean_before_print(void);

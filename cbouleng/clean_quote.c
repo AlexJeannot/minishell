@@ -30,4 +30,5 @@ void		clean_quote(void)
 			to_del_quote(i);
 		i++;
 	}
+	//clean_esc_quote(stock);
 }
