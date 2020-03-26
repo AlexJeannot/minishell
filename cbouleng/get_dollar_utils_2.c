@@ -1,31 +1,11 @@
 #include "minishell.h"
 
-char*		get_lil_path_value(t_value v)
-{
-	int	y;
-
-	y = 0;
-	while (global_env[v.i][v.j])
-	{
-		if (global_env[v.i][v.j] == ':')
-			v.value[y] = ' ';
-		else
-			v.value[y] = global_env[v.i][v.j];
-		y++;
-		v.j++;
-	}
-	v.value[y] = '\0';
-	return (v.value);
-}
-
-char*		get_env_value(int i, int j, int ret)
+char*		get_env_value(int i, int j)
 {
 	t_value v;
 
-	v = new_value(i, j, ret);
+	v = new_value(i, j);
 	v.y = 0;
-	if (ret == 2)
-		return (get_lil_path_value(v));
 	while (global_env[v.i][v.j])
 		v.value[v.y++] = global_env[v.i][v.j++];
 	v.value[v.j] = '\0';

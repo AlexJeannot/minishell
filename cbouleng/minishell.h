@@ -54,14 +54,17 @@ char**			split_plus(char *str, char charset);
 
 t_list*			lst;
 char**			global_env;
+
+/*              #backslash
+-------------------------------------------------*/
 int				is_esc(char *str, int i);
+char*			clean_backslash(char* str);
 
 /*              #quote
 -------------------------------------------------*/
 int				check_quote(char *str);
-void			map_quote(char *str);
-char*			map_d;
-char*			map_s;
+char*			map_quote(char *str);
+char*			map;
 
 /*              #chained_list
 -------------------------------------------------*/
@@ -73,19 +76,21 @@ void			clear_lst();
 void			list_it(char **stock);
 int				is_valid(char *stock);
 
-
-/*              #get_dollar
+/*              #dollar
 -------------------------------------------------*/
 void			get_dollar(void);
+void			get_cmd_dollar(void);
 int				is_path(char *str);
 int				ft_envcmp(char *s1, char *s2);
 int				is_env(char *str, int j);
-t_value			new_value(int i, int j, int ret);
+t_value			new_value(int i, int j);
 char*			get_env_name_2check(char *str, int j);
 char*			get_lil_path_value(t_value v);
-char*			get_env_value(int i, int j, int ret);
+char*			get_env_value(int i, int j);
 char*			get_startline(int i, int j);
 char*			get_endline(int i, int j);
+char*			clean_echo_bad_env(char* str);
+
 
 /*              #utils
 -------------------------------------------------*/
@@ -93,3 +98,5 @@ void			prompt();
 int				ft_exit(int status);
 int				get_next_line(int fd, char **line);
 void			clean_before_print(void);
+int				ft_tablen(char **tab);
+void			defrag_arg(int len);

@@ -25,7 +25,10 @@ SRC = 	get_next_line.c \
 		get_dollar.c \
 		get_dollar_utils.c \
 		get_dollar_utils_2.c \
+		get_cmd_dollar.c \
 		clean_before_print.c \
+		clean_backslash.c \
+		clean_echo_bad_env.c \
 		utils.c \
 		main.c
 
@@ -37,11 +40,14 @@ $(NAME): $(OBJ)
 all: $(NAME)
 
 clean:
-	@rm -f $(OBJ) $(NAME)
+	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
 
 re : fclean all
 
-.PHONY: clean fclean all re
+test : $(NAME)
+	./$(NAME)
+
+.PHONY: clean fclean all re test

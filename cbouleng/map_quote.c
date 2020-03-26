@@ -1,14 +1,43 @@
 #include "minishell.h"
 
-static void	check_conform(void)
-{
-	int end;
+char*	map;
 
-	end = ft_strlen(map_s);
-	if (map_s[end - 1] == '1' && map_s[end - 2] == '0')
-		ft_exit(1);
-	if (map_d[end - 1] == '2' && map_d[end - 2] == '0')
-		ft_exit(1);
+static void	check_simple(char* str)
+{
+	int i;
+	
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == '3')
+		{
+			i++;
+			while (map[i] == '1')
+				i++;
+			if (map[i] != '3' || str[i] != '\'')
+				ft_exit(1);
+		}
+		i++;
+	}
+}
+
+static void	check_double(char* str)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == '4')
+		{
+			i++;
+			while (map[i] == '2')
+				i++;
+			if (map[i] != '4' || str[i] != '"')
+				ft_exit(1);
+		}
+		i++;
+	}
 }
 
 static void mapping(char *str)
@@ -23,43 +52,37 @@ static void mapping(char *str)
 	while (str[i])
 	{
 		if (flag_d > 0)
-			map_d[i] = '0';
+			map[i] = '0';
 		if (flag_s > 0)
-			map_s[i] = '0';
+			map[i] = '0';
+		if (flag_d < 0)
+			map[i] = '2';
+		if (flag_s < 0)
+			map[i] = '1';
 		if (str[i] == '"' && !is_esc(str, i) && flag_s > 0)
 		{
-			if (flag_d < 0)
-				map_d[i] = '2';
 			flag_d *= -1;
+			map[i] = '4';
 		}
 		if (str[i] == '\'' && !is_esc(str, i) && flag_d > 0)
 		{
-			if (flag_s < 0)
-				map_s[i] = '1';
 			flag_s *= -1;
+			map[i] = '3';
 		}
-		if (flag_d < 0)
-			map_d[i] = '2';
-		if (flag_s < 0)
-			map_s[i] = '1';
 		i++;
 	}
-	map_s[i] = '\0';
-	map_d[i] = '\0';
-//	printf("\nmap_s[%s]\n", map_s);
-//	printf("map_d[%s]\n", map_d);
+	map[i] = '\0';
+	printf("map[%s]\n", map);
 }
 
-void	map_quote(char *str)
+char*	map_quote(char *str)
 {
-	if (map_s)
-		free(map_s);
-	if (map_d)
-		free(map_d);
-	if (!(map_s = malloc(ft_strlen(str) + 1)))
-		ft_exit(1);
-	if (!(map_d = malloc(ft_strlen(str) + 1)))
+	if (map)
+		free(map);
+	if (!(map = malloc(ft_strlen(str) + 1)))
 		ft_exit(1);
 	mapping(str);
-	check_conform();
+	check_simple(str);
+	check_double(str);
+	return (map);
 }

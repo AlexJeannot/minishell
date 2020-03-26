@@ -1,19 +1,5 @@
 #include "minishell.h"
 
-int		is_path(char *str)
-{
-	char	*tmp;
-	int		i;
-
-	tmp = "path";
-	i = 0;
-	while (tmp[i] && str[i] == tmp[i])
-		i++;
-	if (str[i] != tmp[i])
-		return (0);
-	return (1);
-}
-
 char*	get_env_name_2check(char *str, int j)
 {
 	int		len;
@@ -54,8 +40,6 @@ int		is_env(char *str, int j)
 
 	i = 0;
 	tmp = get_env_name_2check(str, j);
-	if (is_path(tmp))
-		return (2);
 	while (global_env[i])
 	{
 		if (ft_envcmp(global_env[i], tmp))
@@ -69,15 +53,12 @@ int		is_env(char *str, int j)
 	return (0);
 }
 
-t_value		new_value(int i, int j, int ret)
+t_value		new_value(int i, int j)
 {
 	t_value	v;
 	int		len;
 
-	if (ret == 2)
-		v.name = "PATH";
-	else
-		v.name = get_env_name_2check(lst->arg[i], j);
+	v.name = get_env_name_2check(lst->arg[i], j);
 	i = 0;
 	while (global_env[i] && !ft_envcmp(global_env[i], v.name))
 		i++;
