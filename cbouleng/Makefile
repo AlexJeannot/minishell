@@ -28,6 +28,7 @@ SRC = 	get_next_line.c \
 		get_cmd_dollar.c \
 		clean_before_print.c \
 		clean_backslash.c \
+		clean_echo_bad_env.c \
 		utils.c \
 		main.c
 

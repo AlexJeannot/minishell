@@ -61,6 +61,7 @@ void	clean_before_print(void)
 	{
 		lst->arg[i] = clean_quote(lst->arg[i]);
 		lst->arg[i] = clean_backslash(lst->arg[i]);
+		lst->arg[i] = clean_echo_bad_env(lst->arg[i]);
 		i++;
 	}
 //	defrag_arg(arg_len);

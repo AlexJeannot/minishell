@@ -89,6 +89,8 @@ char*			get_lil_path_value(t_value v);
 char*			get_env_value(int i, int j);
 char*			get_startline(int i, int j);
 char*			get_endline(int i, int j);
+char*			clean_echo_bad_env(char* str);
+
 
 /*              #utils
 -------------------------------------------------*/
