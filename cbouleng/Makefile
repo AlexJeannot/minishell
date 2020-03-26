@@ -25,6 +25,7 @@ SRC = 	get_next_line.c \
 		get_dollar.c \
 		get_dollar_utils.c \
 		get_dollar_utils_2.c \
+		get_cmd_dollar.c \
 		clean_before_print.c \
 		utils.c \
 		main.c
