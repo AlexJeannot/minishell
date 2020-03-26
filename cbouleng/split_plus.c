@@ -12,11 +12,13 @@
 
 #include "minishell.h"
 
+char*	map;
+
 static int	sep(char c, int i, char charset)
 {
 	if (charset == ' ')
 	{
-		if (c == charset && map_s[i] == '0' && map_d[i] == '0')
+		if (c == charset && map[i] == '0')
 			return (1);
 	}
 	else
@@ -77,7 +79,7 @@ char		**split_plus(char *str, char charset)
 	int		j;
 	char	**tab;
 
-	map_quote(str);
+	map = map_quote(str);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
 		ft_exit(1);
@@ -94,5 +96,6 @@ char		**split_plus(char *str, char charset)
 		i++;
 	}
 	tab[j] = NULL;
+	free(map);
 	return (tab);
 }

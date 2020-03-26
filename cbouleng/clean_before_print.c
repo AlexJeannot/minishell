@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+char*	map;
+
 static int	nb_del_quote(char* str)
 {
 	int	nb;
@@ -9,9 +11,7 @@ static int	nb_del_quote(char* str)
 	i = 0;
 	while (str[i])
 	{
-		if (map_d[i] == '4')
-			nb++;
-		if (map_s[i] == '3')
+		if (map[i] == '4' || map[i] == '3')
 			nb++;
 		i++;
 	}
@@ -20,9 +20,7 @@ static int	nb_del_quote(char* str)
 
 static int	to_print(int i)
 {
-	if (map_d[i] == '4')
-		return (0);
-	if (map_s[i] == '3')
+	if (map[i] == '4' || map[i] == '3')
 		return (0);
 	return (1);
 }
@@ -34,7 +32,7 @@ static char*	clean_quote(char* str)
 	int		j;
 	int		k;
 
-	map_quote(str);
+	map = map_quote(str);
 	nb = nb_del_quote(str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
 		ft_exit(1);

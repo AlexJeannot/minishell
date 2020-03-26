@@ -63,9 +63,8 @@ char*			clean_backslash(char* str);
 /*              #quote
 -------------------------------------------------*/
 int				check_quote(char *str);
-void			map_quote(char *str);
-char*			map_d;
-char*			map_s;
+char*			map_quote(char *str);
+char*			map;
 
 /*              #chained_list
 -------------------------------------------------*/
