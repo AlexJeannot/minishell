@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "prod_utils.c"
 
 static int	is_pipe(char *stock)
 {

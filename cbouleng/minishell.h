@@ -54,7 +54,11 @@ char**			split_plus(char *str, char charset);
 
 t_list*			lst;
 char**			global_env;
+
+/*              #backslash
+-------------------------------------------------*/
 int				is_esc(char *str, int i);
+char*			clean_backslash(char* str);
 
 /*              #quote
 -------------------------------------------------*/
@@ -72,7 +76,6 @@ void			del_first(void);
 void			clear_lst();
 void			list_it(char **stock);
 int				is_valid(char *stock);
-
 
 /*              #dollar
 -------------------------------------------------*/
@@ -94,3 +97,5 @@ void			prompt();
 int				ft_exit(int status);
 int				get_next_line(int fd, char **line);
 void			clean_before_print(void);
+int				ft_tablen(char **tab);
+void			defrag_arg(int len);
