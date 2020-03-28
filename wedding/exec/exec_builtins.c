@@ -18,6 +18,7 @@ void ft_builtins(char *cmd, char **args)
     int index_path;
     char *path;
     char **tab_path;
+    char **used_env;
 //    char **split_result;
 
     count = 0;
@@ -42,9 +43,13 @@ void ft_builtins(char *cmd, char **args)
 //    printf("\n\n=========== PRE BUILTINS =========== \n\n");
 
     int ret;
+    if (ft_strcmp(lst->cmd, "env") == 0)
+        used_env = filtered_env;
+    else
+        used_env = global_env;
     while (tab_path[count])
     {
-        ret = execve(tab_path[count], args, global_env);
+        ret = execve(tab_path[count], args, used_env);
         //printf("ret = %d\n", ret);
         count++;
     }

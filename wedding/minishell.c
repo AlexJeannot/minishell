@@ -25,7 +25,7 @@ void ft_exit(char **free_split, int status)
     if (free_split)
         free_str_array(free_split);
     clear_lst();
-    free_str_array(init_env_var);
+    free_str_array(filtered_env);
     free_str_array(global_env);
 
     system("leaks minishell");
@@ -222,8 +222,8 @@ int main(int argc, char **argv, char **env)
     int ret_gnl;
     int fd[2];
 
-    init_env_var = duplicate_array(env, NULL, '=');
     global_env = duplicate_array(env, NULL, '\0');
+    filtered_env = filter_env(global_env, NULL);
 
     signal(SIGINT, signal_manager);
     signal(SIGQUIT, signal_manager);
@@ -263,6 +263,7 @@ int main(int argc, char **argv, char **env)
                             receive_env(fd);
                     if (ft_strcmp(lst->cmd, "exit") == 0)
                         ft_exit(NULL, 1);
+                    filtered_env = filter_env(global_env, filtered_env);
                 }
                 lst = lst->next;
             }

@@ -158,7 +158,7 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
     while (add_array[count_add])
     {
         split_result = ft_split(add_array[count_add], '=');
-        if ((index_from = search_in_array(from_array, split_result[0], '=')) >= 0)
+        if ((index_from = search_in_array(output_array, split_result[0], '=')) >= 0)
         {
             free(output_array[index_from]);
             output_array[index_from] = ft_strdup(add_array[count_add]);
@@ -170,12 +170,38 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
         }
         free(split_result);
         count_add++;
+        output_array[count_from + count_add] = NULL;
     }
-    output_array[count_from + count_add] = NULL;
+    //output_array[count_from + count_add] = NULL;
 //    printf("\n\n============= EXTEND =============\n\n");
 //    display_array(output_array);
 //    printf("\n\n============= EXTEND =============\n\n");
     free_str_array(from_array);
 //    printf("FIN FCT EXTEND\n");
+    return (output_array);
+}
+
+char **filter_env(char **input_array, char** free_array)
+{
+    int from_count;
+    int add_count;
+    char **output_array;
+
+    from_count = 0;
+    add_count = 0;
+    if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) + 1))))
+        printf("MALLOC ERROR\n");
+    while (input_array[from_count])
+    {
+        if (find_car(input_array[from_count], '=') != -1)
+        {
+            output_array[add_count] = ft_strdup(input_array[from_count]);
+            add_count++;
+        }
+        from_count++;
+    }
+    output_array[add_count] = NULL;
+    if (free_array)
+        free(free_array);
     return (output_array);
 }
