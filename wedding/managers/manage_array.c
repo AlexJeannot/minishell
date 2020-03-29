@@ -171,13 +171,8 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
         free(split_result);
         count_add++;
         output_array[count_from + count_add] = NULL;
-    }
-    //output_array[count_from + count_add] = NULL;
-//    printf("\n\n============= EXTEND =============\n\n");
-//    display_array(output_array);
-//    printf("\n\n============= EXTEND =============\n\n");
+    };
     free_str_array(from_array);
-//    printf("FIN FCT EXTEND\n");
     return (output_array);
 }
 

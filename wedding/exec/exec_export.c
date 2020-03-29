@@ -19,7 +19,7 @@ char *transform_with_value(char *input_str)
 
     str_count = 0;
     if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 14))))
-        printf("ERROR MALLOC");
+        display_error(NULL, NULL);
     while (input_str[str_count] != '=')
         str_count++;
     ft_strcpy(output_str, "declare -x ");
@@ -35,7 +35,7 @@ char *transform_without_value(char *input_str)
     char *output_str;
 
     if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 12))))
-        printf("ERROR MALLOC");
+        display_error(NULL, NULL);
     ft_strcpy(output_str, "declare -x ");
     ft_strcat(output_str, input_str);
     return (output_str);
@@ -56,7 +56,7 @@ char **transform_array(char **input_array)
 
     tab_count = 0;
     if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) + 1))))
-        printf("ERROR MALLOC");
+        display_error(NULL, NULL);
     while (input_array[tab_count])
     {
         output_array[tab_count] = transform_str(input_array[tab_count]);
@@ -86,7 +86,7 @@ int is_valid_var(char *str)
     || (str[0] > 'Z' && str[0] < 'a')
     || str[0] > 'z')
         return (KO);
-    while (str[count] && str[count] != '=')
+    while (str[count])
     {
         if (str[count] < '0'
         || (str[count] > '9' && str[count] < 'A')
@@ -112,85 +112,60 @@ int is_valid_value(char *str)
     return (OK);
 }
 
-/*
-int is_init_var(char *str)
+void display_invalid_export(char *str, int type)
 {
-    int count;
-    char *str_cmp;
-    char **split_result;
-
-    count = 0;
-    split_result = ft_split(str, '=');
-    str_cmp = split_result[0];
-
-    while (init_env_var[count])
+    write(1, "Minishell: export: ", 11);
+    write(1, "`", 1);
+    if (!(type))
     {
-        if (ft_strcmp(init_env_var[count], str_cmp) == 0)
-        {
-            free_str_array(split_result);
-            return (KO);
-        }
-        count++;
+        write(1, str, ft_strlen(str));
+        write(1, "': not a valid identifier\n", 26);
     }
-    free_str_array(split_result);
-    return (OK);
-}
-
-int find_special_car(char *str)
-{
-    int count;
-
-    count = 0;
-    while (str[count])
+    if (type)
     {
-        if (str[count] == '$' || str[count] == '\\'
-        || str[count] == '=' || str[count] == '?'
-        || str[count] == '[' || str[count] == ']'
-        || str[count] == '{' || str[count] == '}'
-        || str[count] == '~' || str[count] == '*'
-        || str[count] == '#')
-            return (KO);
-        count++;
+        write(1, str, ft_strlen(str));
+        write(1, "': not a valid value\n", 21);
     }
-    return (OK);
 }
-*/
 
 void ft_export(char **args)
 {
-    int count;
+    int array_count;
+    int add_count;
     int equal_index;
-    int args_len;
     char *var;
     char **add_args;
     char **sorted_env;
+    char **split_result;
 
     add_args = NULL;
-    args_len = array_length(args);
     if (!(args[0]) || args[0][0] == '$' || args[0][0] == '#')
     {
-        count = 0;
         sorted_env = sort_env();
         display_array(sorted_env);
         free_str_array(sorted_env);
     }
     else
     {
-        count = 0;
-        add_args = malloc(sizeof(char *) * (args_len + 1));
-        while (args[count])
+        array_count = 0;
+        add_count = 0;
+        add_args = malloc(sizeof(char *) * (array_length(args) + 1));
+        while (args[array_count])
         {
-            if (is_valid_var(args[count]) == -1)
-                printf("EXPORT VARIABLE ERROR\n");
-            if ((equal_index = find_car(args[count], '=')) != -1 && is_valid_value(&args[count][equal_index]) == -1)
-                printf("EXPORT VALUE ERROR\n");
-            var = ft_strdup(args[count]);
-            add_args[count] = var;
-            count++;
+            split_result = ft_split(args[array_count], '=');
+            if (is_valid_var(split_result[0]) == -1)
+                display_invalid_export(split_result[0], 0);
+            else if ((equal_index = find_car(args[array_count], '=')) != -1 && is_valid_value(&args[array_count][equal_index]) == -1)
+                display_invalid_export(&args[array_count][equal_index], 1);
+            else
+            {
+                var = ft_strdup(args[array_count]);
+                add_args[add_count] = var;
+                add_count++;
+            }
+            array_count++;
         }
-        add_args[count] = NULL;
-        display_array(add_args);
-        printf("PRE GLOBAL ENV\n");
+        add_args[add_count] = NULL;
         global_env = extend_array(global_env, add_args, array_length(global_env), array_length(add_args));
     }
     free_str_array(args);

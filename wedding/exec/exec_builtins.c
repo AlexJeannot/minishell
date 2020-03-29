@@ -12,45 +12,59 @@
 
 #include "../includes/minishell.h"
 
-void ft_builtins(char *cmd, char **args)
+char **build_exec_array(char *exec, char **path_array)
 {
     int count;
-    int index_path;
-    char *path;
-    char **tab_path;
-    char **used_env;
-//    char **split_result;
+    char *exec_path;
+    char **exec_array;
 
     count = 0;
-    //printf("Dans builtins\n");
-    index_path = search_in_array(global_env, "PATH", '=');
-    tab_path = ft_split(ft_split(global_env[index_path], '=')[1], ':');
-    while (tab_path[count])
+    if (!(exec_array = (char **)malloc(sizeof(char *) * (array_length(path_array) + 1))))
+        display_error(NULL, NULL);
+    while (path_array[count])
     {
-        path = (char *)malloc(sizeof(char) * (ft_strlen(cmd) + ft_strlen(tab_path[count]) + 2));
-        path = ft_strcat(path, tab_path[count]);
-        path[ft_strlen(tab_path[count])] = '/';
-        path = ft_strcat(path, cmd);
-        tab_path[count] = path;
-        //printf("tab_path[count] = %s\n", tab_path[count]);
+        if (!(exec_path = (char *)malloc(sizeof(char) * (ft_strlen(exec) + ft_strlen(path_array[count]) + 2))))
+            display_error(NULL, NULL);
+        ft_strcpy(exec_path, path_array[count]);
+        ft_strcat(exec_path, "/");
+        ft_strcat(exec_path, exec);
+        exec_array[count] = exec_path;
         count++;
     }
-    tab_path[count] = NULL;
+    exec_array[count] = NULL;
+    free_str_array(path_array);
+    return (exec_array);
+}
 
-    count = 0;
-//    printf("\n\n=========== PRE BUILTINS =========== \n\n");
-//    display_array(global_env);
-//    printf("\n\n=========== PRE BUILTINS =========== \n\n");
-
-    int ret;
-    if (ft_strcmp(lst->cmd, "env") == 0)
-        used_env = filtered_env;
+char **select_env(char *exec)
+{
+    if (ft_strcmp(exec, "env") == 0)
+        return(filtered_env);
     else
-        used_env = global_env;
-    while (tab_path[count])
+        return(global_env);
+}
+
+void ft_builtins(char *exec, char **args)
+{
+    int count;
+    int ret_exec;
+    int index_path;
+    char **path_array;
+    char **exec_array;
+    char **used_env;
+    char **split_result;
+
+    count = 0;
+    index_path = search_in_array(global_env, "PATH", '=');
+    split_result = ft_split(global_env[index_path], '=');
+    path_array = ft_split(split_result[1], ':');
+    exec_array = build_exec_array(exec, path_array);
+    used_env = select_env(exec);
+    while (exec_array[count])
     {
-        ret = execve(tab_path[count], args, used_env);
-        //printf("ret = %d\n", ret);
+        ret_exec = execve(exec_array[count], args, used_env);
         count++;
     }
+    if (ret_exec == -1)
+        display_error(exec, "command not found");
 }
