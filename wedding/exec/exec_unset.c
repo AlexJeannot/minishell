@@ -12,69 +12,76 @@
 
 #include "../includes/minishell.h"
 
-int is_deleted(int *tab_index, int index)
+int is_unset(int *index_array, int index)
 {
     int count;
 
     count = 0;
-    while (tab_index[count] != -1)
+    while (index_array[count] != -1)
     {
-        if (tab_index[count] == index)
+        if (index_array[count] == index)
             return (1);
         count++;
     }
     return (0);
 }
 
-char **cleared_env(char **from_array, char **output_array, int *tab_index)
+char **clear_env(char **input_array, int *index_array)
 {
-    int count_tab;
-    int count_add;
+    int add_count;
+    int array_count;
+    char **output_array;
 
-    count_tab = 0;
-    count_add = 0;
-    while (from_array[count_tab])
+    add_count = 0;
+    array_count = 0;
+    if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) - int_array_length(index_array) + 1))))
+        display_error(NULL, NULL);
+    while (input_array[array_count])
     {
-        if (!(is_deleted(tab_index, count_tab)))
+        if (!(is_unset(index_array, array_count)))
         {
-            output_array[count_add] = from_array[count_tab];
-            count_add++;
+            output_array[add_count] = ft_strdup(input_array[array_count]);
+            add_count++;
         }
-        count_tab++;
+        array_count++;
     }
-    output_array[count_add] = NULL;
+    output_array[add_count] = NULL;
+    free_str_array(input_array);
     return (output_array);
+}
+
+int *create_unset_index_array(char **input_array)
+{
+    int index;
+    int add_count;
+    int array_count;
+    int *index_array;
+
+    if (!(index_array = (int *)malloc(sizeof(int) * (array_length(input_array) + 1))))
+        display_error(NULL, NULL);
+    add_count = 0;
+    array_count = 0;
+    while (input_array[array_count])
+    {
+        if ((index = search_in_array(global_env, input_array[array_count], '=')) >= 0)
+        {
+            index_array[array_count] = index;
+            add_count++;
+        }
+        array_count++;
+    }
+    index_array[add_count] = -1;
+    return (index_array);
 }
 
 void ft_unset(char **args)
 {
-    int count_tab;
-    int count_add;
-    int index;
-
-    char **new_env;
-    int *tab_index;
+    int *index_array;
 
     if (args[0])
     {
-        tab_index = malloc(sizeof(int) * array_length(args));
-        count_tab = 0;
-        count_add = 0;
-        while (args[count_tab])
-        {
-            if ((index = search_in_array(global_env, args[count_tab], '=')) >= 0)
-            {
-                tab_index[count_add] = index;
-                count_add++;
-            }
-            count_tab++;
-        }
-        tab_index[count_add] = -1;
-        new_env = malloc(sizeof(char *) * (array_length(global_env) - count_add + 1));
-        new_env = cleared_env(global_env, new_env, tab_index);
-        free_str_array(global_env);
-        free(tab_index);
-        free_str_array(args);
-        global_env = new_env;
+        index_array = create_unset_index_array(args);
+        global_env = clear_env(global_env, index_array);
+        free(index_array);
     }
 }

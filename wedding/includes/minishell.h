@@ -54,12 +54,15 @@ void ft_builtins(char *cmd, char **args);
 void ft_program(char *cmd, char **args);
 
 /* EXEC_UNSET */
-int     is_deleted(int *tab_index, int index);
-char    **cleared_env(char **from_array, char **output_array, int *tab_index);
-void    ft_unset(char **args);
+int is_unset(int *index_array, int index);
+char **clear_env(char **input_array, int *index_array);
+int *create_unset_index_array(char **input_array);
+void ft_unset(char **args);
+
 
 /* MANAGE_ARRAY */
 int     array_length(char **input_array);
+int 	int_array_length(int *input_array);
 char    **duplicate_array(char **input_array, char **free_array, char sep);
 char    **sort_array(char **input_array);
 void    free_str_array(char **input_array);

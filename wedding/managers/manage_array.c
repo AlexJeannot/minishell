@@ -25,6 +25,19 @@ int array_length(char **input_array)
     return (count);
 }
 
+int int_array_length(int *input_array)
+{
+    int count;
+
+    count = 0;
+    if (input_array)
+        while (input_array[count] != -1)
+            count++;
+    else
+        return (KO);
+    return (count);
+}
+
 char **duplicate_array(char **input_array, char **free_array, char sep)
 {
     int count;
