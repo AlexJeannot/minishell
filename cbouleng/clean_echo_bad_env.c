@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+char *map;
+
 static int		dollar_to_del_len(char* str, int i)
 {
 	int len;
@@ -19,6 +21,8 @@ static char*	remove_dollar(char* str, int i)
 	char*	res;
 	int		j;
 
+	free(map);
+	map = map_quote(str);
 	len = dollar_to_del_len(str, i);
 	if (!(res = malloc(ft_strlen(str) - len + 1)))
 		ft_exit(1);

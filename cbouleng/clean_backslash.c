@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+char*	map;
+
 static int		nb_del_backslash(char* str)
 {
 	int	i;
@@ -27,6 +29,7 @@ static int		nb_del_backslash(char* str)
 		nb = 0;
 		i++;
 	}
+	printf("sum[%d]\n", sum);
 	return (sum);
 }
 
@@ -53,6 +56,8 @@ char*	clean_backslash(char* str)
 	int		ret;
 
 	ret = 0;
+	printf("[%s]\n", str);
+	map = map_quote(str);
 	nb = nb_del_backslash(str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
 		ft_exit(1);

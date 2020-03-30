@@ -52,18 +52,16 @@ static char*	clean_quote(char* str)
 void	clean_before_print(void)
 {
 	int	i;
-//	int	arg_len;
 
 	i = 0;
-	lst->cmd = clean_quote(lst->cmd);
-	lst->cmd = clean_backslash(lst->cmd);
-//	arg_len = ft_tablen(lst->arg);
+	//lst->cmd = clean_backslash(lst->cmd);
+	//lst->cmd = 
+	(void)clean_quote(lst->cmd);
 	while (lst->arg[i])
 	{
-		lst->arg[i] = clean_quote(lst->arg[i]);
-		lst->arg[i] = clean_backslash(lst->arg[i]);
+//		lst->arg[i] = clean_backslash(lst->arg[i]);
+//		lst->arg[i] = clean_quote(lst->arg[i]);
 //		lst->arg[i] = clean_echo_bad_env(lst->arg[i]);
 		i++;
 	}
-//	defrag_arg(arg_len);
 }

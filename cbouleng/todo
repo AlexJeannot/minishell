@@ -1,9 +1,6 @@
 // --------------------------------TODO LIST --------------------------------//
 ______________________________________________________________________________
 
-defrag_arg() : void quote create new arg, will need to remalloc proper tab arg.
-
-
 grep "exit" and replace with ft_exit.
 
 
