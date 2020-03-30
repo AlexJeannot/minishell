@@ -34,7 +34,8 @@ int			main(int ac, char **av, char **env)
 		while (lst)
 		{
 			get_dollar();
-//			clean_before_print();
+			clear_backslash();
+		//	clean_before_print();
 			lst = lst->next;
 		}
 		lst = tmp;
@@ -43,6 +44,5 @@ int			main(int ac, char **av, char **env)
 		free(line);
 	}
 	free(line);
-	system("leaks a.out");
 	return (0);
 }

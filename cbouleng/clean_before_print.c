@@ -25,6 +25,24 @@ static int	to_print(int i)
 	return (1);
 }
 
+int	bs_del_quote(char* str)
+{
+	int	i;
+	int	nb;
+
+	i = 0;
+	nb = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\' && str[i] == '\'')
+			nb++;
+		if (str[i] == '\\' && str[i] == '"')
+			nb++;
+		i++;
+	}
+	return (nb);
+}
+
 static char*	clean_quote(char* str)
 {
 	char*	res;
@@ -34,6 +52,7 @@ static char*	clean_quote(char* str)
 
 	map = map_quote(str);
 	nb = nb_del_quote(str);
+	//nb = bs_del_quote(str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
 		ft_exit(1);
 	j = 0;
@@ -54,13 +73,10 @@ void	clean_before_print(void)
 	int	i;
 
 	i = 0;
-	//lst->cmd = clean_backslash(lst->cmd);
-	//lst->cmd = 
-	(void)clean_quote(lst->cmd);
+	lst->cmd = clean_quote(lst->cmd);
 	while (lst->arg[i])
 	{
-//		lst->arg[i] = clean_backslash(lst->arg[i]);
-//		lst->arg[i] = clean_quote(lst->arg[i]);
+		lst->arg[i] = clean_quote(lst->arg[i]);
 //		lst->arg[i] = clean_echo_bad_env(lst->arg[i]);
 		i++;
 	}

@@ -27,7 +27,7 @@ SRC = 	get_next_line.c \
 		get_dollar_utils_2.c \
 		get_cmd_dollar.c \
 		clean_before_print.c \
-		clean_backslash.c \
+		clear_backslash.c \
 		utils.c \
 		main.c
 

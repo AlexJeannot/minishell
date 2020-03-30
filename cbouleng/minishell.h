@@ -58,7 +58,7 @@ char**			global_env;
 /*              #backslash
 -------------------------------------------------*/
 int				is_esc(char *str, int i);
-char*			clean_backslash(char* str);
+void			clear_backslash(void);
 
 /*              #quote
 -------------------------------------------------*/
