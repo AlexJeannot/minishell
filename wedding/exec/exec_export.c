@@ -12,6 +12,65 @@
 
 #include "../includes/minishell.h"
 
+int count_car_and_backlash(char *output_str, char *input_str)
+{
+    int str_count;
+    int car_count;
+
+    str_count = 0;
+    car_count = 0;
+    while (input_str[str_count])
+    {
+        if (input_str[str_count] == '\\')
+            car_count += 2;
+        else
+            car_count++;
+        str_count++;
+    }
+    car_count += ft_strlen(output_str);
+    return (car_count);
+}
+
+int add_double_backlash(char *final_str, int final_count)
+{
+    ft_strcat(output_str, "\\\\");
+    out_count += 2;
+    return (out_count);
+}
+
+int copy_car(char *final_str, char car, int final_count)
+{
+    output_str[out_count] = car;
+    out_count++;
+    return (out_count);
+}
+
+char *transform_backlash(char *output_str, char *input_str)
+{
+    int final_count;
+	int in_count;
+    int car_count;
+    char *final_str;
+
+	final_count = ft_strlen(output_str);
+	in_count = 0;
+    car_count = count_car_and_backlash(output_str, input_str);
+    if (!(final_str = (char *)malloc(sizeof(char) * (car_count + 2))))
+        display_error(NULL, NULL);
+    ft_strcpy(final_str, output_str);
+    while (input_str[in_count])
+	{
+        if (input_str[in_count] == '\\')
+            final_count = add_double_backlash(final_str, final_count);
+        else
+            final_count = copy_car(final_str, input_str[in_count], final_count);
+		in_count++;
+	}
+    final_str[final_count] = '\0';
+    free_str(output_str);
+	return (final_str);
+}
+
 char *transform_with_value(char *input_str)
 {
     int count;
@@ -25,7 +84,7 @@ char *transform_with_value(char *input_str)
     ft_strcpy(output_str, "declare -x ");
     ft_strncat(output_str, input_str, count + 1);
     ft_strcat(output_str, "\"");
-    ft_strcat(output_str, &input_str[count + 1]);
+    output_str = transform_backlash(output_str, &input_str[find_car(input_str, '=') + 1]);
     ft_strcat(output_str, "\"");
     return (output_str);
 }
