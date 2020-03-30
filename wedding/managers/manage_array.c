@@ -55,27 +55,27 @@ char **duplicate_array(char **input_array, char **free_array, char sep)
 
 char **sort_array(char **input_array)
 {
-    int tab_count;
+    int array_count;
     int sort_count;
     char *str_tmp;
 
-    tab_count = 0;
-    while (input_array[tab_count])
+    array_count = 0;
+    while (input_array[array_count])
     {
-        sort_count = tab_count;
+        sort_count = array_count;
         while (input_array[sort_count + 1])
         {
-            if ((strcmp(input_array[sort_count], input_array[sort_count + 1])) > 0)
+            if ((ft_strcmp(input_array[sort_count], input_array[sort_count + 1])) > 0)
             {
                 str_tmp = input_array[sort_count];
                 input_array[sort_count] = input_array[sort_count + 1];
                 input_array[sort_count + 1] = str_tmp;
-                sort_count = tab_count;
+                sort_count = array_count;
             }
             else
                 sort_count++;
         }
-        tab_count++;
+        array_count++;
     }
     return (input_array);
 }
@@ -85,14 +85,17 @@ void free_str_array(char **input_array)
     int count;
 
     count = 0;
-    while (input_array[count])
+    if (input_array)
     {
-        free(input_array[count]);
-        input_array[count] = NULL;
-        count++;
+        while (input_array[count])
+        {
+            free(input_array[count]);
+            input_array[count] = NULL;
+            count++;
+        }
+        free(input_array);
+        input_array = NULL;
     }
-    free(input_array);
-    input_array = NULL;
 }
 
 int search_in_array(char **input_array, char* str, char sep)

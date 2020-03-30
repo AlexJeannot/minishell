@@ -101,7 +101,7 @@ void ft_cd(char **args)
     result_chdir = chdir(path);
     if (result_chdir == -1)
     {
-        free(path);
+        free_str(path);
         display_error("cd", NULL);
     }
     else

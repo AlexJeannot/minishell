@@ -14,18 +14,18 @@
 
 char *transform_with_value(char *input_str)
 {
-    int str_count;
+    int count;
     char *output_str;
 
-    str_count = 0;
+    count = 0;
     if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 14))))
         display_error(NULL, NULL);
-    while (input_str[str_count] != '=')
-        str_count++;
+    while (input_str[count] != '=')
+        count++;
     ft_strcpy(output_str, "declare -x ");
-    ft_strncat(output_str, input_str, str_count + 1);
+    ft_strncat(output_str, input_str, count + 1);
     ft_strcat(output_str, "\"");
-    ft_strcat(output_str, &input_str[str_count + 1]);
+    ft_strcat(output_str, &input_str[count + 1]);
     ft_strcat(output_str, "\"");
     return (output_str);
 }
@@ -51,30 +51,20 @@ char *transform_str(char *input_str)
 
 char **transform_array(char **input_array)
 {
-    int tab_count;
+    int count;
     char **output_array;
 
-    tab_count = 0;
+    count = 0;
     if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) + 1))))
         display_error(NULL, NULL);
-    while (input_array[tab_count])
+    while (input_array[count])
     {
-        output_array[tab_count] = transform_str(input_array[tab_count]);
-        tab_count++;
+        output_array[count] = transform_str(input_array[count]);
+        count++;
     }
-    output_array[tab_count] = NULL;
+    output_array[count] = NULL;
     free_str_array(input_array);
     return (output_array);
-}
-
-char **sort_env(void)
-{
-    char **new_env;
-
-    new_env = duplicate_array(global_env, NULL, '\0');
-    new_env = sort_array(new_env);
-    new_env = transform_array(new_env);
-    return (new_env);
 }
 
 int is_valid_var(char *str)
@@ -128,47 +118,72 @@ void display_invalid_export(char *str, int type)
     }
 }
 
-void ft_export(char **args)
+int export_without_args(char **input_array)
+{
+    if (!(input_array[0]) || input_array[0][0] == '$' || input_array[0][0] == '#')
+        return (1);
+    return (0);
+}
+
+void display_exported_env(void)
+{
+    char **displayable_env;
+
+    displayable_env = duplicate_array(global_env, NULL, '\0');
+    displayable_env = sort_array(displayable_env);
+    displayable_env = transform_array(displayable_env);
+    display_array(displayable_env);
+    free_str_array(displayable_env);
+}
+
+int add_exported_var(char *input_str, char **output_array, int add_count)
+{
+    char *add_var;
+
+    add_var = ft_strdup(input_str);
+    output_array[add_count] = add_var;
+    add_count++;
+    return (add_count);
+}
+
+char **create_exported_var_array(char **input_array)
 {
     int array_count;
     int add_count;
     int equal_index;
-    char *var;
-    char **add_args;
-    char **sorted_env;
     char **split_result;
+    char **output_array;
 
-    add_args = NULL;
-    if (!(args[0]) || args[0][0] == '$' || args[0][0] == '#')
+    array_count = 0;
+    add_count = 0;
+    output_array = malloc(sizeof(char *) * (array_length(input_array) + 1));
+    while (input_array[array_count])
     {
-        sorted_env = sort_env();
-        display_array(sorted_env);
-        free_str_array(sorted_env);
+        split_result = ft_split(input_array[array_count], '=');
+        if (is_valid_var(split_result[0]) == -1)
+            display_invalid_export(split_result[0], 0);
+        else if ((equal_index = find_car(input_array[array_count], '=')) != -1 && is_valid_value(&input_array[array_count][equal_index]) == -1)
+            display_invalid_export(&input_array[array_count][equal_index], 1);
+        else
+            add_count = add_exported_var(input_array[array_count], output_array, add_count);
+        array_count++;
     }
+    output_array[add_count] = NULL;
+    return (output_array);
+}
+
+void ft_export(char **args)
+{
+    char **add_array;
+
+    add_array = NULL;
+    if (export_without_args(args))
+        display_exported_env();
     else
     {
-        array_count = 0;
-        add_count = 0;
-        add_args = malloc(sizeof(char *) * (array_length(args) + 1));
-        while (args[array_count])
-        {
-            split_result = ft_split(args[array_count], '=');
-            if (is_valid_var(split_result[0]) == -1)
-                display_invalid_export(split_result[0], 0);
-            else if ((equal_index = find_car(args[array_count], '=')) != -1 && is_valid_value(&args[array_count][equal_index]) == -1)
-                display_invalid_export(&args[array_count][equal_index], 1);
-            else
-            {
-                var = ft_strdup(args[array_count]);
-                add_args[add_count] = var;
-                add_count++;
-            }
-            array_count++;
-        }
-        add_args[add_count] = NULL;
-        global_env = extend_array(global_env, add_args, array_length(global_env), array_length(add_args));
+        add_array = create_exported_var_array(args);
+        global_env = extend_array(global_env, add_array, array_length(global_env), array_length(add_array));
     }
     free_str_array(args);
-    if (add_args)
-        free_str_array(add_args);
+    free_str_array(add_array);
 }
