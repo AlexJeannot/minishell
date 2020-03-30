@@ -25,7 +25,7 @@ void ft_exit(char **free_split, int status)
     if (free_split)
         free_str_array(free_split);
     clear_lst();
-    free_str_array(init_env_var);
+    free_str_array(filtered_env);
     free_str_array(global_env);
 
     system("leaks minishell");
@@ -63,11 +63,10 @@ void receive_env(int *fd)
 {
     int ret;
     char buf[101];
+    int pwd_index;
     char *str_env;
     char **tab_env;
     char **split_result;
-
-    //printf("ENTREE RECEIVE ENV\n");
 
     str_env = NULL;
     while ((ret = read(fd[0], buf, 100)) > 0)
@@ -79,10 +78,15 @@ void receive_env(int *fd)
 	}
     tab_env = ft_split(str_env, '\n');
     global_env = duplicate_array(tab_env, global_env, '\0');
+    if ((pwd_index = search_in_array(global_env, "PWD", '=')) == -1)
+    {
+        printf("ERROR PWD NOT FOUND\n");
+        exit(1);
+    }
     split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
     chdir(split_result[1]);
     free_str_array(split_result);
-    free(str_env);
+    free_str(str_env);
     free_str_array(tab_env);
     free_str(piped_str);
 }
@@ -93,9 +97,7 @@ void display_prompt(void)
     char **split_result_1;
     char **split_result_2;
     /*AFFICHAGE DIR*/
-    printf("\033[38;5;208m");
-    fflush(stdout);
-
+    write(1, "\033[38;5;208m", 12);
 
     split_result_1 = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
     split_result_2 = ft_split(split_result_1[1], '/');
@@ -106,11 +108,9 @@ void display_prompt(void)
     write(1, " ", 1);
 
     /*AFFICHAGE PROMPT*/
-    printf("\033[38;5;196m");
-    fflush(stdout);
+    write(1, "\033[38;5;196m", 12);
     write(1, "}> ", 3);
-    printf("\033[0m");
-    fflush(stdout);
+    write(1, "\033[0m", 5);
 }
 
 void signal_manager(int sig)
@@ -135,7 +135,6 @@ void signal_manager(int sig)
 
 void exec_instructions(t_list *lst)
 {
-//    printf("ENTREE FCT EXEC INSTRUCTIONS");
     if (ft_strcmp(lst->cmd, "pwd") == 0 || ft_strcmp(lst->cmd, "echo") == 0 || ft_strcmp(lst->cmd, "env") == 0)
         ft_builtins(lst->cmd, lst->raw);
     else if (ft_strcmp(lst->cmd, "cd") == 0)
@@ -146,14 +145,11 @@ void exec_instructions(t_list *lst)
         ft_unset(lst->arg);
     else if (ft_strcmp(lst->cmd, "exit") != 0)
         ft_program(lst->cmd, lst->raw);
-//    printf("SORTIE FCT EXEC INSTRUCTIONS\n");
 }
 
 void set_pipe(t_list *lst, int fd[2])
 {
-    //printf("PRE DUP 2 SET PIPE FCT");
     dup2(fd[1], STDOUT_FILENO);
-    //printf("PRE EXEC INSTRUCTIONS SET PIPE FCT");
     exec_instructions(lst);
 }
 
@@ -181,6 +177,15 @@ int is_builtins(char *cmd)
     if ((ft_strcmp(cmd, "echo") == 0)
         || (ft_strcmp(cmd, "pwd") == 0)
         || (ft_strcmp(cmd, "env") == 0))
+        return (1);
+    return (0);
+}
+
+int env_need_update(char *cmd)
+{
+    if ((ft_strcmp(cmd, "export") == 0)
+        || (ft_strcmp(cmd, "unset") == 0)
+        || (ft_strcmp(cmd, "cd") == 0))
         return (1);
     return (0);
 }
@@ -221,15 +226,17 @@ int main(int argc, char **argv, char **env)
     char *line;
     int ret_gnl;
     int fd[2];
+    int ret_child;
+    int exit_status;
 
-    init_env_var = duplicate_array(env, NULL, '=');
     global_env = duplicate_array(env, NULL, '\0');
+    filtered_env = filter_env(global_env, NULL);
+    errno = 0;
 
     signal(SIGINT, signal_manager);
     signal(SIGQUIT, signal_manager);
     while (1)
     {
-        free_str(piped_str);
         display_prompt();
         pipe(fd);
         ret_gnl = get_next_line(0, &line);
@@ -241,7 +248,6 @@ int main(int argc, char **argv, char **env)
 				//ici get_dollar();
 				//ici clean_quote();
                 child_pid = ft_create_child();
-
                 if (child_pid == 0)
                 {
                     if (lst->pipe == 1)
@@ -251,27 +257,33 @@ int main(int argc, char **argv, char **env)
                         exec_instructions(lst);
                         send_env(fd);
                     }
-                    return (0);
+                    exit(EXIT_SUCCESS);
                 }
                 else
                 {
-                    wait(NULL);
+                    waitpid(child_pid, &ret_child, 0);
+                    if (WIFEXITED(ret_child))
+                        exit_status = WEXITSTATUS(ret_child);
                     if (lst->pipe == 1)
                         receive_pipe(fd);
-                    else
-                        if (!(is_builtins(lst->cmd)))
+                    else if (exit_status == 0)
+                    {
+                        if (env_need_update(lst->cmd))
                             receive_env(fd);
+                    }
                     if (ft_strcmp(lst->cmd, "exit") == 0)
-                        ft_exit(NULL, 1);
+                        ft_exit(NULL, 0);
+                    filtered_env = filter_env(global_env, filtered_env);
                 }
                 lst = lst->next;
             }
         }
         else if (ret_gnl == 0)
             ft_exit(NULL, 1);
+
         free(line);
     	clear_lst();
-        free(piped_str);
+        free_str(piped_str);
         child_pid = -1;
     }
 }

@@ -17,7 +17,8 @@
 
 /* VARIABLES GLOBALES */
 char **global_env;
-char **init_env_var;
+char **filtered_env;
+int errno;
 
 /* DISPLAY_STRING */
 void	ft_putchar_fd(char c, int fd);
@@ -65,9 +66,13 @@ void    free_str_array(char **input_array);
 int     search_in_array(char **input_array, char* str, char sep);
 void    display_array(char **input_array);
 char    **extend_array(char **from_array, char **add_array, int from_len, int add_len);
+char 	**filter_env(char **input_array, char** free_array);
 
 /* MANAGE_ENV */
 char    *get_env_value(char *var);
+
+/* MANAGE_ERROR */
+void display_error(char *exec, char *error_str);
 
 /* MANAGE_STRING */
 int     find_car(char *str, char c);
@@ -76,6 +81,8 @@ char	*ft_strdup(const char *s);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strncat(char *dest, char *src, unsigned int nb);
 int     ft_strcmp(char *s1, char *s2);
+char	*ft_strcpy(char *dest, char *src);
+char	*ft_strncpy(char *dest, char *src, unsigned int n);
 
 /* MINISHELL */
 pid_t   ft_create_child(void);

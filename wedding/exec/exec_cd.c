@@ -22,16 +22,16 @@ void update_env(char *new_path)
     pwd_index = search_in_array(global_env, "PWD", '=');
     oldpwd_index = search_in_array(global_env, "OLDPWD", '=');
     old_pwd = (char *)malloc(sizeof(char) * ft_strlen(global_env[pwd_index]) + 4);
-    old_pwd = ft_strncat(old_pwd, global_env[oldpwd_index], 7);
-    old_pwd = ft_strcat(old_pwd, &global_env[pwd_index][4]);
-    free(global_env[oldpwd_index]);
+    ft_strcpy(old_pwd, "OLDPWD=");
+    ft_strcat(old_pwd, &global_env[pwd_index][4]);
+    free_str(global_env[oldpwd_index]);
     global_env[oldpwd_index] = old_pwd;
     new_pwd = (char *)malloc(sizeof(char) * ft_strlen(new_path) + 5);
-    new_pwd = ft_strncat(new_pwd, global_env[pwd_index], 4);
-    new_pwd = ft_strcat(new_pwd, new_path);
-    free(global_env[pwd_index]);
+    ft_strcpy(new_pwd, "PWD=");
+    ft_strcat(new_pwd, new_path);
+    free_str(global_env[pwd_index]);
     global_env[pwd_index] = new_pwd;
-    free(new_path);
+    free_str(new_path);
 }
 
 char *previous_dir(void)
@@ -39,7 +39,6 @@ char *previous_dir(void)
     char *path;
     int path_len;
 
-    printf("ENTREE PREVIOUS DIR\n");
     path = get_env_value("PWD");
     path_len = ft_strlen(path);
     while (path[path_len] != '/')
@@ -50,56 +49,60 @@ char *previous_dir(void)
 
 char *relative_path(char *input_path)
 {
-    char *path;
-    char *pre_path;
+    char *actual_path;
+    char *final_path;
 
-    pre_path = get_env_value("PWD");
-    path = (char *)malloc(sizeof(char) * (ft_strlen(pre_path) + ft_strlen(input_path) + 2));
-    path = ft_strcat(path, pre_path);
-    path = ft_strcat(path, "/");
-    path = ft_strcat(path, input_path);
-    return (path);
+    actual_path = get_env_value("PWD");
+    final_path = (char *)malloc(sizeof(char) * (ft_strlen(actual_path) + ft_strlen(input_path) + 2));
+    ft_strcpy(final_path, actual_path);
+    ft_strcat(final_path, "/");
+    ft_strcat(final_path, input_path);
+    return (final_path);
 }
 
 char *absolute_path(char *input_path)
 {
-    char *path;
-    char *pre_path;
+    char *actual_path;
+    char *final_path;
 
-    pre_path = get_env_value("HOME");
-    path = (char *)malloc(sizeof(char) * (ft_strlen(pre_path) + ft_strlen(input_path)));
-    path = ft_strcat(path, pre_path);
-    path = ft_strcat(path, "/");
-    path = ft_strcat(path, &input_path[2]);
-    return (path);
+    actual_path = get_env_value("HOME");
+    final_path = (char *)malloc(sizeof(char) * (ft_strlen(actual_path) + ft_strlen(input_path)));
+    ft_strcpy(final_path, actual_path);
+    ft_strcat(final_path, "/");
+    ft_strcat(final_path, &input_path[2]);
+    return (final_path);
+}
+
+char *select_path(char *input_path)
+{
+    char *output_path;
+
+    if (input_path == NULL)
+        output_path = get_env_value("HOME");
+    else if (input_path[0] == '.' && !(input_path[1]))
+        output_path = get_env_value("PWD");
+    else if (ft_strcmp(input_path, "..") == 0)
+        output_path = previous_dir();
+    else if (input_path[0] == '~' && input_path[1] == '/')
+        output_path = absolute_path(input_path);
+    else if (input_path[0] == '/')
+        output_path = ft_strdup(input_path);
+    else
+        output_path = relative_path(input_path);
+    return (output_path);
 }
 
 void ft_cd(char **args)
 {
     char *path;
     int result_chdir;
-    //char **split_result;
 
-    if (array_length(args) > 1)
-        printf("ERROR\n");
-    else if (args[0] == NULL)
-        path = get_env_value("HOME");
-    else if (args[0][0] == '.' && !(args[0][1]))
-        path = get_env_value("PWD");
-    else if (ft_strcmp(args[0], "..") == 0)
-        path = previous_dir();
-    else if (args[0][0] == '~' && args[0][1] == '/')
-        path = absolute_path(args[1]);
-    else if (args[0][0] == '/')
-        path = ft_strdup(args[0]);
-    else
-        path = relative_path(args[0]);
-
+    path = select_path(args[0]);
     result_chdir = chdir(path);
     if (result_chdir == -1)
     {
-        printf("ERROR DIRECTORY\n");
         free(path);
+        display_error("cd", NULL);
     }
     else
         update_env(path);

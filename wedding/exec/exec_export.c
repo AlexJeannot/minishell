@@ -12,12 +12,68 @@
 
 #include "../includes/minishell.h"
 
+char *transform_with_value(char *input_str)
+{
+    int str_count;
+    char *output_str;
+
+    str_count = 0;
+    if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 14))))
+        display_error(NULL, NULL);
+    while (input_str[str_count] != '=')
+        str_count++;
+    ft_strcpy(output_str, "declare -x ");
+    ft_strncat(output_str, input_str, str_count + 1);
+    ft_strcat(output_str, "\"");
+    ft_strcat(output_str, &input_str[str_count + 1]);
+    ft_strcat(output_str, "\"");
+    return (output_str);
+}
+
+char *transform_without_value(char *input_str)
+{
+    char *output_str;
+
+    if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 12))))
+        display_error(NULL, NULL);
+    ft_strcpy(output_str, "declare -x ");
+    ft_strcat(output_str, input_str);
+    return (output_str);
+}
+
+char *transform_str(char *input_str)
+{
+    if (find_car(input_str, '=') != -1)
+        return (transform_with_value(input_str));
+    else
+        return (transform_without_value(input_str));
+}
+
+char **transform_array(char **input_array)
+{
+    int tab_count;
+    char **output_array;
+
+    tab_count = 0;
+    if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) + 1))))
+        display_error(NULL, NULL);
+    while (input_array[tab_count])
+    {
+        output_array[tab_count] = transform_str(input_array[tab_count]);
+        tab_count++;
+    }
+    output_array[tab_count] = NULL;
+    free_str_array(input_array);
+    return (output_array);
+}
+
 char **sort_env(void)
 {
     char **new_env;
 
     new_env = duplicate_array(global_env, NULL, '\0');
     new_env = sort_array(new_env);
+    new_env = transform_array(new_env);
     return (new_env);
 }
 
@@ -25,12 +81,16 @@ int is_valid_var(char *str)
 {
     int count;
 
-    count = 0;
-    while (str[count] && str[count] != '=')
+    count = 1;
+    if (str[0] < 'A'
+    || (str[0] > 'Z' && str[0] < 'a')
+    || str[0] > 'z')
+        return (KO);
+    while (str[count])
     {
-        if (str[count] < 'A'
-        || (str[count] > 'Z' && str[count] < 'a'
-        && str[count] != '\\' && str[count] < '_')
+        if (str[count] < '0'
+        || (str[count] > '9' && str[count] < 'A')
+        || (str[count] > 'Z' && str[count] < 'a' && str[count] != '_')
         || str[count] > 'z')
             return (KO);
         count++;
@@ -45,118 +105,70 @@ int is_valid_value(char *str)
     count = 0;
     while (str[count] && str[count] != '=')
     {
-        if (str[count] < '!' && str[count] == 127)
+        if (str[count] < '!' || str[count] == 127)
             return (KO);
         count++;
     }
     return (OK);
 }
 
-int is_init_var(char *str)
+void display_invalid_export(char *str, int type)
 {
-    int count;
-    char *str_cmp;
-    char **split_result;
-
-    count = 0;
-    split_result = ft_split(str, '=');
-    str_cmp = split_result[0];
-
-    while (init_env_var[count])
+    write(1, "Minishell: export: ", 11);
+    write(1, "`", 1);
+    if (!(type))
     {
-        if (ft_strcmp(init_env_var[count], str_cmp) == 0)
-        {
-            free_str_array(split_result);
-            return (KO);
-        }
-        count++;
+        write(1, str, ft_strlen(str));
+        write(1, "': not a valid identifier\n", 26);
     }
-    free_str_array(split_result);
-    return (OK);
-}
-
-int find_special_car(char *str)
-{
-    int count;
-
-    count = 0;
-    while (str[count])
+    if (type)
     {
-        if (str[count] == '$' || str[count] == '\\'
-        || str[count] == '=' || str[count] == '?'
-        || str[count] == '[' || str[count] == ']'
-        || str[count] == '{' || str[count] == '}'
-        || str[count] == '~' || str[count] == '*'
-        || str[count] == '#')
-            return (KO);
-        count++;
+        write(1, str, ft_strlen(str));
+        write(1, "': not a valid value\n", 21);
     }
-    return (OK);
 }
-
 
 void ft_export(char **args)
 {
-    int count;
+    int array_count;
+    int add_count;
     int equal_index;
-    int args_len;
     char *var;
     char **add_args;
     char **sorted_env;
+    char **split_result;
 
     add_args = NULL;
-    args_len = array_length(args);
-    if (args[0] && args[0][0] == '$' && is_init_var(&args[0][1]))
-        printf("EXPORT PATH ERROR\n");
-    else if (!(args[0]) || args[0][0] == '$' || args[0][0] == '#')
+    if (!(args[0]) || args[0][0] == '$' || args[0][0] == '#')
     {
-        count = 0;
         sorted_env = sort_env();
         display_array(sorted_env);
         free_str_array(sorted_env);
     }
     else
     {
-        count = 0;
-        add_args = malloc(sizeof(char *) * (args_len + 1));
-        while (args[count])
+        array_count = 0;
+        add_count = 0;
+        add_args = malloc(sizeof(char *) * (array_length(args) + 1));
+        while (args[array_count])
         {
-            /* Vérification si nom de variable OK */
-            if (is_valid_var(args[count]) == -1)
-                printf("EXPORT VARIABLE ERROR\n");
-            /* Vérification si valeur de variable et si cette valeur est OK */
-            if ((equal_index = find_car(args[count], '=')) != -1 && is_valid_value(&args[count][equal_index]) == -1)
-                printf("EXPORT VALUE ERROR\n");
-            /* Si pas de valeur lors de l'export */
-            if (find_car(args[count], '=') == -1)
-            {
-                var = malloc(sizeof(char) * (ft_strlen(args[count]) + 4)); // Malloc taille de la string + 4 pour =''\0
-                var = ft_strcat(var, args[count]); // Concaténation de la string allouée avec le nom de la variable
-                var = ft_strcat(var, "=\'\'"); // Concaténation du nom de la variable avec =''\0
-            }
-            /*Si valeur avec caractère spécial */
-            else if (find_special_car(&args[count][equal_index + 1]) == -1)
-            {
-                var = malloc(sizeof(char) * (ft_strlen(args[count]) + 3)); // Malloc taille de la string + 3 pour '' et \0
-                var = ft_strncat(var, args[count], equal_index + 1); // Concaténation de la string allouée avec le nom de la variable jusqu'au =
-                var[equal_index + 1] = '\''; // Ajout premier '
-                var = ft_strcat(var, &args[count][equal_index] + 1);
-                var[ft_strlen(var)] = '\''; // Ajout second '
-                var[ft_strlen(var)] = '\0';
-            }
-            /* Autrement duplication */
+            split_result = ft_split(args[array_count], '=');
+            if (is_valid_var(split_result[0]) == -1)
+                display_invalid_export(split_result[0], 0);
+            else if ((equal_index = find_car(args[array_count], '=')) != -1 && is_valid_value(&args[array_count][equal_index]) == -1)
+                display_invalid_export(&args[array_count][equal_index], 1);
             else
-                var = ft_strdup(args[count]);
-
-            /* Ajout de la variable a exporter dans un tableau */
-            add_args[count] = var;
-            count++;
+            {
+                var = ft_strdup(args[array_count]);
+                add_args[add_count] = var;
+                add_count++;
+            }
+            array_count++;
         }
-        add_args[count] = NULL;
+        add_args[add_count] = NULL;
         global_env = extend_array(global_env, add_args, array_length(global_env), array_length(add_args));
     }
     free_str_array(args);
     if (add_args)
         free_str_array(add_args);
-//    printf("FIN FCT EXPORT\n");
 }
