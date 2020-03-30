@@ -104,7 +104,7 @@ int is_valid_value(char *str)
 
 void display_invalid_export(char *str, int type)
 {
-    write(1, "Minishell: export: ", 11);
+    write(1, "Minishell: export: ", 19);
     write(1, "`", 1);
     if (!(type))
     {

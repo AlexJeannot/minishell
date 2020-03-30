@@ -50,6 +50,14 @@ char **clear_env(char **input_array, int *index_array)
     return (output_array);
 }
 
+void display_invalid_unset(char *str)
+{
+    write(1, "Minishell: unset: ", 18);
+    write(1, "`", 1);
+    write(1, str, ft_strlen(str));
+    write(1, "': not a valid identifier\n", 26);
+}
+
 int *create_unset_index_array(char **input_array)
 {
     int index;
@@ -63,9 +71,11 @@ int *create_unset_index_array(char **input_array)
     array_count = 0;
     while (input_array[array_count])
     {
-        if ((index = search_in_array(global_env, input_array[array_count], '=')) >= 0)
+        if (is_valid_var(input_array[array_count]) == -1)
+            display_invalid_unset(input_array[array_count]);
+        else if ((index = search_in_array(global_env, input_array[array_count], '=')) >= 0)
         {
-            index_array[array_count] = index;
+            index_array[add_count] = index;
             add_count++;
         }
         array_count++;

@@ -60,7 +60,6 @@ void ft_builtins(char *exec, char **args)
     path_array = ft_split(split_result[1], ':');
     exec_array = build_exec_array(exec, path_array);
     free_str_array(split_result);
-    free_str_array(path_array);
     used_env = select_env(exec);
     while (exec_array[count])
     {
