@@ -34,8 +34,7 @@ int			main(int ac, char **av, char **env)
 		while (lst)
 		{
 			get_dollar();
-			clear_backslash();
-		//	clean_before_print();
+			clear_before_print();
 			lst = lst->next;
 		}
 		lst = tmp;

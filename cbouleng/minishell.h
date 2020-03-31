@@ -88,7 +88,7 @@ char*			get_lil_path_value(t_value v);
 char*			get_env_value(int i, int j);
 char*			get_startline(int i, int j);
 char*			get_endline(int i, int j);
-char*			clean_echo_bad_env(char* str);
+char*			clear_echo_bad_env(char* str);
 
 
 /*              #utils
@@ -96,6 +96,6 @@ char*			clean_echo_bad_env(char* str);
 void			prompt();
 int				ft_exit(int status);
 int				get_next_line(int fd, char **line);
-void			clean_before_print(void);
+void			clear_before_print(void);
 int				ft_tablen(char **tab);
 void			defrag_arg(int len);

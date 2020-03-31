@@ -30,7 +30,7 @@ static int	to_print(char* str, int i)
 	return (1);
 }
 
-static char*	clean_quote(char* str)
+static char*	clear_quote(char* str)
 {
 	char*	res;
 	int		nb;
@@ -63,8 +63,8 @@ void	clear_before_print(void)
 	lst->cmd = clear_quote(lst->cmd);
 	while (lst->arg[i])
 	{
-		lst->arg[i] = clear_quote(lst->arg[i]);
 		lst->arg[i] = clear_echo_bad_env(lst->arg[i]);
+		lst->arg[i] = clear_quote(lst->arg[i]);
 		i++;
 	}
 }

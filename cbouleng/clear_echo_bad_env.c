@@ -21,7 +21,6 @@ static char*	remove_dollar(char* str, int i)
 	char*	res;
 	int		j;
 
-	free(map);
 	map = map_quote(str);
 	len = dollar_to_del_len(str, i);
 	if (!(res = malloc(ft_strlen(str) - len + 1)))
@@ -36,15 +35,18 @@ static char*	remove_dollar(char* str, int i)
 		res[j++] = str[i++];
 	}
 	res[j] = '\0';
+	free(map);
+	printf("res[%s]\n", res);
 	return (res);
 }
 
-char*	clean_echo_bad_env(char* str)
+char*	clear_echo_bad_env(char* str)
 {
 	char*	res;
 	int		i;
 
 	i = 0;
+	res = NULL;
 	if (!ft_strcmp(lst->cmd, "echo"))
 	{
 		map = map_quote(str);
@@ -52,9 +54,13 @@ char*	clean_echo_bad_env(char* str)
 		{
 			if (str[i] == '$' && map[i] != '1' && !is_esc(lst->cmd, i)
 				&& !is_env(str, i))
+			{
 				res = remove_dollar(str, i);
+			}
 			i++;
 		}
 	}
-	return (res);
+	if (res)
+		return (res);
+	return (str);
 }

@@ -12,6 +12,8 @@ int		bs_in_row(char* str, int* p_i)
 		nb++;
 		(*p_i)++;
 	}
+	if (str[*p_i] == '"' || str[*p_i] == '\'')
+		return (0);
 	if (!(nb % 2))
 		return (nb / 2);
 	return (nb / 2 + 1);
@@ -19,9 +21,11 @@ int		bs_in_row(char* str, int* p_i)
 
 int		nb_del_case(char* str, int* p_i)
 {
-	if (str[*(p_i + 1)] == '|')
+	if (str[(*p_i + 1)] == '|')
 		return (0);
-	if (str[*(p_i + 1)] == '\\')
+	if (str[(*p_i + 1)] == '"' || str[(*p_i + 1)] == '\'')
+		return (0);
+	if (str[(*p_i + 1)] == '\\')
 		return (bs_in_row(str, p_i));
 	return (1);
 }
@@ -37,7 +41,7 @@ int		nb_to_del(char* str)
 	nb = 0;
 	while (str[i])
 	{
-		if (str[i] == '\\')
+		if (str[i] == '\\' && map[i] != '1')
 			nb = nb_del_case(str, &i);
 		sum += nb;
 		nb = 0;
@@ -48,14 +52,14 @@ int		nb_to_del(char* str)
 
 int		print_case(char* str, int* p_i)
 {
-	if (str[*p_i] == '\\')
+	if (str[*p_i] == '\\' && map[*p_i] != '1')
 	{
 		if (str[(*p_i + 1)] == '\\')
 		{
 			(*p_i)++;
 			return (1);
 		}
-		if (map[*p_i] != '0')
+		if (str[(*p_i + 1)] != '$' && map[*p_i] != '0')
 			return (1);
 		return (0);
 	}
@@ -82,7 +86,6 @@ char*	clear_it(char* str)
 	}
 	res[nb] = '\0';
 	free(map);
-	printf("[%s]\n", res);
 	return (res);
 }
 
