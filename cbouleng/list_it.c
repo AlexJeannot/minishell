@@ -21,7 +21,7 @@ static t_cont get_content_lst(char *stock, int pipe)
 	t_cont	cont;
 	char	**content;
 
-	//cont.rd = get_redir(&stock);
+	cont = get_redir(stock);
 	content = split_plus(stock, ' ');
 	cont.cmd = content[0];
 	i = 1;
@@ -49,7 +49,8 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	cont = get_content_lst(stock_elem, pipe);
 	elem->cmd = cont.cmd;
 	elem->arg = cont.arg;
-//	elem->rd = cont.rd;
+//	elem->rd_type = cont.rd_type;
+//	elem->rd_filename = cont.rd_filename;
 	elem->pipe = pipe;
 	elem->next = NULL;
 	if (is_empty_lst())

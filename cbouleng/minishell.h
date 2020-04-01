@@ -14,7 +14,11 @@ typedef struct		s_cont
 {
 	int		pipe;
 	char*	cmd;
-	char*	rd;
+	int		rdc_type;
+	int		rdo_type;
+	char**	rdc_filetab;
+	char**	rdo_filetab;
+
 	char**	arg;
 }					t_cont;
 
@@ -38,7 +42,8 @@ typedef struct		s_dolls
 typedef struct		s_list
 {
 	char*			cmd;
-	char*			rd;
+	char*			rd_filename;
+	int				rd_type;
 	char**			arg;
 	int				pipe;
 	struct s_list*	next;
