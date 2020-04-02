@@ -67,7 +67,7 @@ char		**split_plus(char *str, char charset)
 	int		j;
 	char	**tab;
 
-	map = map_quote(str);
+	map = map_quote(str, 0);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
 		ft_exit(1);

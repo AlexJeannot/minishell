@@ -18,6 +18,8 @@ typedef struct		s_cont
 	int		rdo_type;
 	char**	rdc_filetab;
 	char**	rdo_filetab;
+	char*	rdc_filename;
+	char*	rdo_filename;
 
 	char**	arg;
 }					t_cont;
@@ -68,7 +70,7 @@ void			clear_backslash(void);
 /*              #quote
 -------------------------------------------------*/
 int				check_quote(char *str);
-char*			map_quote(char *str);
+char*			map_quote(char *str, int pos);
 
 /*              #chained_list
 -------------------------------------------------*/

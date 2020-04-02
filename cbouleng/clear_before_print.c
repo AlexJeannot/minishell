@@ -13,9 +13,10 @@ static int	nb_del_quote(char* str)
 	{
 		if (map[i] == '4' || map[i] == '3')
 			nb++;
-		if (map[i] != '1' && str[i] == '\\' && (str[i + 1] == '\''
-			|| str[i + 1] == '"'))
+		if (map[i + 1] == '2' && str[i] == '\\' && str[i + 1] == '"')
 			nb++;
+	//	if (str[i] == '\\' && is_esc(str, i))
+	//		nb++;
 		i++;
 	}
 	return (nb);
@@ -23,7 +24,11 @@ static int	nb_del_quote(char* str)
 
 static int	to_print(char* str, int i)
 {
-	if (map[i] != '1' && str[i] == '\\' && (str[i + 1] == '\'' || str[i + 1] == '"'))
+	if (!map[i + 1] && str[i] == '"')
+		return (0);
+	if (map[i + 1] && str[i] == '"' && str[i - 1] == '\\')
+		return (1);
+	if (map[i] == '2' && str[i + 2] && str[i] == '\\' && str[i + 1] == '"')
 		return (0);
 	if (map[i] == '4' || map[i] == '3')
 		return (0);
@@ -37,7 +42,7 @@ static char*	clear_quote(char* str)
 	int		j;
 	int		k;
 
-	map = map_quote(str);
+	map = map_quote(str, 0);
 	nb = nb_del_quote(str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
 		ft_exit(1);
