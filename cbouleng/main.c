@@ -40,6 +40,25 @@ static void	check_double_quote(char* str)
 	}
 }
 
+void		check_bs(char* str)
+{
+	int	i;
+
+	i = ft_strlen(str);
+	i--;
+	while (i > 0)
+	{
+		if (str[i] == '\\' && (!str[i + 1] || str[i + 1] == ' ') &&  map[i] == '0')
+		{
+			if (!is_esc(str, i))
+				ft_exit(1);
+			else
+				return ;
+		}
+		i--;
+	}
+}
+
 static int	parsing(char *line)
 {
 	char **stock;
@@ -47,6 +66,7 @@ static int	parsing(char *line)
 	map = map_quote(line, 0);
 	check_simple_quote(line);
 	check_double_quote(line);
+	check_bs(line);
 	stock = split_plus(line, ';');
 	list_it(stock);
 	return (1);

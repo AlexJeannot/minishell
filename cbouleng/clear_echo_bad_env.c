@@ -36,8 +36,29 @@ static char*	remove_dollar(char* str, int i)
 	}
 	res[j] = '\0';
 	free(map);
-	printf("res[%s]\n", res);
 	return (res);
+}
+
+int		remove_it(char* str, int i)
+{
+	if (str[i] == '$' && !is_esc(str, i))
+	{
+		if (map[i] == '1')
+			return (0);
+		if (!str[i + 1])
+			return (0);
+		if (str[i + 1] > 31 && str[i + 1] < 47)
+			return (0);
+		if (str[i + 1] > 57 && str[i + 1] < 65)
+			return (0);
+		if (str[i + 1] > 90 && str[i + 1] < 97)
+			return (0);
+		if (str[i + 1] > 122 && str[i + 1] < 127)
+			return (0);
+		if (!is_env(str, i))
+			return (1);
+	}
+	return (0);
 }
 
 char*	clear_echo_bad_env(char* str)
@@ -52,12 +73,8 @@ char*	clear_echo_bad_env(char* str)
 		map = map_quote(str, 0);
 		while (str[i])
 		{
-			if (str[i] == '$' && str[i + 1] != ' ' 
-				&& str[i + 1] && map[i] != '1' && !is_esc(lst->cmd, i)
-				&& !is_env(str, i))
-			{
+			if (remove_it(str, i))
 				res = remove_dollar(str, i);
-			}
 			i++;
 		}
 	}
