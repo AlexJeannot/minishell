@@ -12,7 +12,8 @@ char*	get_env_name_2check(char *str, int j)
 	while (str[j] && str[j] != ' ')
 		j++;
 	if (!(tmp = malloc(j - len + 1)))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
+
 	while (len < j && ((str[len] >= '0' && str[len] <= '9') ||
 	(str[len] >= 'a' && str[len] <= 'z') || (str[len] >= 'A' &&
 	str[len] <= 'Z')))
@@ -71,6 +72,6 @@ t_value		new_value(int i, int j)
 	while (global_env[i][++j])
 		len++;
 	if (!(v.value = malloc(len + 1)))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
 	return (v);
 }

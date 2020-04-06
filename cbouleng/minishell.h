@@ -101,7 +101,7 @@ char*			clear_echo_bad_env(char* str);
 /*              #utils
 -------------------------------------------------*/
 void			prompt();
-int				ft_exit(int status);
+int				ft_exit(char* msg, int status);
 int				get_next_line(int fd, char **line);
 void			clear_before_print(void);
 int				ft_tablen(char **tab);

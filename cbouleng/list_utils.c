@@ -16,21 +16,22 @@ void		print_lst(void)
 {
 	t_list *tmp;
 	int 	i;
-	int		j;
+//	int		j;
 
 	tmp = lst;
-	j = 0;
+	//j = 0;
 	while (tmp)
 	{
-		printf("\n[%d]", j++);
-		printf("cmd:%s}", tmp->cmd);
+		//printf("\n[%d]", j++);
+		//printf("cmd:%s}", tmp->cmd);
 		i = 0;
 		while (tmp->arg[i])
 		{
-			printf(".%s", tmp->arg[i]);
+			printf("%s\n", tmp->arg[i]);
+			//printf(".%s", tmp->arg[i]);
 			i++;
 		}
-		printf("(%d)\n", tmp->pipe);
+		//printf("(%d)\n", tmp->pipe);
 		tmp = tmp->next;
 	}
 }
@@ -68,7 +69,8 @@ void	del_first(void)
 	if (is_empty_lst())
 		lst = new_lst();
 	if (!(elem = malloc(sizeof(t_list))))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
+
 	elem = lst->next;
 	free(lst);
 	lst = elem;

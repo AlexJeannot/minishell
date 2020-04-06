@@ -70,7 +70,7 @@ char		**split_plus(char *str, char charset)
 	map = map_quote(str, 0);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
 	i = 0;
 	j = 0;
 	while (i < ft_strlen(str))

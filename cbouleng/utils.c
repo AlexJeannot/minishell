@@ -31,8 +31,9 @@ int		is_esc(char *str, int i)
 	return (0);
 }
 
-int	ft_exit(int status)
+int	ft_exit(char* msg, int status)
 {
+	printf("error: %s\n", msg);
 	exit(status);
 }
 

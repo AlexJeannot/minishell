@@ -38,7 +38,8 @@ char*	get_filename(char* str, int i)
 
 	
 	if (!(name = malloc(len + 1)))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
+
 }
 
 char**	get_rdc_filetab(char* str)
@@ -50,7 +51,7 @@ char**	get_rdc_filetab(char* str)
 	{
 		nb = count_rdc(str);
 		if (!(tab = malloc(sizeof(char*) * nb + 1)))
-			ft_exit(1);
+			ft_exit("malloc failed", 1);
 		while (i < nb)
 		{
 			tab[i] = get_filename(str, i);

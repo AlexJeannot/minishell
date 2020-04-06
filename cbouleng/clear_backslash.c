@@ -144,7 +144,7 @@ char*	clear_it(char* str)
 	map = map_quote(str, 0);
 	nb = nb_to_del(str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
-		ft_exit(1);
+		ft_exit("Malloc failed", 1);
 	nb = 0;
 	while (str[i])
 	{
@@ -153,7 +153,7 @@ char*	clear_it(char* str)
 		i++;
 	}
 	res[nb] = '\0';
-	//printf("res_bs[%s]\n", res);
+//	printf("res_bs[%s]\n", res);
 	free(map);
 	return (res);
 }

@@ -24,7 +24,7 @@ static char*	remove_dollar(char* str, int i)
 	map = map_quote(str, 0);
 	len = dollar_to_del_len(str, i);
 	if (!(res = malloc(ft_strlen(str) - len + 1)))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
 	i = 0;
 	j = 0;
 	while (str[i])

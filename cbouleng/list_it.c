@@ -45,7 +45,8 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	t_cont	cont;
 
 	if (!(elem = malloc(sizeof(t_list))))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
+
 	cont = get_content_lst(stock_elem, pipe);
 	elem->cmd = cont.cmd;
 	elem->arg = cont.arg;

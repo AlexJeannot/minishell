@@ -11,12 +11,14 @@ static int	nb_del_quote(char* str)
 	i = 0;
 	while (str[i])
 	{
-		if (map[i] == '4' || map[i] == '3')
+		if (i == 0 && map[i] == '4')
 			nb++;
-		else if (str[i] == '\\' && str[i + 1] == '"')
+		else if (map[i] == '3' || map[i] == '4')
 			nb++;
-	//	else if (str[i] == '\\' && is_esc(str, i))
-	//		nb++;
+		else if (map[i] == '4' && !map[i + 1])
+			nb++;
+		else if (str[i] == '\\' && str[i + 1] == '"' && map[i] != '1')
+			nb++;
 		i++;
 	}
 	return (nb);
@@ -24,6 +26,8 @@ static int	nb_del_quote(char* str)
 
 static int	to_print(char* str, int i)
 {
+	if (map[i] == '1')
+		return (1);
 	if (str[i] == '"' && !str[i + 1] && map[i] == '2')
 		return (0);
 	if (str[i] == '\\' && !is_esc(str, i) && (str[i + 1] == '"' 
@@ -31,8 +35,10 @@ static int	to_print(char* str, int i)
 		return (0);
 	if (str[i] == '\\' && str[i + 1] == '"' && str[i + 2])
 		return (0);
-	if ((map[i] == '4' || map[i] == '3') && str[i - 1] != '\\')
+	if (map[i] == '3' || map[i] == '4')
 		return (0);
+//	if (map[i] == '4' && (!map[i - 1] || !map[i + 1]))
+//		return (0);
 	return (1);
 }
 
@@ -43,11 +49,11 @@ static char*	clear_quote(char* str)
 	int		j;
 	int		k;
 
-	map = map_quote(str, 0);
+	map = map_quote(str, 1);
 	nb = nb_del_quote(str);
-	//printf("quote[%d][%s]\n", nb, str);
+//	printf("quote[%d][%s]\n", nb, str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
-		ft_exit(1);
+		ft_exit("malloc failed", 1);
 	j = 0;
 	k = 0;
 	while (str[j])
