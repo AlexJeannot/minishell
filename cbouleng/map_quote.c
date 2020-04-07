@@ -2,6 +2,13 @@
 
 char*	map;
 
+int	esc_case(char* str, int i)
+{
+	if (str[i - 1] == '\\' && map[i - 1] == '0')
+		return (0);
+	return (1);
+}
+
 static void mapping(char *str)
 {
 	int	flag_d;
@@ -26,7 +33,7 @@ static void mapping(char *str)
 			flag_d *= -1;
 			map[i] = '4';
 		}
-		if (str[i] == '\'' && flag_d > 0)
+		if (str[i] == '\'' && flag_d > 0 && esc_case(str, i))
 		{
 			flag_s *= -1;
 			map[i] = '3';

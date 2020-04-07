@@ -1,16 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/11 15:36:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/03/11 16:09:54 by cbouleng         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
+
+//void		print_lst(void)
+//{
+//	t_list *tmp;
+//	int 	i;
+//	int		j;
+//
+//	tmp = lst;
+//	j = 0;
+//	while (tmp)
+//	{
+//		printf("\n[%d]", j++);
+//		printf("cmd:%s}", tmp->cmd);
+//		i = 0;
+//		while (tmp->arg[i])
+//		{
+//		//	printf("%s\n", tmp->arg[i]);
+//			printf(".%s", tmp->arg[i]);
+//			i++;
+//		}
+//		printf("(%d)\n", tmp->pipe);
+//		tmp = tmp->next;
+//	}
+//}
 
 void		print_lst(void)
 {
@@ -27,13 +39,14 @@ void		print_lst(void)
 		i = 0;
 		while (tmp->arg[i])
 		{
-			printf("%s\n", tmp->arg[i]);
+			printf("%s", tmp->arg[i]);
 			//printf(".%s", tmp->arg[i]);
 			i++;
 		}
 		//printf("(%d)\n", tmp->pipe);
 		tmp = tmp->next;
 	}
+	printf("\n");
 }
 
 t_list	*new_lst(void)

@@ -18,6 +18,7 @@ static char*		r_dollar(int i, int j)
 	char	*res;
 
 	dls = dolls_value(i, j);
+//	printf("dls.len[%d]", dls.len);
 	if (!(res = malloc(dls.len + 1)))
 		ft_exit("malloc failed", 1);
 	i = 0;
@@ -33,10 +34,11 @@ static char*		r_dollar(int i, int j)
 	while (dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
+//	printf("[%s][%d][%d]\n", res, ft_strlen(res), i);
 	return (res);
 }
 
-static int		quote_stop(int i, int j)
+static int	quote_stop(int i, int j)
 {
 	int	k;
 

@@ -37,8 +37,6 @@ static int	to_print(char* str, int i)
 		return (0);
 	if (map[i] == '3' || map[i] == '4')
 		return (0);
-//	if (map[i] == '4' && (!map[i - 1] || !map[i + 1]))
-//		return (0);
 	return (1);
 }
 

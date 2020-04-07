@@ -4,16 +4,8 @@ char*	map;
 
 static int	sep(char c, int i, char charset)
 {
-	if (charset == ' ')
-	{
-		if (c == charset && map[i] == '0')
-			return (1);
-	}
-	else
-	{
-		if (c == charset)
-			return (1);
-	}
+	if (c == charset && map[i] == '0')
+		return (1);
 	return (0);
 }
 
