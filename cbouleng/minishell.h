@@ -20,7 +20,6 @@ typedef struct		s_cont
 	char**	rdo_filetab;
 	char*	rdc_filename;
 	char*	rdo_filename;
-
 	char**	arg;
 }					t_cont;
 
@@ -44,10 +43,14 @@ typedef struct		s_dolls
 typedef struct		s_list
 {
 	char*			cmd;
-	char*			rd_filename;
-	int				rd_type;
 	char**			arg;
 	int				pipe;
+	int				rdc_type;
+	int				rdo_type;
+	char**			rdc_filetab;
+	char**			rdo_filetab;
+	char*			rdc_filename;
+	char*			rdo_filename;
 	struct s_list*	next;
 }					t_list;
 
@@ -96,6 +99,10 @@ char*			get_env_value(int i, int j);
 char*			get_startline(int i, int j);
 char*			get_endline(int i, int j);
 char*			clear_echo_bad_env(char* str);
+
+/*              #redir
+-------------------------------------------------*/
+t_cont			get_redir(char* str);
 
 
 /*              #utils

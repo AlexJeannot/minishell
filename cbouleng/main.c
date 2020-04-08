@@ -82,18 +82,6 @@ static void	init(char ac, char **av, char **env)
 	global_env = env;
 }
 
-//void		test_elem(void)
-//{
-//	int 	fd;
-//	char* 	line;
-//
-//	if (!(fd = open("bash_rslt.txt", O_RDONLY)))
-//		ft_exit(1);
-//	get_next_line(fd, &line);
-//	if (ft_strcmp(lst->arg[0], line))
-//		printf("error:\narg: [%s]\nline: [%s]\n", lst->arg[0], line);
-//}
-
 //int			main(int ac, char **av, char **env)
 //{
 //	char	*line;

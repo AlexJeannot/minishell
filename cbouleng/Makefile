@@ -22,6 +22,7 @@ SRC = 	get_next_line.c \
 		split_plus.c \
 		list_it.c \
 		list_utils.c \
+		get_redir.c \
 		get_dollar.c \
 		get_dollar_utils.c \
 		get_dollar_utils_2.c \
