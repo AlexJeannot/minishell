@@ -46,16 +46,15 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 
 	if (!(elem = malloc(sizeof(t_list))))
 		ft_exit("malloc failed", 1);
-
 	cont = get_content_lst(stock_elem, pipe);
 	elem->cmd = cont.cmd;
 	elem->arg = cont.arg;
 	elem->rdc_type = cont.rdc_type;
-//	elem->rdo_type = cont.rdo_type;
+	elem->rdo_type = cont.rdo_type;
 	elem->rdc_filetab = cont.rdc_filetab;
-//	elem->rdo_filetab = cont.rdo_filetab;
+	elem->rdo_filetab = cont.rdo_filetab;
 	elem->rdc_filename = cont.rdc_filename;
-//	elem->rdo_filename = cont.rdo_filename;
+	elem->rdo_filename = cont.rdo_filename;
 	elem->pipe = pipe;
 	elem->next = NULL;
 	if (is_empty_lst())

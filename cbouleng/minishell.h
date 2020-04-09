@@ -103,6 +103,12 @@ char*			clear_echo_bad_env(char* str);
 /*              #redir
 -------------------------------------------------*/
 t_cont			get_redir(char* str);
+char**			get_rdo_filetab(char* str);
+int				check_rdo(char* str);
+int				find_rdo(char* str);
+int				is_name(char* str, int i);
+char*			get_name(char* str, int i, int ret);
+
 
 
 /*              #utils

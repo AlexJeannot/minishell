@@ -2,15 +2,6 @@
 
 char* map;
 
-int		is_rdc(char* str, int i)
-{
-	if (str[i] == '>' && !is_esc(str, i) && map[i] == '0')
-		return (1);
-	if (str[i] == '>' && str[i + 1] == '>' && !is_esc(str, i) && map[i] == '0')
-		return (2);
-	return (0);
-}
-
 int		find_rdc(char* str)
 {
 	int	i;
@@ -34,9 +25,13 @@ int		count_rdc(char* str)
 	nb = 0;
 	while (str[i])
 	{
-		if (map[i] == '0' && !is_esc(str, i) && (str[i] == '>' || 
-			(str[i] == '>' && str[i + 1] == '>')))
-			nb++;
+		if (map[i] == '0' && !is_esc(str, i))
+		{
+			if (str[i] == '>' && str[i + 1] == '>')
+				nb++;
+			else if (str[i] == '>' && str[i - 1] != '>')
+				nb++;
+		}
 		i++;
 	}
 	return (nb);
@@ -44,11 +39,11 @@ int		count_rdc(char* str)
 
 int		is_name(char* str, int i)
 {
-	if (str[i] > 'a' && str[i] < 'z')
+	if (str[i] >= 'a' && str[i] <= 'z')
 		return (1);
-	if (str[i] > 'A' && str[i] < 'Z')
+	if (str[i] >= 'A' && str[i] <= 'Z')
 		return (1);
-	if (str[i] > '0' && str[i] < 'z')
+	if (str[i] >= '0' && str[i] <= '9')
 		return (1);
 	if (str[i] == '_')
 		return (1);
@@ -59,11 +54,13 @@ int		is_name(char* str, int i)
 	return (0);
 }
 
-char*	get_name(char* str, int i)
+char*	get_name(char* str, int i, int ret)
 {
 	char*	name;
 	int		len;
 
+	if (ret == 2)
+		i++;
 	while (str[i] == ' ')
 		i++;
 	len = i;
@@ -77,7 +74,20 @@ char*	get_name(char* str, int i)
 	while (is_name(str, i))
 		name[len++] = str[i++];
 	name[len] = '\0';
+	//printf("name[%s]\n", name);
 	return (name);
+}
+
+int		is_rdc(char* str, int i)
+{
+	if (!is_esc(str, i) && map[i] == '0')
+	{
+		if (str[i] == '>' && str[i + 1] == '>')
+			return (2);
+		if (str[i] == '>' && str[i - 1] != '>') 
+			return (1);
+	}
+	return (0);
 }
 
 char*	get_rdc_name(char* str, int i)
@@ -85,17 +95,19 @@ char*	get_rdc_name(char* str, int i)
 	char*	name;
 	int		nb;
 	int		y;
-	
+	int		ret;
+
 	y = 0;
+
 	nb = 0;
-	while (str[y])
+	while (nb != i && str[y])
 	{
-		if (is_rdc(str, y))
+		if ((ret = is_rdc(str, y)))
 			nb++;
-		if (nb == i)
-			name = get_name(str, y + 1);
 		y++;
 	}
+	if (nb == i)
+		name = get_name(str, y, ret);
 	return (name);
 }
 
@@ -110,13 +122,13 @@ char**	get_rdc_filetab(char* str)
 		nb = count_rdc(str);
 		if (!(tab = malloc(sizeof(char*) * nb + 1)))
 			ft_exit("malloc failed", 1);
-		i = 0;
-		while (i < nb)
+		i = 1;
+		while (i <= nb)
 		{
-			tab[i] = get_rdc_name(str, i);
+			tab[i - 1] = get_rdc_name(str, i);
 			i++;
 		}
-		tab[i] = NULL;
+		tab[i - 1] = NULL;
 		return (tab);
 	}
 	return (NULL);
@@ -127,37 +139,106 @@ char*	get_last(char** tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return (NULL);
 	while (tab[i])
 		i++;
-	return (tab[i]);
+	return (tab[i - 1]);
 }
 
 int		get_rdc_type(char* str)
 {
 	int	i;
 
-	i = ft_strlen(str);
+	i = ft_strlen(str) - 1;
 	while (str[i])
 	{
 		if (str[i] == '>' && str[i - 1] == '>')
 			return (2);
 		if (str[i] == '>')
 			return (1);
-		i++;
+		i--;
 	}
 	return (0);
+}
+
+int		check_rdc(char* str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		if (map[i] == '0' && !is_esc(str, i))
+		{
+			if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+				return (0);
+			if (str[i] == '>' && str[i - 1] != '>' && str[i + 1] != '>')
+			{
+				j = i + 1;
+				while (str[j] == ' ')
+					j++;
+				if (!is_name(str, j))
+					return (0);
+			}
+			if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>')
+			{
+				j = i + 2;
+				while (str[j] == ' ')
+					j++;
+				if (!is_name(str, j))
+					return (0);
+			}
+		}
+		i++;
+	}
+	return (1);
+}
+
+t_cont	init_cont(void)
+{
+	t_cont cont;
+
+	cont.rdc_type = 0;
+	cont.rdc_filetab = NULL; 
+	cont.rdc_filename = NULL;
+	cont.rdo_type = 0;
+	cont.rdo_filetab = NULL; 
+	cont.rdo_filename = NULL;
+	return (cont);
 }
 
 t_cont	get_redir(char* str)
 {
 	t_cont cont;
-	
+
 	map = map_quote(str, 0);
-	cont.rdc_filetab = get_rdc_filetab(str);
-//	cont.rdo_filetab = get_rdo_filetab(str);
-	cont.rdc_filename = get_last(cont.rdc_filetab);
-//	cont.rdo_filename = get_last(cont.rdo_filetab);
-	cont.rdc_type = get_rdc_type(str);
-//	cont.rdo_type = get_rdo_type(str);
+	cont = init_cont();
+	if (find_rdc(str))
+	{
+		if (!check_rdc(str))
+			ft_exit("syntax error near symbol '>'\n", 1);
+		cont.rdc_filetab = get_rdc_filetab(str);
+		cont.rdc_filename = get_last(cont.rdc_filetab);
+		cont.rdc_type = get_rdc_type(str);
+	}
+	if (find_rdo(str))
+	{
+		if (!check_rdo(str))
+			ft_exit("syntax error near symbol '<'\n", 1);
+		cont.rdo_filetab = get_rdo_filetab(str);
+		cont.rdo_filename = get_last(cont.rdo_filetab);
+		cont.rdo_type = 1;
+	}
+//	printf("rdc_type[%d]\n", cont.rdc_type);
+//	if (cont.rdc_filetab)
+//		printf("rdc_filetab[%s]\n", cont.rdc_filetab[0]);
+//	printf("rdc_filename[%s]\n", cont.rdc_filename);
+//
+//	printf("rdo_type[%d]\n", cont.rdo_type);
+//	if (cont.rdo_filetab)
+//		printf("rdo_filetab[%s]\n", cont.rdo_filetab[0]);
+//	printf("rdo_filename[%s]\n", cont.rdc_filename);
 	return (cont);
 }
