@@ -20,8 +20,10 @@ SRC = 	get_next_line.c \
 		get_next_line_utils.c \
 		map_quote.c \
 		split_plus.c \
+		check.c \
 		list_it.c \
 		list_utils.c \
+		clear_stock_rd.c \
 		get_redir.c \
 		get_rdo.c \
 		get_dollar.c \

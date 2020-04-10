@@ -74,7 +74,6 @@ char*	get_name(char* str, int i, int ret)
 	while (is_name(str, i))
 		name[len++] = str[i++];
 	name[len] = '\0';
-	//printf("name[%s]\n", name);
 	return (name);
 }
 
@@ -162,39 +161,6 @@ int		get_rdc_type(char* str)
 	return (0);
 }
 
-int		check_rdc(char* str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		if (map[i] == '0' && !is_esc(str, i))
-		{
-			if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-				return (0);
-			if (str[i] == '>' && str[i - 1] != '>' && str[i + 1] != '>')
-			{
-				j = i + 1;
-				while (str[j] == ' ')
-					j++;
-				if (!is_name(str, j))
-					return (0);
-			}
-			if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>')
-			{
-				j = i + 2;
-				while (str[j] == ' ')
-					j++;
-				if (!is_name(str, j))
-					return (0);
-			}
-		}
-		i++;
-	}
-	return (1);
-}
 
 t_cont	init_cont(void)
 {
@@ -217,28 +183,15 @@ t_cont	get_redir(char* str)
 	cont = init_cont();
 	if (find_rdc(str))
 	{
-		if (!check_rdc(str))
-			ft_exit("syntax error near symbol '>'\n", 1);
 		cont.rdc_filetab = get_rdc_filetab(str);
 		cont.rdc_filename = get_last(cont.rdc_filetab);
 		cont.rdc_type = get_rdc_type(str);
 	}
 	if (find_rdo(str))
 	{
-		if (!check_rdo(str))
-			ft_exit("syntax error near symbol '<'\n", 1);
 		cont.rdo_filetab = get_rdo_filetab(str);
 		cont.rdo_filename = get_last(cont.rdo_filetab);
 		cont.rdo_type = 1;
 	}
-//	printf("rdc_type[%d]\n", cont.rdc_type);
-//	if (cont.rdc_filetab)
-//		printf("rdc_filetab[%s]\n", cont.rdc_filetab[0]);
-//	printf("rdc_filename[%s]\n", cont.rdc_filename);
-//
-//	printf("rdo_type[%d]\n", cont.rdo_type);
-//	if (cont.rdo_filetab)
-//		printf("rdo_filetab[%s]\n", cont.rdo_filetab[0]);
-//	printf("rdo_filename[%s]\n", cont.rdc_filename);
 	return (cont);
 }

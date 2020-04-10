@@ -104,17 +104,25 @@ char*			clear_echo_bad_env(char* str);
 -------------------------------------------------*/
 t_cont			get_redir(char* str);
 char**			get_rdo_filetab(char* str);
-int				check_rdo(char* str);
 int				find_rdo(char* str);
 int				is_name(char* str, int i);
 char*			get_name(char* str, int i, int ret);
+char*			clear_stock_rd(char* str);
 
-
+/*              #check
+-------------------------------------------------*/
+void			check(char* line);
+void			check_simple_quote(char* str);
+void			check_double_quote(char* str);
+void			check_bs(char* str);
+void			check_rdc(char* str);
+void			check_rdo(char* str);
 
 /*              #utils
 -------------------------------------------------*/
 void			prompt();
 int				ft_exit(char* msg, int status);
+int				ft_exit_rd(char* msg, char symbol);
 int				get_next_line(int fd, char **line);
 void			clear_before_print(void);
 int				ft_tablen(char **tab);

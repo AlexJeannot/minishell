@@ -35,32 +35,6 @@ int		count_rdo(char* str)
 	return (nb);
 }
 
-int		check_rdo(char* str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		if (map[i] == '0' && !is_esc(str, i))
-		{
-			if (str[i] == '<' && str[i + 1] == '<')
-				return (0);
-			if (str[i] == '<')
-			{
-				j = i + 1;
-				while (str[j] == ' ')
-					j++;
-				if (!is_name(str, j))
-					return (0);
-			}
-		}
-		i++;
-	}
-	return (1);
-}
-
 int		is_rdo(char* str, int i)
 {
 	if (!is_esc(str, i) && map[i] == '0')
