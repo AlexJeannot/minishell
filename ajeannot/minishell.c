@@ -175,7 +175,7 @@ Intra Profile Home/
             if (child_pid == 0)
             {
                 if (ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "env") == 0)
-                    ft_builtins(line);
+                    ft_builtins(lst, line);
                 else
                 {
                     if (ft_strcmp(cmd, "cd") == 0)

@@ -21,6 +21,7 @@ SRCS = 	annexes/display_string.c \
 		exec/exec_program.c \
 		managers/manage_array.c \
 		managers/manage_env.c \
+		managers/manage_redirection.c \
 		managers/manage_error.c \
 		managers/manage_string.c \
 		minishell.c \

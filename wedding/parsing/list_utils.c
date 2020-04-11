@@ -5,6 +5,7 @@ void		print_lst(void)
 	t_list *tmp;
 	int 	i;
 	int		j;
+	int 	k;
 
 	tmp = lst;
 	j = 0;
@@ -31,6 +32,7 @@ void		print_lst(void)
 			}
 		}
 		printf("\n");
+		//printf("rdo_filename:[%s]\n", tmp->rdo_filename);
 		printf("rdo_filename:[%s]\n", tmp->rdo_filename);
 		printf("rdo_type:[%d]\n", tmp->rdo_type);
 		if (tmp->rdc_filetab)
@@ -47,6 +49,23 @@ void		print_lst(void)
 		printf("rdc_filename:[%s]\n", tmp->rdc_filename);
 		printf("rdc_type:[%d]\n", tmp->rdc_type);
 		printf("(%d)\n", tmp->pipe);
+
+		k = 0;
+		printf("\n");
+		printf("rdc_index : ");
+		while (tmp->rdc_index[k] != -1)
+		{
+			printf("[%d] ", tmp->rdc_index[k]);
+			k++;
+		}
+		k = 0;
+		printf("\n");
+		printf("rdo_index : ");
+		while (tmp->rdo_index[k] != -1)
+		{
+			printf("[%d] ", tmp->rdo_index[k]);
+			k++;
+		}
 		tmp = tmp->next;
 	}
 }

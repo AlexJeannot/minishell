@@ -49,11 +49,9 @@ int     is_valid_value(char *str);
 int     find_special_car(char *str);
 void    ft_export(char **args);
 
-/* EXEC_BUILTINS */
-void ft_builtins(char *cmd, char **args);
 
 /* EXEC_PROGRAM */
-void ft_program(char *cmd, char **args);
+
 
 /* EXEC_UNSET */
 int is_unset(int *index_array, int index);
@@ -90,6 +88,8 @@ char	*ft_strcpy(char *dest, char *src);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
 void 	free_str(char *str);
 
+
+
 /* MINISHELL */
 pid_t   ft_create_child(void);
 void    ft_exit_2(char **free_split, int status);
@@ -114,6 +114,8 @@ typedef struct		s_cont
 	char*	rdc_filename;
 	char*	rdo_filename;
 	char**	arg;
+	int*	rdc_index; // Ajout index rdc
+	int*	rdo_index; // Ajout index rdo
 }					t_cont;
 
 typedef struct		s_value
@@ -145,6 +147,8 @@ typedef struct		s_list
 	char**			rdo_filetab;
 	char*			rdc_filename;
 	char*			rdo_filename;
+	int*			rdc_index; // Ajout index rdc
+	int*			rdo_index; // Ajout index rdo
 	struct s_list*	next;
 }					t_list;
 
@@ -224,5 +228,19 @@ void			defrag_arg(int len);
 /*              #main
 -------------------------------------------------*/
 int	parsing(char *line);
+
+/* MANAGE_REDIRECTION */
+void 	set_redirection(t_list *lst, int fd[2]);
+void    receive_redirection(t_list *lst, int fd[2]);
+int    check_rdo_exec(t_list *lst);
+
+void exec_instructions(t_list *lst);
+void ft_program(t_list *lst, char *cmd, char **args);
+
+/* EXEC_BUILTINS */
+void ft_builtins(t_list *lst, char *cmd, char **args);
+
+void display_int_array(int *input_array);
+int		count_rdo(char* str);
 
 #endif

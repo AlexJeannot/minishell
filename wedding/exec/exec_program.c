@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void ft_program(char *cmd, char **args)
+void ft_program(t_list *lst, char *cmd, char **args)
 {
     if (cmd[0] == '.' || cmd[0] == '/')
     {
@@ -20,5 +20,5 @@ void ft_program(char *cmd, char **args)
             display_error(cmd, NULL);
     }
     else
-        ft_builtins(cmd, args);
+        ft_builtins(lst, cmd, args);
 }

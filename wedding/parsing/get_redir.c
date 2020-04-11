@@ -137,6 +137,7 @@ char*	get_last(char** tab)
 {
 	int	i;
 
+
 	i = 0;
 	if (!tab)
 		return (NULL);
@@ -144,6 +145,7 @@ char*	get_last(char** tab)
 		i++;
 	return (tab[i - 1]);
 }
+
 
 int		get_rdc_type(char* str)
 {
@@ -175,11 +177,75 @@ t_cont	init_cont(void)
 	return (cont);
 }
 
+
+/* DEBUT AJOUT FONCTIONS INDEX RDC RDO -> ALEX */
+
+int *create_index_array(char *str, char *type)
+{
+	int count;
+	int *index_array;
+
+	count = 0;
+	if (ft_strcmp("rdc", type) == 0)
+		count = count_rdc(str);
+	else if (ft_strcmp("rdo", type) == 0)
+		count = count_rdo(str);
+	if (!(index_array = (int *)malloc(sizeof(int) * (count + 1))))
+		ft_exit("MALLOC ERROR", 1);
+	return (index_array);
+}
+
+void get_rd_index(char *str, int *rdc_index, int *rdo_index)
+{
+	int i;
+	int index;
+	int rdc_add;
+	int rdo_add;
+
+	i  = 0;
+	index = 0;
+	rdc_add = 0;
+	rdo_add = 0;
+	while (str[i])
+	{
+		/* IF RDC*/
+		if (str[i] == '>' && !is_esc(str, i) && map[i] == '0')
+		{
+			rdc_index[rdc_add] = index;
+			if (str[i + 1] && str[i + 1] == '>')
+				i++;
+			index++;
+			rdc_add++;
+		}
+
+		/* IF RDO*/
+		if (str[i] == '<' && !is_esc(str, i) && map[i] == '0')
+		{
+			rdo_index[rdo_add] = index;
+			index++;
+			rdo_add++;
+		}
+		i++;
+	}
+	rdc_index[rdc_add] = -1;
+	rdo_index[rdo_add] = -1;
+}
+
+/* FIN AJOUT FONCTIONS INDEX RDC RDO -> ALEX */
+
+
 t_cont	get_redir(char* str)
 {
+	int *rdc_index; // Ajout index des rdc
+	int *rdo_index;	// Ajout index des rdo
 	t_cont cont;
 
 	map = map_quote(str, 0);
+
+	rdc_index = create_index_array(str, "rdc"); // Creation de l'array de int pour les index rdc
+	rdo_index = create_index_array(str, "rdo"); // Create dion l'array de int pour les index rdo
+	get_rd_index(str, rdc_index, rdo_index); // Remplissage des index rdc et rdo
+
 	cont = init_cont();
 	if (find_rdc(str))
 	{
@@ -193,5 +259,7 @@ t_cont	get_redir(char* str)
 		cont.rdo_filename = get_last(cont.rdo_filetab);
 		cont.rdo_type = 1;
 	}
+	cont.rdc_index = rdc_index; // Ajout de l'index rdc dans la structure cont
+	cont.rdo_index = rdo_index; // Ajout de l'index rdo dans la structure cont
 	return (cont);
 }

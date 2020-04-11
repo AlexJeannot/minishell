@@ -179,7 +179,9 @@ void display_invalid_export(char *str, int type)
 
 int export_without_args(char **input_array)
 {
-    if (!(input_array[0]) || input_array[0][0] == '$' || input_array[0][0] == '#')
+    if (!(input_array[0]) || input_array[0][0] == '#')
+        return (1);
+    if (input_array[0][0] == '$' && input_array[0][1] == '@')
         return (1);
     return (0);
 }

@@ -44,7 +44,20 @@ char **select_env(char *exec)
         return(global_env);
 }
 
-void ft_builtins(char *exec, char **args)
+char **add_file(char **input_array, char *file)
+{
+    char **output_array;
+
+    if (!(output_array = (char**)malloc(sizeof(char *) * 3)))
+        display_error(NULL, NULL);
+    output_array[0] = ft_strdup(input_array[0]);
+    output_array[1] = ft_strdup(file);
+    output_array[2] = NULL;
+    return (output_array);
+
+}
+
+void ft_builtins(t_list *lst, char *exec, char **args)
 {
     int count;
     int ret_exec;
@@ -61,10 +74,10 @@ void ft_builtins(char *exec, char **args)
     exec_array = build_exec_array(exec, path_array);
     free_str_array(split_result);
     used_env = select_env(exec);
-
+    if ((array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
+        args = add_file(args, lst->rdo_filename);
     while (exec_array[count])
     {
-        printf("exec_array[count] = %s\n", exec_array[count]);
         ret_exec = execve(exec_array[count], args, used_env);
         count++;
     }

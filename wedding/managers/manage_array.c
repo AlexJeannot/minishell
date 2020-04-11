@@ -152,6 +152,19 @@ void display_array(char **input_array)
     }
 }
 
+void display_int_array(int *input_array)
+{
+    int count;
+
+    count = 0;
+    while (input_array[count] != -1)
+    {
+        ft_putnbr(input_array[count]);
+        write(1, "\n", 1);
+        count++;
+    }
+}
+
 char **extend_array(char **from_array, char **add_array, int from_len, int add_len)
 {
     int count_from;

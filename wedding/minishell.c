@@ -136,7 +136,7 @@ void signal_manager(int sig)
 void exec_instructions(t_list *lst)
 {
     if (ft_strcmp(lst->cmd, "pwd") == 0 || ft_strcmp(lst->cmd, "echo") == 0 || ft_strcmp(lst->cmd, "env") == 0)
-        ft_builtins(lst->cmd, lst->raw);
+        ft_builtins(lst, lst->cmd, lst->raw);
     else if (ft_strcmp(lst->cmd, "cd") == 0)
         ft_cd(lst->arg);
     else if (ft_strcmp(lst->cmd, "export") == 0)
@@ -144,7 +144,7 @@ void exec_instructions(t_list *lst)
     else if (ft_strcmp(lst->cmd, "unset") == 0)
         ft_unset(lst->arg);
     else if (ft_strcmp(lst->cmd, "exit") != 0)
-        ft_program(lst->cmd, lst->raw);
+        ft_program(lst, lst->cmd, lst->raw);
 }
 
 void set_pipe(t_list *lst, int fd[2])
@@ -238,13 +238,15 @@ int main(int argc, char **argv, char **env)
             {
                 get_dollar();
     			clear_before_print();
-                printf("===== LIST INFO =====\n");
+                printf("============ START LIST INFO ==========\n");
                 print_lst();
-                printf("=====================\n");
+                printf("\n============ END LIST INFO ============\n");
                 child_pid = ft_create_child();
                 if (child_pid == 0)
                 {
-                    if (lst->pipe == 1)
+                    if (lst->rdc_type != 0 || lst->rdo_type != 0)
+                        set_redirection(lst, fd);
+                    else if (lst->pipe == 1)
                         set_pipe(lst, fd);
                     else
                     {
@@ -258,7 +260,9 @@ int main(int argc, char **argv, char **env)
                     waitpid(child_pid, &ret_child, 0);
                     if (WIFEXITED(ret_child))
                         exit_status = WEXITSTATUS(ret_child);
-                    if (lst->pipe == 1)
+                    if (lst->rdc_type != 0)
+                        receive_redirection(lst, fd);
+                    else if (lst->pipe == 1)
                         receive_pipe(fd);
                     else if (exit_status == 0)
                     {

@@ -59,6 +59,8 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	elem->rdo_filetab = cont.rdo_filetab;
 	elem->rdc_filename = cont.rdc_filename;
 	elem->rdo_filename = cont.rdo_filename;
+	elem->rdc_index = cont.rdc_index;
+	elem->rdo_index = cont.rdo_index;
 	elem->pipe = pipe;
 	elem->next = NULL;
 	if (is_empty_lst())
@@ -81,7 +83,10 @@ static void list_pipe(char *stock_elem_piped)
 	pipe_sep = split_plus(stock_elem_piped, '|');
 	while (pipe_sep[i] && is_valid(pipe_sep[i]))
 	{
-		new_elem_lst(pipe_sep[i], 1);
+		if (pipe_sep[i + 1] != NULL)
+			new_elem_lst(pipe_sep[i], 1);
+		else
+			new_elem_lst(pipe_sep[i], 0);
 		i++;
 	}
 }
