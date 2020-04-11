@@ -52,10 +52,10 @@ char **clear_env(char **input_array, int *index_array)
 
 void display_invalid_unset(char *str)
 {
-    write(1, "Minishell: unset: ", 18);
-    write(1, "`", 1);
-    write(1, str, ft_strlen(str));
-    write(1, "': not a valid identifier\n", 26);
+    write(2, "Minishell: unset: ", 18);
+    write(2, "`", 1);
+    write(2, str, ft_strlen(str));
+    write(2, "': not a valid identifier\n", 26);
 }
 
 int *create_unset_index_array(char **input_array)

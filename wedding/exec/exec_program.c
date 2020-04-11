@@ -14,8 +14,11 @@
 
 void ft_program(char *cmd, char **args)
 {
-    if (cmd[0] == '.')
-        execve(cmd, args, global_env);
+    if (cmd[0] == '.' || cmd[0] == '/')
+    {
+        if (execve(cmd, args, global_env) == -1)
+            display_error(cmd, NULL);
+    }
     else
         ft_builtins(cmd, args);
 }

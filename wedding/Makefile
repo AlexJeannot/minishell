@@ -14,10 +14,6 @@ NAME = minishell
 
 SRCS = 	annexes/display_string.c \
 		annexes/ft_split.c \
-		annexes/clean_esc_quote.c \
-		annexes/split_plus.c \
-		annexes/split_plus_utils.c \
-		annexes/utils.c \
 		exec/exec_cd.c \
 		exec/exec_export.c \
 		exec/exec_builtins.c \
@@ -26,12 +22,27 @@ SRCS = 	annexes/display_string.c \
 		managers/manage_array.c \
 		managers/manage_env.c \
 		managers/manage_error.c \
-		managers/manage_list.c \
 		managers/manage_string.c \
-		managers/principal.c \
 		minishell.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
+		parsing/check.c \
+		parsing/get_cmd_dollar.c \
+		parsing/get_dollar_utils.c \
+		parsing/get_dollar_utils_2.c \
+		parsing/get_dollar.c \
+		parsing/get_rdo.c \
+		parsing/get_redir.c \
+		parsing/list_it.c \
+		parsing/list_utils.c \
+		parsing/main.c \
+		parsing/map_quote.c \
+		parsing/split_plus.c \
+		parsing/utils.c \
+		clear_it/clear_backslash.c \
+		clear_it/clear_before_print.c \
+		clear_it/clear_echo_bad_env.c \
+		clear_it/clear_stock_rd.c \
 
 OBJS = $(SRCS:.c=.o)
 OBJS_DIR = objs/

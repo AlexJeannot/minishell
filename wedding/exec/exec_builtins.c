@@ -61,8 +61,10 @@ void ft_builtins(char *exec, char **args)
     exec_array = build_exec_array(exec, path_array);
     free_str_array(split_result);
     used_env = select_env(exec);
+
     while (exec_array[count])
     {
+        printf("exec_array[count] = %s\n", exec_array[count]);
         ret_exec = execve(exec_array[count], args, used_env);
         count++;
     }

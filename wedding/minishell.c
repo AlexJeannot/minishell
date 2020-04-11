@@ -20,7 +20,7 @@ pid_t ft_create_child(void)
     return (pid);
 }
 
-void ft_exit(char **free_split, int status)
+void ft_exit_2(char **free_split, int status)
 {
     if (free_split)
         free_str_array(free_split);
@@ -210,15 +210,6 @@ void display_list(t_list *lst)
     }
 }
 
-void free_str(char *str)
-{
-    if (str)
-    {
-        free(str);
-        str = NULL;
-    }
-}
-
 int main(int argc, char **argv, char **env)
 {
     (void)argc;
@@ -245,8 +236,11 @@ int main(int argc, char **argv, char **env)
             parsing(line);
             while (lst)
             {
-				//ici get_dollar();
-				//ici clean_quote();
+                get_dollar();
+    			clear_before_print();
+                printf("===== LIST INFO =====\n");
+                print_lst();
+                printf("=====================\n");
                 child_pid = ft_create_child();
                 if (child_pid == 0)
                 {
@@ -272,14 +266,14 @@ int main(int argc, char **argv, char **env)
                             receive_env(fd);
                     }
                     if (ft_strcmp(lst->cmd, "exit") == 0)
-                        ft_exit(NULL, 0);
+                        ft_exit_2(NULL, 0);
                     filtered_env = filter_env(global_env, filtered_env);
                 }
                 lst = lst->next;
             }
         }
         else if (ret_gnl == 0)
-            ft_exit(NULL, 1);
+            ft_exit_2(NULL, 1);
 
         free(line);
     	clear_lst();

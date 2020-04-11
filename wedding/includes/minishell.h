@@ -19,6 +19,8 @@
 char **global_env;
 char **filtered_env;
 int errno;
+pid_t child_pid;
+char *piped_str;
 
 /* DISPLAY_STRING */
 void	ft_putchar_fd(char c, int fd);
@@ -86,61 +88,141 @@ char	*ft_strncat(char *dest, char *src, unsigned int nb);
 int     ft_strcmp(char *s1, char *s2);
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strncpy(char *dest, char *src, unsigned int n);
+void 	free_str(char *str);
 
 /* MINISHELL */
 pid_t   ft_create_child(void);
-void    ft_exit(char **free_split, int status);
+void    ft_exit_2(char **free_split, int status);
 
 
 /* Charles */
-# define BUFFER_SIZE 64
-
-
 typedef	enum
 {
 	false,
 	true
 }		bool;
 
-typedef struct	s_quatro
+typedef struct		s_cont
 {
-	char	**raw;
-	char	*cmd;
-	char	**arg;
 	int		pipe;
-}				t_quatro;
+	char*	cmd;
+	char**	raw;
+	int		rdc_type;
+	int		rdo_type;
+	char**	rdc_filetab;
+	char**	rdo_filetab;
+	char*	rdc_filename;
+	char*	rdo_filename;
+	char**	arg;
+}					t_cont;
 
-typedef struct	s_list
+typedef struct		s_value
 {
-	char			**raw;
-	char			*cmd;
-	char 			**arg;
+	char	*value;
+	char	*name;
+	int		i;
+	int		j;
+	int		y;
+}					t_value;
+
+typedef struct		s_dolls
+{
+	char	*value;
+	char 	*endline;
+	char 	*startline;
+	int		len;
+}					t_dolls;
+
+typedef struct		s_list
+{
+	char*			cmd;
+	char**			arg;
+	char**			raw;
 	int				pipe;
-	struct s_list 	*next;
-}				t_list;
+	int				rdc_type;
+	int				rdo_type;
+	char**			rdc_filetab;
+	char**			rdo_filetab;
+	char*			rdc_filename;
+	char*			rdo_filename;
+	struct s_list*	next;
+}					t_list;
 
-t_list 			*lst;
-pid_t			child_pid;
-char 			*piped_str;
+/*              #string
+-------------------------------------------------*/
+int				ft_strcmp(char *s1, char *s2);
+char*			ft_strjoin(char *s1, char *s2);
+char*			ft_substr(char *str, int start, int len);
+char**			split_plus(char *str, char charset);
 
-void 			free_str(char *str);
-int	            parsing(char *line);
-char			*ft_strjoin(char *s1, char *s2);
-char			*ft_substr(char *str, int start, int len);
-char			**split_plus(char *str, char charset);
-char			**clean_esc_quote(char **stk);
+t_list*			lst;
+char**			global_env;
+
+/*              #backslash
+-------------------------------------------------*/
+int				is_esc(char *str, int i);
+void			clear_backslash(void);
+
+/*              #quote
+-------------------------------------------------*/
+int				check_quote(char *str);
+char*			map_quote(char *str, int pos);
+
+/*              #chained_list
+-------------------------------------------------*/
 void			print_lst(void);
-void			prompt();
-int				check_quote(char *line);
-char			**clean_esc_quote(char **stk);
 t_list			*new_lst(void);
 bool			is_empty_lst();
-int				is_valid(char *stock);
 void			del_first(void);
 void			clear_lst();
 void			list_it(char **stock);
-int				is_escaped(char *str, int i);
-char			*map_double_quote(char *str);
-char			*map_simple_quote(char *str);
+int				is_valid(char *stock);
+
+/*              #dollar
+-------------------------------------------------*/
+void			get_dollar(void);
+void			get_cmd_dollar(void);
+int				is_path(char *str);
+int				ft_envcmp(char *s1, char *s2);
+int				is_env(char *str, int j);
+t_value			new_value(int i, int j);
+char*			get_env_name_2check(char *str, int j);
+char*			get_lil_path_value(t_value v);
+char*			get_env_value_2(int i, int j);
+char*			get_startline(int i, int j);
+char*			get_endline(int i, int j);
+char*			clear_echo_bad_env(char* str);
+
+/*              #redir
+-------------------------------------------------*/
+t_cont			get_redir(char* str);
+char**			get_rdo_filetab(char* str);
+int				find_rdo(char* str);
+int				is_name(char* str, int i);
+char*			get_name(char* str, int i, int ret);
+char*			clear_stock_rd(char* str);
+
+/*              #check
+-------------------------------------------------*/
+void			check(char* line);
+void			check_simple_quote(char* str);
+void			check_double_quote(char* str);
+void			check_bs(char* str);
+void			check_rdc(char* str);
+void			check_rdo(char* str);
+
+/*              #utils
+-------------------------------------------------*/
+void			prompt();
+int				ft_exit(char* msg, int status);
+int				ft_exit_rd(char* msg, char symbol);
+int				get_next_line(int fd, char **line);
+void			clear_before_print(void);
+int				ft_tablen(char **tab);
+void			defrag_arg(int len);
+
+/*              #main
+-------------------------------------------------*/
+int	parsing(char *line);
 
 #endif

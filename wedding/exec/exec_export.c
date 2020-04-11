@@ -33,16 +33,16 @@ int count_car_and_backlash(char *output_str, char *input_str)
 
 int add_double_backlash(char *final_str, int final_count)
 {
-    ft_strcat(output_str, "\\\\");
-    out_count += 2;
-    return (out_count);
+    ft_strcat(final_str, "\\\\");
+    final_count += 2;
+    return (final_count);
 }
 
 int copy_car(char *final_str, char car, int final_count)
 {
-    output_str[out_count] = car;
-    out_count++;
-    return (out_count);
+    final_str[final_count] = car;
+    final_count++;
+    return (final_count);
 }
 
 char *transform_backlash(char *output_str, char *input_str)
@@ -163,17 +163,17 @@ int is_valid_value(char *str)
 
 void display_invalid_export(char *str, int type)
 {
-    write(1, "Minishell: export: ", 19);
-    write(1, "`", 1);
+    write(2, "Minishell: export: ", 19);
+    write(2, "`", 1);
     if (!(type))
     {
-        write(1, str, ft_strlen(str));
-        write(1, "': not a valid identifier\n", 26);
+        write(2, str, ft_strlen(str));
+        write(2, "': not a valid identifier\n", 26);
     }
     if (type)
     {
-        write(1, str, ft_strlen(str));
-        write(1, "': not a valid value\n", 21);
+        write(2, str, ft_strlen(str));
+        write(2, "': not a valid value\n", 21);
     }
 }
 
