@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 static int		ft_cmp_string(char const *s, char c)
 {
@@ -84,7 +84,7 @@ char			**ft_split(char const *s, char c)
 	cmp_string = ft_cmp_string(s, c);
 	total_string = (char **)malloc(sizeof(char*) * (cmp_string + 1));
 	total_string = ft_sep_string(s, c, total_string);
-//	total_string[cmp_string] = (char*)malloc(sizeof(char));
-	total_string[cmp_string] = 0;
+	total_string[cmp_string] = (char*)malloc(sizeof(char));
+	total_string[cmp_string] = NULL;
 	return (total_string);
 }

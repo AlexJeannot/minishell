@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 void ft_builtins(char *args)
 {
@@ -38,7 +38,7 @@ void ft_builtins(char *args)
 
     count = 0;
 //    printf("\n\n=========== PRE BUILTINS =========== \n\n");
-//    display_array(global_env);
+//    display_str_array(global_env);
 //    printf("\n\n=========== PRE BUILTINS =========== \n\n");
     while (tab_path[count])
     {

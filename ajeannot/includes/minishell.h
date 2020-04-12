@@ -52,12 +52,12 @@ char    **cleared_env(char **from_array, char **output_array, int *tab_index);
 void    ft_unset(char *args);
 
 /* MANAGE_ARRAY */
-int     array_length(char **input_array);
+int     str_array_length(char **input_array);
 char    **duplicate_array(char **input_array, char **free_array, char sep);
 char    **sort_array(char **input_array);
 void    free_str_array(char **input_array);
 int     search_in_array(char **input_array, char* str, char sep);
-void    display_array(char **input_array);
+void    display_str_array(char **input_array);
 char    **extend_array(char **from_array, char **add_array, int from_len, int add_len);
 
 /* MANAGE_ENV */

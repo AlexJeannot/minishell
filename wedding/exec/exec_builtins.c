@@ -10,7 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
+
+int is_builtins(char *cmd)
+{
+    if ((ft_strcmp(cmd, "echo") == 0)
+        || (ft_strcmp(cmd, "pwd") == 0)
+        || (ft_strcmp(cmd, "env") == 0))
+        return (1);
+    return (0);
+}
 
 char **build_exec_array(char *exec, char **path_array)
 {
@@ -19,7 +28,7 @@ char **build_exec_array(char *exec, char **path_array)
     char **exec_array;
 
     count = 0;
-    if (!(exec_array = (char **)malloc(sizeof(char *) * (array_length(path_array) + 1))))
+    if (!(exec_array = (char **)malloc(sizeof(char *) * (str_array_length(path_array) + 1))))
         display_error(NULL, NULL);
     while (path_array[count])
     {
@@ -74,7 +83,7 @@ void ft_builtins(t_list *lst, char *exec, char **args)
     exec_array = build_exec_array(exec, path_array);
     free_str_array(split_result);
     used_env = select_env(exec);
-    if ((array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
+    if ((str_array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
         args = add_file(args, lst->rdo_filename);
     while (exec_array[count])
     {

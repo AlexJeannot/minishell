@@ -1,42 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   manage_array.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/05 17:26:14 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/09 19:38:36 by ajeannot         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../includes/minishell.h"
-
-int array_length(char **input_array)
-{
-    int count;
-
-    count = 0;
-    if (input_array)
-        while (input_array[count])
-            count++;
-    else
-        return (KO);
-    return (count);
-}
-
-int int_array_length(int *input_array)
-{
-    int count;
-
-    count = 0;
-    if (input_array)
-        while (input_array[count] != -1)
-            count++;
-    else
-        return (KO);
-    return (count);
-}
+#include "../includes/exec.h"
 
 char **duplicate_array(char **input_array, char **free_array, char sep)
 {
@@ -46,7 +8,7 @@ char **duplicate_array(char **input_array, char **free_array, char sep)
     char **split_result;
 
     count = 0;
-    array_len = array_length(input_array);
+    array_len = str_array_length(input_array);
     output_array = (char **)malloc(sizeof(char *) * (array_len + 1));
     while (input_array[count])
     {
@@ -93,24 +55,6 @@ char **sort_array(char **input_array)
     return (input_array);
 }
 
-void free_str_array(char **input_array)
-{
-    int count;
-
-    count = 0;
-    if (input_array)
-    {
-        while (input_array[count])
-        {
-            free(input_array[count]);
-            input_array[count] = NULL;
-            count++;
-        }
-        free(input_array);
-        input_array = NULL;
-    }
-}
-
 int search_in_array(char **input_array, char* str, char sep)
 {
     int count;
@@ -137,32 +81,6 @@ int search_in_array(char **input_array, char* str, char sep)
         count++;
     }
     return (KO);
-}
-
-void display_array(char **input_array)
-{
-    int count;
-
-    count = 0;
-    while (input_array[count])
-    {
-        ft_putstr_fd(input_array[count], 1);
-        write(1, "\n", 1);
-        count++;
-    }
-}
-
-void display_int_array(int *input_array)
-{
-    int count;
-
-    count = 0;
-    while (input_array[count] != -1)
-    {
-        ft_putnbr(input_array[count]);
-        write(1, "\n", 1);
-        count++;
-    }
 }
 
 char **extend_array(char **from_array, char **add_array, int from_len, int add_len)
@@ -213,7 +131,7 @@ char **filter_env(char **input_array, char** free_array)
 
     from_count = 0;
     add_count = 0;
-    if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) + 1))))
+    if (!(output_array = (char **)malloc(sizeof(char *) * (str_array_length(input_array) + 1))))
         printf("MALLOC ERROR\n");
     while (input_array[from_count])
     {

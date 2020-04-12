@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *str, int fd)
 {
-	int	cmp;
+	int	count;
 
-	cmp = 0;
-	while (s[cmp])
+	count = 0;
+	while (str[count])
 	{
-		ft_putchar_fd(s[cmp], fd);
-		cmp++;
+		ft_putchar_fd(str[count], fd);
+		count++;
 	}
 }
 

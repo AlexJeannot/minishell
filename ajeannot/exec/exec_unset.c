@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 int is_deleted(int *tab_index, int index)
 {
@@ -58,7 +58,7 @@ void ft_unset(char *args)
     tab_args = ft_split(args, ' ');
     if (tab_args[0])
     {
-        tab_index = malloc(sizeof(int) * array_length(tab_args));
+        tab_index = malloc(sizeof(int) * str_array_length(tab_args));
         count_tab = 0;
         count_add = 0;
         while (tab_args[count_tab])
@@ -71,7 +71,7 @@ void ft_unset(char *args)
             count_tab++;
         }
         tab_index[count_add] = -1;
-        new_env = malloc(sizeof(char *) * (array_length(global_env) - count_add + 1));
+        new_env = malloc(sizeof(char *) * (str_array_length(global_env) - count_add + 1));
         new_env = cleared_env(global_env, new_env, tab_index);
         free_str_array(global_env);
         free(tab_index);

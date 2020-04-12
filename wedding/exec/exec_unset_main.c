@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 int is_unset(int *index_array, int index)
 {
@@ -34,7 +34,7 @@ char **clear_env(char **input_array, int *index_array)
 
     add_count = 0;
     array_count = 0;
-    if (!(output_array = (char **)malloc(sizeof(char *) * (array_length(input_array) - int_array_length(index_array) + 1))))
+    if (!(output_array = (char **)malloc(sizeof(char *) * (str_array_length(input_array) - int_array_length(index_array) + 1))))
         display_error(NULL, NULL);
     while (input_array[array_count])
     {
@@ -50,14 +50,6 @@ char **clear_env(char **input_array, int *index_array)
     return (output_array);
 }
 
-void display_invalid_unset(char *str)
-{
-    write(2, "Minishell: unset: ", 18);
-    write(2, "`", 1);
-    write(2, str, ft_strlen(str));
-    write(2, "': not a valid identifier\n", 26);
-}
-
 int *create_unset_index_array(char **input_array)
 {
     int index;
@@ -65,15 +57,13 @@ int *create_unset_index_array(char **input_array)
     int array_count;
     int *index_array;
 
-    if (!(index_array = (int *)malloc(sizeof(int) * (array_length(input_array) + 1))))
+    if (!(index_array = (int *)malloc(sizeof(int) * (str_array_length(input_array) + 1))))
         display_error(NULL, NULL);
     add_count = 0;
     array_count = 0;
     while (input_array[array_count])
     {
-        if (is_valid_var(input_array[array_count]) == -1)
-            display_invalid_unset(input_array[array_count]);
-        else if ((index = search_in_array(global_env, input_array[array_count], '=')) >= 0)
+        if ((index = search_in_array(global_env, input_array[array_count], '=')) >= 0)
         {
             index_array[add_count] = index;
             add_count++;
@@ -84,14 +74,18 @@ int *create_unset_index_array(char **input_array)
     return (index_array);
 }
 
-void ft_unset(char **args)
+int ft_unset(char **args)
 {
+    int status;
     int *index_array;
 
+    status = 0;
     if (args[0])
     {
+        status = verify_unset_var(args);
         index_array = create_unset_index_array(args);
         global_env = clear_env(global_env, index_array);
         free(index_array);
     }
+    return(status);
 }

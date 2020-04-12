@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
 char*		get_env_value_2(int i, int j)
 {

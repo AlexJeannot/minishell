@@ -98,7 +98,7 @@ void display_prompt(void)
 
     split_result_1 = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
     split_result_2 = ft_split(split_result_1[1], '/');
-    dir = split_result_2[array_length(split_result_2) - 1];
+    dir = split_result_2[str_array_length(split_result_2) - 1];
     write(1, dir, ft_strlen(dir));
     free_str_array(split_result_1);
     free_str_array(split_result_2);

@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
 static t_value		new_cmd_value(int i)
 {

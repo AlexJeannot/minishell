@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
 void		print_lst(void)
 {

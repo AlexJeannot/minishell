@@ -14,17 +14,29 @@ NAME = minishell
 
 SRCS = 	annexes/display_string.c \
 		annexes/ft_split.c \
-		exec/exec_cd.c \
-		exec/exec_export.c \
 		exec/exec_builtins.c \
-		exec/exec_unset.c \
+		exec/exec_cd_main.c \
+		exec/exec_cd_path.c \
+		exec/exec_export_backslash.c \
+		exec/exec_export_display.c \
+		exec/exec_export_error.c \
+		exec/exec_export_main.c \
 		exec/exec_program.c \
+		exec/exec_unset_error.c \
+		exec/exec_unset_main.c \
 		managers/manage_array.c \
 		managers/manage_env.c \
-		managers/manage_redirection.c \
 		managers/manage_error.c \
-		managers/manage_string.c \
-		minishell.c \
+		managers/manage_exit_status.c \
+		managers/manage_int_array.c \
+		managers/manage_int.c \
+		managers/manage_pipe.c \
+		managers/manage_redirection.c \
+		managers/manage_str_array.c \
+		managers/manage_str_dup.c \
+		managers/manage_str.c \
+		./minishell_utils.c \
+		./minishell.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
 		parsing/check.c \

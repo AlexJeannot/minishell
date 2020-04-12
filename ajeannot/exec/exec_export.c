@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
 char **sort_env(void)
 {
@@ -107,14 +107,14 @@ void ft_export(char *args)
 
     add_args = NULL;
     tab_args = ft_split(args, ' ');
-    args_len = array_length(tab_args);
+    args_len = str_array_length(tab_args);
     if (tab_args[1] && tab_args[1][0] == '$' && is_init_var(&tab_args[1][1]))
         printf("EXPORT PATH ERROR\n");
     else if (!(tab_args[1]) || tab_args[1][0] == '$' || tab_args[1][0] == '#')
     {
         count = 0;
         sorted_env = sort_env();
-        display_array(sorted_env);
+        display_str_array(sorted_env);
         free_str_array(sorted_env);
     }
     else
@@ -155,7 +155,7 @@ void ft_export(char *args)
             count++;
         }
         add_args[count - 1] = NULL;
-        global_env = extend_array(global_env, add_args, array_length(global_env), array_length(add_args));
+        global_env = extend_array(global_env, add_args, str_array_length(global_env), str_array_length(add_args));
     }
     free_str_array(tab_args);
     if (add_args)

@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
 static t_dolls		dolls_value(int i, int j)
 {

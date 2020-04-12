@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/exec.h"
 
-int array_length(char **input_array)
+int str_array_length(char **input_array)
 {
     int count;
 
@@ -33,7 +33,7 @@ char **duplicate_array(char **input_array, char **free_array, char sep)
     char **split_result;
 
     count = 0;
-    array_len = array_length(input_array);
+    array_len = str_array_length(input_array);
     output_array = (char **)malloc(sizeof(char *) * (array_len + 1));
     while (input_array[count])
     {
@@ -123,7 +123,7 @@ int search_in_array(char **input_array, char* str, char sep)
     return (KO);
 }
 
-void display_array(char **input_array)
+void display_str_array(char **input_array)
 {
     int count;
 
@@ -173,7 +173,7 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
     }
     output_array[count_from + count_add] = NULL;
 //    printf("\n\n============= EXTEND =============\n\n");
-//    display_array(output_array);
+//    display_str_array(output_array);
 //    printf("\n\n============= EXTEND =============\n\n");
     free_str_array(from_array);
 //    printf("FIN FCT EXTEND\n");

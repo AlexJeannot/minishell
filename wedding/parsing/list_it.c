@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
 static int	is_pipe(char *stock)
 {

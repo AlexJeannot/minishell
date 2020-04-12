@@ -1,4 +1,4 @@
-#include "../includes/minishell.h"
+#include "../includes/parsing.h"
 
 char*	get_env_name_2check(char *str, int j)
 {
