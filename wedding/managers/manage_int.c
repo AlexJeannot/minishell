@@ -27,11 +27,13 @@ char	*ft_itoa(int nb)
 	if (nb == 0)
 		output_str[0] = 48;
     else
+	{
         while (nb > 0)
         {
             length--;
             output_str[length] = 48 + (nb % 10);
             nb = nb / 10;
         }
+	}
 	return (output_str);
 }

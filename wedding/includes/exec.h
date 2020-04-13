@@ -64,10 +64,13 @@ int	ft_unset(char **args);
 char	**duplicate_array(char **input_array, char **free_array, char sep);
 char	**sort_array(char **input_array);
 int		search_in_array(char **input_array, char* str, char sep);
-char	**extend_array(char **from_array, char **add_array, int from_len, int add_len);
 char	**filter_env(char **input_array, char** free_array);
 
+/* MANAGE_ARRAY_EXTEND.C */
+char	**extend_array(char **from_array, char **add_array, int from_len, int add_len);
+
 /* MANAGE_ENV.C */
+char    *read_from_fd(int fd[2]);
 char	*get_env_value(char *var);
 int     env_need_update(char *cmd);
 void    send_env(int *fd);
@@ -91,7 +94,7 @@ int     set_pipe(t_list *lst, int fd[2]);
 int     receive_pipe(int fd[2]);
 
 /* MANAGE_REDIRECTION.C */
-int 	set_redirection(t_list *lst, int fd[2]);
+void    set_rdo(t_list *lst);
 void    receive_redirection(t_list *lst, int fd[2]);
 
 /* MANAGE_STR_ARRAY.C */
@@ -115,9 +118,9 @@ void	free_str(char *str);
 /* MINISHELL_UTILS.C */
 void    display_prompt(void);
 int     exec_instructions(t_list *lst);
-void    exec_child(t_list *lst, int exit_status, int fd[2]);
-int     exec_father(t_list *lst, int exit_status, int fd[2]);
-int     exec_command_line(int exit_status, int fd[2], char *line);
+void    exec_child(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2]);
+int     exec_father(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2]);
+int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
 void    ft_exit_2(char **free_split, int status);
 
 /* MINISHELL.C */

@@ -43,8 +43,8 @@ void setup_shell(char **env)
 
 void setup_command(void)
 {
-    get_dollar();
     clear_before_print();
+    get_dollar();
     child_pid = fork();
 }
 
@@ -52,7 +52,7 @@ void setup_end_command_line(char *line)
 {
     free_str(line);
     clear_lst();
-    free_str(piped_str);
+    //free_str(piped_str);
     child_pid = -1;
 }
 
@@ -62,18 +62,20 @@ int main(int argc, char **argv, char **env)
     (void)argv;
     char *line;
     int ret_gnl;
-    int fd[2];
+    int process_fd[2];
+    int redirection_fd[2];
     int exit_status;
 
     setup_shell(env);
     while (1)
     {
         display_prompt();
-        pipe(fd);
+        pipe(process_fd);
+        pipe(redirection_fd);
         ret_gnl = get_next_line(0, &line);
         exit_status = 0;
         if (line && line[0])
-            exit_status = exec_command_line(exit_status, fd, line);
+            exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
         else if (ret_gnl == 0)
             ft_exit_2(NULL, 0);
         setup_end_command_line(line);

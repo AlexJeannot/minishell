@@ -21,6 +21,5 @@ void display_error(char *exec, char *error_str)
         write(1, sys_error, ft_strlen(sys_error));
     }
     write(1, "\n", 1);
-    printf("\nPOST EXIT 1\n");
     exit(1);
 }

@@ -8,6 +8,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <signal.h>
+#include <sys/wait.h>
 # include <sys/stat.h>
 # include <time.h>
 # include "../gnl/get_next_line.h"

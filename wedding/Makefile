@@ -25,6 +25,7 @@ SRCS = 	annexes/display_string.c \
 		exec/exec_unset_error.c \
 		exec/exec_unset_main.c \
 		managers/manage_array.c \
+		managers/manage_array_extend.c \
 		managers/manage_env.c \
 		managers/manage_error.c \
 		managers/manage_exit_status.c \

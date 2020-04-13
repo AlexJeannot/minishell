@@ -37,22 +37,22 @@ int exec_instructions(t_list *lst)
     return (status);
 }
 
-void exec_child(t_list *lst, int exit_status, int fd[2])
+void exec_child(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2])
 {
     replace_exit_status(lst, exit_status);
-    if (lst->rdc_type != 0 || lst->rdo_type != 0)
-        exit_status = set_redirection(lst, fd);
+    if (lst->rdo_type != 0 || lst->rdc_type != 0)
+        set_rdo(lst);
+    if (lst->rdc_type != 0)
+        dup2(redirection_fd[1], STDOUT_FILENO);
     else if (lst->pipe == 1)
-        exit_status = set_pipe(lst, fd);
-    else
-    {
-        exit_status = exec_instructions(lst);
-        send_env(fd);
-    }
+        dup2(process_fd[1], STDOUT_FILENO);
+    exit_status = exec_instructions(lst);
+    if (lst->pipe == 0)
+        send_env(process_fd);
     exit(exit_status);
 }
 
-int exec_father(t_list *lst, int exit_status, int fd[2])
+int exec_father(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2])
 {
     int ret_child;
 
@@ -60,30 +60,27 @@ int exec_father(t_list *lst, int exit_status, int fd[2])
     if (WIFEXITED(ret_child))
         exit_status = WEXITSTATUS(ret_child);
     if (lst->rdc_type != 0)
-        receive_redirection(lst, fd);
-    else if (lst->pipe == 1)
-        exit_status = receive_pipe(fd);
-    else if (exit_status == 0)
-    {
-        if (env_need_update(lst->cmd))
-            receive_env(fd);
-    }
+        receive_redirection(lst, redirection_fd);
+    if (lst->pipe == 1)
+        exit_status = receive_pipe(process_fd);
+    if (env_need_update(lst->cmd))
+        receive_env(process_fd);
     if (ft_strcmp(lst->cmd, "exit") == 0)
         ft_exit_2(NULL, 0);
     filtered_env = filter_env(global_env, filtered_env);
     return (exit_status);
 }
 
-int exec_command_line(int exit_status, int fd[2], char *line)
+int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line)
 {
     parsing(line);
     while (lst)
     {
         setup_command();
         if (child_pid == 0)
-            exec_child(lst, exit_status, fd);
+            exec_child(lst, exit_status, process_fd, redirection_fd);
         else
-            exit_status = exec_father(lst, exit_status, fd);
+            exit_status = exec_father(lst, exit_status, process_fd, redirection_fd);
         lst = lst->next;
     }
     return (exit_status);

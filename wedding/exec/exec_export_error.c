@@ -60,6 +60,7 @@ int verify_exported_var(char **input_array)
     char    **split_result;
 
     array_count = 0;
+    status = 0;
     while (input_array[array_count])
     {
         split_result = ft_split(input_array[array_count], '=');

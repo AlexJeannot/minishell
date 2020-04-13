@@ -12,7 +12,7 @@ char **duplicate_array(char **input_array, char **free_array, char sep)
     output_array = (char **)malloc(sizeof(char *) * (array_len + 1));
     while (input_array[count])
     {
-        if (sep)
+        if (sep != '\0')
         {
             split_result = ft_split(input_array[count], sep);
             output_array[count] = ft_strdup(split_result[0]);
@@ -63,7 +63,7 @@ int search_in_array(char **input_array, char* str, char sep)
     count = 0;
     while (input_array[count])
     {
-        if (sep)
+        if (sep != '\0')
         {
             split_result = ft_split(input_array[count], sep);
             if ((ft_strcmp(str, split_result[0])) == 0)
@@ -81,46 +81,6 @@ int search_in_array(char **input_array, char* str, char sep)
         count++;
     }
     return (KO);
-}
-
-char **extend_array(char **from_array, char **add_array, int from_len, int add_len)
-{
-    int count_from;
-    int count_add;
-    int index_from;
-    int index_add;
-    char **output_array;
-    char **split_result;
-
-    count_from = 0;
-    count_add = 0;
-    output_array = (char **)malloc(sizeof(char *) * (from_len + add_len + 1));
-    while (from_array[count_from])
-    {
-        output_array[count_from] = ft_strdup(from_array[count_from]);
-        count_from++;
-    }
-    output_array[count_from] = NULL;
-    index_add = count_from;
-    while (add_array[count_add])
-    {
-        split_result = ft_split(add_array[count_add], '=');
-        if ((index_from = search_in_array(output_array, split_result[0], '=')) >= 0)
-        {
-            free(output_array[index_from]);
-            output_array[index_from] = ft_strdup(add_array[count_add]);
-        }
-        else
-        {
-            output_array[index_add] = ft_strdup(add_array[count_add]);
-            index_add++;
-        }
-        free(split_result);
-        count_add++;
-        output_array[count_from + count_add] = NULL;
-    };
-    free_str_array(from_array);
-    return (output_array);
 }
 
 char **filter_env(char **input_array, char** free_array)
