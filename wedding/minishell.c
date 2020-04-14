@@ -17,7 +17,7 @@ void signal_manager(int sig)
     if (sig == SIGINT)
     {
         write(1, "\n", 1);
-        display_prompt();
+        //display_prompt();
     }
     if (sig == SIGQUIT)
     {
@@ -69,7 +69,7 @@ int main(int argc, char **argv, char **env)
     setup_shell(env);
     while (1)
     {
-     	display_prompt();
+     	//display_prompt();
         pipe(process_fd);
         pipe(redirection_fd);
         ret_gnl = get_next_line(0, &line);
