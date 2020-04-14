@@ -18,6 +18,8 @@ int export_without_args(char **input_array)
         return (1);
     if (input_array[0][0] == '$' && input_array[0][1] == '@')
         return (1);
+    if (input_array[0][0] == '$' && is_valid_var(&input_array[0][1]) == 1)
+        return (1);
     return (0);
 }
 

@@ -24,7 +24,7 @@ char *create_str_with_exit(char *input_str, int index, int status)
     return(output_str);
 }
 
-void replace_exit_status(t_list *lst, int status)
+void replace_exit_status(int status)
 {
     int array_count;
     int str_count;

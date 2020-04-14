@@ -27,7 +27,7 @@ char	**ft_split(char const *s, char c);
 
 /* EXEC_BUILTINS.C */
 int     is_builtins(char *cmd);
-void	ft_builtins(t_list *lst, char *exec, char **args);
+void	ft_builtins(char *exec, char **args);
 
 /* EXEC_CD_MAIN.C */
 void	ft_cd(char **args);
@@ -49,7 +49,7 @@ int		verify_exported_var(char **input_array);
 int 	ft_export(char **args);
 
 /* EXEC_PROGRAM.C */
-void	ft_program(t_list *lst, char *cmd, char **args);
+void	ft_program(char *cmd, char **args);
 
 /* EXEC_UNSET_ERROR.C */
 int		verify_unset_var(char **input_array);
@@ -80,7 +80,7 @@ void    receive_env(int *fd);
 void	display_error(char *exec, char *error_str);
 
 /* MANAGE_EXIT_STATUS.C */
-void	replace_exit_status(t_list *lst, int status);
+void	replace_exit_status(int status);
 
 /* MANAGE_INT_ARRAY.C */
 int		int_array_length(int *input_array);
@@ -90,12 +90,12 @@ void	display_int_array(int *input_array);
 char	*ft_itoa(int nb);
 
 /* MANAGE_PIPE.C */
-int     set_pipe(t_list *lst, int fd[2]);
+int     set_pipe(int fd[2]);
 int     receive_pipe(int fd[2]);
 
 /* MANAGE_REDIRECTION.C */
-void    set_rdo(t_list *lst);
-void    receive_redirection(t_list *lst, int fd[2]);
+void    set_rdo(void);
+void    receive_redirection(int fd[2]);
 
 /* MANAGE_STR_ARRAY.C */
 int str_array_length(char **input_array);
@@ -117,9 +117,9 @@ void	free_str(char *str);
 
 /* MINISHELL_UTILS.C */
 void    display_prompt(void);
-int     exec_instructions(t_list *lst);
-void    exec_child(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2]);
-int     exec_father(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2]);
+int     exec_instructions(void);
+void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2]);
+int     exec_father(int exit_status, int process_fd[2], int redirection_fd[2]);
 int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
 
 /* MINISHELL.C */

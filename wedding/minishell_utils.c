@@ -19,13 +19,13 @@ void display_prompt(void)
     free_str_array(split_result_2);
 }
 
-int exec_instructions(t_list *lst)
+int exec_instructions(void)
 {
     int status;
 
     status = 0;
     if (ft_strcmp(lst->cmd, "pwd") == 0 || ft_strcmp(lst->cmd, "echo") == 0 || ft_strcmp(lst->cmd, "env") == 0)
-        ft_builtins(lst, lst->cmd, lst->raw);
+        ft_builtins(lst->cmd, lst->raw);
     else if (ft_strcmp(lst->cmd, "cd") == 0)
         ft_cd(lst->arg);
     else if (ft_strcmp(lst->cmd, "export") == 0)
@@ -33,26 +33,26 @@ int exec_instructions(t_list *lst)
     else if (ft_strcmp(lst->cmd, "unset") == 0)
         status = ft_unset(lst->arg);
     else if (ft_strcmp(lst->cmd, "exit") != 0)
-        ft_program(lst, lst->cmd, lst->raw);
+        ft_program(lst->cmd, lst->raw);
     return (status);
 }
 
-void exec_child(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2])
+void exec_child(int exit_status, int process_fd[2], int redirection_fd[2])
 {
-    replace_exit_status(lst, exit_status);
+    replace_exit_status(exit_status);
     if (lst->rdo_type != 0 || lst->rdc_type != 0)
-        set_rdo(lst);
+        set_rdo();
     if (lst->rdc_type != 0)
         dup2(redirection_fd[1], STDOUT_FILENO);
     else if (lst->pipe == 1)
         dup2(process_fd[1], STDOUT_FILENO);
-    exit_status = exec_instructions(lst);
+    exit_status = exec_instructions();
     if (lst->pipe == 0)
         send_env(process_fd);
     exit(exit_status);
 }
 
-int exec_father(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2])
+int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
 {
     int ret_child;
 
@@ -60,7 +60,7 @@ int exec_father(t_list *lst, int exit_status, int process_fd[2], int redirection
     if (WIFEXITED(ret_child))
         exit_status = WEXITSTATUS(ret_child);
     if (lst->rdc_type != 0)
-        receive_redirection(lst, redirection_fd);
+        receive_redirection(redirection_fd);
     if (lst->pipe == 1)
         exit_status = receive_pipe(process_fd);
     if (env_need_update(lst->cmd))
@@ -79,9 +79,9 @@ int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2],
 		//print_lst();
         setup_command();
         if (child_pid == 0)
-            exec_child(lst, exit_status, process_fd, redirection_fd);
+            exec_child(exit_status, process_fd, redirection_fd);
         else
-            exit_status = exec_father(lst, exit_status, process_fd, redirection_fd);
+            exit_status = exec_father(exit_status, process_fd, redirection_fd);
         lst = lst->next;
     }
     return (exit_status);

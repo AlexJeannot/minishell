@@ -1,6 +1,6 @@
 #include "../includes/exec.h"
 
-int    check_rdo_exec(t_list *lst)
+int    check_rdo_exec(void)
 {
     int count;
     int file_fd;
@@ -18,14 +18,14 @@ int    check_rdo_exec(t_list *lst)
     return (-1);
 }
 
-void set_rdo(t_list *lst)
+void set_rdo(void)
 {
     int count;
     int fd_file;
     int ret_check;
 
     count = 0;
-    if ((ret_check = check_rdo_exec(lst)) != -1)
+    if ((ret_check = check_rdo_exec()) != -1)
     {
         if (lst->rdc_filetab)
             while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
@@ -44,7 +44,7 @@ void set_rdo(t_list *lst)
         }
 }
 
-void write_in_file(t_list *lst, int redirection_fd[2])
+void write_in_file(int redirection_fd[2])
 {
     int file_fd;
     char    *file_str;
@@ -61,7 +61,7 @@ void write_in_file(t_list *lst, int redirection_fd[2])
     } 
 }
 
-void    receive_redirection(t_list *lst, int redirection_fd[2])
+void    receive_redirection(int redirection_fd[2])
 {
     int     ret_check;
     int     error_index;
@@ -69,11 +69,11 @@ void    receive_redirection(t_list *lst, int redirection_fd[2])
 
     error_index = 0;
     file_index = 0;
-    if ((ret_check = check_rdo_exec(lst)) != -1)
+    if ((ret_check = check_rdo_exec()) != -1)
     {
         error_index = lst->rdo_index[ret_check];
         file_index = lst->rdc_index[int_array_length(lst->rdc_index) - 1];
     }
     if (file_index <= error_index || ret_check == -1)
-        write_in_file(lst, redirection_fd);
+        write_in_file(redirection_fd);
 }

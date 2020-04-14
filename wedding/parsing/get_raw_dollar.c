@@ -67,12 +67,12 @@ static t_value		raw_new_value(int i, int j)
 char*		get_env_value_3(int i, int j)
 {
 	t_value v;
-
 	v = raw_new_value(i, j);
 	v.y = 0;
 	while (global_env[v.i][v.j])
 		v.value[v.y++] = global_env[v.i][v.j++];
-	v.value[v.j] = '\0';
+	//v.value[v.j] = '\0';
+	v.value[v.y] = '\0';
 	return (v.value);
 }
 

@@ -66,22 +66,30 @@ char **add_file(char **input_array, char *file)
 
 }
 
-void ft_builtins(t_list *lst, char *exec, char **args)
+char **setup_builtins(char *exec)
 {
-    int count;
-    int ret_exec;
     int index_path;
+    char **split_result;
     char **path_array;
     char **exec_array;
-    char **used_env;
-    char **split_result;
-
-    count = 0;
+    
     index_path = search_in_array(global_env, "PATH", '=');
     split_result = ft_split(global_env[index_path], '=');
     path_array = ft_split(split_result[1], ':');
     exec_array = build_exec_array(exec, path_array);
     free_str_array(split_result);
+    return (exec_array);
+}
+
+void ft_builtins(char *exec, char **args)
+{
+    int count;
+    int ret_exec;
+    char **exec_array;
+    char **used_env;
+
+    count = 0;
+    exec_array = setup_builtins(exec);
     used_env = select_env(exec);
     if ((str_array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
         args = add_file(args, lst->rdo_filename);
