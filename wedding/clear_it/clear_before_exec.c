@@ -79,7 +79,7 @@ void	clear_before_exec(void)
 		lst->arg[i] = clear_quote(lst->arg[i]);
 		i++;
 	}
-
+	i = 0;
 	while (lst->raw[i])
 	{
 		lst->raw[i] = clear_echo_bad_env(lst->raw[i]);

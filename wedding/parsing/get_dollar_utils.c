@@ -13,7 +13,6 @@ char*	get_env_name_2check(char *str, int j)
 		j++;
 	if (!(tmp = malloc(j - len + 1)))
 		ft_exit("malloc failed", 1);
-
 	while (len < j && ((str[len] >= '0' && str[len] <= '9') ||
 	(str[len] >= 'a' && str[len] <= 'z') || (str[len] >= 'A' &&
 	str[len] <= 'Z')))

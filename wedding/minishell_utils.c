@@ -40,7 +40,6 @@ int exec_instructions(t_list *lst)
 void exec_child(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2])
 {
     replace_exit_status(lst, exit_status);
-	clear_raw();
     if (lst->rdo_type != 0 || lst->rdc_type != 0)
         set_rdo(lst);
     if (lst->rdc_type != 0)

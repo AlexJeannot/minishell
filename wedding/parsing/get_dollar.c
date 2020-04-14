@@ -18,7 +18,6 @@ static char*		r_dollar(int i, int j)
 	char	*res;
 
 	dls = dolls_value(i, j);
-//	printf("dls.len[%d]", dls.len);
 	if (!(res = malloc(dls.len + 1)))
 		ft_exit("malloc failed", 1);
 	i = 0;
@@ -34,7 +33,6 @@ static char*		r_dollar(int i, int j)
 	while (dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
-//	printf("[%s][%d][%d]\n", res, ft_strlen(res), i);
 	return (res);
 }
 
@@ -52,13 +50,6 @@ static int	quote_stop(int i, int j)
 	return (0);
 }
 
-static int	export_case(int i, int j)
-{
-	if (!ft_strcmp(lst->cmd, "export") && is_env(lst->arg[i], j))
-		return (1);
-	return (0);
-}
-
 void	get_dollar(void)
 {
 	int	i;
@@ -66,13 +57,14 @@ void	get_dollar(void)
 
 	i = 0;
 	get_cmd_dollar();
+	get_raw_dollar();
 	while (lst->arg[i])
 	{
 		j = 0;
 		while (lst->arg[i][j])
 		{
 			if (lst->arg[i][j] == '$' && !quote_stop(i, j)
-				&& !export_case(i, j) && !is_esc(lst->arg[i], j))
+				&& !is_esc(lst->arg[i], j))
 			{
 				if (is_env(lst->arg[i], j))
 					lst->arg[i] = r_dollar(i, j);

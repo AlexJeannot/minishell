@@ -23,7 +23,6 @@ static t_cont get_content_lst(char *stock, int pipe)
 
 	cont = get_redir(stock);
 	stock =	clear_stock_rd(stock);
-	printf("[%s]\n", stock);
 	content = split_plus(stock, ' ');
 	cont.raw = content;
 	cont.cmd = content[0];

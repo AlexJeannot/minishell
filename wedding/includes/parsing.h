@@ -30,7 +30,7 @@ int				is_valid(char *stock);
 
 /*              #dollar
 -------------------------------------------------*/
-//void			get_dollar(void);
+void			get_raw_dollar(void);
 void			get_cmd_dollar(void);
 int				is_path(char *str);
 int				ft_envcmp(char *s1, char *s2);
