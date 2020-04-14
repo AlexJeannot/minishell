@@ -93,7 +93,6 @@ void ft_exit_2(char **free_split, int status)
     clear_lst();
     free_str_array(filtered_env);
     free_str_array(global_env);
-
     system("leaks minishell");
     exit(status);
 }

@@ -65,8 +65,6 @@ void			check_rdo(char* str);
 /*              #utils
 -------------------------------------------------*/
 void			prompt();
-int				ft_exit(char* msg, int status);
-int				ft_exit_rd(char* msg, char symbol);
 int				get_next_line(int fd, char **line);
 //void			clear_before_print(void);
 int				ft_tablen(char **tab);

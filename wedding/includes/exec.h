@@ -121,7 +121,6 @@ int     exec_instructions(t_list *lst);
 void    exec_child(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2]);
 int     exec_father(t_list *lst, int exit_status, int process_fd[2], int redirection_fd[2]);
 int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
-void    ft_exit_2(char **free_split, int status);
 
 /* MINISHELL.C */
 void    setup_command(void);

@@ -81,5 +81,8 @@ void	print_lst(void);
 int		ft_strlen(const char *str);
 int		is_esc(char *str, int i);
 char*	map_quote(char *str, int pos);
+void	ft_exit(char* msg, int status);
+void	ft_exit_rd(char* msg, char symbol);
+void    ft_exit_2(char **free_split, int status);
 
 #endif
