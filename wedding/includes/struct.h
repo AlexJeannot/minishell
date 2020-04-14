@@ -76,7 +76,7 @@ int     ft_strcmp(char *s1, char *s2);
 void	clear_lst();
 int     parsing(char *line);
 void	get_dollar(void);
-void	clear_before_print(void);
+void	clear_before_exec(void);
 void	print_lst(void);
 int		ft_strlen(const char *str);
 int		is_esc(char *str, int i);

@@ -54,7 +54,7 @@ SRCS = 	annexes/display_string.c \
 		parsing/split_plus.c \
 		parsing/utils.c \
 		clear_it/clear_backslash.c \
-		clear_it/clear_before_print.c \
+		clear_it/clear_before_exec.c \
 		clear_it/clear_echo_bad_env.c \
 		clear_it/clear_stock_rd.c \
 

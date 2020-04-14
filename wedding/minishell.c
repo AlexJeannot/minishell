@@ -43,7 +43,7 @@ void setup_shell(char **env)
 
 void setup_command(void)
 {
-    clear_before_print();
+    clear_before_exec();
     get_dollar();
     child_pid = fork();
 }
