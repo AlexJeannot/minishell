@@ -79,5 +79,7 @@ void	get_dollar(void);
 void	clear_before_print(void);
 void	print_lst(void);
 int		ft_strlen(const char *str);
+int		is_esc(char *str, int i);
+char*	map_quote(char *str, int pos);
 
 #endif

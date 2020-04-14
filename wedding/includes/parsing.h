@@ -12,13 +12,11 @@ char**			split_plus(char *str, char charset);
 
 /*              #backslash
 -------------------------------------------------*/
-int				is_esc(char *str, int i);
 void			clear_backslash(void);
 
 /*              #quote
 -------------------------------------------------*/
 int				check_quote(char *str);
-char*			map_quote(char *str, int pos);
 
 /*              #chained_list
 -------------------------------------------------*/

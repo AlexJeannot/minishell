@@ -29,6 +29,7 @@ void replace_exit_status(t_list *lst, int status)
     int array_count;
     int str_count;
     char **raw_array;
+	char*	map;
 
     array_count = 0;
     raw_array = lst->raw;
@@ -37,7 +38,9 @@ void replace_exit_status(t_list *lst, int status)
         str_count = 0;
         while (raw_array[array_count][str_count])
         {
-            if (raw_array[array_count][str_count] == '$' && raw_array[array_count][str_count + 1] == '?')
+			map = map_quote(raw_array[array_count], 0);
+            if (raw_array[array_count][str_count] == '$' && map[str_count] != '1' && !is_esc(raw_array[array_count], str_count)
+				&& raw_array[array_count][str_count + 1] == '?')
             {
                 raw_array[array_count] = create_str_with_exit(raw_array[array_count], str_count, status);
                 if (array_count == 0)
