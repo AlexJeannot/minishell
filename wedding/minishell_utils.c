@@ -76,6 +76,7 @@ int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2],
     parsing(line);
     while (lst)
     {
+		//print_lst();
         setup_command();
         if (child_pid == 0)
             exec_child(lst, exit_status, process_fd, redirection_fd);

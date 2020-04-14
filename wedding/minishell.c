@@ -69,13 +69,15 @@ int main(int argc, char **argv, char **env)
     setup_shell(env);
     while (1)
     {
-        display_prompt();
+     	display_prompt();
         pipe(process_fd);
         pipe(redirection_fd);
         ret_gnl = get_next_line(0, &line);
         exit_status = 0;
         if (line && line[0])
+		{
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
+		}
         else if (ret_gnl == 0)
             ft_exit_2(NULL, 0);
         setup_end_command_line(line);
