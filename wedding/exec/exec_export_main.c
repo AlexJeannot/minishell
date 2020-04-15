@@ -14,6 +14,7 @@
 
 int export_without_args(char **input_array)
 {
+    printf("input_array[0] = %s\n", input_array[0]);
     if (!(input_array[0]) || input_array[0][0] == '#')
         return (1);
     if (input_array[0][0] == '$' && input_array[0][1] == '@')
