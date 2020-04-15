@@ -22,15 +22,15 @@ typedef	enum
 typedef struct		s_cont
 {
 	int		pipe;
-	char*	cmd;
-	char**	raw;
-	int		rdc_type;
 	int		rdo_type;
+	int		rdc_type;
+	char**	raw;
 	char**	rdc_filetab;
 	char**	rdo_filetab;
+	char**	arg;
+	char*	cmd;
 	char*	rdc_filename;
 	char*	rdo_filename;
-	char**	arg;
 	int*	rdc_index; // Ajout index rdc
 	int*	rdo_index; // Ajout index rdo
 }					t_cont;
@@ -84,5 +84,6 @@ char*	map_quote(char *str, int pos);
 void	ft_exit(char* msg, int status);
 void	ft_exit_rd(char* msg, char symbol);
 void    ft_exit_2(char **free_split, int status);
+void	free_lst(void);
 
 #endif

@@ -61,16 +61,18 @@ char*	clear_it(char* str)
 	i = 0;
 	map = map_quote(str, 0);
 	nb = nb_to_del(str);
-	if (!(res = malloc(ft_strlen(str) - nb + 1)))
-		ft_exit("Malloc failed", 1);
-	nb = 0;
-	while (str[i])
 	{
-		if (!nb_del_case(str, &i))
-			res[nb++] = str[i];
-		i++;
+		if (!(res = malloc(ft_strlen(str) - nb + 1)))
+			ft_exit("Malloc failed", 1);
+		nb = 0;
+		while (str[i])
+		{
+			if (!nb_del_case(str, &i))
+				res[nb++] = str[i];
+			i++;
+		}
+		res[nb] = '\0';
 	}
-	res[nb] = '\0';
 	free(map);
 	return (res);
 }
@@ -80,16 +82,19 @@ void	clear_backslash(void)
 	int	i;
 
 	i = 0;
-	lst->cmd = clear_it(lst->cmd);
+	if (nb_to_del(lst->cmd))
+		lst->cmd = clear_it(lst->cmd);
 	while (lst->arg[i])
 	{
-		lst->arg[i] = clear_it(lst->arg[i]);
+		if (nb_to_del(lst->arg[i]))
+			lst->arg[i] = clear_it(lst->arg[i]);
 		i++;
 	}
 	i = 0;
 	while (lst->raw[i])
 	{
-		lst->raw[i] = clear_it(lst->raw[i]);
+		if (nb_to_del(lst->raw[i]))
+			lst->raw[i] = clear_it(lst->raw[i]);
 		i++;
 	}
 }

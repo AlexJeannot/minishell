@@ -143,25 +143,71 @@ int	is_valid(char *stock)
 	return (0);
 }
 
-void	del_first(void)
+void	clear_lst_content(void)
 {
-	t_list *elem;
+	t_list *tmp;
+	int	i;
 
-	if (is_empty_lst())
-		lst = new_lst();
-	if (!(elem = malloc(sizeof(t_list))))
-		ft_exit("malloc failed", 1);
-
-	elem = lst->next;
-	free(lst);
-	lst = elem;
+	tmp = lst;
+	while (lst)
+	{
+		i = 0;
+		while (lst->raw[i])
+			free(lst->raw[i++]);
+		i = 0;
+		while (lst->arg[i])
+			free(lst->arg[i++]);
+//		i = 0;
+//		if (lst->rdc_filetab)
+//			while (lst->rdc_filetab[i])
+//				free(lst->rdc_filetab[i++]);
+//		i = 0;
+//		if (lst->rdo_filetab)
+//			while (lst->rdo_filetab[i])
+//				free(lst->rdo_filetab[i++]);
+//		i = 0;
+//		if (lst->rdc_indx)
+//			while (lst->rdc_index[i])
+//				free(lst->rdc_index[i++]);
+//		i = 0;
+//		if (lst->rdo_index)
+//			while (lst->rdo_index[i])
+//				free(lst->rdo_index[i++]);
+//		if (lst->pipe)
+//			free(lst->pipe);
+		if (lst->cmd)
+			free(lst->cmd);
+//		if (lst->rdc_type)
+//			free(lst->rdc_type);
+//		if (lst->rdo_type)
+//			free(lst->rdo_type);
+//		if (lst->rdc_filename)
+//			free(lst->rdc_filename);
+//		if (lst->rdo_filename)
+//			free(lst->rdo_filename);
+		lst = lst->next;
+	}
+	lst = tmp;
 }
 
 void	clear_lst()
 {
+	t_list *tmp;
+
 	if (is_empty_lst())
 		new_lst();
 	else
 		while (lst)
-			del_first();
+		{
+			tmp = lst;
+			lst = lst->next;
+			free(tmp);
+		}
+	free(lst);
+}
+
+void	free_lst(void)
+{
+	clear_lst_content();
+	clear_lst();
 }
