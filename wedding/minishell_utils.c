@@ -73,7 +73,10 @@ int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
 
 int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line)
 {
+	t_list *tmp;
+
     parsing(line);
+	tmp = lst;
     while (lst)
     {
 		//print_lst();
@@ -84,6 +87,7 @@ int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2],
             exit_status = exec_father(exit_status, process_fd, redirection_fd);
         lst = lst->next;
     }
+	lst = tmp;
     return (exit_status);
 }
 
