@@ -61,7 +61,6 @@ char*	clear_it(char* str)
 	i = 0;
 	map = map_quote(str, 0);
 	nb = nb_to_del(str);
-//	printf("bs[%s][%d]\n", str, nb);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
 		ft_exit("Malloc failed", 1);
 	nb = 0;
@@ -72,7 +71,6 @@ char*	clear_it(char* str)
 		i++;
 	}
 	res[nb] = '\0';
-//	printf("res_bs[%s]\n", res);
 	free(map);
 	return (res);
 }
@@ -86,6 +84,12 @@ void	clear_backslash(void)
 	while (lst->arg[i])
 	{
 		lst->arg[i] = clear_it(lst->arg[i]);
+		i++;
+	}
+	i = 0;
+	while (lst->raw[i])
+	{
+		lst->raw[i] = clear_it(lst->raw[i]);
 		i++;
 	}
 }
