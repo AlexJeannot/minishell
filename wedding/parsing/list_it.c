@@ -26,11 +26,11 @@ static t_cont get_content_lst(char *stock, int pipe)
 	content = split_plus(stock, ' ');
 	cont.raw = content;
 	cont.cmd = content[0];
-	i = 1;
+	i = 0;
 	while (content[i])
 		i++;
-	if (!(cont.arg = malloc(sizeof(char*) * i + 1)))
-		return (cont);
+	if (!(cont.arg = malloc(sizeof(char*) * i)))
+		ft_exit("malloc failed", 1);
 	i = 1;
 	j = 0;
 	while (content[i])
@@ -45,6 +45,7 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	t_list	*elem;
 	t_list	*tmp;
 	t_cont	cont;
+	int i;
 
 	if (!(elem = malloc(sizeof(t_list))))
 		ft_exit("malloc failed", 1);
