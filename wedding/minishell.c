@@ -51,7 +51,6 @@ void setup_command(void)
 void setup_end_command_line(char *line)
 {
     free_str(line);
-	free_lst();
     //free_str(piped_str);
     child_pid = -1;
 }

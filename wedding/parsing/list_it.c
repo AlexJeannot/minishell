@@ -20,7 +20,7 @@ static t_cont get_content_lst(char *stock, int pipe)
 	int		j;
 	t_cont	cont;
 	char	**content;
-
+	
 	cont = get_redir(stock);
 	stock =	clear_stock_rd(stock);
 	content = split_plus(stock, ' ');
@@ -45,7 +45,6 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	t_list	*elem;
 	t_list	*tmp;
 	t_cont	cont;
-	int i;
 
 	if (!(elem = malloc(sizeof(t_list))))
 		ft_exit("malloc failed", 1);

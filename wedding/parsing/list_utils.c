@@ -157,34 +157,24 @@ void	clear_lst_content(void)
 		i = 0;
 		while (lst->arg[i])
 			free(lst->arg[i++]);
-//		i = 0;
-//		if (lst->rdc_filetab)
-//			while (lst->rdc_filetab[i])
-//				free(lst->rdc_filetab[i++]);
-//		i = 0;
-//		if (lst->rdo_filetab)
-//			while (lst->rdo_filetab[i])
-//				free(lst->rdo_filetab[i++]);
-//		i = 0;
-//		if (lst->rdc_indx)
-//			while (lst->rdc_index[i])
-//				free(lst->rdc_index[i++]);
-//		i = 0;
-//		if (lst->rdo_index)
-//			while (lst->rdo_index[i])
-//				free(lst->rdo_index[i++]);
-//		if (lst->pipe)
-//			free(lst->pipe);
-		if (lst->cmd)
-			free(lst->cmd);
-//		if (lst->rdc_type)
-//			free(lst->rdc_type);
-//		if (lst->rdo_type)
-//			free(lst->rdo_type);
-//		if (lst->rdc_filename)
-//			free(lst->rdc_filename);
-//		if (lst->rdo_filename)
-//			free(lst->rdo_filename);
+		i = 0;
+		if (lst->rdc_filetab)
+			while (lst->rdc_filetab[i])
+				free(lst->rdc_filetab[i++]);
+		i = 0;
+		if (lst->rdo_filetab)
+			while (lst->rdo_filetab[i])
+				free(lst->rdo_filetab[i++]);
+  		if (lst->rdc_index)
+  			free(lst->rdc_index);
+  		if (lst->rdo_index)
+  			free(lst->rdo_index);
+  		if (lst->cmd)
+  			free(lst->cmd);
+		if (lst->rdc_filename)
+			free(lst->rdc_filename);
+		if (lst->rdo_filename)
+			free(lst->rdo_filename);
 		lst = lst->next;
 	}
 	lst = tmp;
@@ -211,3 +201,4 @@ void	free_lst(void)
 	clear_lst_content();
 	clear_lst();
 }
+

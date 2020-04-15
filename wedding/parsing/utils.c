@@ -5,16 +5,19 @@ int		is_esc(char *str, int i)
 	int nb;
 
 	nb = 0;
-	if (str[i - 1] == '\\')
+	if (str[i])
 	{
-		i--;
-		while (str[i] == '\\')
+		if (i > 0 && str[i - 1] == '\\')
 		{
 			i--;
-			nb++;
+			while (str[i] == '\\')
+			{
+				i--;
+				nb++;
+			}
+			if (nb % 2)
+				return (1);
 		}
-		if (nb % 2)
-			return (1);
 	}
 	return (0);
 }
