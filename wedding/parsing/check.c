@@ -127,4 +127,5 @@ void	check(char* line)
 	check_bs(line);
 	check_rdc(line);
 	check_rdo(line);
+	free(map);
 }

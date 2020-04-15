@@ -35,5 +35,6 @@ char* clear_stock_rd(char* str)
 		if (!is_rd(str, i))
 			i++;
 	}
+	free(map);
 	return (str);
 }

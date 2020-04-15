@@ -23,8 +23,6 @@ int				check_quote(char *str);
 //void			print_lst(void);
 t_list			*new_lst(void);
 bool			is_empty_lst();
-void			del_first(void);
-//void			clear_lst();
 void			list_it(char **stock);
 int				is_valid(char *stock);
 

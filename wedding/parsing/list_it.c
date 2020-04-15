@@ -20,17 +20,17 @@ static t_cont get_content_lst(char *stock, int pipe)
 	int		j;
 	t_cont	cont;
 	char	**content;
-
+	
 	cont = get_redir(stock);
 	stock =	clear_stock_rd(stock);
 	content = split_plus(stock, ' ');
 	cont.raw = content;
 	cont.cmd = content[0];
-	i = 1;
+	i = 0;
 	while (content[i])
 		i++;
-	if (!(cont.arg = malloc(sizeof(char*) * i + 1)))
-		return (cont);
+	if (!(cont.arg = malloc(sizeof(char*) * i)))
+		ft_exit("malloc failed", 1);
 	i = 1;
 	j = 0;
 	while (content[i])

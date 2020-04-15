@@ -78,6 +78,7 @@ char*	clear_echo_bad_env(char* str)
 			i++;
 		}
 	}
+	free(map);
 	if (res)
 		return (res);
 	return (str);
