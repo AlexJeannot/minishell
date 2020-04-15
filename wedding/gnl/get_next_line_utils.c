@@ -32,12 +32,13 @@ char	*ft_dup(const char *str, int len, void *free_str)
 	if (!str)
 	{
 		if (!(new_str = (char *)malloc(sizeof(char) * 1)))
-			return (NULL);
+			ft_error('\0', "Malloc", NULL);
 		new_str[0] = '\0';
 	}
 	else
 	{
-		new_str = (char *)malloc(sizeof(char) * (len + 1));
+		if (!(new_str = (char *)malloc(sizeof(char) * (len + 1))))
+			ft_error('\0', "Malloc", NULL);
 		if (new_str == NULL)
 			return (NULL);
 		cmp = 0;

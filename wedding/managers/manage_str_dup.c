@@ -78,7 +78,8 @@ char	*ft_strdup(const char *input_str)
 
 	count = 0;
     str_size = ft_strlen(input_str);
-	output_str = malloc(sizeof(char) * (str_size + 1));
+	if (!(output_str = malloc(sizeof(char) * (str_size + 1))))
+		ft_error('\0', "Malloc", NULL);
 	if (output_str == NULL)
 		return (0);
 	while (count < str_size)

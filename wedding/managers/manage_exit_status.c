@@ -17,7 +17,7 @@ char *create_str_with_exit(char *input_str, int index, int status)
 
     output_length = length_with_status(input_str, status);
     if (!(output_str = (char *)malloc(sizeof(char) * output_length)))
-        display_error(NULL, NULL);
+		ft_error('\0', "Malloc", NULL);
     output_str = ft_strncat(output_str, input_str, index);
     output_str = ft_strcat(output_str, ft_itoa(status));
     output_str = ft_strcat(output_str, &input_str[index + 2]);

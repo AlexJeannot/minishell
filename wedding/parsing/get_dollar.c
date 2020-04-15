@@ -19,7 +19,7 @@ static char*		r_dollar(int i, int j)
 
 	dls = dolls_value(i, j);
 	if (!(res = malloc(dls.len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	i = 0;
 	while (dls.startline[i])
 	{

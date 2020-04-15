@@ -81,9 +81,16 @@ void	print_lst(void);
 int		ft_strlen(const char *str);
 int		is_esc(char *str, int i);
 char*	map_quote(char *str, int pos);
-void	ft_exit(char* msg, int status);
-void	ft_exit_rd(char* msg, char symbol);
-void    ft_exit_2(char **free_split, int status);
+
+/* MANAGE_ERROR.C */
+void ft_exit(int status);
+void ft_error(char symbol, char *cmd, char *msg);
+
+//void	ft_exit(char* msg, int status);
+//void	ft_exit_rd(char* msg, char symbol);
+void	ft_error_rd(char* msg, char symbol);
+
+
 void	free_lst(void);
 
 #endif

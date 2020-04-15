@@ -76,7 +76,7 @@ char**	get_rdo_filetab(char* str)
 	{
 		nb = count_rdo(str);
 		if (!(tab = malloc(sizeof(char*) * nb + 1)))
-			ft_exit("malloc failed", 1);
+			ft_error('\0', "Malloc", NULL);
 		i = 1;
 		while (i <= nb)
 		{

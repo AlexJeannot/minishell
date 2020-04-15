@@ -9,7 +9,8 @@ char **duplicate_array(char **input_array, char **free_array, char sep)
 
     count = 0;
     array_len = str_array_length(input_array);
-    output_array = (char **)malloc(sizeof(char *) * (array_len + 1));
+    if (!(output_array = (char **)malloc(sizeof(char *) * (array_len + 1))))
+    	ft_error('\0', "Malloc", NULL);
     while (input_array[count])
     {
         if (sep != '\0')
@@ -92,7 +93,7 @@ char **filter_env(char **input_array, char** free_array)
     from_count = 0;
     add_count = 0;
     if (!(output_array = (char **)malloc(sizeof(char *) * (str_array_length(input_array) + 1))))
-        printf("MALLOC ERROR\n");
+		ft_error('\0', "Malloc", NULL);
     while (input_array[from_count])
     {
         if (find_car(input_array[from_count], '=') != -1)

@@ -22,14 +22,24 @@ int		is_esc(char *str, int i)
 	return (0);
 }
 
-void	ft_exit_rd(char* msg, char symbol)
+void ft_exit_after_rd(char *msg, int status)
+{
+	int	len;
+
+	len = ft_strlen(msg);
+	write(1, msg, len);
+	ft_exit(status);
+}
+
+//void	ft_exit_rd(char* msg, char symbol)
+void	ft_error_rd(char* msg, char symbol)
 {
 	int		i;
 	char*	tmp;
 
 	i = ft_strlen(msg);
 	if (!(tmp = malloc(i + 3)))
-		ft_exit("malloc failed\n", 1);
+		ft_error('\0', "Malloc", NULL);
 	i = 0;
 	while (msg[i])
 	{
@@ -40,9 +50,10 @@ void	ft_exit_rd(char* msg, char symbol)
 	tmp[i++] = '\'';
 	tmp[i++] = '\n';
 	tmp[i] = '\0';
-	ft_exit(tmp, 1);
+	ft_exit_after_rd(tmp, 1);
 }
 
+/*
 void	ft_exit(char* msg, int status)
 {
 	int	len;
@@ -51,6 +62,7 @@ void	ft_exit(char* msg, int status)
 	write(1, msg, len);
 	ft_exit_2(NULL, status);
 }
+*/
 
 void	prompt()
 {

@@ -27,4 +27,7 @@ char	*ft_dup(const char *str, int len, void *free_str);
 int		ft_search(char *str);
 char	*ft_settle(char *str, int pass);
 int		ft_id(char *str);
+
+/* MANAGE_ERROR.C*/
+void    ft_error(char symbol, char *cmd, char *msg);
 #endif

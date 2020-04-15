@@ -41,7 +41,7 @@ static char	*finder(char *str, int i, char charset)
 		i++;
 	}
 	if (!(part = malloc(len + 1)))
-		return (NULL);
+		ft_error('\0', "Malloc", NULL);
 	i = j;
 	j = 0;
 	while (len)
@@ -62,7 +62,7 @@ char		**split_plus(char *str, char charset)
 	map = map_quote(str, 0);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	i = 0;
 	j = 0;
 	while (i < ft_strlen(str))

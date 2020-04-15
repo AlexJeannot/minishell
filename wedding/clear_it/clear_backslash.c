@@ -63,7 +63,7 @@ char*	clear_it(char* str)
 	nb = nb_to_del(str);
 	{
 		if (!(res = malloc(ft_strlen(str) - nb + 1)))
-			ft_exit("Malloc failed", 1);
+			ft_error('\0', "Malloc", NULL);
 		nb = 0;
 		while (str[i])
 		{

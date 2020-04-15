@@ -34,7 +34,7 @@ void set_rdo(void)
                 close(fd_file);
                 count++;
             }
-        display_error(lst->rdo_filetab[ret_check], NULL);
+        ft_error('\0', lst->rdo_filetab[ret_check], NULL);
     }
     if (lst->rdc_filetab)
         while (lst->rdc_filetab[count])

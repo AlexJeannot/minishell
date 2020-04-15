@@ -50,7 +50,8 @@ void setup_command(void)
 
 void setup_end_command_line(char *line)
 {
-    free_str(line);
+    (void)line;
+    //free_str(line);
     //free_str(piped_str);
     child_pid = -1;
 }
@@ -78,7 +79,7 @@ int main(int argc, char **argv, char **env)
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
 		}
         else if (ret_gnl == 0)
-            ft_exit_2(NULL, 0);
+            ft_exit(0);
         setup_end_command_line(line);
     }
 }

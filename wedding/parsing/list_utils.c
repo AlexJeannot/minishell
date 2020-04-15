@@ -169,8 +169,8 @@ void	clear_lst_content(void)
   			free(lst->rdc_index);
   		if (lst->rdo_index)
   			free(lst->rdo_index);
-  		if (lst->cmd)
-  			free(lst->cmd);
+  		//if (lst->cmd)
+  		//	free(lst->cmd);
 		if (lst->rdc_filename)
 			free(lst->rdc_filename);
 		if (lst->rdo_filename)
@@ -199,6 +199,6 @@ void	clear_lst()
 void	free_lst(void)
 {
 	clear_lst_content();
-	clear_lst();
+	//clear_lst();
 }
 

@@ -18,7 +18,7 @@ char	*get_startline(int i, int j)
 	int		y;
 
 	if (!(start = malloc(j)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	y = 0;
 	while (y < j)
 	{
@@ -45,7 +45,7 @@ char*	get_endline(int i, int j)
 	while (lst->arg[i][j++])
 		len++;
 	if (!(end = malloc(len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	len = 0;
 	while (lst->arg[i][k])
 		end[len++] = lst->arg[i][k++];

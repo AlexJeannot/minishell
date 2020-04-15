@@ -51,7 +51,7 @@ static char*	clear_quote(char* str)
 	nb = nb_del_quote(str);
 //	printf("quote[%d][%s]\n", nb, str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	j = 0;
 	k = 0;
 	while (str[j])

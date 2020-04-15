@@ -21,7 +21,7 @@ char	*ft_itoa(int nb)
 
 	length = nb_length(nb);
 	if (!(output_str = (char*)malloc(sizeof(char) * length)))
-		display_error(NULL, NULL);
+		ft_error('\0', "Malloc", NULL);
     length--;
 	output_str[length] = '\0';
 	if (nb == 0)

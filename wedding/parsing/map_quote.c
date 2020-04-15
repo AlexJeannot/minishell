@@ -82,7 +82,7 @@ static void mapping_2(char *str)
 char*	map_quote(char *str, int pos)
 {
 	if (!(map = malloc(ft_strlen(str) + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	if (pos)
 		mapping_2(str);
 	else

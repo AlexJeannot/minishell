@@ -81,7 +81,7 @@ void receive_env(int process_fd[2])
     tab_env = ft_split(str_env, '\n');
     global_env = duplicate_array(tab_env, global_env, '\0');
     if ((pwd_index = search_in_array(global_env, "PWD", '=')) == -1)
-        display_error(NULL, "PWD not found in environnement variables");
+        ft_error('\0', NULL, "PWD not found in environnement variables");
     split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
     chdir(split_result[1]);
     free_str_array(split_result);

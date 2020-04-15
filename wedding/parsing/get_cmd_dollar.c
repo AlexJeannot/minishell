@@ -19,7 +19,7 @@ static t_value		new_cmd_value(int i)
 	while (global_env[i][++j])
 		len++;
 	if (!(v.value = malloc(len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	return (v);
 }
 
@@ -41,7 +41,7 @@ static char	*get_cmd_startline(int i)
 	int		y;
 
 	if (!(start = malloc(i)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	y = 0;
 	while (y < i)
 	{
@@ -68,7 +68,7 @@ static char*	get_cmd_endline(int i)
 	while (lst->cmd[i++])
 		len++;
 	if (!(end = malloc(len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	len = 0;
 	while (lst->cmd[k])
 		end[len++] = lst->cmd[k++];
@@ -96,7 +96,7 @@ static char*		r_cmd_dollar(int i)
 
 	dls = dolls_cmd_value(i);
 	if (!(res = malloc(dls.len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	i = 0;
 	while (dls.startline[i])
 	{

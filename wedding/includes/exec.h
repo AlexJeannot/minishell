@@ -77,7 +77,7 @@ void    send_env(int *fd);
 void    receive_env(int *fd);
 
 /* MANAGE_ERROR.C */
-void	display_error(char *exec, char *error_str);
+//void	display_error(char *exec, char *error_str);
 
 /* MANAGE_EXIT_STATUS.C */
 void	replace_exit_status(int status);

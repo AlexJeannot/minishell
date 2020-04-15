@@ -6,7 +6,7 @@ char	*raw_get_startline(int i, int j)
 	int		y;
 
 	if (!(start = malloc(j)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	y = 0;
 	while (y < j)
 	{
@@ -33,7 +33,7 @@ char*	raw_get_endline(int i, int j)
 	while (lst->raw[i][j++])
 		len++;
 	if (!(end = malloc(len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	len = 0;
 	while (lst->raw[i][k])
 		end[len++] = lst->raw[i][k++];
@@ -60,7 +60,7 @@ static t_value		raw_new_value(int i, int j)
 	while (global_env[i][++j])
 		len++;
 	if (!(v.value = malloc(len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	return (v);
 }
 
@@ -95,7 +95,7 @@ static char*		r_dollar(int i, int j)
 
 	dls = dolls_value(i, j);
 	if (!(res = malloc(dls.len + 1)))
-		ft_exit("malloc failed", 1);
+		ft_error('\0', "Malloc", NULL);
 	i = 0;
 	while (dls.startline[i])
 	{

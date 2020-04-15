@@ -7,7 +7,7 @@ char *transform_with_value(char *input_str)
 
     count = 0;
     if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 14))))
-        display_error(NULL, NULL);
+		ft_error('\0', "Malloc", NULL);
     while (input_str[count] != '=')
         count++;
     ft_strcpy(output_str, "declare -x ");
@@ -23,7 +23,7 @@ char *transform_without_value(char *input_str)
     char *output_str;
 
     if (!(output_str = (char *)malloc(sizeof(char) * (ft_strlen(input_str) + 12))))
-        display_error(NULL, NULL);
+		ft_error('\0', "Malloc", NULL);
     ft_strcpy(output_str, "declare -x ");
     ft_strcat(output_str, input_str);
     return (output_str);
@@ -44,7 +44,7 @@ char **transform_array(char **input_array)
 
     count = 0;
     if (!(output_array = (char **)malloc(sizeof(char *) * (str_array_length(input_array) + 1))))
-        display_error(NULL, NULL);
+		ft_error('\0', "Malloc", NULL);
     while (input_array[count])
     {
         output_array[count] = transform_str(input_array[count]);

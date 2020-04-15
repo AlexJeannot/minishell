@@ -44,7 +44,7 @@ char *transform_backslash(char *output_str, char *input_str)
 	in_count = 0;
     car_count = count_car_and_backslash(output_str, input_str);
     if (!(final_str = (char *)malloc(sizeof(char) * (car_count + 2))))
-        display_error(NULL, NULL);
+		ft_error('\0', "Malloc", NULL);
     ft_strcpy(final_str, output_str);
     while (input_str[in_count])
 	{
