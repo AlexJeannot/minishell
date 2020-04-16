@@ -93,6 +93,7 @@ void ft_builtins(char *exec, char **args)
     used_env = select_env(exec);
     if ((str_array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
         args = add_file(args, lst->rdo_filename);
+    // ft_leaks("BEFORE EXECVE BUILTINS");
     while (exec_array[count])
     {
         ret_exec = execve(exec_array[count], args, used_env);

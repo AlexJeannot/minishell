@@ -51,6 +51,6 @@ char **extend_array(char **from_array, char **add_array, int from_len, int add_l
         index_add = extend_array_with_var(output_array, add_array, count_add, index_add);
         count_add++;
     }
-    //free_str_array(from_array);
+    free_str_array(from_array);
     return (output_array);
 }

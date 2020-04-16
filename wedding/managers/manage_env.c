@@ -37,12 +37,23 @@ char *read_from_fd(int fd[2])
 char *get_env_value(char *var)
 {
     int count;
+    char *env_value;
+    char **split_result_1;
+    char **split_result_2;
 
     count = 0;
     while (global_env[count])
     {
-        if (strcmp(ft_split(global_env[count], '=')[0], var) == 0)
-            return (ft_split(global_env[count], '=')[1]);
+        split_result_1 = ft_split(global_env[count], '=');
+        if (strcmp(split_result_1[0], var) == 0)
+        {
+            split_result_2 = ft_split(global_env[count], '=');
+            env_value = ft_strdup(split_result_2[1]);
+            free_str_array(split_result_1);
+            free_str_array(split_result_2);
+            return (env_value);
+        }
+        free_str_array(split_result_1);
         count++;
     }
     return (NULL);

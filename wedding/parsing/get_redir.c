@@ -237,6 +237,7 @@ t_cont	get_redir(char* str)
 	}
 	if (find_rdo(str))
 	{
+		free_str(&map);
 		cont.rdo_filetab = get_rdo_filetab(str);
 		cont.rdo_filename = get_last(cont.rdo_filetab);
 		cont.rdo_type = 1;

@@ -64,8 +64,8 @@ int verify_exported_var(char **input_array)
             status = display_invalid_export(split_result[0], 0);
         else if ((equal_index = find_car(input_array[array_count], '=')) != -1 && is_valid_value(&input_array[array_count][equal_index]) == -1)
             status = display_invalid_export(&input_array[array_count][equal_index], 1);
+        free_str_array(split_result);
         array_count++;
     }
-    free_str_array(split_result);
     return (status);
 }

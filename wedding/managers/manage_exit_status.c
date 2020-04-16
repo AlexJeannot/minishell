@@ -1,11 +1,11 @@
 #include "../includes/exec.h"
 
-int length_with_status(char *input_str, int status)
+int length_with_status(char *input_str, char *status)
 {
     int total;
 
     total = ft_strlen(input_str) - 2;
-    total += ft_strlen(ft_itoa(status));
+    total += ft_strlen(status);
     total++;
     return (total);
 }
@@ -14,13 +14,17 @@ char *create_str_with_exit(char *input_str, int index, int status)
 {
     int output_length;
     char *output_str;
+    char *str_status;
 
-    output_length = length_with_status(input_str, status);
+    str_status = ft_itoa(status);
+    output_length = length_with_status(input_str, str_status);
     if (!(output_str = (char *)malloc(sizeof(char) * output_length)))
 		ft_error('\0', "Malloc", NULL);
     output_str = ft_strncat(output_str, input_str, index);
-    output_str = ft_strcat(output_str, ft_itoa(status));
+    output_str = ft_strcat(output_str, str_status);
     output_str = ft_strcat(output_str, &input_str[index + 2]);
+    free_str(&str_status);
+    free_str(&input_str);
     return(output_str);
 }
 
@@ -44,9 +48,15 @@ void replace_exit_status(int status)
             {
                 raw_array[array_count] = create_str_with_exit(raw_array[array_count], str_count, status);
                 if (array_count == 0)
+                {
+                    free_str(&lst->cmd);
                     lst->cmd = ft_strdup(raw_array[array_count]);
+                }
                 else
+                {
+                    free_str(&lst->arg[array_count - 1]);
                     lst->arg[array_count - 1] = ft_strdup(raw_array[array_count]);
+                }
                 str_count = 0;
             }
             else

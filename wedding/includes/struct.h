@@ -108,4 +108,8 @@ void	ft_error_rd(char* msg, char symbol);
 
 void	free_lst(void);
 
+
+/* TO_DELETE */
+void ft_leaks(char *position);
+
 #endif

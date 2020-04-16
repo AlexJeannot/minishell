@@ -24,6 +24,7 @@ char *relative_path(char *input_path)
     ft_strcpy(final_path, actual_path);
     ft_strcat(final_path, "/");
     ft_strcat(final_path, input_path);
+    free_str(&actual_path);
     return (final_path);
 }
 
@@ -38,6 +39,7 @@ char *absolute_path(char *input_path)
     ft_strcpy(final_path, actual_path);
     ft_strcat(final_path, "/");
     ft_strcat(final_path, &input_path[2]);
+    free_str(&actual_path);
     return (final_path);
 }
 

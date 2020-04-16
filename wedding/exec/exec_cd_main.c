@@ -50,5 +50,4 @@ void ft_cd(char **args)
     }
     else
         update_env(path);
-    free_str_array(args);
 }
