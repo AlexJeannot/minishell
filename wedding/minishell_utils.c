@@ -49,6 +49,7 @@ void exec_child(int exit_status, int process_fd[2], int redirection_fd[2])
 	exit_status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(process_fd);
+	//system("leaks minishell");
 	exit(exit_status);
 }
 
@@ -68,7 +69,6 @@ int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
 	if (ft_strcmp(lst->cmd, "exit") == 0)
 		ft_exit(0);
 	filtered_env = filter_env(global_env, filtered_env);
-    //system("leaks minishell");
 	return (exit_status);
 }
 

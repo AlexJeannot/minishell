@@ -31,7 +31,13 @@ void ft_exit(int status)
     free_str_array(filtered_env);
     free_str_array(global_env);
     free_str(&piped_str);
-    //system("leaks minishell");
+
+    int g_pid;
+    g_pid = getpid();
+    printf("g_pid = %d\n", g_pid);
+    //system("OUTPUT=$(pgrep minishell | tail -1)");
+   // system("leaks $(pgrep minishell | tail -1)");
+   
     exit(status);
 }
 
