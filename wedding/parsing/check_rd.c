@@ -2,6 +2,8 @@
 
 int		check_rdc_case(char* str, int i)
 {
+	int	j;
+
 	if (str[i] == '>' && str[i - 1] != '>' && str[i + 1] != '>')
 	{
 		j = i + 1;
