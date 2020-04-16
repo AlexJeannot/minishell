@@ -12,7 +12,7 @@ static t_dolls		dolls_value(int i, int j)
 	return (dls);
 }
 
-static char*		r_dollar(int i, int j)
+static char*		r_dollar(int i, int j, char *free_elem)
 {
 	t_dolls dls;
 	char	*res;
@@ -33,6 +33,10 @@ static char*		r_dollar(int i, int j)
 	while (dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
+	free_str(&free_elem);
+	free_str(&dls.value);
+	free_str(&dls.startline);
+	free_str(&dls.endline);
 	return (res);
 }
 
@@ -67,7 +71,7 @@ void	get_dollar(void)
 				&& !is_esc(lst->arg[i], j))
 			{
 				if (is_env(lst->arg[i], j))
-					lst->arg[i] = r_dollar(i, j);
+					lst->arg[i] = r_dollar(i, j, lst->arg[i]);
 			}
 			j++;
 		}

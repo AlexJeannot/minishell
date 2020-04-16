@@ -61,6 +61,7 @@ static t_value		raw_new_value(int i, int j)
 		len++;
 	if (!(v.value = malloc(len + 1)))
 		ft_error('\0', "Malloc", NULL);
+	free_str(&v.name);
 	return (v);
 }
 
@@ -71,7 +72,6 @@ char*		get_env_value_3(int i, int j)
 	v.y = 0;
 	while (global_env[v.i][v.j])
 		v.value[v.y++] = global_env[v.i][v.j++];
-	//v.value[v.j] = '\0';
 	v.value[v.y] = '\0';
 	return (v.value);
 }
@@ -88,7 +88,7 @@ static t_dolls		dolls_value(int i, int j)
 	return (dls);
 }
 
-static char*		r_dollar(int i, int j)
+static char*		r_dollar(int i, int j, char *free_elem)
 {
 	t_dolls dls;
 	char	*res;
@@ -109,6 +109,10 @@ static char*		r_dollar(int i, int j)
 	while (dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
+	free_str(&free_elem);
+	free_str(&dls.value);
+	free_str(&dls.startline);
+	free_str(&dls.endline);
 	return (res);
 }
 
@@ -141,7 +145,7 @@ void	get_raw_dollar(void)
 				&& !is_esc(lst->raw[i], j))
 			{
 				if (is_env(lst->raw[i], j))
-					lst->raw[i] = r_dollar(i, j);
+					lst->raw[i] = r_dollar(i, j, lst->raw[i]);
 			}
 			j++;
 		}
