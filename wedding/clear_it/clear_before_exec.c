@@ -67,12 +67,68 @@ static char*	clear_quote(char* str)
 	return (res);
 }
 
+int count_valid_str(char **input_array)
+{
+	int size;
+	int array_count;
+
+	array_count = 0;
+	size = 0;
+	while (input_array[array_count])
+	{
+		if ((input_array[array_count][0]))
+			size++;
+		array_count ++;
+	}
+	return (size);
+}
+
+char **clean_array(char **input_array)
+{
+	int size;
+	int add_count;
+	int array_count;
+	char **output_array;
+
+	array_count = 0;
+	size = count_valid_str(input_array);
+	if (!(output_array = (char **)malloc(sizeof(char*) * (size + 1))))
+		ft_error('\0', "Malloc", NULL);
+	array_count = 0;
+	add_count = 0;
+	while (input_array[array_count])
+	{
+		if ((input_array[array_count][0]))
+		{
+			output_array[add_count] = ft_strdup(input_array[array_count]);
+			add_count++;
+		}
+		array_count ++;
+	}
+	output_array[add_count] = NULL;
+	free_str_array(input_array);
+	return (output_array);
+}
+
+char *clean_cmd(char *input_str)
+{
+	if (!(input_str[0]))
+	{
+		free_str(&input_str);
+		if (lst->raw[0])
+			input_str = ft_strdup(lst->raw[0]);
+	}
+	return (input_str);
+
+}
+
 void	clear_before_exec(void)
 {
 	int	i;
 
 	i = 0;
 	clear_backslash();
+	lst->cmd = clear_echo_bad_env(lst->cmd);
 	lst->cmd = clear_quote(lst->cmd);
 	while (lst->arg[i])
 	{
@@ -87,4 +143,7 @@ void	clear_before_exec(void)
 		lst->raw[i] = clear_quote(lst->raw[i]);
 		i++;
 	}
+	lst->raw = clean_array(lst->raw);
+	lst->arg = clean_array(lst->arg);
+	lst->cmd = clean_cmd(lst->cmd);
 }

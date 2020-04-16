@@ -45,7 +45,6 @@ void setup_command(void)
 {
     get_dollar();
     clear_before_exec();
-    child_pid = fork();
 }
 
 void setup_end_command_line(char *line)

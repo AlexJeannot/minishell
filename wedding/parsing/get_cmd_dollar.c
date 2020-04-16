@@ -32,6 +32,7 @@ static char*		get_cmd_env_value(int i)
 	while (global_env[v.i][v.j])
 		v.value[v.y++] = global_env[v.i][v.j++];
 	v.value[v.j] = '\0';
+	free_str(&v.name);
 	return (v.value);
 }
 
@@ -88,7 +89,7 @@ static t_dolls		dolls_cmd_value(int i)
 	return (dls);
 }
 
-static char*		r_cmd_dollar(int i)
+static char*		r_cmd_dollar(int i, char *free_elem)
 {
 	t_dolls dls;
 	char	*res;
@@ -110,6 +111,10 @@ static char*		r_cmd_dollar(int i)
 	while (dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
+	free_str(&free_elem);
+	free_str(&dls.value);
+	free_str(&dls.startline);
+	free_str(&dls.endline);
 	return (res);
 }
 
@@ -137,7 +142,7 @@ void	get_cmd_dollar(void)
 		if (lst->cmd[i] == '$' && !quote_cmd_stop(i) && !is_esc(lst->cmd, i))
 		{
 			if (is_env(lst->cmd, i))
-				lst->cmd = r_cmd_dollar(i);
+				lst->cmd = r_cmd_dollar(i, lst->cmd);
 		}
 		i++;
 	}
