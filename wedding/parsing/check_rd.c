@@ -1,6 +1,6 @@
 #include "../includes/parsing.h"
 
-int		check_rdc_case(char* str, int i)
+void	check_rdc_case(char* str, int i)
 {
 	int	j;
 
@@ -25,7 +25,6 @@ int		check_rdc_case(char* str, int i)
 void	check_rdc(char* str, char* map)
 {
 	int	i;
-	int	j;
 
 	i = 0;
 	while (str[i])
