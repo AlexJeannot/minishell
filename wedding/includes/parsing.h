@@ -29,6 +29,7 @@ int				is_valid(char *stock);
 void			get_raw_dollar(void);
 void			get_cmd_dollar(void);
 t_dolls			dolls_cmd_value(int i);
+t_dolls			raw_dolls_value(int i, int j);
 int				is_path(char *str);
 int				ft_envcmp(char *s1, char *s2);
 int				is_env(char *str, int j);
