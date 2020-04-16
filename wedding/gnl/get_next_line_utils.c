@@ -24,7 +24,7 @@ int		ft_len(char *str)
 	return (cmp);
 }
 
-char	*ft_dup(const char *str, int len, void *free_str)
+char	*ft_dup(const char *str, int len, char *str_free)
 {
 	char	*new_str;
 	int		cmp;
@@ -49,8 +49,7 @@ char	*ft_dup(const char *str, int len, void *free_str)
 		}
 		new_str[cmp] = '\0';
 	}
-	if (free_str)
-		free(free_str);
+	free_str(&str_free);
 	return (new_str);
 }
 

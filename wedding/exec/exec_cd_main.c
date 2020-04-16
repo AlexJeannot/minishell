@@ -25,15 +25,15 @@ void update_env(char *new_path)
         ft_error('\0', "Malloc", NULL);
     ft_strcpy(old_pwd, "OLDPWD=");
     ft_strcat(old_pwd, &global_env[pwd_index][4]);
-    free_str(global_env[oldpwd_index]);
+    free_str(&global_env[oldpwd_index]);
     global_env[oldpwd_index] = old_pwd;
     if (!(new_pwd = (char *)malloc(sizeof(char) * (ft_strlen(new_path) + 5))))
     	ft_error('\0', "Malloc", NULL);
     ft_strcpy(new_pwd, "PWD=");
     ft_strcat(new_pwd, new_path);
-    free_str(global_env[pwd_index]);
+    free_str(&global_env[pwd_index]);
     global_env[pwd_index] = new_pwd;
-    free_str(new_path);
+    free_str(&new_path);
 }
 
 void ft_cd(char **args)
@@ -45,7 +45,7 @@ void ft_cd(char **args)
     result_chdir = chdir(path);
     if (result_chdir == -1)
     {
-        free_str(path);
+        free_str(&path);
         ft_error('\0', "cd", NULL);
     }
     else

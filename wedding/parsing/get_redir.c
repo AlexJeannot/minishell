@@ -261,6 +261,6 @@ t_cont	get_redir(char* str)
 	}
 	cont.rdc_index = rdc_index; // Ajout de l'index rdc dans la structure cont
 	cont.rdo_index = rdo_index; // Ajout de l'index rdo dans la structure cont
-	free(map);
+	free_str(&map);
 	return (cont);
 }

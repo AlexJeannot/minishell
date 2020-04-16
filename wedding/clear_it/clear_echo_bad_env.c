@@ -35,7 +35,7 @@ static char*	remove_dollar(char* str, int i)
 		res[j++] = str[i++];
 	}
 	res[j] = '\0';
-	free(map);
+	free_str(&map);
 	return (res);
 }
 
@@ -77,8 +77,8 @@ char*	clear_echo_bad_env(char* str)
 				res = remove_dollar(str, i);
 			i++;
 		}
+		free_str(&map);
 	}
-	free(map);
 	if (res)
 		return (res);
 	return (str);

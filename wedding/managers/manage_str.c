@@ -40,11 +40,11 @@ int ft_strlen(const char *str)
     return (-1);
 }
 
-void free_str(char *str)
+void free_str(char **str)
 {
-    if (str)
+    if (*str)
     {
-        free(str);
-        str = NULL;
+        free(*str);
+        *str = NULL;
     }
 }

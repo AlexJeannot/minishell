@@ -85,7 +85,7 @@ void receive_env(int process_fd[2])
     split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
     chdir(split_result[1]);
     free_str_array(split_result);
-    free_str(str_env);
+    free_str(&str_env);
     free_str_array(tab_env);
-    free_str(piped_str);
+    free_str(&piped_str);
 }

@@ -104,7 +104,6 @@ char **filter_env(char **input_array, char** free_array)
         from_count++;
     }
     output_array[add_count] = NULL;
-    if (free_array)
-        free(free_array);
+    free_str_array(free_array);
     return (output_array);
 }

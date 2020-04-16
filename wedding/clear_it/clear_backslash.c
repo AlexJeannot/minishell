@@ -73,7 +73,7 @@ char*	clear_it(char* str)
 		}
 		res[nb] = '\0';
 	}
-	free(map);
+	free_str(&map);
 	return (res);
 }
 

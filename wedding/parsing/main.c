@@ -7,4 +7,9 @@ void	parsing(char *line)
 	check(line);
 	stock = split_plus(line, ';');
 	list_it(stock);
+	if (stock)
+	{
+		free(stock);
+		stock = NULL;
+	}
 }

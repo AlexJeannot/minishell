@@ -35,8 +35,7 @@ char	*ft_join(char *str_1, char *str_2, int len_1, int len_2)
 		cmp++;
 	}
 	output_str[cmp + len_1] = '\0';
-	if (str_1)
-		free(str_1);
+	free_str(&str_1);
 	return (output_str);
 }
 

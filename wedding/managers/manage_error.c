@@ -46,8 +46,10 @@ void ft_error(char symbol, char *cmd, char *msg)
 
 void ft_exit(int status)
 {
+    free_lst();
     free_str_array(filtered_env);
     free_str_array(global_env);
+    free_str(&piped_str);
     system("leaks minishell");
     exit(status);
 }

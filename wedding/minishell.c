@@ -50,9 +50,9 @@ void setup_command(void)
 
 void setup_end_command_line(char *line)
 {
-    (void)line;
-    //free_str(line);
-    //free_str(piped_str);
+    free_str(&line);
+    free_str(&piped_str);
+    free_lst();
     child_pid = -1;
 }
 
@@ -69,17 +69,19 @@ int main(int argc, char **argv, char **env)
     setup_shell(env);
     while (1)
     {
+        piped_str = NULL;
      	display_prompt();
         pipe(process_fd);
         pipe(redirection_fd);
         ret_gnl = get_next_line(0, &line);
         exit_status = 0;
         if (line && line[0])
-		{
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
-		}
         else if (ret_gnl == 0)
+        {
+            free_str(&line);
             ft_exit(0);
+        }
         setup_end_command_line(line);
     }
 }

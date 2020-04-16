@@ -51,6 +51,7 @@ void replace_exit_status(int status)
             }
             else
                 str_count++;
+            free_str(&map);
         }
         array_count++;
     }

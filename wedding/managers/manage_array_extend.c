@@ -2,7 +2,7 @@
 
 void replace_var_in_array(char **output_array, char** add_array, int count_add, int index_from)
 {
-    free(output_array[index_from]);
+    free_str(&output_array[index_from]);
     output_array[index_from] = ft_strdup(add_array[count_add]);
 }
 
@@ -23,7 +23,7 @@ int extend_array_with_var(char **output_array, char** add_array, int count_add, 
         replace_var_in_array(output_array, add_array, count_add, index_from);
     else
         index_add = add_var_in_array(output_array, add_array, count_add, index_add);
-    free(split_result);
+    free_str_array(split_result);
     output_array[index_add] = NULL;
     return (index_add);
 }

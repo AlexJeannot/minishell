@@ -24,8 +24,8 @@ static t_cont get_content_lst(char *stock, int pipe)
 	cont = get_redir(stock);
 	stock =	clear_stock_rd(stock);
 	content = split_plus(stock, ' ');
-	cont.raw = content;
-	cont.cmd = content[0];
+	cont.raw = duplicate_array(content, NULL, '\0');
+	cont.cmd = ft_strdup(content[0]);
 	i = 0;
 	while (content[i])
 		i++;
@@ -34,9 +34,10 @@ static t_cont get_content_lst(char *stock, int pipe)
 	i = 1;
 	j = 0;
 	while (content[i])
-		cont.arg[j++] = content[i++];
+		cont.arg[j++] = ft_strdup(content[i++]);
 	cont.arg[j] = NULL;
 	cont.pipe = pipe;
+	free_str_array(content);
 	return (cont);
 }
 
@@ -80,6 +81,7 @@ static void list_pipe(char *stock_elem_piped)
 
 	i = 0;
 	pipe_sep = split_plus(stock_elem_piped, '|');
+	free_str(&stock_elem_piped);
 	while (pipe_sep[i] && is_valid(pipe_sep[i]))
 	{
 		if (pipe_sep[i + 1] != NULL)
@@ -88,6 +90,7 @@ static void list_pipe(char *stock_elem_piped)
 			new_elem_lst(pipe_sep[i], 0);
 		i++;
 	}
+	free_str_array(pipe_sep);
 }
 
 void	list_it(char **stock)
@@ -98,7 +101,10 @@ void	list_it(char **stock)
 	while (stock[i] && is_valid(stock[i]))
 	{
 		if (!is_pipe(stock[i]))
+		{
 			new_elem_lst(stock[i], 0);
+			free_str(&stock[i]);
+		}
 		else
 			list_pipe(stock[i]);
 		i++;

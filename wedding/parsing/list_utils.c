@@ -143,6 +143,7 @@ int	is_valid(char *stock)
 	return (0);
 }
 
+/*
 void	clear_lst_content(void)
 {
 	t_list *tmp;
@@ -169,12 +170,34 @@ void	clear_lst_content(void)
   			free(lst->rdc_index);
   		if (lst->rdo_index)
   			free(lst->rdo_index);
-  		//if (lst->cmd)
-  		//	free(lst->cmd);
+  		if (lst->cmd)
+  			free(lst->cmd);
 		if (lst->rdc_filename)
 			free(lst->rdc_filename);
 		if (lst->rdo_filename)
 			free(lst->rdo_filename);
+		lst = lst->next;
+	}
+	lst = tmp;
+}
+*/
+
+void	clear_lst_content(void)
+{
+	t_list *tmp;
+
+	tmp = lst;
+	while (lst)
+	{
+		free_str_array(lst->raw);
+		free_str_array(lst->arg);
+		free_str_array(lst->rdc_filetab);
+		free_str_array(lst->rdo_filetab);
+		free_int_array(lst->rdc_index);
+		free_int_array(lst->rdo_index);
+		free_str(&lst->cmd);
+	//	free_str(&lst->rdc_filename);
+	//	free_str(&lst->rdo_filename);
 		lst = lst->next;
 	}
 	lst = tmp;
@@ -192,13 +215,15 @@ void	clear_lst()
 			tmp = lst;
 			lst = lst->next;
 			free(tmp);
+			tmp = NULL;
 		}
-	free(lst);
+	//free(lst);
+
 }
 
 void	free_lst(void)
 {
 	clear_lst_content();
-	//clear_lst();
+	clear_lst();
 }
 

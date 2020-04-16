@@ -61,7 +61,6 @@ int	ft_unset(char **args);
 /* ------------- MANAGERS ------------- */
 
 /* MANAGE_ARRAY.C */
-char	**duplicate_array(char **input_array, char **free_array, char sep);
 char	**sort_array(char **input_array);
 int		search_in_array(char **input_array, char* str, char sep);
 char	**filter_env(char **input_array, char** free_array);
@@ -107,11 +106,9 @@ char	*ft_strcpy(char *dest, char *src);
 char	*ft_strncpy(char *dest, char *src, unsigned int limit);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strncat(char *dest, char *src, unsigned int limit);
-char	*ft_strdup(const char *input_str);
 
 /* MANAGE_STR.C */
 int		find_car(char *str, char c);
-void	free_str(char *str);
 
 /* ------------- PRINCIPAL ------------- */
 

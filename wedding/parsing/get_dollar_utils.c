@@ -44,12 +44,12 @@ int		is_env(char *str, int j)
 	{
 		if (ft_envcmp(global_env[i], tmp))
 		{
-			free(tmp);
+			free_str(&tmp);
 			return (1);
 		}
 		i++;
 	}
-	free(tmp);
+	free_str(&tmp);
 	return (0);
 }
 

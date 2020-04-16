@@ -22,6 +22,7 @@ int		is_esc(char *str, int i)
 	return (0);
 }
 
+//void	ft_exit(char* msg, int status)
 void ft_exit_after_rd(char *msg, int status)
 {
 	int	len;
@@ -52,17 +53,6 @@ void	ft_error_rd(char* msg, char symbol)
 	tmp[i] = '\0';
 	ft_exit_after_rd(tmp, 1);
 }
-
-/*
-void	ft_exit(char* msg, int status)
-{
-	int	len;
-
-	len = ft_strlen(msg);
-	write(1, msg, len);
-	ft_exit_2(NULL, status);
-}
-*/
 
 void	prompt()
 {

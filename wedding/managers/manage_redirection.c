@@ -58,6 +58,7 @@ void write_in_file(int redirection_fd[2])
     {
         file_str = read_from_fd(redirection_fd);
         write(file_fd, file_str, ft_len(file_str));
+        free_str(&file_str);
     } 
 }
 

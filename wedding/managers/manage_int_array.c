@@ -25,3 +25,12 @@ void display_int_array(int *input_array)
         count++;
     }
 }
+
+void free_int_array(int *input_array)
+{
+    if (input_array)
+    {
+        free(input_array);
+        input_array = NULL;
+    }
+}

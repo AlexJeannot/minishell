@@ -55,6 +55,6 @@ char *transform_backslash(char *output_str, char *input_str)
 		in_count++;
 	}
     final_str[final_count] = '\0';
-    free_str(output_str);
+    free_str(&output_str);
 	return (final_str);
 }

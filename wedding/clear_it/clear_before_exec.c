@@ -62,7 +62,8 @@ static char*	clear_quote(char* str)
 	}
 	res[k] = '\0';
 	//printf("cl_k[%d]\n", k);
-	free(map);
+	free_str(&map);
+	free_str(&str);
 	return (res);
 }
 

@@ -76,7 +76,6 @@ char		**split_plus(char *str, char charset)
 		i++;
 	}
 	tab[j] = NULL;
-	free(map);
-	free(str);
+	free_str(&map);
 	return (tab);
 }

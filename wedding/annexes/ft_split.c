@@ -86,7 +86,6 @@ char			**ft_split(char const *s, char c)
 	if (!(total_string = (char **)malloc(sizeof(char*) * (cmp_string + 1))))
 		ft_error('\0', "Malloc", NULL);
 	total_string = ft_sep_string(s, c, total_string);
-	total_string[cmp_string] = (char*)malloc(sizeof(char));
 	total_string[cmp_string] = NULL;
 	return (total_string);
 }
