@@ -68,6 +68,7 @@ int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
 	if (ft_strcmp(lst->cmd, "exit") == 0)
 		ft_exit(0);
 	filtered_env = filter_env(global_env, filtered_env);
+    //system("leaks minishell");
 	return (exit_status);
 }
 
@@ -80,10 +81,14 @@ int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2],
 	while (lst)
 	{
 		setup_command();
-		if (child_pid == 0)
-			exec_child(exit_status, process_fd, redirection_fd);
-		else
-			exit_status = exec_father(exit_status, process_fd, redirection_fd);
+		if (lst->cmd)
+		{
+			child_pid = fork();
+			if (child_pid == 0)
+				exec_child(exit_status, process_fd, redirection_fd);
+			else
+				exit_status = exec_father(exit_status, process_fd, redirection_fd);
+		}
 		lst = lst->next;
 	}
 	lst = tmp;

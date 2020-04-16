@@ -68,18 +68,21 @@ char*	clear_echo_bad_env(char* str)
 
 	i = 0;
 	res = NULL;
-	if (!ft_strcmp(lst->cmd, "echo"))
+	map = map_quote(str, 0);
+	while (str[i])
 	{
-		map = map_quote(str, 0);
-		while (str[i])
+		if (remove_it(str, i))
 		{
-			if (remove_it(str, i))
-				res = remove_dollar(str, i);
-			i++;
+			free_str(&map);
+			res = remove_dollar(str, i);
 		}
-		free_str(&map);
+		i++;
 	}
+	free_str(&map);
 	if (res)
+	{
+		free_str(&str);
 		return (res);
+	}
 	return (str);
 }
