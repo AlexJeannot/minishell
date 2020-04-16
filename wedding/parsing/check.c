@@ -71,14 +71,14 @@ void	check_rdc(char* str)
 		if (map[i] == '0' && !is_esc(str, i))
 		{
 			if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-				ft_error('>', NULL, "syntax error near unexpected symbol `");
+				ft_error('>', "rd", "syntax error near unexpected symbol `");
 			if (str[i] == '>' && str[i - 1] != '>' && str[i + 1] != '>')
 			{
 				j = i + 1;
 				while (str[j] == ' ')
 					j++;
 				if (!is_name(str, j))
-					ft_error(str[j], NULL, "syntax error near unexpected symbol `");
+					ft_error(str[j], "rd", "syntax error near unexpected symbol `");
 			}
 			if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>')
 			{
@@ -86,7 +86,7 @@ void	check_rdc(char* str)
 				while (str[j] == ' ')
 					j++;
 				if (!is_name(str, j))
-					ft_error(str[j], NULL, "syntax error near unexpected symbol `");
+					ft_error(str[j], "rd", "syntax error near unexpected symbol `");
 			}
 		}
 		i++;
@@ -105,14 +105,14 @@ void	check_rdo(char* str)
 		if (map[i] == '0' && !is_esc(str, i))
 		{
 			if (str[i] == '<' && str[i + 1] == '<')
-				ft_error('<', NULL, "syntax error near unexpected symbol `");
+				ft_error('<', "rd", "syntax error near unexpected symbol `");
 			if (str[i] == '<')
 			{
 				j = i + 1;
 				while (str[j] == ' ')
 					j++;
 				if (!is_name(str, j))
-					ft_error(str[j], NULL, "syntax error near unexpected symbol `");
+					ft_error(str[j], "rd", "syntax error near unexpected symbol `");
 			}
 		}
 		i++;
