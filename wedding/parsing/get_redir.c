@@ -146,7 +146,6 @@ char*	get_last(char** tab)
 	return (tab[i - 1]);
 }
 
-
 int		get_rdc_type(char* str)
 {
 	int	i;
@@ -163,7 +162,6 @@ int		get_rdc_type(char* str)
 	return (0);
 }
 
-
 t_cont	init_cont(void)
 {
 	t_cont cont;
@@ -176,9 +174,6 @@ t_cont	init_cont(void)
 	cont.rdo_filename = NULL;
 	return (cont);
 }
-
-
-/* DEBUT AJOUT FONCTIONS INDEX RDC RDO -> ALEX */
 
 int *create_index_array(char *str, char *type)
 {
@@ -202,13 +197,12 @@ void get_rd_index(char *str, int *rdc_index, int *rdo_index)
 	int rdc_add;
 	int rdo_add;
 
-	i  = 0;
+	i = 0;
 	index = 0;
 	rdc_add = 0;
 	rdo_add = 0;
 	while (str[i])
 	{
-		/* IF RDC*/
 		if (str[i] == '>' && !is_esc(str, i) && map[i] == '0')
 		{
 			rdc_index[rdc_add] = index;
@@ -217,22 +211,13 @@ void get_rd_index(char *str, int *rdc_index, int *rdo_index)
 			index++;
 			rdc_add++;
 		}
-
-		/* IF RDO*/
 		if (str[i] == '<' && !is_esc(str, i) && map[i] == '0')
-		{
-			rdo_index[rdo_add] = index;
-			index++;
-			rdo_add++;
-		}
+			rdo_index[rdo_add++] = index++;
 		i++;
 	}
 	rdc_index[rdc_add] = -1;
 	rdo_index[rdo_add] = -1;
 }
-
-/* FIN AJOUT FONCTIONS INDEX RDC RDO -> ALEX */
-
 
 t_cont	get_redir(char* str)
 {
@@ -241,11 +226,9 @@ t_cont	get_redir(char* str)
 	t_cont cont;
 
 	map = map_quote(str, 0);
-
 	rdc_index = create_index_array(str, "rdc"); // Creation de l'array de int pour les index rdc
 	rdo_index = create_index_array(str, "rdo"); // Create dion l'array de int pour les index rdo
 	get_rd_index(str, rdc_index, rdo_index); // Remplissage des index rdc et rdo
-
 	cont = init_cont();
 	if (find_rdc(str))
 	{

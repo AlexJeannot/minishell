@@ -10,7 +10,7 @@ void display_exec(char *exec)
 void ft_error(char symbol, char *cmd, char *msg)
 {
     write(1, "Minishell: ", 11);
-    if (symbol != '\0')
+    if (cmd && !ft_strcmp(cmd, "rd"))
         ft_error_rd(msg, symbol);
     else
     {
