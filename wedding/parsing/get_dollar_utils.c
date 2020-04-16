@@ -53,7 +53,7 @@ int		is_env(char *str, int j)
 	return (0);
 }
 
-t_value		new_value(int i, int j)
+t_value	new_value(int i, int j)
 {
 	t_value	v;
 	int		len;

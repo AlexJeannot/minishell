@@ -41,8 +41,11 @@ SRCS = 	annexes/display_string.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
 		parsing/check.c \
+		parsing/check_rd.c \
 		parsing/get_cmd_dollar.c \
+		parsing/get_cmd_dollar_2.c \
 		parsing/get_raw_dollar.c \
+		parsing/get_raw_dollar_2.c \
 		parsing/get_dollar_utils.c \
 		parsing/get_dollar_utils_2.c \
 		parsing/get_dollar.c \

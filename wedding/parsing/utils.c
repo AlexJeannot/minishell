@@ -27,7 +27,6 @@ void	ft_error_rd(char* msg, char symbol)
 	int		i;
 
 	i = ft_strlen(msg);
-	printf("ok\n");
 	write(1, msg, i);
 	if (!symbol)
 		write(1, "newline", 7);

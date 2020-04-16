@@ -5,7 +5,6 @@
 
 /*              #string
 -------------------------------------------------*/
-//int				ft_strcmp(char *s1, char *s2);
 char*			ft_strjoin(char *s1, char *s2);
 char*			ft_substr(char *str, int start, int len);
 char**			split_plus(char *str, char charset);
@@ -20,7 +19,6 @@ int				check_quote(char *str);
 
 /*              #chained_list
 -------------------------------------------------*/
-//void			print_lst(void);
 t_list			*new_lst(void);
 bool			is_empty_lst();
 void			list_it(char **stock);
@@ -30,6 +28,8 @@ int				is_valid(char *stock);
 -------------------------------------------------*/
 void			get_raw_dollar(void);
 void			get_cmd_dollar(void);
+t_dolls			dolls_cmd_value(int i);
+t_dolls			raw_dolls_value(int i, int j);
 int				is_path(char *str);
 int				ft_envcmp(char *s1, char *s2);
 int				is_env(char *str, int j);
@@ -54,22 +54,14 @@ int		        count_rdo(char* str);
 /*              #check
 -------------------------------------------------*/
 void			check(char* line);
-void			check_simple_quote(char* str);
-void			check_double_quote(char* str);
-void			check_bs(char* str);
-void			check_rdc(char* str);
-void			check_rdo(char* str);
+void			check_rdc(char* str, char* map);
+void			check_rdo(char* str, char* map);
 
 /*              #utils
 -------------------------------------------------*/
 void			prompt();
 int				get_next_line(int fd, char **line);
-//void			clear_before_print(void);
 int				ft_tablen(char **tab);
 void			defrag_arg(int len);
-
-/*              #main
--------------------------------------------------*/
-//int	parsing(char *line);
 
 #endif

@@ -49,7 +49,6 @@ static char*	clear_quote(char* str)
 
 	map = map_quote(str, 1);
 	nb = nb_del_quote(str);
-//	printf("quote[%d][%s]\n", nb, str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
 		ft_error('\0', "Malloc", NULL);
 	j = 0;
@@ -61,7 +60,6 @@ static char*	clear_quote(char* str)
 		j++;
 	}
 	res[k] = '\0';
-	//printf("cl_k[%d]\n", k);
 	free_str(&map);
 	free_str(&str);
 	return (res);
