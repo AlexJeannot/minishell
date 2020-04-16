@@ -72,5 +72,6 @@ t_value		new_value(int i, int j)
 		len++;
 	if (!(v.value = malloc(len + 1)))
 		ft_error('\0', "Malloc", NULL);
+	free_str(&v.name);
 	return (v);
 }
