@@ -162,6 +162,18 @@ int		get_rdc_type(char* str)
 	return (0);
 }
 
+t_cont	init_cont(void)
+{
+	t_cont cont;
+
+	cont.rdc_type = 0;
+	cont.rdc_filetab = NULL;
+	cont.rdc_filename = NULL;
+	cont.rdo_type = 0;
+	cont.rdo_filetab = NULL;
+	cont.rdo_filename = NULL;
+	return (cont);
+}
 
 int *create_index_array(char *str, char *type)
 {
@@ -207,28 +219,17 @@ void get_rd_index(char *str, int *rdc_index, int *rdo_index)
 	rdo_index[rdo_add] = -1;
 }
 
-t_cont	init_cont(char* str)
-{
-	t_cont cont;
-
-	cont.rdc_type = 0;
-	cont.rdc_filetab = NULL;
-	cont.rdc_filename = NULL;
-	cont.rdo_type = 0;
-	cont.rdo_filetab = NULL;
-	cont.rdo_filename = NULL;
-	cont.rdc_index = create_index_array(str, "rdc");
-	cont.rdo_index = create_index_array(str, "rdo");
-	get_rd_index(str, cont.rdc_index, cont.rdo_index);
-	return (cont);
-}
-
 t_cont	get_redir(char* str)
 {
+	int *rdc_index; // Ajout index des rdc
+	int *rdo_index;	// Ajout index des rdo
 	t_cont cont;
 
 	map = map_quote(str, 0);
-	cont = init_cont(str);
+	rdc_index = create_index_array(str, "rdc"); // Creation de l'array de int pour les index rdc
+	rdo_index = create_index_array(str, "rdo"); // Create dion l'array de int pour les index rdo
+	get_rd_index(str, rdc_index, rdo_index); // Remplissage des index rdc et rdo
+	cont = init_cont();
 	if (find_rdc(str))
 	{
 		cont.rdc_filetab = get_rdc_filetab(str);
@@ -241,6 +242,8 @@ t_cont	get_redir(char* str)
 		cont.rdo_filename = get_last(cont.rdo_filetab);
 		cont.rdo_type = 1;
 	}
+	cont.rdc_index = rdc_index; // Ajout de l'index rdc dans la structure cont
+	cont.rdo_index = rdo_index; // Ajout de l'index rdo dans la structure cont
 	free_str(&map);
 	return (cont);
 }
