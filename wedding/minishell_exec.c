@@ -1,6 +1,6 @@
 #include "./includes/exec.h"
 
-void display_prompt(void)
+void exec_prompt(void)
 {
 	char *dir;
 	char **split_result_1;

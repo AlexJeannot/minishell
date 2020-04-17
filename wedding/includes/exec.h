@@ -110,18 +110,21 @@ int		find_car(char *str, char c);
 
 /* ------------- PRINCIPAL ------------- */
 
+/* MINISHELL_EXEC.C */
+void    exec_prompt(void);
+int     exec_instructions(void);
+void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2]);
+int     exec_father(int exit_status, int process_fd[2], int redirection_fd[2]);
+int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
+
+/* MINISHELL_QUIT.C */
+void    quit_shell_eof(char *line);
+void    free_command_line(char *line);
+
 /* MINISHELL_SETUP.C */
 void    signal_manager(int sig);
 void    setup_env(char **env);
 void    setup_shell(int *exit_status, int process_fd[2], int redirection_fd[2]);
 void    setup_command(int exit_status);
-void    free_command_line(char *line);
-
-/* MINISHELL_EXEC.C */
-void    display_prompt(void);
-int     exec_instructions(void);
-void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2]);
-int     exec_father(int exit_status, int process_fd[2], int redirection_fd[2]);
-int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
 
 #endif

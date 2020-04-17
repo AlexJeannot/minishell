@@ -26,16 +26,13 @@ int main(int argc, char **argv, char **env)
     setup_env(env);
     while (1)
     {
-     	display_prompt();
+     	exec_prompt();
         setup_shell(&exit_status, process_fd, redirection_fd);
         ret_gnl = get_next_line(0, &line);
         if (line && line[0])
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
         else if (ret_gnl == 0)
-        {
-            free_str(&line);
-            ft_exit(0);
-        }
+            quit_shell_eof(line);
         free_command_line(line);
     }
 }

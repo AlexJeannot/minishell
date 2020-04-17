@@ -39,6 +39,7 @@ SRCS = 	annexes/display_string.c \
 		managers/manage_str_dup.c \
 		managers/manage_str.c \
 		./minishell_setup.c \
+		./minishell_quit.c \
 		./minishell_exec.c \
 		./minishell.c \
 		gnl/get_next_line.c \

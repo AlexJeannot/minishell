@@ -5,16 +5,14 @@ void signal_manager(int sig)
     if (sig == SIGINT)
     {
         write(1, "\n", 1);
-        display_prompt();
+        if (child_pid == -1)
+            exec_prompt();
     }
     if (sig == SIGQUIT)
     {
-        if (child_pid > 0)
+        if (child_pid && child_pid > 0)
         {
-            write(1, "\n", 1);
-            ft_putnbr(child_pid);
-            write(1, "      quit", 10);
-            write(1, "\n", 1);
+            write(1, "Quit: 3\n", 8);
             kill(child_pid, SIGKILL);
         }
     }
@@ -23,6 +21,7 @@ void signal_manager(int sig)
 void setup_env(char **env)
 {
     errno = 0;
+    child_pid = -1;
     global_env = duplicate_array(env, NULL, '\0');
     filtered_env = filter_env(global_env, NULL);
     signal(SIGINT, signal_manager);
@@ -42,12 +41,4 @@ void setup_command(int exit_status)
     replace_exit_status(exit_status);
     get_dollar();
     clear_before_exec();
-}
-
-void free_command_line(char *line)
-{
-    free_str(&line);
-    free_str(&piped_str);
-    free_lst();
-    child_pid = -1;
 }
