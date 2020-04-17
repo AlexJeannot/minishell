@@ -119,7 +119,7 @@ int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd
 
 /* MINISHELL_QUIT.C */
 void    quit_shell_eof(char *line);
-void    free_command_line(char *line);
+void free_command_line(char *line, int process_fd[2], int redirection_fd[2]);
 
 /* MINISHELL_SETUP.C */
 void    signal_manager(int sig);

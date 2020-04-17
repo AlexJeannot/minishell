@@ -33,6 +33,6 @@ int main(int argc, char **argv, char **env)
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
         else if (ret_gnl == 0)
             quit_shell_eof(line);
-        free_command_line(line);
+        free_command_line(line, process_fd, redirection_fd);
     }
 }
