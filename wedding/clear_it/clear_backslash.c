@@ -59,7 +59,6 @@ char*	clear_it(char* str)
 	int		i;
 
 	i = 0;
-	map = map_quote(str, 0);
 	nb = nb_to_del(str);
 	{
 		if (!(res = malloc(ft_strlen(str) - nb + 1)))
@@ -73,7 +72,6 @@ char*	clear_it(char* str)
 		}
 		res[nb] = '\0';
 	}
-	free_str(&map);
 	return (res);
 }
 
@@ -82,19 +80,25 @@ void	clear_backslash(void)
 	int	i;
 
 	i = 0;
+	map = map_quote(lst->cmd, 0);
 	if (nb_to_del(lst->cmd))
 		lst->cmd = clear_it(lst->cmd);
+	free_str(&map);
 	while (lst->arg[i])
 	{
+		map = map_quote(lst->arg[i], 0);
 		if (nb_to_del(lst->arg[i]))
 			lst->arg[i] = clear_it(lst->arg[i]);
+		free_str(&map);
 		i++;
 	}
 	i = 0;
 	while (lst->raw[i])
 	{
+		map = map_quote(lst->raw[i], 0);
 		if (nb_to_del(lst->raw[i]))
 			lst->raw[i] = clear_it(lst->raw[i]);
+		free_str(&map);
 		i++;
 	}
 }

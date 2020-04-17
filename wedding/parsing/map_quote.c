@@ -41,7 +41,6 @@ static void mapping(char *str)
 		i++;
 	}
 	map[i] = '\0';
-	//printf("map[%s]\n", map);
 }
 
 static void mapping_2(char *str)
@@ -76,7 +75,6 @@ static void mapping_2(char *str)
 		i++;
 	}
 	map[i] = '\0';
-//	printf("map2[%s]\n", map);
 }
 
 char*	map_quote(char *str, int pos)
