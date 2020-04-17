@@ -11,7 +11,10 @@ int    check_rdo_exec(void)
         while (lst->rdo_filetab[count])
         {
             if ((file_fd = open(lst->rdo_filetab[count], O_RDONLY)) == -1)
+            {
+                close(file_fd);
                 return (count);
+            }
             count++;
         }
     }
@@ -39,7 +42,8 @@ void set_rdo(void)
     if (lst->rdc_filetab)
         while (lst->rdc_filetab[count])
         {
-            open(lst->rdc_filetab[count], O_CREAT, S_IRWXU);
+            fd_file = open(lst->rdc_filetab[count], O_CREAT, S_IRWXU);
+            close(fd_file);
             count++;
         }
 }
@@ -59,7 +63,8 @@ void write_in_file(int redirection_fd[2])
         file_str = read_from_fd(redirection_fd);
         write(file_fd, file_str, ft_len(file_str));
         free_str(&file_str);
-    } 
+    }
+    close(file_fd);
 }
 
 void    receive_redirection(int redirection_fd[2])

@@ -11,10 +11,10 @@ int is_valid_var(char *str)
         || (str[count] > '9' && str[count] < 'A')
         || (str[count] > 'Z' && str[count] < 'a' && str[count] != '_')
         || str[count] > 'z')
-            return (KO);
+            return (-1);
         count++;
     }
-    return (OK);
+    return (1);
 }
 
 int is_valid_value(char *str)
@@ -25,10 +25,10 @@ int is_valid_value(char *str)
     while (str[count] && str[count] != '=')
     {
         if (str[count] < '!' || str[count] == 127)
-            return (KO);
+            return (-1);
         count++;
     }
-    return (OK);
+    return (1);
 }
 
 int display_invalid_export(char *str, int type)

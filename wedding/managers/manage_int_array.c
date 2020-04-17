@@ -9,7 +9,7 @@ int int_array_length(int *input_array)
         while (input_array[count] != -1)
             count++;
     else
-        return (KO);
+        return (-1);
     return (count);
 }
 

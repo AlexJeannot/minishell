@@ -42,9 +42,9 @@ void exec_child(int exit_status, int process_fd[2], int redirection_fd[2])
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
 		set_rdo();
 	if (lst->rdc_type != 0)
-		dup2(redirection_fd[1], STDOUT_FILENO);
+		stdout_redirection(redirection_fd);
 	else if (lst->pipe == 1)
-		dup2(process_fd[1], STDOUT_FILENO);
+		stdout_redirection(process_fd);
 	exit_status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(process_fd);

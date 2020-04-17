@@ -3,9 +3,6 @@
 
 # include "./struct.h"
 
-# define KO -1
-# define OK 1
-
 /* ------------- VARIABLES GLOBALES ------------- */
 int		errno;
 pid_t	child_pid;
@@ -89,7 +86,7 @@ void	display_int_array(int *input_array);
 char	*ft_itoa(int nb);
 
 /* MANAGE_PIPE.C */
-int     set_pipe(int fd[2]);
+void    stdout_redirection(int input_fd[2]);
 int     receive_pipe(int fd[2]);
 
 /* MANAGE_REDIRECTION.C */
@@ -118,9 +115,9 @@ void    signal_manager(int sig);
 void    setup_env(char **env);
 void    setup_shell(int *exit_status, int process_fd[2], int redirection_fd[2]);
 void    setup_command(int exit_status);
-void    free_command_line(char *line)
+void    free_command_line(char *line);
 
-/* MINISHELL_UTILS.C */
+/* MINISHELL_EXEC.C */
 void    display_prompt(void);
 int     exec_instructions(void);
 void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2]);

@@ -29,15 +29,17 @@ SRCS = 	annexes/display_string.c \
 		managers/manage_env.c \
 		managers/manage_error.c \
 		managers/manage_exit_status.c \
+		managers/manage_exit.c \
 		managers/manage_int_array.c \
 		managers/manage_int.c \
+		managers/manage_leaks.c \
 		managers/manage_pipe.c \
 		managers/manage_redirection.c \
 		managers/manage_str_array.c \
 		managers/manage_str_dup.c \
 		managers/manage_str.c \
 		./minishell_setup.c \
-		./minishell_utils.c \
+		./minishell_exec.c \
 		./minishell.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \

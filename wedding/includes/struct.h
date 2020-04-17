@@ -81,12 +81,17 @@ void	print_lst(void);
 int		ft_strlen(const char *str);
 int		is_esc(char *str, int i);
 char*	map_quote(char *str, int pos);
+void	ft_error_rd(char* msg, char symbol);
+void	free_lst(void);
+
 
 /* MANAGE_ARRAY.C */
 char	**duplicate_array(char **input_array, char **free_array, char sep);
 
-/* MANAGE_ERROR.C */
+/* MANAGE_EXIT.C */
 void 	ft_exit(int status);
+
+/* MANAGE_ERROR.C */
 void 	ft_error(char symbol, char *cmd, char *msg);
 
 /* MANAGE_STR.C */
@@ -101,15 +106,7 @@ void 	free_int_array(int *input_array);
 /* MANAGE_STR_DUP.C */
 char	*ft_strdup(const char *input_str);
 
-//void	ft_exit(char* msg, int status);
-//void	ft_exit_rd(char* msg, char symbol);
-void	ft_error_rd(char* msg, char symbol);
-
-
-void	free_lst(void);
-
-
-/* TO_DELETE */
-void ft_leaks(char *position);
+/* MANAGE_LEAKS */ // ==============> TO DELETE BEFORE EVALUATION
+void 	ft_leaks(char *position);
 
 #endif

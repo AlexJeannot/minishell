@@ -21,7 +21,7 @@ int str_array_length(char **input_array)
         while (input_array[count])
             count++;
     else
-        return (KO);
+        return (-1);
     return (count);
 }
 

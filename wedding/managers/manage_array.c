@@ -81,7 +81,7 @@ int search_in_array(char **input_array, char* str, char sep)
         }
         count++;
     }
-    return (KO);
+    return (-1);
 }
 
 char **filter_env(char **input_array, char** free_array)
