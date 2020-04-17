@@ -28,6 +28,22 @@ char *create_str_with_exit(char *input_str, int index, int status)
     return(output_str);
 }
 
+int replace_symbol(char **raw_array, int array_count, int str_count, int status)
+{
+    raw_array[array_count] = create_str_with_exit(raw_array[array_count], str_count, status);
+    if (array_count == 0)
+    {
+        free_str(&lst->cmd);
+        lst->cmd = ft_strdup(raw_array[array_count]);
+    }
+    else
+    {
+        free_str(&lst->arg[array_count - 1]);
+        lst->arg[array_count - 1] = ft_strdup(raw_array[array_count]);
+    }
+    return (0);
+}
+
 void replace_exit_status(int status)
 {
     int array_count;
@@ -43,22 +59,10 @@ void replace_exit_status(int status)
         while (raw_array[array_count][str_count])
         {
 			map = map_quote(raw_array[array_count], 0);
-            if (raw_array[array_count][str_count] == '$' && map[str_count] != '1' && !is_esc(raw_array[array_count], str_count)
+            if (raw_array[array_count][str_count] == '$' && map[str_count] != '1'
+                && !is_esc(raw_array[array_count], str_count)
 				&& raw_array[array_count][str_count + 1] == '?')
-            {
-                raw_array[array_count] = create_str_with_exit(raw_array[array_count], str_count, status);
-                if (array_count == 0)
-                {
-                    free_str(&lst->cmd);
-                    lst->cmd = ft_strdup(raw_array[array_count]);
-                }
-                else
-                {
-                    free_str(&lst->arg[array_count - 1]);
-                    lst->arg[array_count - 1] = ft_strdup(raw_array[array_count]);
-                }
-                str_count = 0;
-            }
+                str_count = replace_symbol(raw_array, array_count, str_count, status);
             else
                 str_count++;
             free_str(&map);

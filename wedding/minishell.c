@@ -12,69 +12,23 @@
 
 #include "./includes/exec.h"
 
-void signal_manager(int sig)
-{
-    if (sig == SIGINT)
-    {
-        write(1, "\n", 1);
-        display_prompt();
-    }
-    if (sig == SIGQUIT)
-    {
-        if (child_pid > 0)
-        {
-            write(1, "\n", 1);
-            ft_putnbr(child_pid);
-            write(1, "      quit", 10);
-            write(1, "\n", 1);
-            kill(child_pid, SIGKILL);
-        }
-    }
-}
-
-void setup_shell(char **env)
-{
-    errno = 0;
-    global_env = duplicate_array(env, NULL, '\0');
-    filtered_env = filter_env(global_env, NULL);
-    signal(SIGINT, signal_manager);
-    signal(SIGQUIT, signal_manager);
-}
-
-void setup_command(int exit_status)
-{
-    replace_exit_status(exit_status);
-    get_dollar();
-    clear_before_exec();
-}
-
-void setup_end_command_line(char *line)
-{
-    free_str(&line);
-    free_str(&piped_str);
-    free_lst();
-    child_pid = -1;
-}
 
 int main(int argc, char **argv, char **env)
 {
-    (void)argc;
-    (void)argv;
     char *line;
     int ret_gnl;
     int process_fd[2];
     int redirection_fd[2];
     int exit_status;
 
-    setup_shell(env);
+    (void)argc;
+    (void)argv;
+    setup_env(env);
     while (1)
     {
-        piped_str = NULL;
      	display_prompt();
-        pipe(process_fd);
-        pipe(redirection_fd);
+        setup_shell(&exit_status, process_fd, redirection_fd);
         ret_gnl = get_next_line(0, &line);
-        exit_status = 0;
         if (line && line[0])
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
         else if (ret_gnl == 0)
@@ -82,6 +36,6 @@ int main(int argc, char **argv, char **env)
             free_str(&line);
             ft_exit(0);
         }
-        setup_end_command_line(line);
+        free_command_line(line);
     }
 }
