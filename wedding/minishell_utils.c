@@ -39,7 +39,6 @@ int exec_instructions(void)
 
 void exec_child(int exit_status, int process_fd[2], int redirection_fd[2])
 {
-	replace_exit_status(exit_status);
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
 		set_rdo();
 	if (lst->rdc_type != 0)
@@ -79,7 +78,7 @@ int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2],
 	tmp = lst;
 	while (lst)
 	{
-		setup_command();
+		setup_command(exit_status);
 		if (lst->cmd)
 		{
 			child_pid = fork();

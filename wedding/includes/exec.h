@@ -120,7 +120,7 @@ int     exec_father(int exit_status, int process_fd[2], int redirection_fd[2]);
 int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
 
 /* MINISHELL.C */
-void    setup_command(void);
+void setup_command(int exit_status);
 
 
 

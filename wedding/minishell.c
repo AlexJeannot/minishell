@@ -41,8 +41,9 @@ void setup_shell(char **env)
     signal(SIGQUIT, signal_manager);
 }
 
-void setup_command(void)
+void setup_command(int exit_status)
 {
+    replace_exit_status(exit_status);
     get_dollar();
     clear_before_exec();
 }
