@@ -37,17 +37,20 @@ int exec_instructions(void)
 	return (status);
 }
 
-void exec_child(int exit_status, int process_fd[2], int redirection_fd[2])
+void exec_child(int exit_status, int process_fd[2], int redirection_fd[2], int is_pipe)
 {
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
 		set_rdo();
 	if (lst->rdc_type != 0)
-		stdout_redirection(redirection_fd);
+    	dup2(redirection_fd[1], STDOUT_FILENO);
 	else if (lst->pipe == 1)
-		stdout_redirection(process_fd);
+    	dup2(process_fd[1], STDOUT_FILENO);
+	else if (lst->pipe == 0 && is_pipe == 1)
+    	dup2(process_fd[0], STDIN_FILENO);
 	exit_status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(process_fd);
+	//ft_leaks("END OF CHILD\n");
 	ft_exit(exit_status);
 }
 
@@ -60,9 +63,7 @@ int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
 		exit_status = WEXITSTATUS(ret_child);
 	if (lst->rdc_type != 0)
 		receive_redirection(redirection_fd);
-	if (lst->pipe == 1)
-		exit_status = receive_pipe(process_fd);
-	else if (env_need_update(lst->cmd))
+	if (env_need_update(lst->cmd) && lst->pipe == 0)
 		receive_env(process_fd);
 	if (ft_strcmp(lst->cmd, "exit") == 0)
 		ft_exit(0);
@@ -73,20 +74,23 @@ int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
 int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line)
 {
 	t_list *tmp;
+	int is_pipe;
 
 	parsing(line);
 	tmp = lst;
+	is_pipe = 0;
 	while (lst)
 	{
-		setup_command(exit_status);
+		setup_command(exit_status, process_fd, redirection_fd);
 		if (lst->cmd)
 		{
 			child_pid = fork();
 			if (child_pid == 0)
-				exec_child(exit_status, process_fd, redirection_fd);
+				exec_child(exit_status, process_fd, redirection_fd, is_pipe);
 			else
 				exit_status = exec_father(exit_status, process_fd, redirection_fd);
 		}
+		is_pipe = lst->pipe;
 		lst = lst->next;
 	}
 	lst = tmp;

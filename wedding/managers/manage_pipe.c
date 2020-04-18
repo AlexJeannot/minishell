@@ -3,12 +3,19 @@
 void stdout_redirection(int input_fd[2])
 {
     dup2(input_fd[1], STDOUT_FILENO);
-    close(input_fd[1]);
 }
 
 int receive_pipe(int process_fd[2])
 {
-    free_str(&piped_str);
-    piped_str = read_from_fd(process_fd);
+    struct	stat sb;
+    struct	stat sb2;
+
+    fstat(process_fd[0], &sb);
+    printf("AVANT PIPE sb.st_size = %lld\n", sb.st_size);
+
+    dup2(process_fd[0], STDIN_FILENO);
+
+    fstat(process_fd[0], &sb2);
+    printf("APRES PIPE sb.st_size = %lld\n", sb.st_size);
     return (0);
 }

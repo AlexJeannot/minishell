@@ -6,7 +6,6 @@
 /* ------------- VARIABLES GLOBALES ------------- */
 int		errno;
 pid_t	child_pid;
-char	*piped_str;
 char	**filtered_env;
 
 
@@ -24,7 +23,7 @@ char	**ft_split(char const *s, char c);
 
 /* EXEC_BUILTINS.C */
 int     is_builtins(char *cmd);
-void	ft_builtins(char *exec, char **args);
+void ft_builtins(char *exec, char **args);
 
 /* EXEC_CD_MAIN.C */
 void	ft_cd(char **args);
@@ -46,7 +45,7 @@ int		verify_exported_var(char **input_array);
 int 	ft_export(char **args);
 
 /* EXEC_PROGRAM.C */
-void	ft_program(char *cmd, char **args);
+void ft_program(char *cmd, char **args);
 
 /* EXEC_UNSET_ERROR.C */
 int		verify_unset_var(char **input_array);
@@ -72,9 +71,6 @@ int     env_need_update(char *cmd);
 void    send_env(int *fd);
 void    receive_env(int *fd);
 
-/* MANAGE_ERROR.C */
-//void	display_error(char *exec, char *error_str);
-
 /* MANAGE_EXIT_STATUS.C */
 void	replace_exit_status(int status);
 
@@ -94,9 +90,9 @@ void    set_rdo(void);
 void    receive_redirection(int fd[2]);
 
 /* MANAGE_STR_ARRAY.C */
-int str_array_length(char **input_array);
-void display_str_array(char **input_array);
-void free_str_array(char **input_array);
+int     str_array_length(char **input_array);
+void    display_str_array(char **input_array);
+void    free_str_array(char **input_array);
 
 /* MANAGE_STR_DUP.C */
 char	*ft_strcpy(char *dest, char *src);
@@ -113,18 +109,18 @@ int		find_car(char *str, char c);
 /* MINISHELL_EXEC.C */
 void    exec_prompt(void);
 int     exec_instructions(void);
-void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2]);
+void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2], int is_pipe);
 int     exec_father(int exit_status, int process_fd[2], int redirection_fd[2]);
 int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
 
 /* MINISHELL_QUIT.C */
 void    quit_shell_eof(char *line);
-void free_command_line(char *line, int process_fd[2], int redirection_fd[2]);
+void    free_command_line(char *line, int process_fd[2], int redirection_fd[2]);
 
 /* MINISHELL_SETUP.C */
 void    signal_manager(int sig);
 void    setup_env(char **env);
-void    setup_shell(int *exit_status, int process_fd[2], int redirection_fd[2]);
-void    setup_command(int exit_status);
+void    setup_shell(int *exit_status, int process_fd[2]);
+void    setup_command(int exit_status, int process_fd[2], int redirection_fd[2]);
 
 #endif

@@ -2,6 +2,7 @@
 
 void signal_manager(int sig)
 {
+    printf("sig = %d\n", sig);
     if (sig == SIGINT)
     {
         write(1, "\n", 1);
@@ -28,17 +29,18 @@ void setup_env(char **env)
     signal(SIGQUIT, signal_manager);
 }
 
-void setup_shell(int *exit_status, int process_fd[2], int redirection_fd[2])
+void setup_shell(int *exit_status, int process_fd[2])
 {
-    piped_str = NULL;
     *exit_status = 0;
     pipe(process_fd);
-    pipe(redirection_fd);
 }
 
-void setup_command(int exit_status)
+void setup_command(int exit_status, int process_fd[2], int redirection_fd[2])
 {
     replace_exit_status(exit_status);
     get_dollar();
     clear_before_exec();
+    if (lst->pipe == 1)
+	    pipe(process_fd);
+   	pipe(redirection_fd);
 }

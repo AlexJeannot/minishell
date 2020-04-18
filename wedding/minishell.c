@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **env)
     while (1)
     {
      	exec_prompt();
-        setup_shell(&exit_status, process_fd, redirection_fd);
+        setup_shell(&exit_status, process_fd);
         ret_gnl = get_next_line(0, &line);
         if (line && line[0])
             exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);

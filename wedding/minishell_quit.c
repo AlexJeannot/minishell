@@ -14,7 +14,6 @@ void free_command_line(char *line, int process_fd[2], int redirection_fd[2])
     close(redirection_fd[0]);
     close(redirection_fd[1]);
     free_str(&line);
-    free_str(&piped_str);
     free_lst();
     child_pid = -1;
 }

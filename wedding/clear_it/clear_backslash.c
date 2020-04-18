@@ -72,6 +72,7 @@ char*	clear_it(char* str)
 		}
 		res[nb] = '\0';
 	}
+	free_str(&str);
 	return (res);
 }
 

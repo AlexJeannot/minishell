@@ -62,6 +62,7 @@ char **add_file(char **input_array, char *file)
     output_array[0] = ft_strdup(input_array[0]);
     output_array[1] = ft_strdup(file);
     output_array[2] = NULL;
+    free_str_array(input_array);
     return (output_array);
 
 }
@@ -81,6 +82,33 @@ char **setup_builtins(char *exec)
     return (exec_array);
 }
 
+char **grep_array(char **from_array, char **add_array, int from_len, int add_len)
+{
+    int array_count;
+    int add_count;
+    char **output_array;
+
+    array_count = 0;
+    add_count = 0;
+    if (!(output_array = (char **)malloc(sizeof(char *) * (from_len + add_len + 1))))
+    	ft_error('\0', "Malloc", NULL);
+    while (from_array[add_count])
+    {
+        output_array[add_count] = from_array[add_count];
+        add_count++;
+    }
+    while (add_array[array_count])
+    {
+        output_array[add_count] = add_array[array_count];
+        array_count++;
+        add_count++;
+    }
+    output_array[add_count] = NULL;
+    //free_str_array(input_array);
+    //free_str(&input_str);
+    return (output_array);
+}
+
 void ft_builtins(char *exec, char **args)
 {
     int count;
@@ -93,7 +121,6 @@ void ft_builtins(char *exec, char **args)
     used_env = select_env(exec);
     if ((str_array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
         args = add_file(args, lst->rdo_filename);
-    // ft_leaks("BEFORE EXECVE BUILTINS");
     while (exec_array[count])
     {
         ret_exec = execve(exec_array[count], args, used_env);

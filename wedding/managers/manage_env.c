@@ -12,18 +12,18 @@
 
 #include "../includes/exec.h"
 
-char *read_from_fd(int fd[2])
+char *read_from_fd(int input_fd[2])
 {
     int ret;
     char buf[101];
     char *output_str;
     struct	stat sb;
 
-    fstat(fd[0], &sb);
+    fstat(input_fd[0], &sb);
     output_str = NULL;
     if (sb.st_size > 0)
     {
-        while ((ret = read(fd[0], buf, 100)) > 0)
+        while ((ret = read(input_fd[0], buf, 100)) > 0)
         {
             buf[ret] = '\0';
             output_str = ft_join(output_str, buf, ft_len(output_str), ft_len(buf));
@@ -89,6 +89,8 @@ void receive_env(int process_fd[2])
     char **split_result;
 
     str_env = read_from_fd(process_fd);
+    if (str_env)
+    {
     tab_env = ft_split(str_env, '\n');
     global_env = duplicate_array(tab_env, global_env, '\0');
     if ((pwd_index = search_in_array(global_env, "PWD", '=')) == -1)
@@ -98,5 +100,5 @@ void receive_env(int process_fd[2])
     free_str_array(split_result);
     free_str(&str_env);
     free_str_array(tab_env);
-    free_str(&piped_str);
+    }
 }
