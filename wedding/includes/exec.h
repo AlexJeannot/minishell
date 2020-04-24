@@ -7,7 +7,7 @@
 int		errno;
 pid_t	child_pid;
 char	**filtered_env;
-
+int p_fd[2];
 
 /* ------------- ANNEXES ------------- */
 
@@ -109,18 +109,23 @@ int		find_car(char *str, char c);
 /* MINISHELL_EXEC.C */
 void    exec_prompt(void);
 int     exec_instructions(void);
-void    exec_child(int exit_status, int process_fd[2], int redirection_fd[2], int is_pipe);
-int     exec_father(int exit_status, int process_fd[2], int redirection_fd[2]);
-int     exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line);
+void exec_child(int is_prev_piped, int prev_pid, int exit_status);
+int exec_father(int exit_status);
+int exec_command_line(char *line, int exit_status);
 
 /* MINISHELL_QUIT.C */
 void    quit_shell_eof(char *line);
-void    free_command_line(char *line, int process_fd[2], int redirection_fd[2]);
+void free_command_line(char *line);
 
 /* MINISHELL_SETUP.C */
 void    signal_manager(int sig);
 void    setup_env(char **env);
-void    setup_shell(int *exit_status, int process_fd[2]);
-void    setup_command(int exit_status, int process_fd[2], int redirection_fd[2]);
+void setup_shell(int *exit_status);
+void setup_command(int exit_status);
+
+
+
+/* NEW */
+int setup_pipe_and_process(int exit_status);
 
 #endif

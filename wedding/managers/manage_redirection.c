@@ -20,7 +20,7 @@ int    check_rdo_exec(void)
     }
     return (-1);
 }
-
+/*
 void set_rdo(void)
 {
     int count;
@@ -47,6 +47,42 @@ void set_rdo(void)
             count++;
         }
 }
+*/
+
+void set_rdo(void)
+{
+    int count;
+    int fd_file;
+    int ret_check;
+
+    count = 0;
+    if ((ret_check = check_rdo_exec()) != -1)
+    {
+        if (lst->rdc_filetab)
+            while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
+            {
+                fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU);
+                close(fd_file);
+                count++;
+            }
+        ft_error('\0', lst->rdo_filetab[ret_check], NULL);
+    }
+    if (lst->rdc_filetab)
+        while (lst->rdc_filetab[count])
+        {
+            fd_file = open(lst->rdc_filetab[count], O_CREAT, S_IRWXU);
+            close(fd_file);
+            count++;
+        }
+    if (lst->rdc_type == 1)
+        fd_file = open(lst->rdc_filename, O_WRONLY | O_TRUNC);
+    else
+        fd_file = open(lst->rdc_filename, O_WRONLY | O_APPEND);
+    dup2(fd_file, STDOUT_FILENO);
+    close(fd_file);
+}
+
+
 
 void write_in_file(int redirection_fd[2])
 {

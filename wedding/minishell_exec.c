@@ -37,62 +37,53 @@ int exec_instructions(void)
 	return (status);
 }
 
-void exec_child(int exit_status, int process_fd[2], int redirection_fd[2], int is_pipe)
+void exec_child(int is_prev_piped, int prev_pid, int exit_status)
 {
+	int status_achild;
+	int ret_pchild;
+	int status_pchild;
+
+    ret_pchild = 0;
+	status_pchild = 0;
+	if (is_prev_piped == 0)
+	{
+        waitpid(prev_pid, &ret_pchild, 0);
+        if (WIFEXITED(ret_pchild))
+            status_pchild = WEXITSTATUS(ret_pchild);
+		receive_env(p_fd);
+		filtered_env = filter_env(global_env, filtered_env);
+	}
+	else if (is_prev_piped == 1)
+		status_pchild = 0;
+	else
+		status_pchild = exit_status;
+	setup_command(status_pchild);
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
 		set_rdo();
-	if (lst->rdc_type != 0)
-    	dup2(redirection_fd[1], STDOUT_FILENO);
-	else if (lst->pipe == 1)
-    	dup2(process_fd[1], STDOUT_FILENO);
-	else if (lst->pipe == 0 && is_pipe == 1)
-    	dup2(process_fd[0], STDIN_FILENO);
-	exit_status = exec_instructions();
+	status_achild = exec_instructions();
 	if (lst->pipe == 0)
-		send_env(process_fd);
+		send_env(p_fd);
+
 	//ft_leaks("END OF CHILD\n");
-	ft_exit(exit_status);
+	ft_exit(status_achild);
 }
 
-int exec_father(int exit_status, int process_fd[2], int redirection_fd[2])
+int exec_father(int exit_status)
 {
 	int ret_child;
 
 	waitpid(child_pid, &ret_child, 0);
 	if (WIFEXITED(ret_child))
 		exit_status = WEXITSTATUS(ret_child);
-	if (lst->rdc_type != 0)
-		receive_redirection(redirection_fd);
-	if (env_need_update(lst->cmd) && lst->pipe == 0)
-		receive_env(process_fd);
-	if (ft_strcmp(lst->cmd, "exit") == 0)
-		ft_exit(0);
+	receive_env(p_fd);
 	filtered_env = filter_env(global_env, filtered_env);
 	return (exit_status);
 }
 
-int exec_command_line(int exit_status, int process_fd[2], int redirection_fd[2], char *line)
+int exec_command_line(char *line, int exit_status)
 {
-	t_list *tmp;
-	int is_pipe;
-
 	parsing(line);
-	tmp = lst;
-	is_pipe = 0;
-	while (lst)
-	{
-		setup_command(exit_status, process_fd, redirection_fd);
-		if (lst->cmd)
-		{
-			child_pid = fork();
-			if (child_pid == 0)
-				exec_child(exit_status, process_fd, redirection_fd, is_pipe);
-			else
-				exit_status = exec_father(exit_status, process_fd, redirection_fd);
-		}
-		is_pipe = lst->pipe;
-		lst = lst->next;
-	}
-	lst = tmp;
+	setup_pipe_and_process(exit_status);
+	exit_status = exec_father(exit_status);
 	return (exit_status);
 }

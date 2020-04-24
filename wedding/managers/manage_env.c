@@ -21,6 +21,7 @@ char *read_from_fd(int input_fd[2])
 
     fstat(input_fd[0], &sb);
     output_str = NULL;
+  //  printf(">>>>>>> sb.st_size = %lld\n", sb.st_size);
     if (sb.st_size > 0)
     {
         while ((ret = read(input_fd[0], buf, 100)) > 0)

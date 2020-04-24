@@ -17,8 +17,6 @@ int main(int argc, char **argv, char **env)
 {
     char *line;
     int ret_gnl;
-    int process_fd[2];
-    int redirection_fd[2];
     int exit_status;
 
     (void)argc;
@@ -27,12 +25,12 @@ int main(int argc, char **argv, char **env)
     while (1)
     {
      	exec_prompt();
-        setup_shell(&exit_status, process_fd);
+        setup_shell(&exit_status);
         ret_gnl = get_next_line(0, &line);
         if (line && line[0])
-            exit_status = exec_command_line(exit_status, process_fd, redirection_fd, line);
+            exit_status = exec_command_line(line, exit_status);
         else if (ret_gnl == 0)
             quit_shell_eof(line);
-        free_command_line(line, process_fd, redirection_fd);
+        free_command_line(line);
     }
 }
