@@ -19,19 +19,15 @@ void signal_manager(int sig)
     }
 }
 
-void setup_env(char **env)
+void setup_env(char **env, int *exit_status)
 {
     errno = 0;
     child_pid = -1;
     global_env = duplicate_array(env, NULL, '\0');
     filtered_env = filter_env(global_env, NULL);
+    *exit_status = 0;
     signal(SIGINT, signal_manager);
     signal(SIGQUIT, signal_manager);
-}
-
-void setup_shell(int *exit_status)
-{
-    *exit_status = 0;
 }
 
 void setup_command(int exit_status)
@@ -50,31 +46,32 @@ void close_fd(int fd)
     }
 }
 
-int setup_pipe_and_process(int exit_status)
+void setup_pipe_and_process(int exit_status)
 {
-    int nb_process;
-    int prev_pid;
     int prev_pipe;
     int prev_fd;
+    int ret_pchild;
 
-    nb_process = 0;
-    prev_pid = -1;
     prev_fd = -1;
     prev_pipe = -1;
+    ret_pchild = 0;
 	while (lst)
 	{
         pipe(p_fd);
         /* INCLURE ERROR PIPE ICI*/
-
+        if (prev_pipe == 0)
+        {
+            waitpid(child_pid, &ret_pchild, 0);
+            if (WIFEXITED(ret_pchild))
+                exit_status = WEXITSTATUS(ret_pchild);
+        }
         child_pid = fork();
         /* INCLURE ERROR FORK ICI*/
 
-        if (child_pid > 0) // Process parent
+        if (child_pid > 0)
         {
             close_fd(prev_fd);
             prev_fd = p_fd[0];
-            nb_process++;
-            prev_pid = child_pid;
             prev_pipe = lst->pipe;
 		    lst = lst->next;
         }
@@ -93,8 +90,7 @@ int setup_pipe_and_process(int exit_status)
                 dup2(p_fd[1], STDOUT_FILENO);
                 close_fd(p_fd[1]);
             }
-            exec_child(prev_pipe, prev_pid, exit_status);
+            exec_child(prev_pipe, exit_status);
         }
 	}
-    return (nb_process);
 }

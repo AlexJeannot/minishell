@@ -47,7 +47,8 @@ char **create_exported_var_array(char **input_array)
     while (input_array[array_count])
     {
         split_result = ft_split(input_array[array_count], '=');
-        add_count = add_exported_var(input_array[array_count], output_array, add_count);
+        if (verify_exported_var(input_array[array_count]) == 0)
+            add_count = add_exported_var(input_array[array_count], output_array, add_count);
         free_str_array(split_result);
         array_count++;
     }
@@ -66,10 +67,11 @@ int ft_export(char **args)
         display_exported_env();
     else
     {
-        status = verify_exported_var(args);
+        status = verify_exported_array(args);
         add_array = create_exported_var_array(args);
         global_env = extend_array(global_env, add_array, str_array_length(global_env), str_array_length(add_array));
     }
     free_str_array(add_array);
+
     return (status);
 }

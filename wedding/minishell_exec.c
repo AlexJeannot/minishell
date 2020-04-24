@@ -37,35 +37,23 @@ int exec_instructions(void)
 	return (status);
 }
 
-void exec_child(int is_prev_piped, int prev_pid, int exit_status)
+void exec_child(int is_prev_piped, int exit_status)
 {
-	int status_achild;
-	int ret_pchild;
-	int status_pchild;
-
-    ret_pchild = 0;
-	status_pchild = 0;
 	if (is_prev_piped == 0)
 	{
-        waitpid(prev_pid, &ret_pchild, 0);
-        if (WIFEXITED(ret_pchild))
-            status_pchild = WEXITSTATUS(ret_pchild);
 		receive_env(p_fd);
 		filtered_env = filter_env(global_env, filtered_env);
 	}
 	else if (is_prev_piped == 1)
-		status_pchild = 0;
-	else
-		status_pchild = exit_status;
-	setup_command(status_pchild);
+		exit_status = 0;
+	setup_command(exit_status);
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
 		set_rdo();
-	status_achild = exec_instructions();
+	exit_status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(p_fd);
-
 	//ft_leaks("END OF CHILD\n");
-	ft_exit(status_achild);
+	ft_exit(exit_status);
 }
 
 int exec_father(int exit_status)

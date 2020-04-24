@@ -21,11 +21,10 @@ int main(int argc, char **argv, char **env)
 
     (void)argc;
     (void)argv;
-    setup_env(env);
+    setup_env(env, &exit_status);
     while (1)
     {
      	exec_prompt();
-        setup_shell(&exit_status);
         ret_gnl = get_next_line(0, &line);
         if (line && line[0])
             exit_status = exec_command_line(line, exit_status);

@@ -48,13 +48,29 @@ int display_invalid_export(char *str, int type)
     return (1);
 }
 
-int verify_exported_var(char **input_array)
+int verify_exported_var(char *input_str)
+{
+    int status;
+    char    **split_result;
+    int equal_index;
+
+    status = 0;
+    split_result = ft_split(input_str, '=');
+    if (is_valid_var(split_result[0]) == -1)
+        status = 1;
+    else if ((equal_index = find_car(input_str, '=')) != -1 && is_valid_value(&input_str[equal_index]) == -1)
+        status = 1;
+    free_str_array(split_result);
+    return (status);
+}
+
+int verify_exported_array(char **input_array)
 {
     int array_count;
-    int equal_index;
     int     status;
     char    **split_result;
-
+    int equal_index;
+    
     array_count = 0;
     status = 0;
     while (input_array[array_count])

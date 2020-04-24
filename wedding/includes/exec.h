@@ -39,7 +39,8 @@ void	display_exported_env(void);
 
 /* EXEC_EXPORT_ERROR.C */
 int		is_valid_var(char *str);
-int		verify_exported_var(char **input_array);
+int verify_exported_var(char *input_str);
+int verify_exported_array(char **input_array);
 
 /* EXEC_EXPORT_MAIN.C */
 int 	ft_export(char **args);
@@ -82,8 +83,7 @@ void	display_int_array(int *input_array);
 char	*ft_itoa(int nb);
 
 /* MANAGE_PIPE.C */
-void    stdout_redirection(int input_fd[2]);
-int     receive_pipe(int fd[2]);
+
 
 /* MANAGE_REDIRECTION.C */
 void    set_rdo(void);
@@ -109,7 +109,7 @@ int		find_car(char *str, char c);
 /* MINISHELL_EXEC.C */
 void    exec_prompt(void);
 int     exec_instructions(void);
-void exec_child(int is_prev_piped, int prev_pid, int exit_status);
+void exec_child(int is_prev_piped, int exit_status);
 int exec_father(int exit_status);
 int exec_command_line(char *line, int exit_status);
 
@@ -119,13 +119,11 @@ void free_command_line(char *line);
 
 /* MINISHELL_SETUP.C */
 void    signal_manager(int sig);
-void    setup_env(char **env);
-void setup_shell(int *exit_status);
+void setup_env(char **env, int *exit_status);
 void setup_command(int exit_status);
 
 
-
 /* NEW */
-int setup_pipe_and_process(int exit_status);
+void setup_pipe_and_process(int exit_status);
 
 #endif
