@@ -2,7 +2,6 @@
 
 void signal_manager(int sig)
 {
-    printf("sig = %d\n", sig);
     if (sig == SIGINT)
     {
         write(1, "\n", 1);
@@ -37,59 +36,29 @@ void setup_command(int exit_status)
     clear_before_exec();
 }
 
-void close_fd(int fd)
-{
-    if (fd >= 0)
-    {
-        close(fd);
-        fd = -1;
-    }
-}
-
 void setup_pipe_and_process(int exit_status)
 {
     int prev_pipe;
     int prev_fd;
-    int ret_pchild;
 
     prev_fd = -1;
     prev_pipe = -1;
-    ret_pchild = 0;
+    lst_free = lst;
 	while (lst)
 	{
         pipe(p_fd);
         /* INCLURE ERROR PIPE ICI*/
         if (prev_pipe == 0)
-        {
-            waitpid(child_pid, &ret_pchild, 0);
-            if (WIFEXITED(ret_pchild))
-                exit_status = WEXITSTATUS(ret_pchild);
-        }
+            wait_for_child(exit_status);
+        if (ft_strcmp(lst->cmd, "exit") == 0 && lst->pipe != 1 && prev_pipe != 1)
+            ft_exit(0);
         child_pid = fork();
         /* INCLURE ERROR FORK ICI*/
-
         if (child_pid > 0)
-        {
-            close_fd(prev_fd);
-            prev_fd = p_fd[0];
-            prev_pipe = lst->pipe;
-		    lst = lst->next;
-        }
+            setup_parent(&prev_fd, &prev_pipe, p_fd[0]);
         else
         {
-            if (prev_fd >= 0)
-            {
-                if (prev_pipe == 1)
-                    dup2(prev_fd, STDIN_FILENO);
-                else
-                    dup2(prev_fd, p_fd[0]);
-                close_fd(prev_fd);
-            }
-            if (p_fd[1] >= 0 && lst->pipe == 1 && lst->rdc_type == 0)
-            {
-                dup2(p_fd[1], STDOUT_FILENO);
-                close_fd(p_fd[1]);
-            }
+            setup_child(prev_fd, prev_pipe, p_fd);
             exec_child(prev_pipe, exit_status);
         }
 	}

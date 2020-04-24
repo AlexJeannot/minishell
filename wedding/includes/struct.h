@@ -71,6 +71,7 @@ typedef struct		s_list
 
 t_list* lst;
 char	**global_env;
+t_list *lst_free;
 
 int     ft_strcmp(char *s1, char *s2);
 void	clear_lst();

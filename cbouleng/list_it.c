@@ -59,6 +59,17 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	elem->rdo_filename = cont.rdo_filename;
 	elem->pipe = pipe;
 	elem->next = NULL;
+
+	printf("elem->cmd PTR = %p\n", elem->cmd);
+	printf("elem->arg PTR = %p\n", elem->arg);
+	printf("elem->rdc_type PTR = %p\n", elem->rdc_type);
+	printf("elem->rdo_type PTR = %p\n", elem->rdo_type);
+	printf("elem->rdc_filetab PTR = %p\n", elem->rdc_filetab);
+	printf("elem->rdo_filetab PTR = %p\n", elem->rdo_filetab);
+	printf("elem->rdc_filename PTR = %p\n", elem->rdc_filename);
+	printf("elem->rdo_filename PTR = %p\n", elem->rdo_filename);
+
+
 	if (is_empty_lst())
 		lst = elem;
 	else

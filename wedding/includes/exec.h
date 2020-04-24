@@ -83,7 +83,10 @@ void	display_int_array(int *input_array);
 char	*ft_itoa(int nb);
 
 /* MANAGE_PIPE.C */
-
+void close_fd(int fd);
+void setup_parent(int *prev_fd, int *prev_pipe, int p_fd_exit);
+void setup_child(int prev_fd, int prev_pipe, int p_fd[2]);
+int wait_for_child(int exit_status);
 
 /* MANAGE_REDIRECTION.C */
 void    set_rdo(void);

@@ -186,39 +186,32 @@ void	clear_lst_content(void)
 {
 	t_list *tmp;
 
-	tmp = lst;
-	while (lst)
+	tmp = lst_free;
+	while (lst_free)
 	{
-		free_str_array(lst->raw);
-		free_str_array(lst->arg);
-		free_str_array(lst->rdc_filetab);
-		free_str_array(lst->rdo_filetab);
-		free_int_array(lst->rdc_index);
-		free_int_array(lst->rdo_index);
-		free_str(&lst->cmd);
-	//	free_str(&lst->rdc_filename);
-	//	free_str(&lst->rdo_filename);
-		lst = lst->next;
+		free_str(&lst_free->cmd);
+		free_str_array(lst_free->raw);
+		free_str_array(lst_free->arg);
+		free_str_array(lst_free->rdc_filetab);
+		free_str_array(lst_free->rdo_filetab);
+		free_int_array(lst_free->rdc_index);
+		free_int_array(lst_free->rdo_index);
+		lst_free = lst_free->next;
 	}
-	lst = tmp;
+	lst_free = tmp;
 }
 
-void	clear_lst()
+void	clear_lst(void)
 {
 	t_list *tmp;
 
-	if (is_empty_lst())
-		new_lst();
-	else
-		while (lst)
-		{
-			tmp = lst;
-			lst = lst->next;
-			free(tmp);
-			tmp = NULL;
-		}
-	//free(lst);
-
+	while (lst_free)
+	{
+		tmp = lst_free;
+		lst_free = lst_free->next;
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
 void	free_lst(void)
