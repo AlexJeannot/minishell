@@ -1,4 +1,4 @@
-#include "./includes/exec.h"
+#include "../includes/exec.h"
 
 void signal_manager(int sig)
 {
@@ -46,16 +46,17 @@ void setup_pipe_and_process(int exit_status)
     lst_free = lst;
 	while (lst)
 	{
-        pipe(p_fd);
-        /* INCLURE ERROR PIPE ICI*/
+        close_fd(p_fd[1]);
         if (prev_pipe == 0)
             wait_for_child(exit_status);
         if (ft_strcmp(lst->cmd, "exit") == 0 && lst->pipe != 1 && prev_pipe != 1)
             ft_exit(0);
-        child_pid = fork();
-        /* INCLURE ERROR FORK ICI*/
+        if ((pipe(p_fd)) == -1)
+            ft_error('\0', "Pipe", NULL);
+        if ((child_pid = fork()) == -1)
+            ft_error('\0', "Fork", NULL);
         if (child_pid > 0)
-            setup_parent(&prev_fd, &prev_pipe, p_fd[0]);
+            setup_parent(&prev_fd, &prev_pipe, p_fd);
         else
         {
             setup_child(prev_fd, prev_pipe, p_fd);

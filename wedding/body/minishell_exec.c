@@ -1,4 +1,4 @@
-#include "./includes/exec.h"
+#include "../includes/exec.h"
 
 void exec_prompt(void)
 {
@@ -39,16 +39,11 @@ int exec_instructions(void)
 
 void exec_child(int is_prev_piped, int exit_status)
 {
-	if (is_prev_piped == 0)
-	{
-		receive_env(p_fd);
-		filtered_env = filter_env(global_env, filtered_env);
-	}
-	else if (is_prev_piped == 1)
+	if (is_prev_piped == 1)
 		exit_status = 0;
 	setup_command(exit_status);
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
-		set_rdo();
+		manage_redirection();
 	exit_status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(p_fd);
@@ -70,6 +65,8 @@ int exec_father(int exit_status)
 
 int exec_command_line(char *line, int exit_status)
 {
+	p_fd[0] = -1;
+	p_fd[1] = -1;
 	parsing(line);
 	setup_pipe_and_process(exit_status);
 	exit_status = exec_father(exit_status);

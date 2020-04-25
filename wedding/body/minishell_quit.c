@@ -1,4 +1,4 @@
-#include "./includes/exec.h"
+#include "../includes/exec.h"
 
 void quit_shell_eof(char *line)
 {

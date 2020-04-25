@@ -59,36 +59,27 @@ char *get_env_value(char *var)
     return (NULL);
 }
 
-int env_need_update(char *cmd)
-{
-    if ((ft_strcmp(cmd, "export") == 0)
-        || (ft_strcmp(cmd, "unset") == 0)
-        || (ft_strcmp(cmd, "cd") == 0))
-        return (1);
-    return (0);
-}
-
-void send_env(int process_fd[2])
+void send_env(int input_fd[2])
 {
     int count;
 
     count = 0;
     while (global_env[count])
     {
-        write(process_fd[1], global_env[count], ft_strlen(global_env[count]));
-        write(process_fd[1], "\n", 1);
+        write(input_fd[1], global_env[count], ft_strlen(global_env[count]));
+        write(input_fd[1], "\n", 1);
         count++;
     }
 }
 
-void receive_env(int process_fd[2])
+void receive_env(int input_fd[2])
 {
     int pwd_index;
     char *str_env;
     char **tab_env;
     char **split_result;
 
-    str_env = read_from_fd(process_fd);
+    str_env = read_from_fd(input_fd);
     if (str_env)
     {
     tab_env = ft_split(str_env, '\n');

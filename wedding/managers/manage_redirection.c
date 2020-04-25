@@ -12,7 +12,7 @@ int    check_rdo_exec(void)
         {
             if ((file_fd = open(lst->rdo_filetab[count], O_RDONLY)) == -1)
             {
-                close(file_fd);
+                close_fd(file_fd);
                 return (count);
             }
             count++;
@@ -20,102 +20,60 @@ int    check_rdo_exec(void)
     }
     return (-1);
 }
-/*
-void set_rdo(void)
+
+void manage_rdo_error(int ret_check)
 {
     int count;
     int fd_file;
-    int ret_check;
 
     count = 0;
-    if ((ret_check = check_rdo_exec()) != -1)
-    {
-        if (lst->rdc_filetab)
-            while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
-            {
-                fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU);
-                close(fd_file);
-                count++;
-            }
-        ft_error('\0', lst->rdo_filetab[ret_check], NULL);
-    }
     if (lst->rdc_filetab)
-        while (lst->rdc_filetab[count])
+    {
+        while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
         {
-            fd_file = open(lst->rdc_filetab[count], O_CREAT, S_IRWXU);
-            close(fd_file);
+            fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU);
+            close_fd(fd_file);
             count++;
         }
+        ft_error('\0', lst->rdo_filetab[ret_check], NULL);
+    }
 }
-*/
 
-void set_rdo(void)
+void create_file(void)
 {
     int count;
     int fd_file;
-    int ret_check;
 
     count = 0;
-    if ((ret_check = check_rdo_exec()) != -1)
-    {
-        if (lst->rdc_filetab)
-            while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
-            {
-                fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU);
-                close(fd_file);
-                count++;
-            }
-        ft_error('\0', lst->rdo_filetab[ret_check], NULL);
-    }
     if (lst->rdc_filetab)
+    {
         while (lst->rdc_filetab[count])
         {
             fd_file = open(lst->rdc_filetab[count], O_CREAT, S_IRWXU);
-            close(fd_file);
+            close_fd(fd_file);
             count++;
         }
+    }
+}
+
+void red_stdout_in_file(void)
+{
+    int fd_file;
+
     if (lst->rdc_type == 1)
         fd_file = open(lst->rdc_filename, O_WRONLY | O_TRUNC);
     else
         fd_file = open(lst->rdc_filename, O_WRONLY | O_APPEND);
     dup2(fd_file, STDOUT_FILENO);
-    close(fd_file);
+    close_fd(fd_file);
 }
 
-
-
-void write_in_file(int redirection_fd[2])
+void manage_redirection(void)
 {
-    int file_fd;
-    char    *file_str;
+    int ret_check;
 
-    file_str = NULL;
-    if (lst->rdc_type == 1)
-        file_fd = open(lst->rdc_filename, O_WRONLY | O_TRUNC);
-    else
-        file_fd = open(lst->rdc_filename, O_WRONLY | O_APPEND);
-    if (file_fd != -1)
-    {
-        file_str = read_from_fd(redirection_fd);
-        write(file_fd, file_str, ft_len(file_str));
-        free_str(&file_str);
-    }
-    close(file_fd);
-}
-
-void    receive_redirection(int redirection_fd[2])
-{
-    int     ret_check;
-    int     error_index;
-    int     file_index;
-
-    error_index = 0;
-    file_index = 0;
     if ((ret_check = check_rdo_exec()) != -1)
-    {
-        error_index = lst->rdo_index[ret_check];
-        file_index = lst->rdc_index[int_array_length(lst->rdc_index) - 1];
-    }
-    if (file_index <= error_index || ret_check == -1)
-        write_in_file(redirection_fd);
+        manage_rdo_error(ret_check);
+    create_file();
+    red_stdout_in_file();
 }
