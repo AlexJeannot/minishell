@@ -68,7 +68,6 @@ char	**extend_array(char **from_array, char **add_array, int from_len, int add_l
 /* MANAGE_ENV.C */
 char    *read_from_fd(int fd[2]);
 char	*get_env_value(char *var);
-int     env_need_update(char *cmd);
 void    send_env(int *fd);
 void    receive_env(int *fd);
 
@@ -84,13 +83,12 @@ char	*ft_itoa(int nb);
 
 /* MANAGE_PIPE.C */
 void close_fd(int fd);
-void setup_parent(int *prev_fd, int *prev_pipe, int p_fd_exit);
+void setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2]);
 void setup_child(int prev_fd, int prev_pipe, int p_fd[2]);
 int wait_for_child(int exit_status);
 
 /* MANAGE_REDIRECTION.C */
-void    set_rdo(void);
-void    receive_redirection(int fd[2]);
+void manage_redirection(void);
 
 /* MANAGE_STR_ARRAY.C */
 int     str_array_length(char **input_array);
@@ -124,9 +122,6 @@ void free_command_line(char *line);
 void    signal_manager(int sig);
 void setup_env(char **env, int *exit_status);
 void setup_command(int exit_status);
-
-
-/* NEW */
 void setup_pipe_and_process(int exit_status);
 
 #endif
