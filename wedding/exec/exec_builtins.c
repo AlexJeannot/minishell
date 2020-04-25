@@ -104,8 +104,6 @@ char **grep_array(char **from_array, char **add_array, int from_len, int add_len
         add_count++;
     }
     output_array[add_count] = NULL;
-    //free_str_array(input_array);
-    //free_str(&input_str);
     return (output_array);
 }
 
@@ -119,7 +117,7 @@ void ft_builtins(char *exec, char **args)
     count = 0;
     exec_array = setup_builtins(exec);
     used_env = select_env(exec);
-    if ((str_array_length(args) == 1 && ft_strcmp(args[0], "cat")) == 0 && lst->rdo_filename)
+    if (str_array_length(args) == 1 && ft_strcmp(args[0], "cat") == 0 && lst->rdo_filename)
         args = add_file(args, lst->rdo_filename);
     while (exec_array[count])
     {
