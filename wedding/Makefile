@@ -17,11 +17,14 @@ SRCS = 	annexes/display_string.c \
 		exec/exec_builtins.c \
 		exec/exec_cd_main.c \
 		exec/exec_cd_path.c \
+		exec/exec_echo.c \
+		exec/exec_env.c \
 		exec/exec_export_backslash.c \
 		exec/exec_export_display.c \
 		exec/exec_export_error.c \
 		exec/exec_export_main.c \
 		exec/exec_program.c \
+		exec/exec_pwd.c \
 		exec/exec_unset_error.c \
 		exec/exec_unset_main.c \
 		managers/manage_array.c \

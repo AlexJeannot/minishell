@@ -24,8 +24,12 @@ int exec_instructions(void)
 	int status;
 
 	status = 0;
-	if (ft_strcmp(lst->cmd, "pwd") == 0 || ft_strcmp(lst->cmd, "echo") == 0 || ft_strcmp(lst->cmd, "env") == 0)
-		ft_builtins(lst->cmd, lst->raw);
+	if (ft_strcmp(lst->cmd, "pwd") == 0)
+		ft_pwd();
+	else if (ft_strcmp(lst->cmd, "echo") == 0)
+		ft_echo(lst->arg);
+	else if (ft_strcmp(lst->cmd, "env") == 0)
+		ft_env(lst->arg);
 	else if (ft_strcmp(lst->cmd, "cd") == 0)
 		ft_cd(lst->arg);
 	else if (ft_strcmp(lst->cmd, "export") == 0)

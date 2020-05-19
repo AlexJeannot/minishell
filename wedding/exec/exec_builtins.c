@@ -45,14 +45,6 @@ char **build_exec_array(char *exec, char **path_array)
     return (exec_array);
 }
 
-char **select_env(char *exec)
-{
-    if (ft_strcmp(exec, "env") == 0)
-        return(filtered_env);
-    else
-        return(global_env);
-}
-
 char **add_file(char **input_array, char *file)
 {
     char **output_array;
@@ -82,46 +74,19 @@ char **setup_builtins(char *exec)
     return (exec_array);
 }
 
-char **grep_array(char **from_array, char **add_array, int from_len, int add_len)
-{
-    int array_count;
-    int add_count;
-    char **output_array;
-
-    array_count = 0;
-    add_count = 0;
-    if (!(output_array = (char **)malloc(sizeof(char *) * (from_len + add_len + 1))))
-    	ft_error('\0', "Malloc", NULL);
-    while (from_array[add_count])
-    {
-        output_array[add_count] = from_array[add_count];
-        add_count++;
-    }
-    while (add_array[array_count])
-    {
-        output_array[add_count] = add_array[array_count];
-        array_count++;
-        add_count++;
-    }
-    output_array[add_count] = NULL;
-    return (output_array);
-}
-
 void ft_builtins(char *exec, char **args)
 {
     int count;
     int ret_exec;
     char **exec_array;
-    char **used_env;
 
     count = 0;
     exec_array = setup_builtins(exec);
-    used_env = select_env(exec);
     if (str_array_length(args) == 1 && ft_strcmp(args[0], "cat") == 0 && lst->rdo_filename)
         args = add_file(args, lst->rdo_filename);
     while (exec_array[count])
     {
-        ret_exec = execve(exec_array[count], args, used_env);
+        ret_exec = execve(exec_array[count], args, global_env);
         count++;
     }
     if (ret_exec == -1)
