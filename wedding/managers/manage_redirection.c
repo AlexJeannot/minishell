@@ -3,16 +3,16 @@
 int    check_rdo_exec(void)
 {
     int count;
-    int file_fd;
+    int fd_file;
 
     count = 0;
     if (lst->rdo_type != 0)
     {
         while (lst->rdo_filetab[count])
         {
-            if ((file_fd = open(lst->rdo_filetab[count], O_RDONLY)) == -1)
+            if ((fd_file = open(lst->rdo_filetab[count], O_RDONLY)) == -1)
             {
-                close_fd(file_fd);
+                close(fd_file);
                 return (count);
             }
             count++;
@@ -32,7 +32,7 @@ void manage_rdo_error(int ret_check)
         while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
         {
             fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT, S_IRWXU);
-            close_fd(fd_file);
+            close(fd_file);
             count++;
         }
         ft_error('\0', lst->rdo_filetab[ret_check], NULL);
@@ -50,7 +50,7 @@ void create_file(void)
         while (lst->rdc_filetab[count])
         {
             fd_file = open(lst->rdc_filetab[count], O_CREAT, S_IRWXU);
-            close_fd(fd_file);
+            close(fd_file);
             count++;
         }
     }
@@ -65,7 +65,7 @@ void red_stdout_in_file(void)
     else
         fd_file = open(lst->rdc_filename, O_WRONLY | O_APPEND);
     dup2(fd_file, STDOUT_FILENO);
-    close_fd(fd_file);
+    close(fd_file);
 }
 
 void manage_redirection(void)

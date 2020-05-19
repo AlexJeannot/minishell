@@ -12,24 +12,19 @@
 
 #include "../includes/exec.h"
 
-char *read_from_fd(int input_fd[2])
+char *read_from_fd(int read_end)
 {
     int ret;
     char buf[101];
     char *output_str;
-    struct	stat sb;
 
-    fstat(input_fd[0], &sb);
     output_str = NULL;
-    if (sb.st_size > 0)
+    while ((ret = read(read_end, buf, 100)) > 0)
     {
-        while ((ret = read(input_fd[0], buf, 100)) > 0)
-        {
-            buf[ret] = '\0';
-            output_str = ft_join(output_str, buf, ft_len(output_str), ft_len(buf));
-            if (ret < 100)
-                break ;
-        }
+        buf[ret] = '\0';
+        output_str = ft_join(output_str, buf, ft_len(output_str), ft_len(buf));
+        if (ret < 100)
+            break ;
     }
     return (output_str);
 }
@@ -59,37 +54,38 @@ char *get_env_value(char *var)
     return (NULL);
 }
 
-void send_env(int input_fd[2])
+void send_env(int write_end)
 {
     int count;
 
     count = 0;
     while (global_env[count])
     {
-        write(input_fd[1], global_env[count], ft_strlen(global_env[count]));
-        write(input_fd[1], "\n", 1);
+        write(write_end, global_env[count], ft_strlen(global_env[count]));
+        write(write_end, "\n", 1);
         count++;
     }
+    close(write_end);
 }
 
-void receive_env(int input_fd[2])
+void receive_env(int read_end)
 {
     int pwd_index;
     char *str_env;
     char **tab_env;
     char **split_result;
 
-    str_env = read_from_fd(input_fd);
+    str_env = read_from_fd(read_end);
     if (str_env)
     {
-    tab_env = ft_split(str_env, '\n');
-    global_env = duplicate_array(tab_env, global_env, '\0');
-    if ((pwd_index = search_in_array(global_env, "PWD", '=')) == -1)
-        ft_error('\0', NULL, "PWD not found in environnement variables");
-    split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
-    chdir(split_result[1]);
-    free_str_array(split_result);
-    free_str(&str_env);
-    free_str_array(tab_env);
+        tab_env = ft_split(str_env, '\n');
+        global_env = duplicate_array(tab_env, global_env, '\0');
+        if ((pwd_index = search_in_array(global_env, "PWD", '=')) == -1)
+            ft_error('\0', NULL, "PWD not found in environnement variables");
+        split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
+        chdir(split_result[1]);
+        free_str_array(split_result);
+        free_str(&str_env);
+        free_str_array(tab_env);
     }
 }

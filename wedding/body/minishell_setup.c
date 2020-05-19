@@ -36,19 +36,19 @@ void setup_command(int exit_status)
     clear_before_exec();
 }
 
-void setup_pipe_and_process(int exit_status)
+int setup_pipe_and_process(int exit_status)
 {
     int prev_pipe;
     int prev_fd;
+    int p_fd[2];
 
     prev_fd = -1;
     prev_pipe = -1;
     lst_free = lst;
 	while (lst)
 	{
-        close_fd(p_fd[1]);
         if (prev_pipe == 0)
-            wait_for_child(exit_status);
+            wait_for_child(exit_status, p_fd[0]);
         if (ft_strcmp(lst->cmd, "exit") == 0 && lst->pipe != 1 && prev_pipe != 1)
             ft_exit(0);
         if ((pipe(p_fd)) == -1)
@@ -60,7 +60,8 @@ void setup_pipe_and_process(int exit_status)
         else
         {
             setup_child(prev_fd, prev_pipe, p_fd);
-            exec_child(prev_pipe, exit_status);
+            exec_child(prev_pipe, exit_status, p_fd[1]);
         }
 	}
+    return (p_fd[0]);
 }

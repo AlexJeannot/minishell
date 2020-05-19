@@ -7,7 +7,6 @@
 int		errno;
 pid_t	child_pid;
 char	**filtered_env;
-int p_fd[2];
 
 /* ------------- ANNEXES ------------- */
 
@@ -75,10 +74,10 @@ char	**filter_env(char **input_array, char** free_array);
 char	**extend_array(char **from_array, char **add_array, int from_len, int add_len);
 
 /* MANAGE_ENV.C */
-char    *read_from_fd(int fd[2]);
+//char    *read_from_fd(int *fd);
 char	*get_env_value(char *var);
-void    send_env(int *fd);
-void    receive_env(int *fd);
+void    send_env(int write_end);
+void    receive_env(int read_end);
 
 /* MANAGE_EXIT_STATUS.C */
 void	replace_exit_status(int status);
@@ -94,7 +93,7 @@ char	*ft_itoa(int nb);
 void    close_fd(int fd);
 void    setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2]);
 void    setup_child(int prev_fd, int prev_pipe, int p_fd[2]);
-int     wait_for_child(int exit_status);
+int     wait_for_child(int exit_status, int read_end);
 
 /* MANAGE_REDIRECTION.C */
 void    manage_redirection(void);
@@ -119,8 +118,8 @@ int		find_car(char *str, char c);
 /* MINISHELL_EXEC.C */
 void    exec_prompt(void);
 int     exec_instructions(void);
-void    exec_child(int is_prev_piped, int exit_status);
-int     exec_father(int exit_status);
+void    exec_child(int is_prev_piped, int exit_status, int write_end);
+int     exec_father(int exit_status, int read_end);
 int     exec_command_line(char *line, int exit_status);
 
 /* MINISHELL_QUIT.C */
@@ -131,6 +130,6 @@ void    free_command_line(char *line);
 void    signal_manager(int sig);
 void    setup_env(char **env, int *exit_status);
 void    setup_command(int exit_status);
-void    setup_pipe_and_process(int exit_status);
+int    setup_pipe_and_process(int exit_status);
 
 #endif

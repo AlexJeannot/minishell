@@ -4,7 +4,11 @@ int is_valid_var(char *str)
 {
     int count;
 
-    count = 0;
+    count = 1;
+    if (str[0] < 'A'
+    || (str[0] > 'Z' && str[0] < 'a' && str[0] != '_')
+    || (str[0] > 'z'))
+        return (-1);
     while (str[count])
     {
         if (str[count] < '0'

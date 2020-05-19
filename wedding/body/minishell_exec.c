@@ -41,7 +41,7 @@ int exec_instructions(void)
 	return (status);
 }
 
-void exec_child(int is_prev_piped, int exit_status)
+void exec_child(int is_prev_piped, int exit_status, int write_end)
 {
 	if (is_prev_piped == 1)
 		exit_status = 0;
@@ -50,29 +50,29 @@ void exec_child(int is_prev_piped, int exit_status)
 		manage_redirection();
 	exit_status = exec_instructions();
 	if (lst->pipe == 0)
-		send_env(p_fd);
+		send_env(write_end);
 	//ft_leaks("END OF CHILD\n");
 	ft_exit(exit_status);
 }
 
-int exec_father(int exit_status)
+int exec_father(int exit_status, int read_end)
 {
 	int ret_child;
 
 	waitpid(child_pid, &ret_child, 0);
 	if (WIFEXITED(ret_child))
 		exit_status = WEXITSTATUS(ret_child);
-	receive_env(p_fd);
+	receive_env(read_end);
 	filtered_env = filter_env(global_env, filtered_env);
 	return (exit_status);
 }
 
 int exec_command_line(char *line, int exit_status)
 {
-	p_fd[0] = -1;
-	p_fd[1] = -1;
+	int read_end;
+
 	parsing(line);
-	setup_pipe_and_process(exit_status);
-	exit_status = exec_father(exit_status);
+	read_end = setup_pipe_and_process(exit_status);
+	exit_status = exec_father(exit_status, read_end);
 	return (exit_status);
 }
