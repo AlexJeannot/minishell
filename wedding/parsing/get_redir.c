@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_redir.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:44:41 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 17:02:21 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-char* map;
+char	*g_map;
 
-int		find_rdc(char* str)
+int		find_rdc(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '>' && !is_esc(str, i) && map[i] == '0')
+		if (str[i] == '>' && !is_esc(str, i) && g_map[i] == '0')
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int		count_rdc(char* str)
+int		count_rdc(char *str)
 {
 	int	i;
 	int	nb;
@@ -25,7 +37,7 @@ int		count_rdc(char* str)
 	nb = 0;
 	while (str[i])
 	{
-		if (map[i] == '0' && !is_esc(str, i))
+		if (g_map[i] == '0' && !is_esc(str, i))
 		{
 			if (str[i] == '>' && str[i + 1] == '>')
 				nb++;
@@ -37,53 +49,9 @@ int		count_rdc(char* str)
 	return (nb);
 }
 
-int		is_name(char* str, int i)
+int		is_rdc(char *str, int i)
 {
-	if (str[i] >= 'a' && str[i] <= 'z')
-		return (1);
-	if (str[i] >= 'A' && str[i] <= 'Z')
-		return (1);
-	if (str[i] >= '0' && str[i] <= '9')
-		return (1);
-	if (str[i] == '_')
-		return (1);
-	if (str[i] == '.')
-		return (1);
-	if (str[i] == '-')
-		return (1);
-	if (str[i] == '\'' || str[i] == '"')
-		return (1);
-	if (str[i] == '\\')
-		return (1);
-	return (0);
-}
-
-char*	get_name(char* str, int i, int ret)
-{
-	char*	name;
-	int		len;
-
-	if (ret == 2)
-		i++;
-	while (str[i] == ' ')
-		i++;
-	len = i;
-	while (is_name(str, i))
-		i++;
-	len = i - len;
-	if (!(name = malloc(len + 1)))
-		ft_error('\0', "Malloc", NULL);
-	i = i - len;
-	len = 0;
-	while (is_name(str, i))
-		name[len++] = str[i++];
-	name[len] = '\0';
-	return (name);
-}
-
-int		is_rdc(char* str, int i)
-{
-	if (!is_esc(str, i) && map[i] == '0')
+	if (!is_esc(str, i) && g_map[i] == '0')
 	{
 		if (str[i] == '>' && str[i + 1] == '>')
 			return (2);
@@ -93,125 +61,7 @@ int		is_rdc(char* str, int i)
 	return (0);
 }
 
-char*	get_rdc_name(char* str, int i)
-{
-	char*	name;
-	int		nb;
-	int		y;
-	int		ret;
-
-	y = 0;
-	nb = 0;
-	name = NULL;
-	while (nb != i && str[y])
-	{
-		if ((ret = is_rdc(str, y)))
-			nb++;
-		y++;
-	}
-	if (nb == i)
-		name = get_name(str, y, ret);
-	return (name);
-}
-
-char**	get_rdc_filetab(char* str)
-{
-	char**	tab;
-	int		nb;
-	int		i;
-
-	if (find_rdc(str))
-	{
-		nb = count_rdc(str);
-		if (!(tab = malloc(sizeof(char*) * nb + 1)))
-		ft_error('\0', "Malloc", NULL);
-		i = 1;
-		while (i <= nb)
-		{
-			tab[i - 1] = get_rdc_name(str, i);
-			i++;
-		}
-		tab[i - 1] = NULL;
-		return (tab);
-	}
-	return (NULL);
-}
-
-char*	get_last(char** tab)
-{
-	int	i;
-
-
-	i = 0;
-	if (!tab)
-		return (NULL);
-	while (tab[i])
-		i++;
-	return (tab[i - 1]);
-}
-
-int		get_rdc_type(char* str)
-{
-	int	i;
-
-	i = ft_strlen(str) - 1;
-	while (str[i])
-	{
-		if (str[i] == '>' && str[i - 1] == '>')
-			return (2);
-		if (str[i] == '>')
-			return (1);
-		i--;
-	}
-	return (0);
-}
-
-
-int *create_index_array(char *str, char *type)
-{
-	int count;
-	int *index_array;
-
-	count = 0;
-	if (ft_strcmp("rdc", type) == 0)
-		count = count_rdc(str);
-	else if (ft_strcmp("rdo", type) == 0)
-		count = count_rdo(str);
-	if (!(index_array = (int *)malloc(sizeof(int) * (count + 1))))
-		ft_error('\0', "Malloc", NULL);
-	return (index_array);
-}
-
-void get_rd_index(char *str, int *rdc_index, int *rdo_index)
-{
-	int i;
-	int index;
-	int rdc_add;
-	int rdo_add;
-
-	i = 0;
-	index = 0;
-	rdc_add = 0;
-	rdo_add = 0;
-	while (str[i])
-	{
-		if (str[i] == '>' && !is_esc(str, i) && map[i] == '0')
-		{
-			rdc_index[rdc_add] = index;
-			if (str[i + 1] && str[i + 1] == '>')
-				i++;
-			index++;
-			rdc_add++;
-		}
-		if (str[i] == '<' && !is_esc(str, i) && map[i] == '0')
-			rdo_index[rdo_add++] = index++;
-		i++;
-	}
-	rdc_index[rdc_add] = -1;
-	rdo_index[rdo_add] = -1;
-}
-
-t_cont	init_cont(char* str)
+t_cont	init_cont(char *str)
 {
 	t_cont cont;
 
@@ -223,15 +73,15 @@ t_cont	init_cont(char* str)
 	cont.rdo_filename = NULL;
 	cont.rdc_index = create_index_array(str, "rdc");
 	cont.rdo_index = create_index_array(str, "rdo");
-	get_rd_index(str, cont.rdc_index, cont.rdo_index);
+	get_rd_index(str, cont.rdc_index, cont.rdo_index, g_map);
 	return (cont);
 }
 
-t_cont	get_redir(char* str)
+t_cont	get_redir(char *str)
 {
 	t_cont cont;
 
-	map = map_quote(str, 0);
+	g_map = map_quote(str, 0);
 	cont = init_cont(str);
 	if (find_rdc(str))
 	{
@@ -241,11 +91,11 @@ t_cont	get_redir(char* str)
 	}
 	if (find_rdo(str))
 	{
-		free_str(&map);
+		free_str(&g_map);
 		cont.rdo_filetab = get_rdo_filetab(str);
 		cont.rdo_filename = get_last(cont.rdo_filetab);
 		cont.rdo_type = 1;
 	}
-	free_str(&map);
+	free_str(&g_map);
 	return (cont);
 }

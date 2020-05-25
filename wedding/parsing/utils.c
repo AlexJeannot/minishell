@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 17:27:47 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 17:28:59 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
 int		is_esc(char *str, int i)
@@ -22,7 +34,7 @@ int		is_esc(char *str, int i)
 	return (0);
 }
 
-void	ft_error_rd(char* msg, char symbol)
+void	ft_error_rd(char *msg, char symbol)
 {
 	int		i;
 
@@ -32,16 +44,16 @@ void	ft_error_rd(char* msg, char symbol)
 		write(1, "newline", 7);
 	else
 		write(1, &symbol, 1);
-	write (1, "'\n", 2);
+	write(1, "'\n", 2);
 	ft_exit(1);
 }
 
-void	prompt()
+void	prompt(void)
 {
 	write(1, "$ ", 2);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(char *s1, char *s2)
 {
 	int i;
 
@@ -56,7 +68,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int	ft_tablen(char **tab)
+int		ft_tablen(char **tab)
 {
 	int	i;
 

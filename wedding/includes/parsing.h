@@ -23,6 +23,7 @@ t_list			*new_lst(void);
 bool			is_empty_lst();
 void			list_it(char **stock);
 int				is_valid(char *stock);
+int				is_pipe(char *stock);
 
 /*              #dollar
 -------------------------------------------------*/
@@ -50,6 +51,13 @@ int				is_name(char* str, int i);
 char*			get_name(char* str, int i, int ret);
 char*			clear_stock_rd(char* str);
 int		        count_rdo(char* str);
+void			get_rd_index(char *str, int *rdc_index, int *rdo_index, char *g_map);
+int				*create_index_array(char *str, char *type);
+int				is_name(char *str, int i);
+char			*get_name(char *str, int i, int ret);
+char			*get_rdc_name(char *str, int i);
+char			**get_rdc_filetab(char *str);
+int				get_rdc_type(char *str);
 
 /*              #check
 -------------------------------------------------*/

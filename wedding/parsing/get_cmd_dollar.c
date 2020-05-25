@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_cmd_dollar.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 15:42:58 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 15:43:00 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-static char*		r_cmd_dollar(int i, char *free_elem)
+static char		*r_cmd_dollar(int i, char *free_elem)
 {
 	t_dolls dls;
 	char	*res;
@@ -43,7 +55,7 @@ static int		quote_cmd_stop(int i)
 	return (0);
 }
 
-void	get_cmd_dollar(void)
+void			get_cmd_dollar(void)
 {
 	int	i;
 

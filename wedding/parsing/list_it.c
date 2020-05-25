@@ -1,28 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   list_it.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 17:04:17 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 17:17:41 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-static int	is_pipe(char *stock)
-{
-	int i;
-
-	i = 0;
-	while (stock[i])
-	{
-		if (stock[i] == '|' && !is_esc(stock, i))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static t_cont get_content_lst(char *stock, int pipe)
+static t_cont	get_content_lst(char *stock, int pipe)
 {
 	int		i;
 	int		j;
 	t_cont	cont;
 	char	**content;
-	
+
 	cont = get_redir(stock);
-	stock =	clear_stock_rd(stock);
+	stock = clear_stock_rd(stock);
 	content = split_plus(stock, ' ');
 	cont.raw = duplicate_array(content, NULL, '\0');
 	cont.cmd = ft_strdup(content[0]);
@@ -41,10 +39,24 @@ static t_cont get_content_lst(char *stock, int pipe)
 	return (cont);
 }
 
-static void	new_elem_lst(char *stock_elem, int pipe)
+static void		new_elem_lst(t_list *elem)
+{
+	t_list	*tmp;
+
+	if (is_empty_lst())
+		lst = elem;
+	else
+	{
+		tmp = lst;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = elem;
+	}
+}
+
+static void		new_elem_lst(char *stock_elem, int pipe)
 {
 	t_list	*elem;
-	t_list	*tmp;
 	t_cont	cont;
 
 	if (!(elem = malloc(sizeof(t_list))))
@@ -63,18 +75,10 @@ static void	new_elem_lst(char *stock_elem, int pipe)
 	elem->rdo_index = cont.rdo_index;
 	elem->pipe = pipe;
 	elem->next = NULL;
-	if (is_empty_lst())
-		lst = elem;
-	else
-	{
-		tmp = lst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = elem;
-	}
+	new_elem_lst_2(elem);
 }
 
-static void list_pipe(char *stock_elem_piped)
+static void		list_pipe(char *stock_elem_piped)
 {
 	int		i;
 	char	**pipe_sep;
@@ -93,7 +97,7 @@ static void list_pipe(char *stock_elem_piped)
 	free_str_array(pipe_sep);
 }
 
-void	list_it(char **stock)
+void			list_it(char **stock)
 {
 	int i;
 

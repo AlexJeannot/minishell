@@ -1,46 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 15:09:54 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:44:07 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-char* map;
+char	*g_map;
 
-void	check_simple_quote(char* str)
+void	check_simple_quote(char *str)
 {
 	int i;
 
 	i = 0;
-	while (map[i])
+	while (g_map[i])
 	{
-		if (map[i] == '3')
+		if (g_map[i] == '3')
 		{
 			i++;
-			while (map[i] == '1')
+			while (g_map[i] == '1')
 				i++;
-			if (map[i] != '3' || str[i] != '\'')
+			if (g_map[i] != '3' || str[i] != '\'')
 				ft_error('\0', NULL, "check_simple_quote failed");
 		}
 		i++;
 	}
 }
 
-void	check_double_quote(char* str)
+void	check_double_quote(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (map[i])
+	while (g_map[i])
 	{
-		if (map[i] == '4')
+		if (g_map[i] == '4')
 		{
 			i++;
-			while (map[i] == '2')
+			while (g_map[i] == '2')
 				i++;
-			if (map[i] != '4' || str[i] != '"')
+			if (g_map[i] != '4' || str[i] != '"')
 				ft_error('\0', NULL, "check_double_quote failed");
 		}
 		i++;
 	}
 }
 
-void		check_bs(char* str)
+void	check_bs(char *str)
 {
 	int	i;
 
@@ -49,7 +61,7 @@ void		check_bs(char* str)
 	while (i >= 0)
 	{
 		if (str[i] == '\\' && (!str[i + 1] || str[i + 1] == ' ')
-			&& map[i] == '0')
+			&& g_map[i] == '0')
 		{
 			if (!is_esc(str, i))
 				ft_error('\0', NULL, "check_bs failed");
@@ -60,13 +72,13 @@ void		check_bs(char* str)
 	}
 }
 
-void	check(char* line)
+void	check(char *line)
 {
-	map = map_quote(line, 0);
+	g_map = map_quote(line, 0);
 	check_simple_quote(line);
 	check_double_quote(line);
 	check_bs(line);
-	check_rdc(line, map);
-	check_rdo(line, map);
-	free_str(&map);
+	check_rdc(line, g_map);
+	check_rdo(line, g_map);
+	free_str(&g_map);
 }
