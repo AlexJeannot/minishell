@@ -6,7 +6,7 @@
 #    By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/04 13:29:11 by ajeannot          #+#    #+#              #
-#    Updated: 2020/03/09 13:34:16 by ajeannot         ###   ########.fr        #
+#    Updated: 2020/05/25 17:35:28 by cbouleng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,12 +58,15 @@ SRCS = 	annexes/display_string.c \
 		parsing/get_dollar.c \
 		parsing/get_rdo.c \
 		parsing/get_redir.c \
+		parsing/get_redir_2.c \
 		parsing/list_it.c \
 		parsing/list_utils.c \
+		parsing/list_utils_2.c \
 		parsing/main.c \
 		parsing/map_quote.c \
 		parsing/split_plus.c \
 		parsing/utils.c \
+		parsing/utils_2.c \
 		clear_it/clear_backslash.c \
 		clear_it/clear_before_exec.c \
 		clear_it/clear_echo_bad_env.c \

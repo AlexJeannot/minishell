@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:04:17 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:17:41 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/05/25 17:34:15 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_cont	get_content_lst(char *stock, int pipe)
 	return (cont);
 }
 
-static void		new_elem_lst(t_list *elem)
+static void		new_elem_lst_2(t_list *elem)
 {
 	t_list	*tmp;
 
