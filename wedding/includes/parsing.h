@@ -63,5 +63,6 @@ void			prompt();
 int				get_next_line(int fd, char **line);
 int				ft_tablen(char **tab);
 void			defrag_arg(int len);
+char*			get_last(char** tab);
 
 #endif

@@ -20,6 +20,15 @@ void		print_lst(void)
 		printf("[%s]", lst->raw[i]);
 		i++;
 	}
+	printf("\nrdc_filetab:");
+	i = 0;
+	while (lst->rdc_filetab[i])
+	{
+		printf("[%s]", lst->rdc_filetab[i]);
+		i++;
+	}
+	printf("\nrdc_filename:");
+	printf("[%s]", lst->rdc_filename);
 	printf("\n=================\n");
 }
 

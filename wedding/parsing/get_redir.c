@@ -51,6 +51,10 @@ int		is_name(char* str, int i)
 		return (1);
 	if (str[i] == '-')
 		return (1);
+	if (str[i] == '\'' || str[i] == '"')
+		return (1);
+	if (str[i] == '\\')
+		return (1);
 	return (0);
 }
 
