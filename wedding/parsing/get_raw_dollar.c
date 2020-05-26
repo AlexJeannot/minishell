@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_raw_dollar.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:36:17 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:36:52 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-static char*		r_dollar(int i, int j, char *free_elem)
+static char		*r_dollar(int i, int j, char *free_elem)
 {
 	t_dolls dls;
 	char	*res;
@@ -28,7 +40,7 @@ static char*		r_dollar(int i, int j, char *free_elem)
 	return (res);
 }
 
-static int	quote_stop(int i, int j)
+static int		quote_stop(int i, int j)
 {
 	int	k;
 
@@ -42,7 +54,7 @@ static int	quote_stop(int i, int j)
 	return (0);
 }
 
-void	get_raw_dollar(void)
+void			get_raw_dollar(void)
 {
 	int	i;
 	int	j;

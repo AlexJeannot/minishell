@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_raw_dollar_2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:37:10 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:39:42 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-char	*raw_get_startline(int i, int j)
+char				*raw_get_startline(int i, int j)
 {
 	char	*start;
 	int		y;
@@ -17,7 +29,7 @@ char	*raw_get_startline(int i, int j)
 	return (start);
 }
 
-char*	raw_get_endline(int i, int j)
+char				*raw_get_endline(int i, int j)
 {
 	char	*end;
 	int		len;
@@ -26,8 +38,8 @@ char*	raw_get_endline(int i, int j)
 	len = 0;
 	j++;
 	while ((lst->raw[i][j] >= '0' && lst->raw[i][j] <= '9') ||
-	(lst->raw[i][j] >= 'a' && lst->raw[i][j] <= 'z') ||
-	(lst->raw[i][j] >= 'A' && lst->raw[i][j] <= 'Z'))
+		(lst->raw[i][j] >= 'a' && lst->raw[i][j] <= 'z') ||
+		(lst->raw[i][j] >= 'A' && lst->raw[i][j] <= 'Z'))
 		j++;
 	k = j;
 	while (lst->raw[i][j++])
@@ -40,7 +52,6 @@ char*	raw_get_endline(int i, int j)
 	end[len] = '\0';
 	return (end);
 }
-
 
 static t_value		raw_new_value(int i, int j)
 {
@@ -65,9 +76,10 @@ static t_value		raw_new_value(int i, int j)
 	return (v);
 }
 
-char*		get_env_value_3(int i, int j)
+char				*get_env_value_3(int i, int j)
 {
 	t_value v;
+
 	v = raw_new_value(i, j);
 	v.y = 0;
 	while (global_env[v.i][v.j])
@@ -76,7 +88,7 @@ char*		get_env_value_3(int i, int j)
 	return (v.value);
 }
 
-t_dolls		raw_dolls_value(int i, int j)
+t_dolls				raw_dolls_value(int i, int j)
 {
 	t_dolls dls;
 

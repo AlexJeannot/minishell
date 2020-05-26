@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_rdo.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:44:28 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:44:29 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-char*	map;
+char	*g_map;
 
-int		find_rdo(char* str)
+int		find_rdo(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '<' && !is_esc(str, i) && map[i] == '0')
+		if (str[i] == '<' && !is_esc(str, i) && g_map[i] == '0')
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int		count_rdo(char* str)
+int		count_rdo(char *str)
 {
 	int	i;
 	int	nb;
@@ -25,7 +37,7 @@ int		count_rdo(char* str)
 	nb = 0;
 	while (str[i])
 	{
-		if (map[i] == '0' && !is_esc(str, i))
+		if (g_map[i] == '0' && !is_esc(str, i))
 		{
 			if (str[i] == '<')
 				nb++;
@@ -35,9 +47,9 @@ int		count_rdo(char* str)
 	return (nb);
 }
 
-int		is_rdo(char* str, int i)
+int		is_rdo(char *str, int i)
 {
-	if (!is_esc(str, i) && map[i] == '0')
+	if (!is_esc(str, i) && g_map[i] == '0')
 	{
 		if (str[i] == '<')
 			return (1);
@@ -45,9 +57,9 @@ int		is_rdo(char* str, int i)
 	return (0);
 }
 
-char*	get_rdo_name(char* str, int i)
+char	*get_rdo_name(char *str, int i)
 {
-	char*	name;
+	char	*name;
 	int		nb;
 	int		y;
 
@@ -65,13 +77,13 @@ char*	get_rdo_name(char* str, int i)
 	return (name);
 }
 
-char**	get_rdo_filetab(char* str)
+char	**get_rdo_filetab(char *str)
 {
-	char**	tab;
+	char	**tab;
 	int		nb;
 	int		i;
 
-	map = map_quote(str, 0);
+	g_map = map_quote(str, 0);
 	if (find_rdo(str))
 	{
 		nb = count_rdo(str);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_dollar_utils_2.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:35:33 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:35:52 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-char*		get_env_value_2(int i, int j)
+char	*get_env_value_2(int i, int j)
 {
 	t_value v;
 
@@ -29,7 +41,7 @@ char	*get_startline(int i, int j)
 	return (start);
 }
 
-char*	get_endline(int i, int j)
+char	*get_endline(int i, int j)
 {
 	char	*end;
 	int		len;

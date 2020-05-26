@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_dollar.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:34:20 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:34:23 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-static t_dolls		dolls_value(int i, int j)
+static t_dolls	dolls_value(int i, int j)
 {
 	t_dolls dls;
 
@@ -12,7 +24,7 @@ static t_dolls		dolls_value(int i, int j)
 	return (dls);
 }
 
-static char*		r_dollar(int i, int j, char *free_elem)
+static char		*r_dollar(int i, int j, char *free_elem)
 {
 	t_dolls dls;
 	char	*res;
@@ -40,7 +52,7 @@ static char*		r_dollar(int i, int j, char *free_elem)
 	return (res);
 }
 
-static int	quote_stop(int i, int j)
+static int		quote_stop(int i, int j)
 {
 	int	k;
 
@@ -54,7 +66,7 @@ static int	quote_stop(int i, int j)
 	return (0);
 }
 
-void	get_dollar(void)
+void			get_dollar(void)
 {
 	int	i;
 	int	j;

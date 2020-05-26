@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_plus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 17:26:34 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 17:27:16 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
-char*	map;
+char		*g_map;
 
 static int	sep(char c, int i, char charset)
 {
-	if (c == charset && map[i] == '0')
+	if (c == charset && g_map[i] == '0')
 		return (1);
 	return (0);
 }
@@ -59,7 +71,7 @@ char		**split_plus(char *str, char charset)
 	int		j;
 	char	**tab;
 
-	map = map_quote(str, 0);
+	g_map = map_quote(str, 0);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
 		ft_error('\0', "Malloc", NULL);
@@ -76,6 +88,6 @@ char		**split_plus(char *str, char charset)
 		i++;
 	}
 	tab[j] = NULL;
-	free_str(&map);
+	free_str(&g_map);
 	return (tab);
 }

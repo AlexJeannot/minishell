@@ -110,38 +110,54 @@ char **clean_array(char **input_array)
 
 char *clean_cmd(char *input_str)
 {
-	if (!(input_str[0]))
+	if (input_str)
 	{
 		free_str(&input_str);
 		if (lst->raw[0])
 			input_str = ft_strdup(lst->raw[0]);
 	}
 	return (input_str);
+}
 
+void	clear_tab(char*** pt_tab)
+{
+	int i;
+
+	i = 0;
+	while (pt_tab[0][i])
+	{
+		pt_tab[0][i] = clear_echo_bad_env(pt_tab[0][i]);
+		pt_tab[0][i] = clear_quote(pt_tab[0][i]);
+		i++;
+	}
+}
+
+void	clear_str(char** pt_str)
+{
+	*pt_str = clear_echo_bad_env(*pt_str);
+	*pt_str = clear_quote(*pt_str);
 }
 
 void	clear_before_exec(void)
 {
-	int	i;
-
-	i = 0;
 	clear_backslash();
-	lst->cmd = clear_echo_bad_env(lst->cmd);
-	lst->cmd = clear_quote(lst->cmd);
-	while (lst->arg[i])
+	if (lst->cmd)
+		clear_str(&lst->cmd);
+	if (lst->arg)
+		clear_tab(&lst->arg);
+	if (lst->raw)
+		clear_tab(&lst->raw);
+	if (lst->rdc_filetab)
 	{
-		lst->arg[i] = clear_echo_bad_env(lst->arg[i]);
-		lst->arg[i] = clear_quote(lst->arg[i]);
-		i++;
+		clear_tab(&lst->rdc_filetab);
+		lst->rdc_filename = get_last(lst->rdc_filetab);
 	}
-	i = 0;
-	while (lst->raw[i])
+	if (lst->rdo_filetab)
 	{
-		lst->raw[i] = clear_echo_bad_env(lst->raw[i]);
-		lst->raw[i] = clear_quote(lst->raw[i]);
-		i++;
+		clear_tab(&lst->rdo_filetab);
+		lst->rdo_filename = get_last(lst->rdo_filetab);
 	}
-	lst->raw = clean_array(lst->raw);
-	lst->arg = clean_array(lst->arg);
 	lst->cmd = clean_cmd(lst->cmd);
+	lst->arg = clean_array(lst->arg);
+	lst->raw = clean_array(lst->raw);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_cmd_dollar_2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/25 16:33:07 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 16:33:09 by cbouleng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/parsing.h"
 
 static t_value		new_cmd_value(int i)
@@ -23,7 +35,7 @@ static t_value		new_cmd_value(int i)
 	return (v);
 }
 
-static char*		get_cmd_env_value(int i)
+static char			*get_cmd_env_value(int i)
 {
 	t_value v;
 
@@ -36,7 +48,7 @@ static char*		get_cmd_env_value(int i)
 	return (v.value);
 }
 
-static char	*get_cmd_startline(int i)
+static char			*get_cmd_startline(int i)
 {
 	char	*start;
 	int		y;
@@ -53,7 +65,7 @@ static char	*get_cmd_startline(int i)
 	return (start);
 }
 
-static char*	get_cmd_endline(int i)
+static char			*get_cmd_endline(int i)
 {
 	char	*end;
 	int		len;
@@ -77,7 +89,7 @@ static char*	get_cmd_endline(int i)
 	return (end);
 }
 
-t_dolls		dolls_cmd_value(int i)
+t_dolls				dolls_cmd_value(int i)
 {
 	t_dolls dls;
 

@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   list_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 17:20:32 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:20:34 by cbouleng         ###   ########.fr       */
+/*   Created: 2020/05/25 17:13:15 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/05/25 17:15:18 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-void	parsing(char *line)
+int	is_valid(char *stock)
 {
-	char **stock;
+	int i;
 
-	check(line);
-	stock = split_plus(line, ';');
-	list_it(stock);
-	if (stock)
+	i = 0;
+	while (stock[i])
 	{
-		free(stock);
-		stock = NULL;
+		if (stock[i] != ' ')
+			return (1);
+		i++;
 	}
+	return (0);
+}
+
+int	is_pipe(char *stock)
+{
+	int	i;
+
+	i = 0;
+	while (stock[i])
+	{
+		if (stock[i] == '|' && !is_esc(stock, i))
+			return (1);
+		i++;
+	}
+	return (0);
 }
