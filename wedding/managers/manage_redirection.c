@@ -11,10 +11,8 @@ int    check_rdo_exec(void)
         while (lst->rdo_filetab[count])
         {
             if ((fd_file = open(lst->rdo_filetab[count], O_RDONLY)) == -1)
-            {
-                close(fd_file);
                 return (count);
-            }
+            close(fd_file);
             count++;
         }
     }

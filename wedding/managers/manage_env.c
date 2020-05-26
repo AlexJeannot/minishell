@@ -26,6 +26,7 @@ char *read_from_fd(int read_end)
         if (ret < 100)
             break ;
     }
+    close(read_end);
     return (output_str);
 }
 
