@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:04:17 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:34:15 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/05/26 11:42:58 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ static t_cont	get_content_lst(char *stock, int pipe)
 	stock = clear_stock_rd(stock);
 	content = split_plus(stock, ' ');
 	cont.raw = duplicate_array(content, NULL, '\0');
-	cont.cmd = ft_strdup(content[0]);
-	i = 0;
+	if (content[0] && content[0][0])
+		cont.cmd = ft_strdup(content[0]);
+	else
+		cont.cmd = NULL;
+	i = 1;
 	while (content[i])
 		i++;
-	if (!(cont.arg = malloc(sizeof(char*) * i)))
+	if (!(cont.arg = malloc(sizeof(char*) * i + 1)))
 		ft_error('\0', "Malloc", NULL);
 	i = 1;
 	j = 0;
