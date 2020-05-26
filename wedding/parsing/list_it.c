@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
+#include "../includes/exec.h"
 
 static t_cont	get_content_lst(char *stock, int pipe)
 {
@@ -34,8 +35,9 @@ static t_cont	get_content_lst(char *stock, int pipe)
 		ft_error('\0', "Malloc", NULL);
 	i = 1;
 	j = 0;
-	while (content[i])
-		cont.arg[j++] = ft_strdup(content[i++]);
+	if (content[0])
+		while (content[i])
+			cont.arg[j++] = ft_strdup(content[i++]);
 	cont.arg[j] = NULL;
 	cont.pipe = pipe;
 	free_str_array(content);
