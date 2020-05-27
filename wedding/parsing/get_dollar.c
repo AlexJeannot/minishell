@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 16:34:20 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 16:34:23 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/05/27 16:29:41 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_dolls	dolls_value(int i, int j)
 	dls.startline = get_startline(i, j);
 	dls.endline = get_endline(i, j);
 	dls.len = ft_strlen(dls.value) + ft_strlen(dls.startline)
-	+ ft_strlen(dls.endline);
+		+ ft_strlen(dls.endline);
 	return (dls);
 }
 
@@ -72,25 +72,21 @@ void			get_dollar(void)
 	int	j;
 
 	i = 0;
-	// ADD CONDITION
-	if (lst->cmd)
+	get_cmd_dollar();
+	get_raw_dollar();
+	while (lst->arg[i])
 	{
-		get_cmd_dollar();
-		get_raw_dollar();
-		while (lst->arg[i])
+		j = 0;
+		while (lst->arg[i][j])
 		{
-			j = 0;
-			while (lst->arg[i][j])
-			{
-				if (lst->arg[i][j] == '$' && !quote_stop(i, j)
+			if (lst->arg[i][j] == '$' && !quote_stop(i, j)
 					&& !is_esc(lst->arg[i], j))
-				{
-					if (is_env(lst->arg[i], j))
-						lst->arg[i] = r_dollar(i, j, lst->arg[i]);
-				}
-				j++;
+			{
+				if (is_env(lst->arg[i], j))
+					lst->arg[i] = r_dollar(i, j, lst->arg[i]);
 			}
-			i++;
+			j++;
 		}
+		i++;
 	}
 }

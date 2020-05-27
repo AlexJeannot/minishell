@@ -32,7 +32,7 @@ void setup_env(char **env, int *exit_status)
 void setup_command(int exit_status)
 {
     replace_exit_status(exit_status);
-    get_dollar();
+	get_dollar();
     clear_before_exec();
 }
 

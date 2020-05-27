@@ -27,21 +27,19 @@ int				is_valid(char *stock);
 int				is_pipe(char *stock);
 
 /*              #dollar
--------------------------------------------------*/
+-------------------------------------------------
 void			get_raw_dollar(void);
 void			get_cmd_dollar(void);
 t_dolls			dolls_cmd_value(int i);
 t_dolls			raw_dolls_value(int i, int j);
 int				is_path(char *str);
-int				ft_envcmp(char *s1, char *s2);
-int				is_env(char *str, int j);
 t_value			new_value(int i, int j);
 char*			get_env_name_2check(char *str, int j);
 char*			get_lil_path_value(t_value v);
 char*			get_env_value_2(int i, int j);
 char*			get_startline(int i, int j);
-char*			get_endline(int i, int j);
-char*			clear_echo_bad_env(char* str);
+char*			get_endline(int i, int j);*/
+char			*get_env_name_2check(char *str, int j);
 
 /*              #redir
 -------------------------------------------------*/
@@ -69,8 +67,6 @@ void			check(char* line);
 void			check_rdc(char* str, char* map);
 void			check_rdo(char* str, char* map);
 
-/*              #utils
--------------------------------------------------*/
 void			prompt();
 int				get_next_line(int fd, char **line);
 int				ft_tablen(char **tab);
@@ -81,5 +77,12 @@ char			**clean_array(char **input_array);
 char			*clean_cmd(char *input_str);
 void			clear_tab(char ***pt_tab);
 void			clear_str(char **pt_str);
+char*			clear_echo_bad_env(char* str);
+
+/*              #utils_3.c
+-------------------------------------------------*/
+int				ft_envcmp(char *s1, char *s2);
+int				is_env(char *str, int j);
+int		quote_stop(char *str, int j);
 
 #endif
