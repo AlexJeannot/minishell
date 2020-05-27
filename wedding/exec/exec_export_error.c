@@ -5,6 +5,8 @@ int is_valid_var(char *str)
     int count;
 
     count = 1;
+    if (!str)
+        return (-1);
     if (str[0] < 'A'
     || (str[0] > 'Z' && str[0] < 'a' && str[0] != '_')
     || (str[0] > 'z'))
@@ -37,6 +39,8 @@ int is_valid_value(char *str)
 
 int display_invalid_export(char *str, int type)
 {
+    if (!str)
+        str = "=";
     write(2, "Minishell: export: ", 19);
     write(2, "`", 1);
     if (!(type))
@@ -80,7 +84,9 @@ int verify_exported_array(char **input_array)
     while (input_array[array_count])
     {
         split_result = ft_split(input_array[array_count], '=');
-        if (is_valid_var(split_result[0]) == -1)
+        if (!(split_result[0]))
+            status = display_invalid_export(input_array[array_count], 0);
+        else if (is_valid_var(split_result[0]) == -1)
             status = display_invalid_export(split_result[0], 0);
         else if ((equal_index = find_car(input_array[array_count], '=')) != -1 && is_valid_value(&input_array[array_count][equal_index]) == -1)
             status = display_invalid_export(&input_array[array_count][equal_index], 1);

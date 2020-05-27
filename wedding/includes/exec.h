@@ -112,7 +112,6 @@ char	*ft_strncat(char *dest, char *src, unsigned int limit);
 /* MANAGE_STR.C */
 int		find_car(char *str, char c);
 
-
 /* ------------- PRINCIPAL ------------- */
 
 /* MINISHELL_EXEC.C */
