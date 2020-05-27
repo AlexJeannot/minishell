@@ -72,21 +72,25 @@ void			get_dollar(void)
 	int	j;
 
 	i = 0;
-	get_cmd_dollar();
-	get_raw_dollar();
-	while (lst->arg[i])
+	// ADD CONDITION
+	if (lst->cmd)
 	{
-		j = 0;
-		while (lst->arg[i][j])
+		get_cmd_dollar();
+		get_raw_dollar();
+		while (lst->arg[i])
 		{
-			if (lst->arg[i][j] == '$' && !quote_stop(i, j)
-				&& !is_esc(lst->arg[i], j))
+			j = 0;
+			while (lst->arg[i][j])
 			{
-				if (is_env(lst->arg[i], j))
-					lst->arg[i] = r_dollar(i, j, lst->arg[i]);
+				if (lst->arg[i][j] == '$' && !quote_stop(i, j)
+					&& !is_esc(lst->arg[i], j))
+				{
+					if (is_env(lst->arg[i], j))
+						lst->arg[i] = r_dollar(i, j, lst->arg[i]);
+				}
+				j++;
 			}
-			j++;
+			i++;
 		}
-		i++;
 	}
 }

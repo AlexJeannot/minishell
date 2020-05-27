@@ -79,7 +79,9 @@ char		*clear_quote(char *str)
 
 void		clear_before_exec(void)
 {
-	clear_backslash();
+	// ADD CONDITION
+	if (lst->cmd)
+		clear_backslash();
 	if (lst->cmd)
 		clear_str(&lst->cmd);
 	if (lst->arg)
