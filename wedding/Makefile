@@ -6,7 +6,7 @@
 #    By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/04 13:29:11 by ajeannot          #+#    #+#              #
-#    Updated: 2020/05/25 17:35:28 by cbouleng         ###   ########.fr        #
+#    Updated: 2020/05/27 14:10:50 by cbouleng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS = 	annexes/display_string.c \
 		parsing/utils_2.c \
 		clear_it/clear_backslash.c \
 		clear_it/clear_before_exec.c \
+		clear_it/clear_before_exec_2.c \
 		clear_it/clear_echo_bad_env.c \
 		clear_it/clear_stock_rd.c \
 

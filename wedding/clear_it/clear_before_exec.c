@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/27 14:09:00 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/05/27 14:43:10 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	to_print(char *str, int i)
 	return (1);
 }
 
-static char	*clear_quote(char *str)
+char		*clear_quote(char *str)
 {
 	char	*res;
 	int		nb;
