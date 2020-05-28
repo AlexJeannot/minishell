@@ -48,7 +48,7 @@ int setup_pipe_and_process(int exit_status)
 	while (lst)
 	{
         if (prev_pipe == 0)
-            wait_for_child(exit_status, p_fd[0]);
+            exit_status = wait_for_child(exit_status, p_fd[0]);
 		if (lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && lst->pipe != 1 && prev_pipe != 1)
             ft_exit(0);
         if ((pipe(p_fd)) == -1)
