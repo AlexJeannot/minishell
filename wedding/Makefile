@@ -35,7 +35,6 @@ SRCS = 	annexes/display_string.c \
 		managers/manage_exit.c \
 		managers/manage_int_array.c \
 		managers/manage_int.c \
-		managers/manage_leaks.c \
 		managers/manage_pipe.c \
 		managers/manage_redirection.c \
 		managers/manage_str_array.c \

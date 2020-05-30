@@ -11,6 +11,6 @@ void ft_error_env(char *file)
 void ft_env(char **args)
 {
     if (args[0])
-        ft_error_env(args[1]);
+        ft_error_env(args[0]);
     display_str_array(filtered_env);
 }

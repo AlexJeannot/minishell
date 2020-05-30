@@ -54,7 +54,8 @@ void exec_child(int is_prev_piped, int exit_status, int write_end)
 	exit_status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(write_end);
-	//ft_leaks("END OF CHILD\n");
+	else
+		close(write_end);
 	ft_exit(exit_status);
 }
 
