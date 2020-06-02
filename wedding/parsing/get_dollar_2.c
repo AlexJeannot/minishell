@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_raw_dollar_2.c                                 :+:      :+:    :+:   */
+/*   get_dollar_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 16:37:10 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 16:39:42 by cbouleng         ###   ########.fr       */
+/*   Created: 2020/06/02 12:41:27 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/06/02 12:41:37 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-char				*raw_get_startline(int i, int j)
+char	*get_startline(char *str, int j)
 {
 	char	*start;
 	int		y;
@@ -22,14 +22,14 @@ char				*raw_get_startline(int i, int j)
 	y = 0;
 	while (y < j)
 	{
-		start[y] = lst->raw[i][y];
+		start[y] = str[y];
 		y++;
 	}
 	start[y] = '\0';
 	return (start);
 }
 
-char				*raw_get_endline(int i, int j)
+char	*get_endline(char *str, int j)
 {
 	char	*end;
 	int		len;
@@ -37,28 +37,50 @@ char				*raw_get_endline(int i, int j)
 
 	len = 0;
 	j++;
-	while ((lst->raw[i][j] >= '0' && lst->raw[i][j] <= '9') ||
-		(lst->raw[i][j] >= 'a' && lst->raw[i][j] <= 'z') ||
-		(lst->raw[i][j] >= 'A' && lst->raw[i][j] <= 'Z'))
+	while ((str[j] >= '0' && str[j] <= '9') ||
+			(str[j] >= 'a' && str[j] <= 'z') ||
+			(str[j] >= 'A' && str[j] <= 'Z'))
 		j++;
 	k = j;
-	while (lst->raw[i][j++])
+	while (str[j++])
 		len++;
 	if (!(end = malloc(len + 1)))
 		ft_error('\0', "Malloc", NULL);
 	len = 0;
-	while (lst->raw[i][k])
-		end[len++] = lst->raw[i][k++];
+	while (str[k])
+		end[len++] = str[k++];
 	end[len] = '\0';
 	return (end);
 }
 
-static t_value		raw_new_value(int i, int j)
+char	*get_env_name_2check(char *str, int j)
+{
+	int		len;
+	int		i;
+	char	*tmp;
+
+	j++;
+	len = j;
+	i = 0;
+	while (str[j] && str[j] != ' ')
+		j++;
+	if (!(tmp = malloc(j - len + 1)))
+		ft_error('\0', "Malloc", NULL);
+	while (len < j && ((str[len] >= '0' && str[len] <= '9') ||
+				(str[len] >= 'a' && str[len] <= 'z') || (str[len] >= 'A' &&
+					str[len] <= 'Z')))
+		tmp[i++] = str[len++];
+	tmp[i] = '\0';
+	return (tmp);
+}
+
+t_value	new_value(char *str, int j)
 {
 	t_value	v;
 	int		len;
+	int		i;
 
-	v.name = get_env_name_2check(lst->raw[i], j);
+	v.name = get_env_name_2check(str, j);
 	i = 0;
 	while (global_env[i] && !ft_envcmp(global_env[i], v.name))
 		i++;
@@ -76,26 +98,14 @@ static t_value		raw_new_value(int i, int j)
 	return (v);
 }
 
-char				*get_env_value_3(int i, int j)
+char	*get_env_value_2(char *str, int j)
 {
 	t_value v;
 
-	v = raw_new_value(i, j);
+	v = new_value(str, j);
 	v.y = 0;
 	while (global_env[v.i][v.j])
 		v.value[v.y++] = global_env[v.i][v.j++];
 	v.value[v.y] = '\0';
 	return (v.value);
-}
-
-t_dolls				raw_dolls_value(int i, int j)
-{
-	t_dolls dls;
-
-	dls.value = get_env_value_3(i, j);
-	dls.startline = raw_get_startline(i, j);
-	dls.endline = raw_get_endline(i, j);
-	dls.len = ft_strlen(dls.value) + ft_strlen(dls.startline)
-	+ ft_strlen(dls.endline);
-	return (dls);
 }

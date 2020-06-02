@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:01:58 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/27 14:03:55 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/02 11:58:40 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,30 +88,11 @@ char	*clear_it(char *str)
 	return (res);
 }
 
-void	clear_backslash(void)
+char	*clear_backslash(char *str)
 {
-	int	i;
-
-	i = 0;
-	g_map = map_quote(lst->cmd, 0);
-	if (nb_to_del(lst->cmd))
-		lst->cmd = clear_it(lst->cmd);
+	g_map = map_quote(str, 0);
+	if (nb_to_del(str))
+		str = clear_it(str);
 	free_str(&g_map);
-	while (lst->arg[i])
-	{
-		g_map = map_quote(lst->arg[i], 0);
-		if (nb_to_del(lst->arg[i]))
-			lst->arg[i] = clear_it(lst->arg[i]);
-		free_str(&g_map);
-		i++;
-	}
-	i = 0;
-	while (lst->raw[i])
-	{
-		g_map = map_quote(lst->raw[i], 0);
-		if (nb_to_del(lst->raw[i]))
-			lst->raw[i] = clear_it(lst->raw[i]);
-		free_str(&g_map);
-		i++;
-	}
+	return (str);
 }

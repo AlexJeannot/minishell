@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/27 14:43:10 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/02 12:01:23 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	nb_del_quote(char *str)
 
 static int	to_print(char *str, int i)
 {
+	printf("[%s]\n", g_map);
 	if (g_map[i] == '1')
 		return (1);
 	if (str[i] == '"' && !str[i + 1] && g_map[i] == '2')
@@ -79,9 +80,6 @@ char		*clear_quote(char *str)
 
 void		clear_before_exec(void)
 {
-	// ADD CONDITION
-	if (lst->cmd)
-		clear_backslash();
 	if (lst->cmd)
 		clear_str(&lst->cmd);
 	if (lst->arg)

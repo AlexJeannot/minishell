@@ -6,17 +6,15 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:04:17 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/26 11:42:58 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/02 12:45:40 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 #include "../includes/exec.h"
 
-static t_cont	get_content_lst(char *stock, int pipe)
+static t_cont	get_content_lst(char *stock, int pipe, int i, int j)
 {
-	int		i;
-	int		j;
 	t_cont	cont;
 	char	**content;
 
@@ -63,10 +61,14 @@ static void		new_elem_lst(char *stock_elem, int pipe)
 {
 	t_list	*elem;
 	t_cont	cont;
+	int		i;
+	int		j;
 
+	i = 0;
+	j = 0;
 	if (!(elem = malloc(sizeof(t_list))))
 		ft_error('\0', "Malloc", NULL);
-	cont = get_content_lst(stock_elem, pipe);
+	cont = get_content_lst(stock_elem, pipe, i, j);
 	elem->cmd = cont.cmd;
 	elem->arg = cont.arg;
 	elem->raw = cont.raw;

@@ -5,31 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 16:34:20 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/27 16:29:41 by cbouleng         ###   ########.fr       */
+/*   Created: 2020/06/02 12:40:54 by cbouleng          #+#    #+#             */
+/*   Updated: 2020/06/02 12:47:40 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-static t_dolls	dolls_value(int i, int j)
+t_dolls		dolls_value(char *str, int j)
 {
 	t_dolls dls;
 
-	dls.value = get_env_value_2(i, j);
-	dls.startline = get_startline(i, j);
-	dls.endline = get_endline(i, j);
+	dls.value = get_env_value_2(str, j);
+	dls.startline = get_startline(str, j);
+	dls.endline = get_endline(str, j);
 	dls.len = ft_strlen(dls.value) + ft_strlen(dls.startline)
 		+ ft_strlen(dls.endline);
 	return (dls);
 }
 
-static char		*r_dollar(int i, int j, char *free_elem)
+char		*r_dollar(char *str, int j)
 {
 	t_dolls dls;
 	char	*res;
+	int		i;
 
-	dls = dolls_value(i, j);
+	dls = dolls_value(str, j);
 	if (!(res = malloc(dls.len + 1)))
 		ft_error('\0', "Malloc", NULL);
 	i = 0;
@@ -45,48 +46,54 @@ static char		*r_dollar(int i, int j, char *free_elem)
 	while (dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
-	free_str(&free_elem);
+	free_str(&str);
 	free_str(&dls.value);
 	free_str(&dls.startline);
 	free_str(&dls.endline);
 	return (res);
 }
 
-static int		quote_stop(int i, int j)
+char		*get_dollar_str(char *str)
 {
-	int	k;
+	int		j;
 
-	k = j;
-	while (lst->arg[i][j] != '\'' && lst->arg[i][j])
-		j--;
-	while (lst->arg[i][k] != '\'' && lst->arg[i][k])
-		k++;
-	if (lst->arg[i][k] == '\'' && lst->arg[i][j] == '\'')
-		return (1);
-	return (0);
+	j = 0;
+	while (str[j])
+	{
+		if (str[j] == '$' && !quote_stop(str, j)
+				&& !is_esc(str, j))
+		{
+			if (is_env(str, j))
+				str = r_dollar(str, j);
+		}
+		j++;
+	}
+	return (str);
 }
 
-void			get_dollar(void)
+char		**get_dollar_tab(char **tab)
 {
-	int	i;
-	int	j;
+	int		i;
 
 	i = 0;
-	get_cmd_dollar();
-	get_raw_dollar();
-	while (lst->arg[i])
+	while (tab[i])
 	{
-		j = 0;
-		while (lst->arg[i][j])
-		{
-			if (lst->arg[i][j] == '$' && !quote_stop(i, j)
-					&& !is_esc(lst->arg[i], j))
-			{
-				if (is_env(lst->arg[i], j))
-					lst->arg[i] = r_dollar(i, j, lst->arg[i]);
-			}
-			j++;
-		}
+		tab[i] = get_dollar_str(tab[i]);
 		i++;
 	}
+	return (tab);
+}
+
+void		get_dollar(void)
+{
+	if (lst->cmd)
+	{
+		lst->cmd = get_dollar_str(lst->cmd);
+		lst->arg = get_dollar_tab(lst->arg);
+		lst->raw = get_dollar_tab(lst->raw);
+	}
+	if (lst->rdc_filetab)
+		lst->rdc_filetab = get_dollar_tab(lst->rdc_filetab);
+	if (lst->rdo_filetab)
+		lst->rdo_filetab = get_dollar_tab(lst->rdo_filetab);
 }
