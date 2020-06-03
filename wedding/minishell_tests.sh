@@ -1,10 +1,10 @@
 echo "echo hello" | ./minishell
-echo "echo hello > yours/tmp1.txt" | ./minishell && cat yours/tmp1.txt
-echo "echo bijour > yours/tmp1.txt" | ./minishell && cat yours/tmp1.txt
-echo "echo yo >> yours/tmp1.txt" | ./minishell && cat yours/tmp1.txt
-echo "echo coucou >> yours/tmp2.txt" | ./minishell && cat yours/tmp2.txt
-ls -la yours | grep tmp1.txt | cut -c-10
-ls -la yours | grep tmp2.txt | cut -c-10
+#echo "echo hello > yours/tmp1.txt" | ./minishell && cat yours/tmp1.txt
+#echo "echo bijour > yours/tmp1.txt" | ./minishell && cat yours/tmp1.txt
+#echo "echo yo >> yours/tmp1.txt" | ./minishell && cat yours/tmp1.txt
+#echo "echo coucou >> yours/tmp2.txt" | ./minishell && cat yours/tmp2.txt
+#ls -la yours | grep tmp1.txt | cut -c-10
+#ls -la yours | grep tmp2.txt | cut -c-10
 echo "env" | ./minishell | grep -v ^_= | LC_ALL=C sort
 echo "env" | env -i ./minishell | grep -v ^_= | LC_ALL=C sort
 echo "pwd" | ./minishell
@@ -18,14 +18,14 @@ export SHLVL=-18 && echo "env" | ./minishell | grep SHLVL
 export SHLVL=+28 && echo "env" | ./minishell | grep SHLVL
 export SHLVL=++8 && echo "env" | ./minishell | grep SHLVL
 export SHLVL=78+18 && echo "env" | ./minishell | grep SHLVL
-export SHLVL= && echo "env" | ./minishell | grep SHLVL
-./minishell srcs/cmds.txt
-./minishell srcs/cmds.txt bada lala
-./minishell < srcs/cmds.txt
-cat srcs/cmds.txt | ./minishell
-echo "echo < srcs/cmds.txt" | ./minishell
-echo "./minishell < srcs/cmds.txt >> yours/tmp3.txt" | ./minishell && cat yours/tmp3.txt
-echo "./minishell srcs/cmds.txt >> yours/tmp3.txt" | ./minishell && cat yours/tmp3.txt
+#export SHLVL= && echo "env" | ./minishell | grep SHLVL
+#./minishell srcs/cmds.txt
+#./minishell srcs/cmds.txt bada lala
+#./minishell < srcs/cmds.txt
+#cat srcs/cmds.txt | ./minishell
+#echo "echo < srcs/cmds.txt" | ./minishell
+#echo "./minishell < srcs/cmds.txt >> yours/tmp3.txt" | ./minishell && cat yours/tmp3.txt
+#echo "./minishell srcs/cmds.txt >> yours/tmp3.txt" | ./minishell && cat yours/tmp3.txt
 echo "echo \"coucou\"lala" | ./minishell
 echo "echo \"coucou\"\'lala\'" | ./minishell
 echo "echo $PWD" | ./minishell
@@ -47,9 +47,9 @@ echo "export COUCOU=lala LALA=coucou coucou=lulu le12la=truc _12=truc a_a=bada _
 echo "export COUCOU=lala LALA=coucou; unset COUCOU LALA truc; echo $?; env" | ./minishell  | grep -v ^_= | LC_ALL=C sort
 echo 'echo bonjour; echo -n je suis; echo gentil; echo $?' | ./minishell
 echo "echo -n -n One\"argument\"'lo'l; echo \"n\"''ee\"d\"more'?'''\"'\";" | ./minishell
-echo 'cat tester.sh | grep echo | wc; exit | echo RECKT | cat; cat tester.sh | sort' | ./minishell
-echo 'cat tester.sh | grep echo; echo $?; cat tester.sh | grep RECKT | wc; echo $?' | ./minishell
-echo 'cat tester.sh | cat | cat | cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat' | ./minishell
+#echo 'cat tester.sh | grep echo | wc; exit | echo RECKT | cat; cat tester.sh | sort' | ./minishell
+#echo 'cat tester.sh | grep echo; echo $?; cat tester.sh | grep RECKT | wc; echo $?' | ./minishell
+#echo 'cat tester.sh | cat | cat | cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat| cat' | ./minishell
 echo "unset PWD; cd ..; env | grep ^PWD=" | ./minishell
 echo \"\" | ./minishell
 echo "\\" | ./minishell
