@@ -26,7 +26,6 @@ char *read_from_fd(int read_end)
         if (ret < 100)
             break ;
     }
-    close(read_end);
     return (output_str);
 }
 
@@ -34,59 +33,63 @@ char *get_env_value(char *var)
 {
     int count;
     char *env_value;
-    char **split_result_1;
-    char **split_result_2;
+    char **split_result;
 
     count = 0;
     while (global_env[count])
     {
-        split_result_1 = ft_split(global_env[count], '=');
-        if (strcmp(split_result_1[0], var) == 0)
+        split_result = ft_split(global_env[count], '=');
+        if (strcmp(split_result[0], var) == 0)
         {
-            split_result_2 = ft_split(global_env[count], '=');
-            env_value = ft_strdup(split_result_2[1]);
-            free_str_array(split_result_1);
-            free_str_array(split_result_2);
+            env_value = ft_strdup(split_result[1]);
+            free_str_array(split_result);
             return (env_value);
         }
-        free_str_array(split_result_1);
+        free_str_array(split_result);
         count++;
     }
     return (NULL);
 }
 
-void send_env(int write_end)
+void send_env(int write_pend, int write_pwdend)
 {
     int count;
 
     count = 0;
     while (global_env[count])
     {
-        write(write_end, global_env[count], ft_strlen(global_env[count]));
-        write(write_end, "\n", 1);
+        write(write_pend, global_env[count], ft_strlen(global_env[count]));
+        write(write_pend, "\n", 1);
         count++;
     }
-    close(write_end);
+    write(write_pwdend, pwd_path, ft_strlen(pwd_path));
+    close(write_pend);
+    close(write_pwdend);
 }
 
-void receive_env(int read_end)
+void receive_env(int read_pend, int read_pwdend)
 {
-    int pwd_index;
     char *str_env;
+    char *new_path;
     char **tab_env;
-    char **split_result;
 
-    str_env = read_from_fd(read_end);
+    str_env = read_from_fd(read_pend);
     if (str_env)
     {
         tab_env = ft_split(str_env, '\n');
         global_env = duplicate_array(tab_env, global_env, '\0');
-        if ((pwd_index = search_in_array(global_env, "PWD", '=')) == -1)
-            ft_error('\0', NULL, "PWD not found in environnement variables");
-        split_result = ft_split(global_env[search_in_array(global_env, "PWD", '=')], '=');
-        chdir(split_result[1]);
-        free_str_array(split_result);
         free_str(&str_env);
         free_str_array(tab_env);
     }
+    new_path = read_from_fd(read_pwdend);
+    if (new_path)
+    {
+        if (ft_strcmp(new_path, pwd_path) != 0)
+            pwd_check = 0;
+        free_str(&pwd_path);
+        pwd_path = ft_strdup(new_path);
+        free_str(&new_path);
+        chdir(pwd_path); 
+    }
+    close(read_pwdend);
 }

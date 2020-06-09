@@ -6,6 +6,8 @@
 /* ------------- VARIABLES GLOBALES ------------- */
 int		errno;
 pid_t	child_pid;
+int     pwd_check;
+char    *pwd_path;
 char	**filtered_env;
 
 /* ------------- ANNEXES ------------- */
@@ -25,6 +27,7 @@ int     is_builtins(char *cmd);
 void    ft_builtins(char *exec, char **args);
 
 /* EXEC_CD_MAIN.C */
+void    update_pwd(int pwd_index, char *new_path);
 void	ft_cd(char **args);
 
 /* EXEC_CD_PATH.C */
@@ -71,13 +74,14 @@ int		search_in_array(char **input_array, char* str, char sep);
 char	**filter_env(char **input_array, char** free_array);
 
 /* MANAGE_ARRAY_EXTEND.C */
+char    **extend_array_str(char **from_array, char *add_str, int from_len);
 char	**extend_array(char **from_array, char **add_array, int from_len, int add_len);
 
 /* MANAGE_ENV.C */
 //char    *read_from_fd(int *fd);
 char	*get_env_value(char *var);
-void    send_env(int write_end);
-void    receive_env(int read_end);
+void send_env(int write_pend, int write_pwdend);
+void receive_env(int read_pend, int read_pwdend);
 
 /* MANAGE_EXIT_STATUS.C */
 void	replace_exit_status(int status);
@@ -91,9 +95,9 @@ char	*ft_itoa(int nb);
 
 /* MANAGE_PIPE.C */
 void    close_fd(int fd);
-void    setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2]);
-void    setup_child(int prev_fd, int prev_pipe, int p_fd[2]);
-int     wait_for_child(int exit_status, int read_end);
+void setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2], int pwd_fd[2]);
+void setup_child(int prev_fd, int prev_pipe, int p_fd[2], int pwd_fd[2]);
+int wait_for_child(int exit_status, int read_pend, int read_pwdend);
 
 /* MANAGE_REDIRECTION.C */
 void    manage_redirection(void);
@@ -117,8 +121,8 @@ int		find_car(char *str, char c);
 /* MINISHELL_EXEC.C */
 void    exec_prompt(void);
 int     exec_instructions(void);
-void    exec_child(int is_prev_piped, int exit_status, int write_end);
-int     exec_father(int exit_status, int read_end);
+void exec_child(int is_prev_piped, int exit_status, int write_pend, int write_pwdend);
+int exec_father(int exit_status, int read_pend, int read_pwdend);
 int     exec_command_line(char *line, int exit_status);
 
 /* MINISHELL_QUIT.C */
@@ -129,6 +133,6 @@ void    free_command_line(char *line);
 void    signal_manager(int sig);
 void    setup_env(char **env, int *exit_status);
 void    setup_command(int exit_status);
-int    setup_pipe_and_process(int exit_status);
+int *setup_pipe_and_process(int exit_status, int *read_fd);
 
 #endif

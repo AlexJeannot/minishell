@@ -9,19 +9,33 @@ void close_fd(int fd)
     }
 }
 
-void setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2])
+void setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2], int pwd_fd[2])
 {
+    int count;
+
+    count = 0;
     close(p_fd[1]);
+    close(pwd_fd[1]);
     if (*prev_fd >= 0)
         close(*prev_fd);
     *prev_fd = p_fd[0];
     *prev_pipe = lst->pipe;
+    if (ft_strcmp(lst->cmd, "unset") == 0)
+    {
+        while (lst->arg[count])
+        {
+            if (ft_strcmp(lst->arg[count], "PWD") == 0)
+                pwd_check = 1;
+            count++;
+        }
+    }
     lst = lst->next;
 }
 
-void setup_child(int prev_fd, int prev_pipe, int p_fd[2])
+void setup_child(int prev_fd, int prev_pipe, int p_fd[2], int pwd_fd[2])
 {
     close(p_fd[0]);
+    close(pwd_fd[0]);
     if (prev_fd >= 0)
     {
         if (prev_pipe == 1)
@@ -35,14 +49,14 @@ void setup_child(int prev_fd, int prev_pipe, int p_fd[2])
     }
 }
 
-int wait_for_child(int exit_status, int read_end)
+int wait_for_child(int exit_status, int read_pend, int read_pwdend)
 {
     int ret_pchild;
     
     waitpid(child_pid, &ret_pchild, 0);
     if (WIFEXITED(ret_pchild))
         exit_status = WEXITSTATUS(ret_pchild);
-    receive_env(read_end);
+    receive_env(read_pend, read_pwdend);
     filtered_env = filter_env(global_env, filtered_env);
     return (exit_status);
 }

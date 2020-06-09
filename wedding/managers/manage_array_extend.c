@@ -28,6 +28,25 @@ int extend_array_with_var(char **output_array, char** add_array, int count_add, 
     return (index_add);
 }
 
+char **extend_array_str(char **from_array, char *add_str, int from_len)
+{
+    int count;
+    char **output_array;
+
+    count = 0;
+    if (!(output_array = (char **)malloc(sizeof(char *) * (from_len + 2))))
+    	ft_error('\0', "Malloc", NULL);
+    while (from_array[count])
+    {
+        output_array[count] = ft_strdup(from_array[count]);
+        count++;
+    }
+    output_array[count] = ft_strdup(add_str);
+    output_array[count + 1] = NULL;
+    free_str_array(from_array);
+    return (output_array);
+}
+
 char **extend_array(char **from_array, char **add_array, int from_len, int add_len)
 {
     int count_from;
