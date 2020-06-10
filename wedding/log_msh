@@ -1,0 +1,264 @@
+Correct :
+[echo Correct :]
+[echo Correct :]
+
+[echo ]
+[echo ]
+
+[echo ]
+[echo ]
+|
+[echo \|]
+[echo \|]
+|
+[echo \|]
+[echo \|]
+|
+[echo \|""]
+[echo \|""]
+""
+[echo \"\"]
+[echo \"\"]
+''
+[echo \'\']
+[echo \'\']
+"
+[echo \"]
+[echo \"]
+'
+[echo \']
+[echo \']
+|'
+[echo \|\']
+[echo \|\']
+|"
+[echo \|\"]
+[echo \|\"]
+""
+[echo \\"\\"]
+[echo \\"\\"]
+Minishell: check_bs failed
+[echo \'\]
+''
+[echo \'\']
+[echo \'\']
+Minishell: check_bs failed
+[echo \]
+
+[echo ""]
+[echo ""]
+"
+[echo \"]
+[echo \"]
+Minishell: check_bs failed
+[echo \$ \" \]
+[ ] \ `
+[echo \[ \] \\ \`]
+[echo \[ \] \\ \`]
+:
+[echo \: \; \< \> \= \?]
+Minishell: <: command not found
+[echo \: \; \< \> \= \?]
+[echo \: \; \< \> \= \?]
+:
+[echo \: \; \< \> \= \?]
+Minishell: <: command not found
+[echo \: \; \< \> \= \?]
+[echo \: \; \< \> \= \?]
+: ; < > = ?
+[echo ": ; < > = ?"]
+[echo ": ; < > = ?"]
+: ; < > = ?
+[echo ': ; < > = ?']
+[echo ': ; < > = ?']
+\:
+[echo \\: \; \< \> \= \?\\]
+Minishell: <: command not found
+[echo \\: \; \< \> \= \?\\]
+[echo \\: \; \< \> \= \?\\]
+a
+[echo  "a" ]
+[echo  "a" ]
+'a'
+[echo  \'a\' ]
+[echo  \'a\' ]
+'a'
+[echo  \'a\' ]
+[echo  \'a\' ]
+'a'
+[echo  \\'a\\' ]
+[echo  \\'a\\' ]
+Minishell: check_bs failed
+[echo a\ a]
+\
+[echo \\]
+[echo \\]
+a \ a
+[echo a \\ a]
+[echo a \\ a]
+aaa
+[echo a"a"a]
+[echo a"a"a]
+$
+[echo $]
+[echo $]
+$
+[echo $]
+[echo $]
+$
+[echo \$]
+[echo \$]
+cbouleng
+[echo cbouleng]
+[echo cbouleng]
+cbouleng
+[echo $USER]
+[echo $USER]
+cbouleng
+[echo \cbouleng]
+[echo \cbouleng]
+$USER
+[echo \$USER]
+[echo \$USER]
+
+[echo]
+[echo]
+
+[echo $war]
+[echo $war]
+Minishell: check_bs failed
+[echo \]
+
+[echo \$war]
+[echo \$war]
+
+[echo $war]
+[echo $war]
+
+[echo \$war]
+[echo \$war]
+\$war
+[echo \\$war]
+[echo \\$war]
+\$war
+[echo \\\$war]
+[echo \\\$war]
+
+[echo ]
+[echo ]
+
+[echo $war]
+[echo $war]
+Minishell: check_bs failed
+[echo \]
+
+[echo \$war]
+[echo \$war]
+cbouleng
+[echo cbouleng]
+[echo cbouleng]
+cbouleng
+[echo $USER]
+[echo $USER]
+cbouleng
+[echo \cbouleng]
+[echo \cbouleng]
+cbouleng
+[echo $USER]
+[echo $USER]
+$USER
+[echo \$USER]
+[echo \$USER]
+\cbouleng
+[echo \\$USER]
+[echo \\$USER]
+|cbouleng
+[echo \|\cbouleng]
+[echo \|\cbouleng]
+|$USER
+[echo \|\$USER]
+[echo \|\$USER]
+"cbouleng
+[echo \"cbouleng]
+[echo \"cbouleng]
+|\cbouleng
+[echo \|\\$USER]
+[echo \|\\$USER]
+|\$USER
+[echo \|\\\$USER]
+[echo \|\\\$USER]
+\"cbouleng
+[echo \\\"$USER]
+[echo \\\"$USER]
+Minishell: check_bs failed
+[echo  \" \]
+$ ! @ # % ^ & * ( ) _ + |
+[echo $ \! \@ \# \% \^ \& \* \( \) \_ \+ \|]
+[echo $ \! \@ \# \% \^ \& \* \( \) \_ \+ \|]
+$ ! @ # % ^ & * ( ) _ + |
+[echo "$ ! @ # % ^ & * ( ) _ + |"]
+[echo "$ ! @ # % ^ & * ( ) _ + |"]
+$ ! @ # % ^ & * ( ) _ + |
+[echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|]
+[echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|]
+$ ! @ # % ^ & * ( ) _ + |
+[echo '$ ! @ # % ^ & * ( ) _ + |']
+[echo '$ ! @ # % ^ & * ( ) _ + |']
+$ ! @ # % ^ & * ( ) _ +
+[echo $ ! @ # % ^ & * ( ) _ + |]
+[echo $ ! @ # % ^ & * ( ) _ + |]
+$ ! @ # % ^ & * ( ) _ + |
+[echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|]
+[echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|]
+:
+[echo \: \; \< \> \= \?]
+Minishell: <: command not found
+[echo \: \; \< \> \= \?]
+[echo \: \; \< \> \= \?]
+:
+[echo \: \; \< \> \= \?]
+Minishell: <: command not found
+[echo \: \; \< \> \= \?]
+[echo \: \; \< \> \= \?]
+: ; < > = ?
+[echo ': ; < > = ?']
+[echo ': ; < > = ?']
+: ; < > = ?
+[echo ": ; < > = ?"]
+[echo ": ; < > = ?"]
+[ ] \ `
+[echo \[ \] \\ \`]
+[echo \[ \] \\ \`]
+[ ] \ `
+[echo '[ ] \ `']
+[echo '[ ] \ `']
+----------------------------
+[echo ----------------------------]
+[echo ----------------------------]
+Incorrect :
+[echo Incorrect :]
+[echo Incorrect :]
+Minishell: check_simple_quote failed
+[echo ']
+Minishell: syntax error near unexpected symbol `='
+[echo \': ; < > = ?\']
+Minishell: check_bs failed
+[echo \[ \] \ `]
+Minishell: check_bs failed
+[echo \\[ \\] \\\ \\`]
+Minishell: check_double_quote failed
+[echo $ " \' ]
+Minishell: check_double_quote failed
+[echo |"\]
+Minishell: check_double_quote failed
+[echo "]
+Minishell: check_double_quote failed
+[echo "]
+Minishell: check_simple_quote failed
+[echo \|\"']
+Minishell: check_double_quote failed
+[echo \|\""\]
+Minishell: check_double_quote failed
+[echo \'"]
+Minishell: check_simple_quote failed
+[echo  \ ']
