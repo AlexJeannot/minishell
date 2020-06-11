@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/03 14:38:16 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:40:17 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,33 @@ static int	nb_del_quote(char *str)
 	return (nb);
 }
 
+int		is_spe_carac(char *str, int i)
+{
+	if (g_map[i] == '2')
+	{
+		if (str[i] == 36)
+			return (0);
+		if (str[i] >= 32 && str[i] <= 47)
+			return (1);
+		if (str[i] >= 58 && str[i] <= 64)
+			return (1);
+		if (str[i] == 91 || (str[i] >= 93 && str[i] < 96))
+			return (1);
+		if (str[i] >= 123 && str[i] <= 126)
+			return (1);
+	}
+	return (0);
+}
+
 static int	to_print(char *str, int i)
 {
 	if (g_map[i] == '1')
 		return (1);
-	if (str[i] == '"' && !str[i + 1] && g_map[i] == '2')
+	if (str[i] == '\\' && !is_esc(str, i) && !is_spe_carac(str, i + 1))
 		return (0);
-	if (str[i] == '\\' && !is_esc(str, i) && (str[i + 1] == '"'
-		|| str[i + 1] == '\'') && g_map[i] == '0')
-		return (0);
-	if (str[i] == '\\' && str[i + 1] == '"' && str[i + 2])
-		return (0);
+//	if (str[i] == '\\' && (str[i + 1] == '"' || str[i + 1] == '\'')
+//		&& g_map[i + 1] == '0')
+//		return (0);
 	if (g_map[i] == '3' || g_map[i] == '4')
 		return (0);
 	return (1);

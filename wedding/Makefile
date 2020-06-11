@@ -6,7 +6,7 @@
 #    By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/04 13:29:11 by ajeannot          #+#    #+#              #
-#    Updated: 2020/06/02 12:46:40 by cbouleng         ###   ########.fr        #
+#    Updated: 2020/06/11 18:21:29 by cbouleng         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,13 +56,12 @@ SRCS = 	annexes/display_string.c \
 		parsing/list_it.c \
 		parsing/list_utils.c \
 		parsing/list_utils_2.c \
-		parsing/main.c \
+		parsing/parsing.c \
 		parsing/map_quote.c \
 		parsing/split_plus.c \
 		parsing/utils.c \
 		parsing/utils_2.c \
 		parsing/utils_3.c \
-		clear_it/clear_backslash.c \
 		clear_it/clear_before_exec.c \
 		clear_it/clear_before_exec_2.c \
 		clear_it/clear_echo_bad_env.c \

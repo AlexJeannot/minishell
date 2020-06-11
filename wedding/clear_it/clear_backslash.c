@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:01:58 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/02 11:58:40 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/11 18:16:15 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@ char	*g_map;
 
 int		is_spe_carac(char *str, int i)
 {
-	if (str[i] == 36)
-		return (0);
-	if (str[i] >= 32 && str[i] <= 47)
-		return (1);
-	if (str[i] >= 58 && str[i] <= 64)
-		return (1);
-	if (str[i] == 91 || (str[i] >= 93 && str[i] < 96))
-		return (1);
-	if (str[i] >= 123 && str[i] <= 126)
-		return (1);
+	if (g_map[i] == '2')
+	{
+		if (str[i] == 36)
+			return (0);
+		if (str[i] >= 32 && str[i] <= 47)
+			return (1);
+		if (str[i] >= 58 && str[i] <= 64)
+			return (1);
+		if (str[i] == 91 || (str[i] >= 93 && str[i] < 96))
+			return (1);
+		if (str[i] >= 123 && str[i] <= 126)
+			return (1);
+	}
 	return (0);
 }
 
@@ -35,7 +38,7 @@ int		nb_del_case(char *str, int *p_i)
 	{
 		if (str[(*p_i + 1)] == '"' || str[(*p_i + 1)] == '\'')
 			return (0);
-		if (is_spe_carac(str, *p_i + 1) && g_map[*p_i] == '2')
+		if (is_spe_carac(str, *p_i + 1))
 			return (0);
 		if (!is_esc(str, *p_i))
 			return (1);
