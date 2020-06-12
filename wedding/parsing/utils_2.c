@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 16:55:53 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/27 19:04:52 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/12 10:05:09 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int		is_name(char *str, int i)
 		return (1);
 	if (str[i] == '\'' || str[i] == '"')
 		return (1);
-	if (str[i] == '\\')
+	if (str[i] == '\\' || str[i] == '/')
 		return (1);
 	if (str[i] == '$')
 		return (1);

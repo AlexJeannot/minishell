@@ -3,11 +3,6 @@
 
 # include "./struct.h"
 
-
-/*              clear_it/clear_backslash.c
--------------------------------------------------*/
-char	*clear_backslash(char *str);
-
 /*              clear_it/clear_before_exec.c
 -------------------------------------------------*/
 char	*clear_quote(char *str);
@@ -67,7 +62,8 @@ int		count_rdc(char* str);
 
 /*              parsing/get_redir_2.c
 -------------------------------------------------*/
-void	get_rd_index(char *str, int *rdc_index, int *rdo_index, char *g_map);
+void	get_rd_index(char *str, int *rdc_index, int 
+		*rdo_index, char *g_map);
 int		*create_index_array(char *str, char *type);
 int		get_rdc_type(char *str);
 
