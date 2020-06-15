@@ -72,7 +72,7 @@ void ft_cd(char **args)
     if (args[0] && args[1])
         ft_error('\0', "cd", "wrong number of arguments");
     path = select_path(args[0]);
-    if (path[ft_strlen(path) - 1] == '/')
+    if (path[ft_strlen(path) - 1] == '/' && ft_strlen(path) > 1)
         path[ft_strlen(path) - 1] = '\0';
     result_chdir = chdir(path);
     if (result_chdir == -1)

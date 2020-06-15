@@ -55,7 +55,7 @@ run_test()
 ################ SETUP SHELL ################
 LC_ALL=C
 rm -rf diff_minishell.txt diff_bash.txt test_cd ~/test_cd test_files
-delete_file "rm a b ../a ../b"
+delete_file "a b ../a ../b"
 
 ################ SCRIPT ################
 
@@ -199,7 +199,7 @@ export dir=${PWD%/*} && run_test 'pwd ; cd $dir ; pwd' && unset dir
 mkdir test_cd && run_test 'pwd ; cd test_cd ; pwd' && rm -rf test_cd
 run_test 'pwd ; cd ~/ ; pwd'
 mkdir ~/test_cd && run_test 'pwd ; cd ~/test_cd ; pwd' && rm -rf ~/test_cd
-
+run_test 'pwd ; cd .. ; pwd ; cd .. ; pwd ; cd ~/ ; pwd'
 
 #EXIT
 run_test 'exit'
@@ -305,6 +305,7 @@ echo "=================== TEST $test_number ===================" >> diff_bash.tx
 echo 'env' | env -i bash | grep -v _= | sort >> diff_bash.txt
 let "test_number+=1"
 
+
 #RETURN VALUE FROM PROGRAM
 echo "=================== TEST $test_number ===================" >> diff_minishell.txt
 echo 'echo lala' | ../minishell >> diff_minishell.txt && echo $? >> diff_minishell.txt
@@ -317,6 +318,7 @@ echo 'export %' | ../minishell | grep -v valid >> diff_minishell.txt ; echo $? >
 echo "=================== TEST $test_number ===================" >> diff_bash.txt
 echo 'export %' | bash | grep -v valid >> diff_bash.txt ; echo $? >> diff_bash.txt
 let "test_number+=1"
+
 
 #HUGE CAT
 run_test 'cat bible.txt'
