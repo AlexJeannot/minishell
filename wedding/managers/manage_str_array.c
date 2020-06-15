@@ -30,11 +30,14 @@ void display_str_array(char **input_array)
     int count;
 
     count = 0;
-    while (input_array[count])
+    if (input_array)
     {
-        ft_putstr_fd(input_array[count], 1);
-        write(1, "\n", 1);
-        count++;
+        while (input_array[count])
+        {
+            ft_putstr_fd(input_array[count], 1);
+            write(1, "\n", 1);
+            count++;
+        }
     }
 }
 

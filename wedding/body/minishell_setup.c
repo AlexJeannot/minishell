@@ -66,10 +66,12 @@ void setup_shlvl(void)
     }
 }
 
-void setup_env(char **env, int *exit_status)
+void setup_env(char **argv, char **env, int *exit_status)
 {
     int oldpwd_index;
     char set_pwd[4096];
+    char *set_var;
+
 
     errno = 0;
     child_pid = -1;
@@ -88,9 +90,19 @@ void setup_env(char **env, int *exit_status)
         update_pwd(-1, set_pwd);
     }
     pwd_path = get_env_value("PWD");
-    filtered_env = filter_env(global_env, NULL);
     pwd_check = 0;
+    set_var = NULL;
+    if (search_in_array(global_env, "_", '=') == -1)
+    {
+        set_var = (char *)malloc(sizeof(char) * (ft_strlen(set_pwd) + ft_strlen(argv[0]) + 3));
+        ft_strcpy(set_var, "_=");
+        ft_strcat(set_var, set_pwd);
+        ft_strcat(set_var, "/");
+        ft_strcat(set_var, argv[0]);
+        global_env = extend_array_str(global_env, set_var, str_array_length(global_env));
+    }
     *exit_status = 0;
+    filtered_env = filter_env(global_env, NULL);
     signal(SIGINT, signal_manager);
     signal(SIGQUIT, signal_manager);
 }
@@ -116,11 +128,10 @@ int *setup_pipe_and_process(int exit_status, int *read_fd)
     pwd_fd[0] = -1;
 	while (lst)
 	{
-
         if (prev_pipe == 0)
             exit_status = wait_for_child(exit_status, p_fd[0], pwd_fd[0]);
         if (lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && lst->pipe != 1 && prev_pipe != 1)
-            ft_exit(0);
+            ft_exit(exit_status);
         if ((pipe(p_fd)) == -1)
             ft_error('\0', "Pipe", NULL);
         if ((pipe(pwd_fd)) == -1)

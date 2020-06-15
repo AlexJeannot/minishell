@@ -16,7 +16,6 @@ void ft_program(char *cmd, char **args)
 {
     if (cmd[0] == '.' || cmd[0] == '/')
     {
-        //ft_leaks("BEFORE EXECVE PROGRAM\n");
         if (execve(cmd, args, global_env) == -1)
             ft_error('\0', cmd, NULL);
     }

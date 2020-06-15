@@ -20,7 +20,7 @@ void setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2], int pwd_fd[2])
         close(*prev_fd);
     *prev_fd = p_fd[0];
     *prev_pipe = lst->pipe;
-    if (ft_strcmp(lst->cmd, "unset") == 0)
+    if (lst->cmd && ft_strcmp(lst->cmd, "unset") == 0)
     {
         while (lst->arg[count])
         {
