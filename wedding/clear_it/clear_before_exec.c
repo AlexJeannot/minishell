@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/11 18:40:17 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/12 14:08:28 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ static int	to_print(char *str, int i)
 		return (1);
 	if (str[i] == '\\' && !is_esc(str, i) && !is_spe_carac(str, i + 1))
 		return (0);
-//	if (str[i] == '\\' && (str[i + 1] == '"' || str[i + 1] == '\'')
-//		&& g_map[i + 1] == '0')
-//		return (0);
 	if (g_map[i] == '3' || g_map[i] == '4')
 		return (0);
 	return (1);

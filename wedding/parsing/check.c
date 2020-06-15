@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 15:09:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/11 15:28:01 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/12 14:18:00 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_simple_quote(char *str)
 			while (g_map[i] == '1')
 				i++;
 			if (g_map[i] != '3' || str[i] != '\'')
-				ft_error('\0', NULL, "check_simple_quote failed");
+				ft_error('\0', NULL, "Error : multi-line opened by <\'>\n");
 		}
 		i++;
 	}
@@ -46,7 +46,7 @@ void	check_double_quote(char *str)
 			while (g_map[i] == '2')
 				i++;
 			if (g_map[i] != '4' || str[i] != '"')
-				ft_error('\0', NULL, "check_double_quote failed");
+				ft_error('\0', NULL, "Error : multi-line opened by <\">\n");
 		}
 		i++;
 	}
@@ -64,7 +64,7 @@ void	check_bs(char *str)
 			&& g_map[i] == '0')
 		{
 			if (!is_esc(str, i))
-				ft_error('\0', NULL, "check_bs failed");
+				ft_error('\0', NULL, "Error : multi-line opened by <\\>\n");
 			else
 				return ;
 		}
