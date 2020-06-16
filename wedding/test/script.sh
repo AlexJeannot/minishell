@@ -76,7 +76,7 @@ run_test 'echo \n'
 run_test 'echo "test""test" "lala"'
 run_test 'echo "test"test"" "lala"'
 run_test 'echo "test"\""test" "lala"'
-run_test 'echo "test"\\|\\""test" "lala"'
+run_test 'echo "test"\\|\\"test" "lala"'
 run_test 'echo "test"\"\""\"test" "lala"'
 run_test "echo 'test''test''lala'"
 run_test "echo 'test'\\'test'\''lala'"
@@ -225,6 +225,51 @@ run_test 'cat bible.txt | grep testifieth'
 run_test 'find / | grep cores'
 run_test 'echo test | cat | cat | cat | cat | cat | grep test'
 
+#PARSING
+run_test 'echo \n\n'
+run_test 'echo ""' 
+run_test 'echo \|' 
+run_test 'echo \"\"' 
+run_test 'echo \\'|  
+run_test 'echo \\\\' 
+run_test 'echo \|\|' 
+run_test 'echo \\\|\\\|' 
+run_test 'echo \\"\\"' 
+run_test 'echo \$ \"' 
+run_test 'echo \[ \] \\ \`' 
+run_test 'echo \: \ \< \> \= \?\' 
+run_test 'echo \"a\"' 
+run_test 'echo \\"a\\"' 
+run_test 'echo "\\a\\"' 
+run_test 'echo \\\"a\"\\' 
+run_test 'echo a\\a' 
+run_test 'echo a\"\a' 
+run_test 'echo $' 
+run_test 'echo \$' 
+run_test 'echo \\$' 
+run_test 'echo $USER' 
+run_test 'echo \$USER' 
+run_test 'echo \\$USER' 
+run_test 'echo \\\$USER' 
+run_test 'echo $war' 
+run_test 'echo \$war' 
+run_test 'echo \\$war' 
+run_test 'echo \\\$war' 
+run_test 'echo \|\\$USER' 
+run_test 'echo \|\\\$USER' 
+run_test 'echo \\\"$USER' 
+run_test 'echo \|\\$USER' 
+run_test 'echo \|\\\$USER' 
+run_test 'echo \\\"$USER' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \"\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|\"' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \\\$ \\\! \\\@ \\\# \\\% \\\^ \\\& \\\* \\\( \\\) \\\_ \\\+ \\\|' 
+run_test 'echo \: \! \< \> \= \?\' 
+run_test 'echo "\: \! \< \> \= \?\"' 
+run_test 'echo \[ \] \\ \`' 
 
 #REDIRECTIONS
 mkdir test_files
@@ -328,3 +373,4 @@ rm -rf test_cd ~/test_cd test_files
 delete_file "a b ../a ../b buffer buffer2"
 
 diff --text diff_minishell.txt diff_bash.txt 
+
