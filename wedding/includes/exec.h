@@ -131,8 +131,13 @@ void    free_command_line(char *line);
 
 /* MINISHELL_SETUP.C */
 void    signal_manager(int sig);
-void setup_env(char **argv, char **env, int *exit_status);
 void    setup_command(int exit_status);
 int *setup_pipe_and_process(int exit_status, int *read_fd);
+
+/* MINISHELL_SETUP_ENV.C */
+void setup_env(char **argv, char **env, int *exit_status);
+
+/* MINISHELL_SETUP_SHLVL.C */
+void setup_shlvl(void);
 
 #endif

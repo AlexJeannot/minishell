@@ -31,8 +31,8 @@ typedef struct		s_cont
 	char*	cmd;
 	char*	rdc_filename;
 	char*	rdo_filename;
-	int*	rdc_index;
-	int*	rdo_index;
+	int**	rdc_index;
+	int**	rdo_index;
 }					t_cont;
 
 typedef struct		s_value
@@ -64,8 +64,8 @@ typedef struct		s_list
 	char**			rdo_filetab;
 	char*			rdc_filename;
 	char*			rdo_filename;
-	int*			rdc_index;
-	int*			rdo_index;
+	int**			rdc_index;
+	int**			rdo_index;
 	struct s_list*	next;
 }					t_list;
 

@@ -62,9 +62,9 @@ int		count_rdc(char* str);
 
 /*              parsing/get_redir_2.c
 -------------------------------------------------*/
-void	get_rd_index(char *str, int *rdc_index, int 
-		*rdo_index, char *g_map);
-int		*create_index_array(char *str, char *type);
+void	get_rd_index(char *str, int **rdc_index, int 
+		**rdo_index, char *g_map);
+int		**create_index_array(char *str, char *type);
 int		get_rdc_type(char *str);
 
 /*              parsing/get_rdo.c

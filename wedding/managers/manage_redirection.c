@@ -27,10 +27,13 @@ void manage_rdo_error(int ret_check)
     count = 0;
     if (lst->rdc_filetab)
     {
-        while (lst->rdc_filetab[count] && lst->rdc_index[count] < lst->rdo_index[ret_check])
+        while (lst->rdc_filetab[count] && lst->rdc_index[count][0] < lst->rdo_index[ret_check][0])
         {
-            if ((fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT , 0644)) == -1)
-                ft_error('\0', lst->rdc_filetab[count], NULL);
+            if (lst->rdc_index[count][1] == 1)
+            {
+                if ((fd_file = open(lst->rdc_filetab[count], O_WRONLY | O_TRUNC | O_CREAT , 0644)) == -1)
+                    ft_error('\0', lst->rdc_filetab[count], NULL);
+            }
             close(fd_file);
             count++;
         }

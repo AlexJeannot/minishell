@@ -36,8 +36,8 @@ void		clear_lst_content(void)
 		free_str_array(lst_free->arg);
 		free_str_array(lst_free->rdc_filetab);
 		free_str_array(lst_free->rdo_filetab);
-		free_int_array(lst_free->rdc_index);
-		free_int_array(lst_free->rdo_index);
+		//free_int_array(lst_free->rdc_index);
+		//free_int_array(lst_free->rdo_index);
 		lst_free = lst_free->next;
 	}
 	lst_free = tmp;

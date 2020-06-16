@@ -28,22 +28,32 @@ int		get_rdc_type(char *str)
 	return (0);
 }
 
-int		*create_index_array(char *str, char *type)
+int		**create_index_array(char *str, char *type)
 {
 	int	count;
-	int	*index_array;
+	int add_count;
+	int *index_array;
+	int	**global_array;
 
 	count = 0;
+	add_count = 0;
 	if (ft_strcmp("rdc", type) == 0)
 		count = count_rdc(str);
 	else if (ft_strcmp("rdo", type) == 0)
 		count = count_rdo(str);
-	if (!(index_array = (int *)malloc(sizeof(int) * (count + 1))))
+	if (!(global_array = (int **)malloc(sizeof(int*) * (count + 1))))
 		ft_error('\0', "Malloc", NULL);
-	return (index_array);
+	while (add_count <= count)
+	{
+		if (!(index_array = (int *)malloc(sizeof(int) * 2)))
+			ft_error('\0', "Malloc", NULL);
+		global_array[add_count] = index_array;
+		add_count++;
+	}
+	return (global_array);
 }
 
-void	get_rd_index(char *str, int *rdc_index, int *rdo_index, char *g_map)
+void	get_rd_index(char *str, int **rdc_index, int **rdo_index, char *g_map)
 {
 	int i;
 	int index;
@@ -58,16 +68,23 @@ void	get_rd_index(char *str, int *rdc_index, int *rdo_index, char *g_map)
 	{
 		if (str[i] == '>' && !is_esc(str, i) && g_map[i] == '0')
 		{
-			rdc_index[rdc_add] = index;
+			rdc_index[rdc_add][0] = index;
 			if (str[i + 1] && str[i + 1] == '>')
+			{
+				rdc_index[rdc_add][1] = 2;
 				i++;
+			}
+			else if (str[i] == '>' && str[i - 1] != '>')
+			{
+				rdc_index[rdc_add][1] = 1;
+			}
 			index++;
 			rdc_add++;
 		}
 		if (str[i] == '<' && !is_esc(str, i) && g_map[i] == '0')
-			rdo_index[rdo_add++] = index++;
+			rdo_index[rdo_add++][0] = index++;
 		i++;
 	}
-	rdc_index[rdc_add] = -1;
-	rdo_index[rdo_add] = -1;
+	rdc_index[rdc_add][0] = -1;
+	rdo_index[rdo_add][0] = -1;
 }
