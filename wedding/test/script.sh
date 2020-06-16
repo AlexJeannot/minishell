@@ -56,13 +56,13 @@ run_test()
 LC_ALL=C
 gcc test.c -o prog
 rm -rf diff_minishell.txt diff_bash.txt test_cd ~/test_cd test_files
-delete_file "a b ../a ../b prog"
+delete_file "a b ../a ../b"
 
 ################ SCRIPT ################
 
 if [ "$1" = "clean" ]
 then
-    delete_file "diff_minishell.txt diff_bash.txt a b ../a ../b buffer buffer2"
+    delete_file "diff_minishell.txt diff_bash.txt a b ../a ../b buffer buffer2 prog"
     exit
 fi
 
@@ -77,11 +77,9 @@ run_test 'echo \n'
 run_test 'echo "test""test" "lala"'
 run_test 'echo "test"test"" "lala"'
 run_test 'echo "test"\""test" "lala"'
-run_test 'echo "test"\\|\\"test" "lala"'
 run_test 'echo "test"\"\""\"test" "lala"'
 run_test "echo 'test''test''lala'"
 run_test "echo 'test'\\'test'\''lala'"
-run_test "echo 'test'\\\''test''lala'"
 run_test "echo 'test''test''lala'"
 run_test 'echo -n oui'
 add_newline
@@ -238,7 +236,7 @@ run_test 'echo \\\|\\\|'
 run_test 'echo \\"\\"' 
 run_test 'echo \$ \"' 
 run_test 'echo \[ \] \\ \`' 
-run_test 'echo \: \ \< \> \= \?\' 
+run_test 'echo \: \@ \< \> \= \?' 
 run_test 'echo \"a\"' 
 run_test 'echo \\"a\\"' 
 run_test 'echo "\\a\\"' 
@@ -268,8 +266,8 @@ run_test 'echo \"\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|\"'
 run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
 run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
 run_test 'echo \\\$ \\\! \\\@ \\\# \\\% \\\^ \\\& \\\* \\\( \\\) \\\_ \\\+ \\\|' 
-run_test 'echo \: \! \< \> \= \?\' 
-run_test 'echo "\: \! \< \> \= \?\"' 
+run_test 'echo \: \! \< \> \= \?' 
+run_test 'echo "\: \! \< \> \= \?"' 
 run_test 'echo \[ \] \\ \`' 
 
 #REDIRECTIONS

@@ -10,7 +10,7 @@ int     pwd_check;
 char    *pwd_path;
 char	**filtered_env;
 
-/* ------------- ANNEXES ------------- */
+/* ------------- ANNEXES -------------  */
 
 /* DISPLAY_STRING.C */
 void	ft_putstr_fd(char *str, int fd);

@@ -24,6 +24,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int limit)
 		dest[count] = src[count];
 		count++;
 	}
+	dest[count] = '\0';
 	while (count < limit)
 	{
 		dest[count] = '\0';

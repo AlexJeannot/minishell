@@ -4,13 +4,14 @@ void setup_oldpwd(void)
 {
     int oldpwd_index;
 
-    if ((oldpwd_index = search_in_array(global_env, "OLDPWD", '=')) >= 0)
+    if ((oldpwd_index = search_in_array(global_env, "OLDPWD", '=')) == -1)
+        global_env = extend_array_str(global_env, "OLDPWD", str_array_length(global_env));
+/*
     {
         free_str(&global_env[oldpwd_index]);
         global_env[oldpwd_index] = ft_strdup("OLDPWD"); 
     }
-    else
-        global_env = extend_array_str(global_env, "OLDPWD", str_array_length(global_env));
+*/
 }
 
 void setup_pwd(void)
