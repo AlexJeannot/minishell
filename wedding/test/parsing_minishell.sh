@@ -1,54 +1,45 @@
-#!/bin/bash
-echo 'echo' '\n\n' | ./minishell;
-echo 'echo' '' | ./minishell;
-echo 'echo' '\|' | ./minishell;
-echo 'echo' '\|' | ./minishell;
-echo 'echo' '\"\"' | ./minishell;
-echo 'echo' '\\'| ./minishell;
-echo 'echo' '\\\\' | ./minishell;
-echo 'echo' '\|\|' | ./minishell;
-echo 'echo' '\\\|\\\|' | ./minishell;
-echo 'echo' '\\"\\"' | ./minishell;
-echo 'echo' '\$ \"' | ./minishell;
-echo 'echo' '\[ \] \\ \`' | ./minishell;
-echo 'echo' \'\: \; \< \> \= \?\' | ./minishell;
-echo 'echo' '\"a\"' | ./minishell;
-echo 'echo' '\\"a\\"' | ./minishell;
-echo 'echo' '"\\a\\"' | ./minishell;
-echo 'echo' '\\\"a\"\\' | ./minishell;
-echo 'echo' 'a\\a' | ./minishell;
-echo 'echo' 'a\"\a' | ./minishell;
-echo 'echo' '$' | ./minishell;
-echo 'echo' '\$' | ./minishell;
-echo 'echo' '\\$' | ./minishell;
-echo 'echo' '$USER' | ./minishell;
-echo 'echo' '\$USER' | ./minishell;
-echo 'echo' '\\$USER' | ./minishell;
-echo 'echo' '\\\$USER' | ./minishell;
-echo 'echo' '$war' | ./minishell;
-echo 'echo' '\$war' | ./minishell;
-echo 'echo' '\\$war' | ./minishell;
-echo 'echo' '\\\$war' | ./minishell;
-echo 'echo' '\|\\$USER' | ./minishell;
-echo 'echo' '\|\\\$USER' | ./minishell;
-echo 'echo' '\\\"$USER' | ./minishell;
-echo 'echo' '\|\\$USER' | ./minishell;
-echo 'echo' '\|\\\$USER' | ./minishell;
-echo 'echo' '\\\"$USER' | ./minishell;
-echo 'echo' '\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' | ./minishell;
-echo 'echo' \'\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|\' | ./minishell;
-echo 'echo' '\"\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|\"' | ./minishell;
-echo 'echo' '\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' | ./minishell;
-echo 'echo' '\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' | ./minishell;
-echo 'echo' '\\\$ \\\! \\\@ \\\# \\\% \\\^ \\\& \\\* \\\( \\\) \\\_ \\\+ \\\|' | ./minishell;
-echo 'echo' \'\: \; \< \> \= \?\' | ./minishell;
-echo 'echo' \"\: \; \< \> \= \?\" | ./minishell;
-echo 'echo' '\[ \] \\ \`' | ./minishell;
-echo 'echo' \'\[ \] \\ \`\' | ./minishell;
-echo 'echo' '----------------------------' | ./minishell;
-echo 'echo' 'Incorrect :' | ./minishell;
-echo 'echo' '\"\' | ./minishell;
-echo 'echo' '\|\""\' | ./minishell;
-echo 'echo' '\' | ./minishell;
-echo 'echo' '\\\'| ./minishell;
-echo 'echo' '\\\"a\\\' | ./minishell;
+run_test 'echo \n\n'
+run_test 'echo ""' 
+run_test 'echo \|' 
+run_test 'echo \"\"' 
+run_test 'echo \\'|  
+run_test 'echo \\\\' 
+run_test 'echo \|\|' 
+run_test 'echo \\\|\\\|' 
+run_test 'echo \\"\\"' 
+run_test 'echo \$ \"' 
+run_test 'echo \[ \] \\ \`' 
+run_test 'echo \: \ \< \> \= \?\' 
+run_test 'echo \"a\"' 
+run_test 'echo \\"a\\"' 
+run_test 'echo "\\a\\"' 
+run_test 'echo \\\"a\"\\' 
+run_test 'echo a\\a' 
+run_test 'echo a\"\a' 
+run_test 'echo $' 
+run_test 'echo \$' 
+run_test 'echo \\$' 
+run_test 'echo $USER' 
+run_test 'echo \$USER' 
+run_test 'echo \\$USER' 
+run_test 'echo \\\$USER' 
+run_test 'echo $war' 
+run_test 'echo \$war' 
+run_test 'echo \\$war' 
+run_test 'echo \\\$war' 
+run_test 'echo \|\\$USER' 
+run_test 'echo \|\\\$USER' 
+run_test 'echo \\\"$USER' 
+run_test 'echo \|\\$USER' 
+run_test 'echo \|\\\$USER' 
+run_test 'echo \\\"$USER' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \"\$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|\"' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \$ \! \@ \# \% \^ \& \* \( \) \_ \+ \|' 
+run_test 'echo \\\$ \\\! \\\@ \\\# \\\% \\\^ \\\& \\\* \\\( \\\) \\\_ \\\+ \\\|' 
+run_test 'echo \: \ \< \> \= \?\' 
+run_test 'echo "\: \ \< \> \= \?\"' 
+run_test 'echo \[ \] \\ \`' 
+run_test 'echo \[ \] \\ \`\'
