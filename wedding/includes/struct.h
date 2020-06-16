@@ -93,6 +93,7 @@ void 	ft_error(char symbol, char *cmd, char *msg);
 void 	free_str(char **str);
 void 	free_str_array(char **input_array);
 void 	free_int_array(int *input_array);
+void	free_2d_int_array(int **input_array);
 char	*ft_strdup(const char *input_str);
 
 #endif

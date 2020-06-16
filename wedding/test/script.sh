@@ -54,8 +54,9 @@ run_test()
 
 ################ SETUP SHELL ################
 LC_ALL=C
+gcc test.c -o prog
 rm -rf diff_minishell.txt diff_bash.txt test_cd ~/test_cd test_files
-delete_file "a b ../a ../b"
+delete_file "a b ../a ../b prog"
 
 ################ SCRIPT ################
 
@@ -230,7 +231,7 @@ run_test 'echo \n\n'
 run_test 'echo ""' 
 run_test 'echo \|' 
 run_test 'echo \"\"' 
-run_test 'echo \\'|  
+run_test 'echo \\'
 run_test 'echo \\\\' 
 run_test 'echo \|\|' 
 run_test 'echo \\\|\\\|' 
@@ -293,7 +294,24 @@ run_test 'rm ../a ; rm ../b ; >../a >../b <error; cat ../a ../b' 'grep -v direct
 run_test 'echo test > ../a ; echo test2 > ../b ; >../a <error >../b ; cat ../a ../b' 'grep -v directory'
 run_test 'rm ../a ; rm ../b ; >../a <error >../b ; cat ../a ../b' 'grep -v directory'
 run_test 'cat <../error' 'grep -v directory'
-#run_test 'echo test > test_files/a ; echo test2 > test_files/b ; >test_files/a >>test_files/b <error; cat test_files/a test_files/b'
+run_test 'echo test > test_files/a ; echo test2 > test_files/b ; >test_files/a >>test_files/b <error; cat test_files/a test_files/b' 'grep -v directory'
+run_test 'echo test > test_files/a ; echo test2 > test_files/b ; >>test_files/a >test_files/b <error; cat test_files/a test_files/b' 'grep -v directory'
+run_test 'echo test > test_files/a ; echo test2 > test_files/b ; >>test_files/a >>test_files/b <error; cat test_files/a test_files/b' 'grep -v directory'
+run_test 'echo test > test_files/a ; echo test2 > test_files/b ; >test_files/a <error >>test_files/b ; cat test_files/a test_files/b' 'grep -v directory'
+run_test 'echo test > test_files/a ; echo test2 > test_files/b ; >test_files/a <error >>test_files/b ; cat test_files/a test_files/b' 'grep -v directory'
+run_test 'echo test > test_files/a ; echo test2 > test_files/b ; <error >>test_files/a >>test_files/b ; cat test_files/a test_files/b' 'grep -v directory'
+delete_file "test_files/a test_files/b"
+run_test '>test_files/a >>test_files/b <error; cat test_files/a test_files/b' 'grep -v directory'
+delete_file "test_files/a test_files/b"
+run_test '>>test_files/a >test_files/b <error; cat test_files/a test_files/b' 'grep -v directory'
+delete_file "test_files/a test_files/b"
+run_test '>>test_files/a >>test_files/b <error; cat test_files/a test_files/b' 'grep -v directory'
+delete_file "test_files/a test_files/b"
+run_test '>test_files/a <error >>test_files/b ; cat test_files/a test_files/b' 'grep -v directory'
+delete_file "test_files/a test_files/b"
+run_test '>test_files/a <error >>test_files/b ; cat test_files/a test_files/b' 'grep -v directory'
+delete_file "test_files/a test_files/b"
+run_test '<error >>test_files/a >>test_files/b ; cat test_files/a test_files/b' 'grep -v directory'
 
 
 #$?
@@ -370,7 +388,7 @@ run_test 'cat bible.txt'
 
 ################ END SHELL ################
 rm -rf test_cd ~/test_cd test_files
-delete_file "a b ../a ../b buffer buffer2"
+delete_file "a b ../a ../b buffer buffer2 prog"
 
 diff --text diff_minishell.txt diff_bash.txt 
 

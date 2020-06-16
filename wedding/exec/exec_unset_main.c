@@ -85,7 +85,7 @@ int ft_unset(char **args)
         status = verify_unset_var(args);
         index_array = create_unset_index_array(args);
         global_env = clear_env(global_env, index_array);
-       // free_int_array(index_array);
+        free_int_array(index_array);
     }
     return(status);
 }
