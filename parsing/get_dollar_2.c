@@ -18,7 +18,7 @@ char	*get_startline(char *str, int j)
 	int		y;
 
 	if (!(start = malloc(j)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	y = 0;
 	while (y < j)
 	{
@@ -45,7 +45,7 @@ char	*get_endline(char *str, int j)
 	while (str[j++])
 		len++;
 	if (!(end = malloc(len + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	len = 0;
 	while (str[k])
 		end[len++] = str[k++];
@@ -65,7 +65,7 @@ char	*get_env_name_2check(char *str, int j)
 	while (str[j] && str[j] != ' ')
 		j++;
 	if (!(tmp = malloc(j - len + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (len < j && ((str[len] >= '0' && str[len] <= '9') ||
 				(str[len] >= 'a' && str[len] <= 'z') || (str[len] >= 'A' &&
 					str[len] <= 'Z')))
@@ -93,7 +93,7 @@ t_value	new_value(char *str, int j)
 	while (global_env[i][++j])
 		len++;
 	if (!(v.value = malloc(len + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	free_str(&v.name);
 	return (v);
 }

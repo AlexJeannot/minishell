@@ -38,7 +38,7 @@ char		**clean_array(char **input_array)
 	array_count = 0;
 	size = count_valid_str(input_array);
 	if (!(output_array = (char **)malloc(sizeof(char*) * (size + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	array_count = 0;
 	add_count = 0;
 	while (input_array[array_count])

@@ -18,7 +18,7 @@ char	*ft_join(char *str_1, char *str_2, int len_1, int len_2)
 	char	*output_str;
 
 	if (!(output_str = (char *)malloc(sizeof(char) * (len_1 + len_2 + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	if (output_str == NULL)
 		return (NULL);
 	cmp = 0;

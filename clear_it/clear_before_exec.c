@@ -75,7 +75,7 @@ char		*clear_quote(char *str)
 	g_map = map_quote(str, 1);
 	nb = nb_del_quote(str);
 	if (!(res = malloc(ft_strlen(str) - nb + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	j = 0;
 	k = 0;
 	while (str[j])

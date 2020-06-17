@@ -22,7 +22,7 @@ char	**duplicate_array(char **input_array, char **free_array, char sep)
 	count = 0;
 	array_len = str_array_length(input_array);
 	if (!(output_array = (char **)malloc(sizeof(char *) * (array_len + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (input_array[count])
 	{
 		if (sep != '\0')
@@ -107,7 +107,7 @@ char	**filter_env(char **input_array, char **free_array)
 	add_count = 0;
 	if (!(output_array = (char **)malloc(sizeof(char *)
 	* (str_array_length(input_array) + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (input_array[from_count])
 	{
 		if (find_car(input_array[from_count], '=') != -1)

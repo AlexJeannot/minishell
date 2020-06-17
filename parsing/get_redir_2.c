@@ -42,11 +42,11 @@ int		**create_index_array(char *str, char *type)
 	else if (ft_strcmp("rdo", type) == 0)
 		count = count_rdo(str);
 	if (!(global_array = (int **)malloc(sizeof(int*) * (count + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (add_count <= count)
 	{
 		if (!(index_array = (int *)malloc(sizeof(int) * 2)))
-			ft_error('\0', "Malloc", NULL);
+			ft_error('\0', "Malloc", NULL, 1);
 		global_array[add_count] = index_array;
 		add_count++;
 	}

@@ -36,7 +36,7 @@ static char		*ft_create_string(char const *s, int nb_car)
 	char	*new_string;
 
 	if (!(new_string = (char *)malloc(sizeof(char) * (nb_car + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	if (new_string == NULL)
 		return (0);
 	cmp = 0;
@@ -84,7 +84,7 @@ char			**ft_split(char const *s, char c)
 		return (0);
 	cmp_string = ft_cmp_string(s, c);
 	if (!(total_string = (char **)malloc(sizeof(char*) * (cmp_string + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	total_string = ft_sep_string(s, c, total_string);
 	total_string[cmp_string] = NULL;
 	return (total_string);

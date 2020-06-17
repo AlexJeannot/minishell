@@ -89,7 +89,7 @@ int		exec_command_line(char *line, int exit_status)
 	int *read_fd;
 
 	if (!(read_fd = (int *)malloc(sizeof(int) * 2)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	parsing(line);
 	read_fd = setup_pipe_and_process(exit_status, read_fd);
 	exit_status = exec_father(exit_status, read_fd[0], read_fd[1]);

@@ -22,7 +22,7 @@ void	update_oldpwd(int pwd_index, int oldpwd_index)
 	else
 		add_pwd = ft_strdup(pwd_path);
 	if (!(old_pwd = (char *)malloc(sizeof(char) * (ft_strlen(add_pwd) + 8))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	ft_strcpy(old_pwd, "OLDPWD=");
 	ft_strcat(old_pwd, add_pwd);
 	free_str(&global_env[oldpwd_index]);
@@ -35,7 +35,7 @@ void	update_pwd(int pwd_index, char *new_path)
 	char *new_pwd;
 
 	if (!(new_pwd = (char *)malloc(sizeof(char) * (ft_strlen(new_path) + 5))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	ft_strcpy(new_pwd, "PWD=");
 	ft_strcat(new_pwd, new_path);
 	if (pwd_index >= 0)
@@ -69,8 +69,6 @@ void	ft_cd(char **args)
 	char	*path;
 	int		result_chdir;
 
-	if (args[0] && args[1])
-		ft_error('\0', "cd", "wrong number of arguments");
 	path = select_path(args[0]);
 	if (path[ft_strlen(path) - 1] == '/' && ft_strlen(path) > 1)
 		path[ft_strlen(path) - 1] = '\0';
@@ -78,7 +76,7 @@ void	ft_cd(char **args)
 	if (result_chdir == -1)
 	{
 		free_str(&path);
-		ft_error('\0', "cd", NULL);
+		ft_error('\0', "cd", NULL, 1);
 	}
 	else
 		update_env(path);

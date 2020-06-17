@@ -44,7 +44,7 @@ char	**create_exported_var_array(char **input_array)
 	add_count = 0;
 	if (!(output_array = malloc(sizeof(char *)
 	* (str_array_length(input_array) + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (input_array[array_count])
 	{
 		split_result = ft_split(input_array[array_count], '=');

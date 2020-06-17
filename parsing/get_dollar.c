@@ -32,7 +32,7 @@ char		*r_dollar(char *str, int j)
 
 	dls = dolls_value(str, j);
 	if (!(res = malloc(dls.len + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	i = 0;
 	while (dls.startline[i])
 	{

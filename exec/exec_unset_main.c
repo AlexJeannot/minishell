@@ -36,7 +36,7 @@ char	**clear_env(char **input_array, int *index_array)
 	array_count = 0;
 	if (!(output_array = (char **)malloc(sizeof(char *)
 	* (str_array_length(input_array) - int_array_length(index_array) + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (input_array[array_count])
 	{
 		if (!(is_unset(index_array, array_count)))
@@ -61,7 +61,7 @@ int		*create_unset_index_array(char **input_array)
 
 	if (!(index_array = (int *)malloc(sizeof(int)
 	* (str_array_length(input_array) + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	add_count = 0;
 	array_count = 0;
 	while (input_array[array_count])

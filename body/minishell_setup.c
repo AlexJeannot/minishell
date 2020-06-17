@@ -69,9 +69,9 @@ int		*setup_pipe_and_process(int exit_status, int *read_fd)
 		exit_status = check_child_and_exit(exit_status,
 		prev_pipe, p_fd[0], pwd_fd[0]);
 		if ((pipe(p_fd)) == -1 || (pipe(pwd_fd)) == -1)
-			ft_error('\0', "Pipe", NULL);
+			ft_error('\0', "Pipe", NULL, 1);
 		if ((child_pid = fork()) == -1)
-			ft_error('\0', "Fork", NULL);
+			ft_error('\0', "Fork", NULL, 1);
 		if (child_pid > 0)
 			setup_parent(&prev_fd, &prev_pipe, p_fd, pwd_fd);
 		else

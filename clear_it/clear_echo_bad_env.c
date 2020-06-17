@@ -38,7 +38,7 @@ static char		*remove_dollar(char *str, int i, int ret)
 	g_map = map_quote(str, 0);
 	len = dollar_to_del_len(str, i, ret);
 	if (!(res = malloc(ft_strlen(str) - len + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	i = 0;
 	j = 0;
 	while (str[i])

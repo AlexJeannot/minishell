@@ -22,7 +22,7 @@ char	**get_rdc_filetab(char *str)
 	{
 		nb = count_rdc(str);
 		if (!(tab = malloc(sizeof(char*) * nb + 1)))
-			ft_error('\0', "Malloc", NULL);
+			ft_error('\0', "Malloc", NULL, 1);
 		i = 1;
 		while (i <= nb)
 		{
@@ -70,7 +70,7 @@ char	*get_name(char *str, int i, int ret)
 		i++;
 	len = i - len;
 	if (!(name = malloc(len + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	i = i - len;
 	len = 0;
 	while (is_name(str, i))

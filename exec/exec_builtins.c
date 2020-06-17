@@ -30,12 +30,12 @@ char	**build_exec_array(char *exec, char **path_array)
 	count = 0;
 	if (!(exec_array = (char **)malloc(sizeof(char *)
 	* (str_array_length(path_array) + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (path_array[count])
 	{
 		if (!(exec_path = (char *)malloc(sizeof(char) *
 		(ft_strlen(exec) + ft_strlen(path_array[count]) + 2))))
-			ft_error('\0', "Malloc", NULL);
+			ft_error('\0', "Malloc", NULL, 1);
 		ft_strcpy(exec_path, path_array[count]);
 		ft_strcat(exec_path, "/");
 		ft_strcat(exec_path, exec);
@@ -52,7 +52,7 @@ char	**add_file(char **input_array, char *file)
 	char **output_array;
 
 	if (!(output_array = (char**)malloc(sizeof(char *) * 3)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	output_array[0] = ft_strdup(input_array[0]);
 	output_array[1] = ft_strdup(file);
 	output_array[2] = NULL;
@@ -92,5 +92,5 @@ void	ft_builtins(char *exec, char **args)
 		count++;
 	}
 	if (ret_exec == -1)
-		ft_error('\0', exec, "command not found");
+		ft_error('\0', exec, "command not found", 127);
 }

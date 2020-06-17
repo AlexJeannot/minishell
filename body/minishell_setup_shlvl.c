@@ -41,7 +41,7 @@ void	incr_shlvl(int shlvl_index, int shlvl, char *shlvl_str, char *shlvl_nb)
 	shlvl_nb = ft_itoa(shlvl);
 	if (!(shlvl_export = (char *)malloc(sizeof(char)
 					* (ft_strlen(shlvl_nb) + 7))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	ft_strcpy(shlvl_export, "SHLVL=");
 	ft_strcat(shlvl_export, shlvl_nb);
 	free_shlvl(shlvl_nb, shlvl_str, shlvl_index);

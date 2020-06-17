@@ -18,7 +18,7 @@ void	display_exec(char *exec)
 	write(1, ": ", 2);
 }
 
-void	ft_error(char symbol, char *cmd, char *msg)
+void	ft_error(char symbol, char *cmd, char *msg, int status)
 {
 	write(1, "Minishell: ", 11);
 	if (cmd && !ft_strcmp(cmd, "rd"))
@@ -36,5 +36,5 @@ void	ft_error(char symbol, char *cmd, char *msg)
 	free_lst();
 	free_str_array(filtered_env);
 	free_str_array(global_env);
-	exit(1);
+	exit(status);
 }

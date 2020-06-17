@@ -27,7 +27,7 @@ void	check_simple_quote(char *str)
 			while (g_map[i] == '1')
 				i++;
 			if (g_map[i] != '3' || str[i] != '\'')
-				ft_error('\0', NULL, "Error : multi-line opened by <\'>\n");
+				ft_error('\0', NULL, "Error : multi-line opened by <\'>\n", 1);
 		}
 		i++;
 	}
@@ -46,7 +46,7 @@ void	check_double_quote(char *str)
 			while (g_map[i] == '2')
 				i++;
 			if (g_map[i] != '4' || str[i] != '"')
-				ft_error('\0', NULL, "Error : multi-line opened by <\">\n");
+				ft_error('\0', NULL, "Error : multi-line opened by <\">\n", 1);
 		}
 		i++;
 	}
@@ -64,7 +64,7 @@ void	check_bs(char *str)
 			&& g_map[i] == '0')
 		{
 			if (!is_esc(str, i))
-				ft_error('\0', NULL, "Error : multi-line opened by <\\>\n");
+				ft_error('\0', NULL, "Error : multi-line opened by <\\>\n", 1);
 			else
 				return ;
 		}

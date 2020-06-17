@@ -46,14 +46,20 @@ void	manage_rdo_error(int ret_check)
 			{
 				if ((fd_file = open(lst->rdc_filetab[count],
 				O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1)
-					ft_error('\0', lst->rdc_filetab[count], NULL);
+					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
+			}
+			if (lst->rdc_index[count][1] == 2)
+			{
+				if ((fd_file = open(lst->rdc_filetab[count],
+				O_WRONLY | O_CREAT, 0644)) == -1)
+					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 			}
 			close(fd_file);
 			count++;
 		}
-		ft_error('\0', lst->rdo_filetab[ret_check]
-		, "No such file or directory");
 	}
+	ft_error('\0', lst->rdo_filetab[ret_check]
+	, "No such file or directory", 1);
 }
 
 void	create_file(void)
@@ -69,12 +75,12 @@ void	create_file(void)
 			if (lst->rdc_index[count][1] == 1)
 			{
 				if ((fd_file = open(lst->rdc_filetab[count], O_TRUNC | O_CREAT, 0644)) == -1)
-					ft_error('\0', lst->rdc_filetab[count], NULL);
+					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 			}
 			else if (lst->rdc_index[count][1] == 2)
 			{
 				if ((fd_file = open(lst->rdc_filetab[count], O_CREAT, 0644)) == -1)
-					ft_error('\0', lst->rdc_filetab[count], NULL);
+					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 			}
 			close(fd_file);
 			count++;
@@ -89,12 +95,12 @@ void	red_stdout_in_file(void)
 	if (lst->rdc_type == 1)
 	{
 		if ((fd_file = open(lst->rdc_filename, O_WRONLY | O_TRUNC)) == -1)
-			ft_error('\0', lst->rdc_filename, NULL);
+			ft_error('\0', lst->rdc_filename, NULL, 1);
 	}
 	else
 	{
 		if ((fd_file = open(lst->rdc_filename, O_WRONLY | O_APPEND)) == -1)
-			ft_error('\0', lst->rdc_filename, NULL);
+			ft_error('\0', lst->rdc_filename, NULL, 1);
 	}
 	dup2(fd_file, STDOUT_FILENO);
 	close(fd_file);
@@ -106,6 +112,7 @@ void	manage_redirection(void)
 
 	if ((ret_check = check_rdo_exec()) != -1)
 		manage_rdo_error(ret_check);
+	
 	create_file();
 	if (lst->rdc_type != 0)
 		red_stdout_in_file();

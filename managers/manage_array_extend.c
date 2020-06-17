@@ -53,7 +53,7 @@ char	**extend_array_str(char **from_array, char *add_str, int from_len)
 
 	count = 0;
 	if (!(output_array = (char **)malloc(sizeof(char *) * (from_len + 2))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (from_array[count])
 	{
 		output_array[count] = ft_strdup(from_array[count]);
@@ -77,7 +77,7 @@ char	**extend_array(char **from_array, char **add_array
 	count_add = 0;
 	if (!(output_array = (char **)malloc(sizeof(char *)
 	* (from_len + add_len + 1))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	while (from_array[count_from])
 	{
 		output_array[count_from] = ft_strdup(from_array[count_from]);

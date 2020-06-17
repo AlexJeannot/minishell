@@ -71,7 +71,7 @@ static void	mapping(char *str)
 char		*map_quote(char *str, int pos)
 {
 	if (!(g_map = malloc(ft_strlen(str) + 1)))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	if (pos)
 		mapping(str);
 		//mapping_2(str, 1, 1, i);

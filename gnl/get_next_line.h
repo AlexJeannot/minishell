@@ -32,7 +32,7 @@ int		ft_id(char *str);
 ** MANAGE_ERROR.C
 */
 
-void	ft_error(char symbol, char *cmd, char *msg);
+void	ft_error(char symbol, char *cmd, char *msg, int status);
 
 /*
 **MANAGE_STR.C

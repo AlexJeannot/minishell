@@ -33,7 +33,7 @@ char	*relative_path(char *input_path)
 	actual_path = ft_strdup(pwd_path);
 	if (!(final_path = (char *)malloc(sizeof(char)
 	* (ft_strlen(actual_path) + ft_strlen(input_path) + 2))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	ft_strcpy(final_path, actual_path);
 	ft_strcat(final_path, "/");
 	ft_strcat(final_path, input_path);
@@ -49,7 +49,7 @@ char	*absolute_path(char *input_path)
 	actual_path = get_env_value("HOME");
 	if (!(final_path = (char *)malloc(sizeof(char)
 	* (ft_strlen(actual_path) + ft_strlen(input_path)))))
-		ft_error('\0', "Malloc", NULL);
+		ft_error('\0', "Malloc", NULL, 1);
 	ft_strcpy(final_path, actual_path);
 	ft_strcat(final_path, "/");
 	ft_strcat(final_path, &input_path[2]);
