@@ -6,19 +6,19 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 12:29:59 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/09 18:26:14 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:28:55 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-void ft_program(char *cmd, char **args)
+void	ft_program(char *cmd, char **args)
 {
-    if (cmd[0] == '.' || cmd[0] == '/')
-    {
-        if (execve(cmd, args, global_env) == -1)
-            ft_error('\0', cmd, NULL);
-    }
-    else
-        ft_builtins(cmd, args);
+	if (cmd[0] == '.' || cmd[0] == '/')
+	{
+		if (execve(cmd, args, global_env) == -1)
+			ft_error('\0', cmd, NULL);
+	}
+	else
+		ft_builtins(cmd, args);
 }

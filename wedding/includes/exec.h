@@ -121,7 +121,7 @@ int		find_car(char *str, char c);
 /* MINISHELL_EXEC.C */
 void    exec_prompt(void);
 int     exec_instructions(void);
-void exec_child(int is_prev_piped, int exit_status, int write_pend, int write_pwdend);
+void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend);
 int exec_father(int exit_status, int read_pend, int read_pwdend);
 int     exec_command_line(char *line, int exit_status);
 

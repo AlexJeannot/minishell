@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 10:37:54 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/03/06 19:03:28 by ajeannot         ###   ########.fr       */
+/*   Created: 2020/06/16 16:46:11 by ajeannot          #+#    #+#             */
+/*   Updated: 2020/06/16 16:49:14 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_putstr_fd(char *str, int fd)
 	}
 }
 
-void ft_putnbr_annex(int nb)
+void	ft_putnbr_annex(int nb)
 {
 	if (nb >= 10)
 		ft_putnbr_annex(nb / 10);
@@ -41,7 +41,7 @@ void ft_putnbr_annex(int nb)
 	ft_putchar_fd((nb % 10) + 48, 1);
 }
 
-void ft_putnbr(int nb)
+void	ft_putnbr(int nb)
 {
 	if (nb == -2147483648)
 		ft_putstr_fd("-2147483648", 1);

@@ -6,7 +6,7 @@
 /*   By: ajeannot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:00:24 by ajeannot          #+#    #+#             */
-/*   Updated: 2019/11/29 20:02:59 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/16 17:33:20 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,15 @@ int		ft_search(char *str);
 char	*ft_settle(char *str, int pass);
 int		ft_id(char *str);
 
-/* MANAGE_ERROR.C*/
-void    ft_error(char symbol, char *cmd, char *msg);
+/*
+** MANAGE_ERROR.C
+*/
 
-/* MANAGE_STR.C */
-void 	free_str(char **str);
+void	ft_error(char symbol, char *cmd, char *msg);
+
+/*
+**MANAGE_STR.C
+*/
+void	free_str(char **str);
 
 #endif

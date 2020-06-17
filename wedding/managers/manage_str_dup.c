@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_str_dup.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/16 17:55:30 by ajeannot          #+#    #+#             */
+/*   Updated: 2020/06/16 17:56:24 by ajeannot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/exec.h"
 
 char	*ft_strcpy(char *dest, char *src)
@@ -73,12 +85,12 @@ char	*ft_strncat(char *dest, char *src, unsigned int limit)
 
 char	*ft_strdup(const char *input_str)
 {
-	int		count;
-    int     str_size;
+	int	count;
+	int	str_size;
 	char	*output_str;
 
 	count = 0;
-    str_size = ft_strlen(input_str);
+	str_size = ft_strlen(input_str);
 	if (!(output_str = malloc(sizeof(char) * (str_size + 1))))
 		ft_error('\0', "Malloc", NULL);
 	if (output_str == NULL)

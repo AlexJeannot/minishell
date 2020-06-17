@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_int.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/16 17:50:06 by ajeannot          #+#    #+#             */
+/*   Updated: 2020/06/16 17:50:25 by ajeannot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/exec.h"
 
-int		nb_length(long nb)
+int	nb_length(long nb)
 {
-	int		length;
+	int	length;
 
 	length = 0;
 	if (nb == 0)
@@ -17,8 +29,8 @@ int		nb_length(long nb)
 
 char	*ft_itoa(int nb)
 {
-	int		length;
-	char *output_str;
+	int	length;
+	char	*output_str;
 
 	length = nb_length(nb);
 	if (!(output_str = (char*)malloc(sizeof(char) * (length + 1))))
@@ -28,14 +40,14 @@ char	*ft_itoa(int nb)
 	{
 		output_str[0] = 48;
 	}
-    else
+	else
 	{
-        while (nb > 0)
-        {
-            length--;
-            output_str[length] = 48 + (nb % 10);
-            nb = nb / 10;
-        }
+		while (nb > 0)
+		{
+			length--;
+			output_str[length] = 48 + (nb % 10);
+			nb = nb / 10;
+		}
 	}
 	return (output_str);
 }
