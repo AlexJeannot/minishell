@@ -33,5 +33,8 @@ void	ft_error(char symbol, char *cmd, char *msg)
 			write(1, strerror(errno), ft_strlen(strerror(errno)));
 	}
 	write(1, "\n", 1);
-	ft_exit(1);
+	free_lst();
+	free_str_array(filtered_env);
+	free_str_array(global_env);
+	exit(1);
 }

@@ -66,9 +66,16 @@ void	create_file(void)
 	{
 		while (lst->rdc_filetab[count])
 		{
-			if ((fd_file = open(lst->rdc_filetab[count],
-			O_CREAT, 0644)) == -1)
-				ft_error('\0', lst->rdc_filetab[count], NULL);
+			if (lst->rdc_index[count][1] == 1)
+			{
+				if ((fd_file = open(lst->rdc_filetab[count], O_TRUNC | O_CREAT, 0644)) == -1)
+					ft_error('\0', lst->rdc_filetab[count], NULL);
+			}
+			else if (lst->rdc_index[count][1] == 2)
+			{
+				if ((fd_file = open(lst->rdc_filetab[count], O_CREAT, 0644)) == -1)
+					ft_error('\0', lst->rdc_filetab[count], NULL);
+			}
 			close(fd_file);
 			count++;
 		}

@@ -42,13 +42,26 @@ run_shell()
 
 run_test()
 {
+    run_shell '../minishell' "$@" > diff_minishell.txt
+    run_shell 'bash' "$@"  > diff_bash.txt
+    diff --text diff_minishell.txt diff_bash.txt > /dev/random 2>&1
+    result=$?
+    if [ $result = 0 ]
+    then
+        echo -e "\033[38;5;113mTEST $test_number OK\033[0m"
+    elif [ $result = 1 ]
+    then
+        echo -e "\033[38;5;160m\n======================== TEST $test_number KO ========================\033[0m"
+        echo -e "\033[38;5;90mCommand :\033[0m" $1
 
-    echo "=================== TEST $test_number ===================" >> diff_minishell.txt
-    run_shell '../minishell' "$@" >> diff_minishell.txt
+        echo -e "\033[38;5;109m\nMinishell output\n-------------------------------------------------------------\n\033[0m"
+        diff --text diff_minishell.txt diff_bash.txt | grep '<' | cut -c 2-
+        echo -e "\033[38;5;109m-------------------------------------------------------------\033[0m"
 
-    echo "=================== TEST $test_number ===================" >> diff_bash.txt
-    run_shell 'bash' "$@"  >> diff_bash.txt
-
+        echo -e "\033[38;5;208m\nBash output\n-------------------------------------------------------------\033[0m"
+        diff --text diff_minishell.txt diff_bash.txt | grep '<' | cut -c 2-
+        echo -e "\033[38;5;208m-------------------------------------------------------------\n\033[0m"
+    fi
     let "test_number+=1"
 }
 
@@ -65,7 +78,6 @@ then
     delete_file "diff_minishell.txt diff_bash.txt a b ../a ../b buffer buffer2 prog"
     exit
 fi
-
 
 #ECHO
 run_test 'echo test'
@@ -276,6 +288,8 @@ run_test 'echo test > a ; cat < a'
 run_test 'echo lala >a ; cat <a'
 run_test 'echo test > test_files/a ; cat < test_files/a'
 run_test 'echo lala >test_files/a ; cat <test_files/a'
+run_test 'echo test > b ; echo test add >> b ; cat < b'
+run_test 'rm b ; echo test add >> b ; cat < b'
 run_test 'echo test > a ; echo test2 > b ; <a >b ; cat a b' 'grep -v directory'
 run_test 'echo test > a ; echo test2 > b ; >a >b <error; cat a b' 'grep -v directory'
 run_test 'rm a ; rm b ; >a >b <error; cat a b' 'grep -v directory'
@@ -339,20 +353,6 @@ run_test 'touch test_file ; rm test_file'
 run_test 'ls'
 
 
-#APPEND FILE
-echo "=================== TEST $test_number ===================" >> diff_minishell.txt
-echo "test" > b && echo 'echo "test add" >> b ; cat < b' | ../minishell >> diff_minishell.txt
-echo "=================== TEST $test_number ===================" >> diff_bash.txt
-echo "test" > b && echo 'echo "test add" >> b ; cat < b' | bash >> diff_bash.txt
-let "test_number+=1"
-
-echo "=================== TEST $test_number ===================" >> diff_minishell.txt
-echo "test" > test_files/b && echo 'echo "test add" >> test_files/b ; cat < test_files/b' | ../minishell >> diff_minishell.txt
-echo "=================== TEST $test_number ===================" >> diff_bash.txt
-echo "test" > test_files/b && echo 'echo "test add" >> test_files/b ; cat < test_files/b' | bash >> diff_bash.txt
-let "test_number+=1"
-
-
 #EMPTY ENV
 echo "=================== TEST $test_number ===================" >> diff_minishell.txt
 echo 'export' | env -i ../minishell | grep -v _= >> diff_minishell.txt
@@ -387,6 +387,4 @@ run_test 'cat bible.txt'
 ################ END SHELL ################
 rm -rf test_cd ~/test_cd test_files
 delete_file "a b ../a ../b buffer buffer2 prog"
-
-diff --text diff_minishell.txt diff_bash.txt 
 
