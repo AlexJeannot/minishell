@@ -6,35 +6,13 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/17 17:39:50 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/18 17:53:48 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
 char		*g_map;
-
-static int	nb_del_quote(char *str)
-{
-	int	nb;
-	int	i;
-
-	nb = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (i == 0 && g_map[i] == '4')
-			nb++;
-		else if (g_map[i] == '3' || g_map[i] == '4')
-			nb++;
-		else if (g_map[i] == '4' && !g_map[i + 1])
-			nb++;
-		else if (str[i] == '\\' && str[i + 1] == '"' && g_map[i] != '1')
-			nb++;
-		i++;
-	}
-	return (nb);
-}
 
 int		is_spe_carac(char *str, int i)
 {
@@ -54,7 +32,7 @@ int		is_spe_carac(char *str, int i)
 	return (0);
 }
 
-static int	to_print(char *str, int i)
+int		to_print(char *str, int i)
 {
 	if (g_map[i] == '1')
 		return (1);
@@ -65,16 +43,32 @@ static int	to_print(char *str, int i)
 	return (1);
 }
 
-char		*clear_quote(char *str)
+int		to_keep_len(char *str)
+{
+	int	nb;
+	int	i;
+
+	nb = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (to_print(str, i))
+			nb++;
+		i++;
+	}
+	return (nb);
+}
+
+char		*clear_it(char *str)
 {
 	char	*res;
-	int		nb;
+	int		len;
 	int		j;
 	int		k;
 
 	g_map = map_quote(str, 1);
-	nb = nb_del_quote(str);
-	if (!(res = malloc(ft_strlen(str) - nb + 1)))
+	len = to_keep_len(str);
+	if (!(res = malloc(len + 1)))
 		ft_error('\0', "Malloc", NULL, 1);
 	j = 0;
 	k = 0;

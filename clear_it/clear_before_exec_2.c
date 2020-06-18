@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:08:08 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/17 18:35:47 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/18 17:52:53 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,12 @@ void		clear_tab(char ***pt_tab)
 	i = 0;
 	while (pt_tab[0][i])
 	{
-//		pt_tab[0][i] = clear_echo_bad_env(pt_tab[0][i]);
-		pt_tab[0][i] = clear_quote(pt_tab[0][i]);
+		pt_tab[0][i] = clear_it(pt_tab[0][i]);
 		i++;
 	}
 }
 
 void		clear_str(char **pt_str)
 {
-//	*pt_str = clear_echo_bad_env(*pt_str);
-	*pt_str = clear_quote(*pt_str);
+	*pt_str = clear_it(*pt_str);
 }

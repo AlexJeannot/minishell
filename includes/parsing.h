@@ -5,7 +5,7 @@
 
 /*              clear_it/clear_before_exec.c
 -------------------------------------------------*/
-char	*clear_quote(char *str);
+char	*clear_it(char *str);
 
 /*              clear_it/clear_before_exec_2.c
 -------------------------------------------------*/

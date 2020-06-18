@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:40:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/18 16:56:39 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/18 17:57:42 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_dolls		dolls_value(char *str, int j)
 		dls.value = NULL;
 	dls.startline = get_startline(str, j);
 	dls.endline = get_endline(str, j);
-	dls.len = ft_strlen_null(dls.value) + ft_strlen_null(dls.startline) + ft_strlen_null(dls.endline);
+	dls.len = ft_strlen_null(dls.value) + \
+	ft_strlen_null(dls.startline) + ft_strlen_null(dls.endline);
 	return (dls);
 }
 
@@ -83,10 +84,9 @@ char		*get_dollar_str(char *str)
 		if (str[j] == '$' && !quote_stop(str, j) && !is_esc(str, j))
 		{
 			str = r_dollar(str, j);
-			j = 0;
+			j = -1;
 		}
-		if (str[j] != '$')
-			j++;
+		j++;
 	}
 	return (str);
 }
