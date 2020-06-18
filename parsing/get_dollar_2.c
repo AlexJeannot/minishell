@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:41:27 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/18 14:07:56 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/18 16:50:14 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_startline(char *str, int j)
 	char	*start;
 	int		y;
 
+	if (!j)
+		return (NULL);
 	if (!(start = malloc(j)))
 		ft_error('\0', "Malloc", NULL, 1);
 	y = 0;
@@ -29,6 +31,21 @@ char	*get_startline(char *str, int j)
 	return (start);
 }
 
+int			is_end_var_name(char *str, int i)
+{
+	if (str[i - 1] == '$' && (str[i] >= '0' && str[i] <= '9'))
+		return (0);
+	if (str[i] >= 32 && str[i] <= 64)
+		return (1);
+	if (str[i] >= 91 && str[i] <= 96)
+		return (1);
+	if (str[i] >= 123 && str[i] <= 126)
+		return (1);
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
 char	*get_endline(char *str, int j)
 {
 	char	*end;
@@ -37,9 +54,9 @@ char	*get_endline(char *str, int j)
 
 	len = 0;
 	j++;
-	while ((str[j] >= '0' && str[j] <= '9') ||
-			(str[j] >= 'a' && str[j] <= 'z') ||
-			(str[j] >= 'A' && str[j] <= 'Z'))
+	if (!str[j + 1])
+		return (NULL);
+	while (!is_end_var_name(str, j))
 		j++;
 	k = j;
 	while (str[j++])
@@ -51,16 +68,6 @@ char	*get_endline(char *str, int j)
 		end[len++] = str[k++];
 	end[len] = '\0';
 	return (end);
-}
-
-int		is_env_name(char *str, int i)
-{
-	if (str[i] >= '0' && str[i] <= '9')
-		return (1);
-	if (str[i] >= 'a' && str[i] <= 'z')
-		return (1);
-	if (str[i] >= 'A' && str[i] <= 'Z')
-		return (1);
 }
 
 char	*get_env_name_2check(char *str, int j)
@@ -75,8 +82,8 @@ char	*get_env_name_2check(char *str, int j)
 	while (str[j] && str[j] != ' ')
 		j++;
 	if (!(tmp = malloc(j - len + 1)))
-		ft_error('\0', "Malloc", NULL);
-	while (len < j && is_env_name(str, len))
+		ft_error('\0', "Malloc", NULL, 1);
+	while (len < j && !is_end_var_name(str, len))
 		tmp[i++] = str[len++];
 	tmp[i] = '\0';
 	return (tmp);

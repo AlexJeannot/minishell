@@ -6,21 +6,37 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:40:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/17 19:06:57 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/18 16:56:39 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
+int	ft_strlen_null(const char *str)
+{
+	int count;
+
+	count = 0;
+	if (str)
+	{
+		while (str[count])
+			count++;
+		return (count);
+	}
+	return (0);
+}
+
 t_dolls		dolls_value(char *str, int j)
 {
 	t_dolls dls;
 
-	dls.value = get_env_value_2(str, j);
+	if (is_env(str, j))
+		dls.value = get_env_value_2(str, j);
+	else
+		dls.value = NULL;
 	dls.startline = get_startline(str, j);
 	dls.endline = get_endline(str, j);
-	dls.len = ft_strlen(dls.value) + ft_strlen(dls.startline)
-		+ ft_strlen(dls.endline);
+	dls.len = ft_strlen_null(dls.value) + ft_strlen_null(dls.startline) + ft_strlen_null(dls.endline);
 	return (dls);
 }
 
@@ -34,16 +50,16 @@ char		*r_dollar(char *str, int j)
 	if (!(res = malloc(dls.len + 1)))
 		ft_error('\0', "Malloc", NULL, 1);
 	i = 0;
-	while (dls.startline[i])
+	while (dls.startline && dls.startline[i])
 	{
 		res[i] = dls.startline[i];
 		i++;
 	}
 	j = 0;
-	while (dls.value[j])
+	while (dls.value && dls.value[j])
 		res[i++] = dls.value[j++];
 	j = 0;
-	while (dls.endline[j])
+	while (dls.endline && dls.endline[j])
 		res[i++] = dls.endline[j++];
 	res[i] = '\0';
 	free_str(&str);
@@ -53,39 +69,24 @@ char		*r_dollar(char *str, int j)
 	return (res);
 }
 
-int			is_end_var_name(char *str, int i)
-{
-	if (str[i] >= 32 && str[i] <= 63)
-		return (1);
-	if (str[i] >= 48 && str[i] <= 57)
-		return (1);
-}
-char		*r_void(char *str, int i)
-{
-	int	j;
-
-	j = i;
-	while (!is_end_var_name(str, j))
-		str[i] = str[j++];
-	return (str);
-}
-
 char		*get_dollar_str(char *str)
 {
 	int		j;
 
 	j = 0;
+	if (str[j] == '$' && !str[j + 1])
+		return (str);
+	if (str[j] == '$' && str[j + 1] == '$')
+		return (str);
 	while (str[j])
 	{
-		if (str[j] == '$' && !quote_stop(str, j)
-				&& !is_esc(str, j))
+		if (str[j] == '$' && !quote_stop(str, j) && !is_esc(str, j))
 		{
-			if (is_env(str, j))
-				str = r_dollar(str, j);
-			else
-				str = r_void(str, j);
+			str = r_dollar(str, j);
+			j = 0;
 		}
-		j++;
+		if (str[j] != '$')
+			j++;
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:54:47 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/17 17:37:13 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/18 14:29:16 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int		exec_command_line(char *line, int exit_status)
 	if (!(read_fd = (int *)malloc(sizeof(int) * 2)))
 		ft_error('\0', "Malloc", NULL, 1);
 	parsing(line);
-	printf("parsing_end[%s]\n", lst->arg[0]);
 	read_fd = setup_pipe_and_process(exit_status, read_fd);
 	exit_status = exec_father(exit_status, read_fd[0], read_fd[1]);
 	free(read_fd);
