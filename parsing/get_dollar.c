@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:40:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/02 12:47:40 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:06:57 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,23 @@ char		*r_dollar(char *str, int j)
 	return (res);
 }
 
+int			is_end_var_name(char *str, int i)
+{
+	if (str[i] >= 32 && str[i] <= 63)
+		return (1);
+	if (str[i] >= 48 && str[i] <= 57)
+		return (1);
+}
+char		*r_void(char *str, int i)
+{
+	int	j;
+
+	j = i;
+	while (!is_end_var_name(str, j))
+		str[i] = str[j++];
+	return (str);
+}
+
 char		*get_dollar_str(char *str)
 {
 	int		j;
@@ -65,6 +82,8 @@ char		*get_dollar_str(char *str)
 		{
 			if (is_env(str, j))
 				str = r_dollar(str, j);
+			else
+				str = r_void(str, j);
 		}
 		j++;
 	}

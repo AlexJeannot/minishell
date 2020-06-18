@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/16 11:40:07 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:39:50 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,5 @@ void		clear_before_exec(void)
 	lst->cmd = clean_cmd(lst->cmd);
 	lst->arg = clean_array(lst->arg);
 	lst->raw = clean_array(lst->raw);
+
 }
