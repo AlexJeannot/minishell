@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:11:37 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/02 12:40:24 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/17 18:32:13 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,15 @@ static char		*remove_dollar(char *str, int i, int ret)
 		ft_error('\0', "Malloc", NULL, 1);
 	i = 0;
 	j = 0;
+	printf("1[%s]", str);
 	while (str[i])
 	{
 		if (str[i] == '$' && ret == 1)
-			while (str[i] != ' ' && str[i])
+			while ((str[i] != ' ' || str[i] != '=' || str[i] != '$')
+				&& str[i])
+			{
 				i++;
+			}
 		else if (str[i] == '$' && ret == 2)
 			i++;
 		res[j++] = str[i++];
@@ -101,7 +105,9 @@ char			*clear_echo_bad_env(char *str)
 	if (res)
 	{
 		free_str(&str);
+		printf("res_cleared[%s]\n", res);
 		return (res);
 	}
+	printf("str_cleared[%s]\n", str);
 	return (str);
 }

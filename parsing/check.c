@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 15:09:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/12 14:18:00 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/17 17:32:08 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	check_bs(char *str)
 	i--;
 	while (i >= 0)
 	{
-		if (str[i] == '\\' && (!str[i + 1] || str[i + 1] == ' ')
+		if (str[i] == '\\' && (!str[i + 1])//|| str[i + 1] == ' ')
 			&& g_map[i] == '0')
 		{
 			if (!is_esc(str, i))

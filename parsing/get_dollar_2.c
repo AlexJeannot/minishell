@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:41:27 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/02 12:41:37 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/17 19:18:02 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ char	*get_endline(char *str, int j)
 	return (end);
 }
 
+int		is_env_name(char *str, int i)
+{
+	if (str[i] >= '0' && str[i] <= '9')
+		return (1);
+	if (str[i] >= 'a' && str[i] <= 'z')
+		return (1);
+	if (str[i] >= 'A' && str[i] <= 'Z')
+		return (1);
+}
+
 char	*get_env_name_2check(char *str, int j)
 {
 	int		len;
@@ -65,10 +75,15 @@ char	*get_env_name_2check(char *str, int j)
 	while (str[j] && str[j] != ' ')
 		j++;
 	if (!(tmp = malloc(j - len + 1)))
+<<<<<<< Updated upstream
 		ft_error('\0', "Malloc", NULL, 1);
 	while (len < j && ((str[len] >= '0' && str[len] <= '9') ||
 				(str[len] >= 'a' && str[len] <= 'z') || (str[len] >= 'A' &&
 					str[len] <= 'Z')))
+=======
+		ft_error('\0', "Malloc", NULL);
+	while (len < j && is_env_name(str, len))
+>>>>>>> Stashed changes
 		tmp[i++] = str[len++];
 	tmp[i] = '\0';
 	return (tmp);

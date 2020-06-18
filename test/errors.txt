@@ -19,7 +19,7 @@ echo "$1TEST"
 ##
 
 ##
-exit status
+#exit status
 #Your exit status : 1
 #Expected exit status : 2
 #
