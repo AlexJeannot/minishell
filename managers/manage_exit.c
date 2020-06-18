@@ -44,14 +44,17 @@ void	ft_exit(int status)
 {
 	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && child_pid != 0)
 	{
-		if (str_array_length(lst->arg) > 1)
-			write(1, "bash: exit: too many arguments", 30);
-		else if (str_array_length(lst->arg) == 1)
-			status = transform_status(lst->arg[0]);
 		//write(1, "exit\n", 5);
+		if (str_array_length(lst->arg) == 1)
+			status = transform_status(lst->arg[0]);
+		else if (str_array_length(lst->arg) > 1)
+		{
+			write(1, "bash: exit: too many arguments\n", 31);
+			return ;
+		}
 	}
-	free_lst();
 	free_str_array(filtered_env);
 	free_str_array(global_env);
+	free_lst();
 	exit(status);
 }
