@@ -69,26 +69,31 @@ SRCS = 	annexes/display_string.c \
 		clear_it/clear_echo_bad_env.c \
 		clear_it/clear_stock_rd.c \
 
-OBJS = $(SRCS:.c=.o)
+OBJS_CONV = $(SRCS:.c=.o)
+OBJS = $(addprefix $(OBJS_DIR),$(notdir $(OBJS_CONV)))
 OBJS_DIR = objs/
+
 INCL = -I . -I/get_next_line/
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
-%.o: 		%.c
+$(OBJS_DIR)%.o:	*/%.c
+			if [ -d "objs" ]; then : ; else mkdir objs; fi
 			echo $(notdir $@) "\033[0;32m ==> created\033[0m"
-			$(CC) $(FLAGS) -c $< -o $(OBJS_DIR)$(notdir $@)
+			$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME):	$(OBJS)
 			echo Linking "\033[0;35m ==> in progress\033[0m"
-			$(CC) $(FLAGS) $(addprefix $(OBJS_DIR),$(notdir $(OBJS))) -o $@
+			$(CC) $(FLAGS) $(OBJS) -o $@
 			echo $(NAME) "\033[0;32m ==> done\033[0m"
 
 clean :
-			rm -rf $(addprefix $(OBJS_DIR),$(notdir $(OBJS)))
-			echo objects files "\033[0;31m ==> deleted\033[0m"
+			rm -rf $(OBJS)
+			echo object files "\033[0;31m ==> deleted\033[0m"
+			rm -rf $(OBJS_DIR)
+			echo object directory "\033[0;31m ==> deleted\033[0m"
 
 fclean : 	clean
 			rm -rf $(NAME)
@@ -96,14 +101,10 @@ fclean : 	clean
 
 re:			fclean all
 
-prog:		test.c
-			$(CC) $(FLAGS) -o prog test.c
-
-test : 		re
+test : 		all
 			echo
 			echo
 			./$(NAME)
 
-
-.PHONY: 		clean fclean all re
+.PHONY: 		clean fclean all re test
 .SILENT:
