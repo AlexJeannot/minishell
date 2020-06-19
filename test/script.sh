@@ -182,10 +182,10 @@ run_test 'echo "test"\"\""\"test" "lala"'
 run_test "echo 'test''test''lala'"
 run_test "echo 'test'\\'test'\''lala'"
 run_test "echo 'test''test''lala'"
-run_test "echo 'test "" test "" test'"
-run_test "echo 'test """" test """" test'"
-run_test "echo 'test "" "" "" test'"
-run_test "echo '"" test "" test "" test ""'"
+run_test 'echo test "" test "" test'
+run_test 'echo test """" test """" test'
+run_test 'echo test "" "" "" test'
+run_test 'echo "" test "" test "" test ""'
 run_test 'echo -n oui'
 add_newline
 run_test 'echo $PWD'
@@ -361,7 +361,6 @@ run_test 'echo $TEST$TEST=$TEST=$TEST=$TEST=$TEST=$TEST'
 run_test 'echo $1TEST'
 run_test 'echo $10000TEST'
 run_test 'echo $99TEST'
-run_test 'echo $@TEST'
 run_test 'echo $=TEST'
 run_test 'echo $1 "" $9 "" $4 "" $7'
 run_test 'echo $?TEST$?'
@@ -402,8 +401,8 @@ run_test 'echo \\\"a\"\\'
 run_test 'echo a\\a' 
 run_test 'echo a\"\a' 
 run_test 'echo $' 
-run_test 'echo \$' 
-run_test 'echo \\$' 
+run_test 'echo \$' #
+run_test 'echo \\$' #
 run_test 'echo $USER' 
 run_test 'echo \$USER' 
 run_test 'echo \\$USER' 
@@ -501,7 +500,7 @@ run_test 'cat <error ; echo $?'
 run_test 'cat < ; echo $?'
 run_test 'echo test > ; echo $?'
 run_test 'echo test >> ; echo $?'
-run_return 'exit lala'
+run_test 'exit lala'
 
 #PROGRAM
 run_test './prog'

@@ -104,7 +104,6 @@ void    manage_redirection(void);
 
 /* MANAGE_STR_ARRAY.C */
 int     str_array_length(char **input_array);
-void    display_str_array(char **input_array);
 void    free_str_array(char **input_array);
 
 /* MANAGE_STR_DUP.C */
@@ -139,5 +138,8 @@ void setup_env(char **argv, char **env, int *exit_status);
 
 /* MINISHELL_SETUP_SHLVL.C */
 void setup_shlvl(void);
+
+char	**clean_array(char **input_array);
+char	*clean_cmd(char *input_str);
 
 #endif

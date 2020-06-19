@@ -102,7 +102,4 @@ void		clear_before_exec(void)
 		clear_tab(&lst->rdo_filetab);
 		lst->rdo_filename = get_last(lst->rdo_filetab);
 	}
-	lst->cmd = clean_cmd(lst->cmd);
-	lst->arg = clean_array(lst->arg);
-	lst->raw = clean_array(lst->raw);
 }

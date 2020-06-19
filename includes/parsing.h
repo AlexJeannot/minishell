@@ -10,8 +10,8 @@ char	*clear_it(char *str);
 /*              clear_it/clear_before_exec_2.c
 -------------------------------------------------*/
 int		count_valid_str(char **input_array);
-char	**clean_array(char **input_array);
-char	*clean_cmd(char *input_str);
+//char	**clean_array(char **input_array);
+//char	*clean_cmd(char *input_str);
 void	clear_tab(char ***pt_tab);
 void	clear_str(char **pt_str);
 

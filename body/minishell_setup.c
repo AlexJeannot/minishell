@@ -34,6 +34,9 @@ void	setup_command(int exit_status)
 {
 	replace_exit_status(exit_status);
 	get_dollar();
+	lst->cmd = clean_cmd(lst->cmd);
+	lst->arg = clean_array(lst->arg);
+	lst->raw = clean_array(lst->raw);
 	clear_before_exec();
 }
 
