@@ -150,7 +150,7 @@ LC_ALL=C
 gcc test.c -o prog
 rm -rf diff_minishell.txt diff_bash.txt test_cd ~/test_cd test_files
 delete_file "a b ../a ../b"
-cd .. && make re && cd test
+cd .. && make && cd test
 
 echo -e "$WHITE\n\nDisplay error messages ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
 echo -ne "$CYAN>> $RESET"
@@ -182,6 +182,10 @@ run_test 'echo "test"\"\""\"test" "lala"'
 run_test "echo 'test''test''lala'"
 run_test "echo 'test'\\'test'\''lala'"
 run_test "echo 'test''test''lala'"
+run_test "echo 'test "" test "" test'"
+run_test "echo 'test """" test """" test'"
+run_test "echo 'test "" "" "" test'"
+run_test "echo '"" test "" test "" test ""'"
 run_test 'echo -n oui'
 add_newline
 run_test 'echo $PWD'
@@ -350,6 +354,18 @@ run_test 'export test=lala ; echo $test ; export $test=10 ; echo $lala'
 run_test 'export test=lala ; export $test=a10 ; export $lala=test ; unset $lala ; export' 'grep -v _='
 run_test 'export a b c ; unset a c ; export' 'grep -v _='
 run_test 'export test=echo val=lala ; $test $lala ; export' 'grep -v _='
+run_test 'echo $TEST$TEST=lala'
+run_test 'echo $TEST=lala$TEST'
+run_test 'echo $TEST$TEST=lala$TEST'
+run_test 'echo $TEST$TEST=$TEST=$TEST=$TEST=$TEST=$TEST'
+run_test 'echo $1TEST'
+run_test 'echo $10000TEST'
+run_test 'echo $99TEST'
+run_test 'echo $@TEST'
+run_test 'echo $=TEST'
+run_test 'echo $1 "" $9 "" $4 "" $7'
+run_test 'echo $?TEST$?'
+
 
 
 #PIPE
@@ -563,6 +579,15 @@ run_return 'exit 9223372036854775810'
 run_return 'exit -9223372036854775810'
 
 
+
+
+echo -e "$WHITE\n\nTest leaks ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
+echo -ne "$CYAN>> $RESET"
+read user_input
+if [ $user_input = 'N' ]
+then
+    exit
+fi
 
 echo -e "\n\n$ORANGE#############################################################################"
 echo -e "#                               LEAKS TESTS                                 #"

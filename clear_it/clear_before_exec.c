@@ -105,5 +105,4 @@ void		clear_before_exec(void)
 	lst->cmd = clean_cmd(lst->cmd);
 	lst->arg = clean_array(lst->arg);
 	lst->raw = clean_array(lst->raw);
-
 }
