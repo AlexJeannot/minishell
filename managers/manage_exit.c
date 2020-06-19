@@ -27,12 +27,12 @@ int		transform_status(char *input_str)
 	while (input_str[count])
 	{
 		if (input_str[count] < 48 || input_str[count] > 57)
-			ft_error('\0', "exit", "numeric argument required", 255);
+			ft_error('\0', "exit", "numeric argument required", 2);
 		input_status = (input_status * 10) + (input_str[count] - 48);
 		count++;
 	}
 	if (input_status > 9223372036854775807)
-		ft_error('\0', "exit", "numeric argument required", 255);
+		ft_error('\0', "exit", "numeric argument required", 2);
 	if (input_str[0] == 45)
 		final_status = (int)(256 - (input_status % 256));
 	else
@@ -40,7 +40,7 @@ int		transform_status(char *input_str)
 	return (final_status);
 }
 
-void	ft_exit(int status)
+int	ft_exit(int status)
 {
 	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && child_pid != 0)
 	{
@@ -50,8 +50,9 @@ void	ft_exit(int status)
 			status = transform_status(lst->arg[0]);
 		else if (str_array_length(lst->arg) > 1)
 		{
+			transform_status(lst->arg[0]);
 			write(1, "bash: exit: too many arguments\n", 31);
-			return ;
+			return (1);
 		}
 	}
 	free_str_array(filtered_env);

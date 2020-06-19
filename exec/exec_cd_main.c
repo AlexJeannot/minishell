@@ -69,6 +69,8 @@ void	ft_cd(char **args)
 	char	*path;
 	int		result_chdir;
 
+	if (str_array_length(args) > 1)
+		ft_error('\0', "cd", "Too many arguments", 1);
 	path = select_path(args[0]);
 	if (path[ft_strlen(path) - 1] == '/' && ft_strlen(path) > 1)
 		path[ft_strlen(path) - 1] = '\0';

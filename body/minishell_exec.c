@@ -60,7 +60,8 @@ void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend)
 	setup_command(status);
 	if (lst->rdo_type != 0 || lst->rdc_type != 0)
 		manage_redirection();
-	status = exec_instructions();
+	if (ft_strcmp(lst->cmd, "exit") != 0)
+		status = exec_instructions();
 	if (lst->pipe == 0)
 		send_env(w_pend, w_pwdend);
 	else

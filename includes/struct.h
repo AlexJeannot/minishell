@@ -88,7 +88,7 @@ void    display_str_array(char **input_array);
 
 
 char	**duplicate_array(char **input_array, char **free_array, char sep);
-void 	ft_exit(int status);
+int 	ft_exit(int status);
 void	ft_error(char symbol, char *cmd, char *msg, int status);
 void 	free_str(char **str);
 void 	free_str_array(char **input_array);

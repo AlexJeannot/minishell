@@ -351,10 +351,19 @@ run_test 'exit ?'
 run_test 'exit @@'
 run_test 'exit 9223372036854775810'
 run_test 'exit -9223372036854775810'
-run_test 'export a ; exit $'
-run_test 'export a= ; exit $'
-run_test 'export a=77 ; exit $'
-run_test 'exit $'
+run_test 'export a ; exit $a'
+run_test 'export a= ; exit $a'
+run_test 'export a=77 ; exit $a'
+run_test 'export % ; exit $?'
+run_test 'exit $a'
+run_test 'exit 55 55'
+run_test 'exit +55 55'
+run_test 'exit -55 55'
+run_test 'exit lala lala'
+run_test 'exit 55 lala'
+run_test 'exit lala 55'
+
+
 
 
 #VARIABLES D'ENVIRONNEMENTS
@@ -385,7 +394,7 @@ run_test 'pwd | echo lala'
 run_test 'env | echo lala'
 run_test 'cat bible.txt | grep testifieth'
 echo -e "\n$ORANGE >> THIS TEST MAY TAKE A WHILE TO ACHIEVE $RESET"
-#run_test 'find / | grep cores'
+run_test 'find / | grep cores'
 run_test 'echo test | cat | cat | cat | cat | cat | grep test'
 
 
@@ -525,6 +534,28 @@ run_test 'echo test > a ; echo lala > b ; rm b ; >>a >>b <error; cat a b'
 run_test 'echo test > a ; echo lala > b ; rm b ; >>a <error >> b ; cat a b'
 run_test 'echo test > a ; echo lala > b ; rm a ; rm b ; >>a >>b <error; cat a b'
 run_test 'echo test > a ; echo lala > b ; rm a ; rm b ; >>a <error >> b ; cat a b'
+run_test 'echo <a <b'
+run_test 'echo <b <a'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala > a > b > a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala > a > b > a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala > a >> b > a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala > a >> b > a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala > a > b >> a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala > a > b >> a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala >> a > b > a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala >> a > b > a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala >> a >> b >> a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala >> a >> b >> a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala > a > b > a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala > a > b > a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala > a >> b > a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala > a >> b > a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala > a > b >> a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala > a > b >> a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala >> a > b > a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala >> a > b > a ; cat a b'
+run_test 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala >> a >> b >> a ; cat a b'
+run_test 'echo test > a ; echo test > b ; echo lala >> a >> b >> a ; cat a b'
 rm -rf test_files
 
 
@@ -546,7 +577,6 @@ run_test 'cat <error ; echo $?'
 run_test 'cat < ; echo $?'
 run_test 'echo test > ; echo $?'
 run_test 'echo test >> ; echo $?'
-run_test 'exit lala'
 
 #PROGRAM
 run_test './prog'
@@ -663,11 +693,17 @@ run_return 'exit ?'
 run_return 'exit @@'
 run_return 'exit 9223372036854775810'
 run_return 'exit -9223372036854775810'
-run_return 'export a ; exit $'
-run_return 'export a= ; exit $'
-run_return 'export a=77 ; exit $'
-run_return 'exit $'
-
+run_return 'export a ; exit $a'
+run_return 'export a= ; exit $a'
+run_return 'export a=77 ; exit $a'
+run_return 'export % ; exit $?'
+run_return 'exit $a'
+run_return 'exit 55 55'
+run_return 'exit +55 55'
+run_return 'exit -55 55'
+run_return 'exit lala lala'
+run_return 'exit 55 lala'
+run_return 'exit lala 55'
 
 
 echo -e "$WHITE\n\nTest leaks ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
@@ -675,6 +711,8 @@ echo -ne "$CYAN>> $RESET"
 read user_input
 if [ $user_input != 'Y' ]
 then
+    rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
+    delete_file "a b ../a ../b buffer buffer2 prog diff_minishell.txt diff_bash.txt leaks_minishell.txt"
     exit
 fi
 
@@ -762,6 +800,18 @@ run_leaks 'exit ?'
 run_leaks 'exit @@'
 run_leaks 'exit 9223372036854775810'
 run_leaks 'exit -9223372036854775810'
+run_leaks 'export a ; exit $a'
+run_leaks 'export a= ; exit $a'
+run_leaks 'export a=77 ; exit $a'
+run_leaks 'export % ; exit $?'
+run_leaks 'exit $a'
+run_leaks 'exit 55 55'
+run_leaks 'exit +55 55'
+run_leaks 'exit -55 55'
+run_leaks 'exit lala lala'
+run_leaks 'exit 55 lala'
+run_leaks 'exit lala 55'
+
 
 run_leaks 'export test=lala ; echo $test ; export $test=10 ; echo $lala'
 run_leaks 'export test=lala ; export $test=a10 ; export $lala=test ; unset $lala ; export' 'grep -v _='
@@ -791,6 +841,9 @@ run_leaks 'echo test > test_files/a ; echo test2 > test_files/b ; >test_files/a 
 run_leaks 'echo lala > a >> a >> a ; echo test >> a ; cat < a'
 run_leaks 'echo lala > a >> a >> a ; echo test >> a ; echo lala > a >> a >> a ; cat < a'
 run_leaks 'echo lala >> a >> a > a ; echo test >> a ; cat < a'
+run_leaks 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala >> a >> b >> a ; cat a b'
+run_leaks 'echo test > a ; echo test > b ; echo lala >> a >> b >> a ; cat a b'
+run_leaks 'echo <b <a'
 rm -rf test_files
 
 run_leaks 'export a ; echo $?'

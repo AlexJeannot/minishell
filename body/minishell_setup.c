@@ -55,7 +55,7 @@ int		check_child_and_exit(int status, int prev_pipe, int r_pend, int r_pwdend)
 		status = wait_for_child(status, r_pend, r_pwdend);
 	if (lst->cmd && ft_strcmp(lst->cmd, "exit") == 0
 	&& lst->pipe != 1 && prev_pipe != 1)
-		ft_exit(status);
+		status = ft_exit(status);
 	return (status);
 }
 
