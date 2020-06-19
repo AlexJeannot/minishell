@@ -347,7 +347,10 @@ run_test 'exit ?'
 run_test 'exit @@'
 run_test 'exit 9223372036854775810'
 run_test 'exit -9223372036854775810'
-
+run_test 'export a ; exit $'
+run_test 'export a= ; exit $'
+run_test 'export a=77 ; exit $'
+run_test 'exit $'
 
 #VARIABLES D'ENVIRONNEMENTS
 run_test 'export test=lala ; echo $test ; export $test=10 ; echo $lala'
@@ -401,8 +404,8 @@ run_test 'echo \\\"a\"\\'
 run_test 'echo a\\a' 
 run_test 'echo a\"\a' 
 run_test 'echo $' 
-run_test 'echo \$' #
-run_test 'echo \\$' #
+run_test 'echo \$' 
+run_test 'echo \\$' 
 run_test 'echo $USER' 
 run_test 'echo \$USER' 
 run_test 'echo \\$USER' 
@@ -576,7 +579,10 @@ run_return 'exit ?'
 run_return 'exit @@'
 run_return 'exit 9223372036854775810'
 run_return 'exit -9223372036854775810'
-
+run_return 'export a ; exit $'
+run_return 'export a= ; exit $'
+run_return 'export a=77 ; exit $'
+run_return 'exit $'
 
 
 
