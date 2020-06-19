@@ -66,11 +66,12 @@ run_return()
     result=$?
     if [ $result = 0 ]
     then
-        echo -e "$GREEN TEST $test_number ✓$RESET"
+        echo -e "$GREEN TEST $test_number ✓$RESET "
     elif [ $result = 1 ]
     then
         echo -e "$RED\n======================== TEST $test_number ✗ ========================$RESET"
-        echo -e "\033[38;5;90mCommand :$RESET" $1
+        echo -ne "\033[38;5;90mCommand :$RESET"
+        echo $1
 
         echo -e "$GREY\nMinishell exit status\n--------------------------------------------------------$RESET"
         diff --text diff_minishell.txt diff_bash.txt | grep '<' | cut -c 2-
@@ -95,7 +96,8 @@ run_test()
     elif [ $result = 1 ]
     then
         echo -e "$RED\n======================== TEST $test_number ✗ ========================$RESET"
-        echo -e "\033[38;5;90mCommand :$RESET" $1
+        echo -ne "\033[38;5;90mCommand :$RESET "
+        echo $1
 
         echo -e "$GREY\nMinishell output\n-------------------------------------------------------------$RESET"
         diff --text diff_minishell.txt diff_bash.txt | grep '<' | cut -c 2-
@@ -123,7 +125,9 @@ run_leaks()
     if [ $check = 1 ]
     then
         echo -e "$RED\n======================== TEST $test_number LEAKED ========================$RESET"
-        echo -e "\033[38;5;90mCommand :$RESET" $1
+        echo -ne "\033[38;5;90mCommand :$RESET "
+        echo $1
+
         echo -e "$GREY\nLeak amount\n-------------------------------------------------------------$RESET"
         cat < buffer
         echo -e "$GREY-------------------------------------------------------------\n$RESET"
@@ -352,6 +356,7 @@ run_test 'export a= ; exit $'
 run_test 'export a=77 ; exit $'
 run_test 'exit $'
 
+
 #VARIABLES D'ENVIRONNEMENTS
 run_test 'export test=lala ; echo $test ; export $test=10 ; echo $lala'
 run_test 'export test=lala ; export $test=a10 ; export $lala=test ; unset $lala ; export' 'grep -v _='
@@ -380,7 +385,7 @@ run_test 'pwd | echo lala'
 run_test 'env | echo lala'
 run_test 'cat bible.txt | grep testifieth'
 echo -e "\n$ORANGE >> THIS TEST MAY TAKE A WHILE TO ACHIEVE $RESET"
-run_test 'find / | grep cores'
+#run_test 'find / | grep cores'
 run_test 'echo test | cat | cat | cat | cat | cat | grep test'
 
 
@@ -404,7 +409,7 @@ run_test 'echo \\\"a\"\\'
 run_test 'echo a\\a' 
 run_test 'echo a\"\a' 
 run_test 'echo $' 
-run_test 'echo \$' 
+run_test 'echo \$'
 run_test 'echo \\$' 
 run_test 'echo $USER' 
 run_test 'echo \$USER' 
@@ -429,7 +434,45 @@ run_test 'echo \\\$ \\\! \\\@ \\\# \\\% \\\^ \\\& \\\* \\\( \\\) \\\_ \\\+ \\\|'
 run_test 'echo \: \! \< \> \= \?' 
 run_test 'echo "\: \! \< \> \= \?"' 
 run_test 'echo \[ \] \\ \`' 
-
+run_test 'echo \\ \\ \\'
+run_test 'echo \\ \\\ \\'
+run_test 'echo \\ \ \\'
+run_test 'echo \\ \ \\'
+run_test 'echo \\ $ \\'
+run_test 'echo \\ \$ \\'
+run_test 'echo \\ \\$ \\'
+run_test 'echo \\ | \\'
+run_test 'echo \\ \| \\'
+run_test 'echo \\ \\| \\'
+run_test 'echo \\ ; \\'
+run_test 'echo \\ \; \\'
+run_test 'echo \\ \\; \\'
+run_test 'echo \ \\ \\'
+run_test 'echo \ \\\ \\'
+run_test 'echo \ \ \\'
+run_test 'echo \ \ \\'
+run_test 'echo \ \$ \\'
+run_test 'echo \ \\$ \\'
+run_test 'echo \ \| \\'
+run_test 'echo \ \\| \\'
+run_test 'echo \ \; \\'
+run_test 'echo \ \\; \\'
+run_test 'echo "\\"\\'
+run_test 'echo \"\\\"\\'
+run_test 'echo "\\\|"\\'
+run_test 'echo \"\\\|\"\\'
+run_test 'echo \"\\$TEST\|\"$1\\$444'
+run_test 'echo \"\\\$TEST\|\"\$1\\\$444'
+run_test 'echo "*"\\-\% \\ \$'
+run_test 'echo \"*"\\-\% \\ \$"'
+run_test "echo \'"
+run_test "echo \\'\"\'\""
+run_test "echo \\'\"\'\""
+run_test "echo \'\"\'\""
+run_test "echo \'\"\'\""
+run_test "echo \\'\"\\'\""
+run_test "echo \\'\"\\\\'\""
+run_test "echo \\'\"\\'\""
 
 #REDIRECTIONS
 mkdir test_files
@@ -532,7 +575,8 @@ then
 elif [ $result = 1 ]
 then
     echo -e "$RED\n======================== TEST $test_number ✗ ========================$RESET"
-    echo -e "\033[38;5;90mCommand :$RESET" $1
+    echo -ne "\033[38;5;90mCommand :$RESET"
+    echo $1
 
     echo -e "$GREY\nMinishell output\n-------------------------------------------------------------$RESET"
     diff --text diff_minishell.txt diff_bash.txt | grep '<' | cut -c 2-
@@ -543,6 +587,46 @@ then
     echo -e "$ORANGE-------------------------------------------------------------\n$RESET"
 fi
 
+
+
+
+echo -e "$WHITE\n\nTest not mandatory commands ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
+echo -ne "$CYAN>> $RESET"
+read user_input
+if [ $user_input = 'Y' ]
+then
+    echo -e "\n\n$ORANGE#############################################################################"
+    echo -e "#             NOT MANDATORY TO BE SIMILAR BUT MUST NOT SEGFAULT             #"
+    echo -e "#############################################################################$RESET\n"
+
+    run_test 'echo $!'
+    run_test 'echo $@'
+    run_test 'echo $#'
+    run_test 'echo $%'
+    run_test 'echo $^'
+    run_test 'echo $&'
+    run_test 'echo $*'
+    run_test 'echo $('
+    run_test 'echo $)'
+    run_test 'echo $()'
+    run_test 'echo $-'
+    run_test 'echo $+'
+    run_test 'echo ${'
+    run_test 'echo $}'
+    run_test 'echo ${}'
+    run_test 'echo $['
+    run_test 'echo $]'
+    run_test 'echo $[]'
+    run_test "echo \'\"\'"
+    run_test "echo \'\"\'\""
+    run_test "echo \'\"\'\"|\""
+    run_test "echo \'\"\'\"|\"\'||\'"
+    run_test "echo \'\"\'\"|\"\'\|\|\'"
+    run_test "echo \'\"\'\"|\"\'\|\|\' \'\' \"\""
+    run_test 'echo "\\\"\\'
+    run_test "echo \\'\"\'"
+    run_test "echo \'\\"\'\\"|\"\'\|\|\' \'\' \"\""
+fi
 
 
 echo -e "\n\n$PURPLE#############################################################################"
@@ -589,7 +673,7 @@ run_return 'exit $'
 echo -e "$WHITE\n\nTest leaks ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
 echo -ne "$CYAN>> $RESET"
 read user_input
-if [ $user_input = 'N' ]
+if [ $user_input != 'Y' ]
 then
     exit
 fi
