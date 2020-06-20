@@ -22,8 +22,8 @@ void	check_rdc_case(char *str, int i)
 		while (str[j] == ' ')
 			j++;
 		if (!is_name(str, j))
-			ft_error(str[j], "rd", "syntax error near unexpected
-			symbol `", 258);
+			ft_error(str[j], "rd",
+			"syntax error near unexpected symbol `", 258);
 	}
 	if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>')
 	{
@@ -31,8 +31,8 @@ void	check_rdc_case(char *str, int i)
 		while (str[j] == ' ')
 			j++;
 		if (!is_name(str, j))
-			ft_error(str[j], "rd", "syntax error near unexpected
-			symbol `", 258);
+			ft_error(str[j], "rd",
+			"syntax error near unexpected symbol `", 258);
 	}
 }
 

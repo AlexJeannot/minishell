@@ -66,8 +66,8 @@ SRCS = 	annexes/display_string.c \
 		parsing/utils_3.c \
 		clear_it/clear_before_exec.c \
 		clear_it/clear_before_exec_2.c \
-		clear_it/clear_echo_bad_env.c \
-		clear_it/clear_stock_rd.c \
+		clear_it/clear_stock_rd.c
+		#clear_it/clear_echo_bad_env.c 
 
 OBJS_CONV = $(SRCS:.c=.o)
 OBJS = $(addprefix $(OBJS_DIR),$(notdir $(OBJS_CONV)))

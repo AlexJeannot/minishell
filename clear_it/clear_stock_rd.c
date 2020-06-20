@@ -33,7 +33,8 @@ char	*clear_stock_rd(char *str)
 	int	i;
 
 	i = 0;
-	g_map = map_quote(str, 0);
+	//g_map = map_quote(str, 0);
+	g_map = map_quote(str);
 	while (str[i])
 	{
 		if (is_rd(str, i))
