@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 15:09:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/17 17:32:08 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:17:57 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	check_bs(char *str)
 	i--;
 	while (i >= 0)
 	{
-		if (str[i] == '\\' && (!str[i + 1])//|| str[i + 1] == ' ')
-			&& g_map[i] == '0')
+		if (str[i] == '\\' && (!str[i + 1]) && g_map[i] == '0')
 		{
 			if (!is_esc(str, i))
 				ft_error('\0', NULL, "Error : multi-line opened by <\\>\n", 1);
@@ -74,7 +73,7 @@ void	check_bs(char *str)
 
 void	check(char *line)
 {
-	g_map = map_quote(line, 0);
+	g_map = map_quote(line);
 	check_simple_quote(line);
 	check_double_quote(line);
 	check_bs(line);

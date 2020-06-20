@@ -6,13 +6,13 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/19 17:14:43 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:05:00 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/parsing.h"
 
-char		*g_map;
+char	*g_map;
 
 int		is_spe_carac(char *str, int i)
 {
@@ -59,7 +59,7 @@ int		to_keep_len(char *str)
 	return (nb);
 }
 
-char		*clear_it(char *str)
+char	*clear_it(char *str)
 {
 	char	*res;
 	int		len;
@@ -72,7 +72,6 @@ char		*clear_it(char *str)
 		ft_error('\0', "Malloc", NULL, 1);
 	j = 0;
 	k = 0;
-	//printf("[%s]\n", str);
 	while (str[j])
 	{
 		if (to_print(str, j))
@@ -82,11 +81,10 @@ char		*clear_it(char *str)
 	res[k] = '\0';
 	free_str(&g_map);
 	free_str(&str);
-//	printf("[%s]\n", res);
 	return (res);
 }
 
-void		clear_before_exec(void)
+void	clear_before_exec(void)
 {
 	if (lst->cmd)
 		clear_str(&lst->cmd);

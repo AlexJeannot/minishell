@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 16:44:28 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 16:44:29 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:18:06 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	**get_rdo_filetab(char *str)
 	int		nb;
 	int		i;
 
-	g_map = map_quote(str, 0);
+	g_map = map_quote(str);
 	if (find_rdo(str))
 	{
 		nb = count_rdo(str);

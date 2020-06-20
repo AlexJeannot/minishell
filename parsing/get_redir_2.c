@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 16:51:48 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:02:42 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:14:23 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ void	get_rd_index(char *str, int **rdc_index, int **rdo_index, char *g_map)
 				i++;
 			}
 			else if (str[i] == '>' && str[i - 1] != '>')
-			{
 				rdc_index[rdc_add][1] = 1;
-			}
 			index++;
 			rdc_add++;
 		}

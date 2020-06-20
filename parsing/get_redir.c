@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 16:44:41 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/12 10:07:48 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:18:21 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_cont	get_redir(char *str)
 {
 	t_cont cont;
 
-	g_map = map_quote(str, 0);
+	g_map = map_quote(str);
 	cont = init_cont(str);
 	if (find_rdc(str))
 	{

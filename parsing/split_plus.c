@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:26:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/19 17:22:02 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:18:54 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char		**split_plus(char *str, char charset)
 	int		j;
 	char	**tab;
 
-	g_map = map_quote(str, 0);
+	g_map = map_quote(str);
 	i = set_sep(str, charset);
 	if (!(tab = malloc((i + 1) * sizeof(char*))))
 		ft_error('\0', "Malloc", NULL, 1);

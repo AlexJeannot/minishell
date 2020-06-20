@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 15:12:32 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 15:12:36 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 13:07:52 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	check_rdc_case(char *str, int i)
 		while (str[j] == ' ')
 			j++;
 		if (!is_name(str, j))
-			ft_error(str[j], "rd", "syntax error near unexpected symbol `", 258);
+			ft_error(str[j], "rd", "syntax error near unexpected
+			symbol `", 258);
 	}
 	if (str[i] == '>' && str[i + 1] == '>' && str[i - 1] != '>')
 	{
@@ -30,7 +31,8 @@ void	check_rdc_case(char *str, int i)
 		while (str[j] == ' ')
 			j++;
 		if (!is_name(str, j))
-			ft_error(str[j], "rd", "syntax error near unexpected symbol `", 258);
+			ft_error(str[j], "rd", "syntax error near unexpected
+			symbol `", 258);
 	}
 }
 

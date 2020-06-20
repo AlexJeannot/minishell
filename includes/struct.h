@@ -81,7 +81,7 @@ void	clear_before_exec(void);
 void	print_lst(void);
 int		ft_strlen(const char *str);
 int		is_esc(char *str, int i);
-char*	map_quote(char *str, int pos);
+char*	map_quote(char *str);
 void	ft_error_rd(char* msg, char symbol);
 void	free_lst(void);
 void    display_str_array(char **input_array);
