@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:41:27 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/18 16:50:14 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 12:39:57 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ char	*get_startline(char *str, int j)
 
 int			is_end_var_name(char *str, int i)
 {
-	if (str[i - 1] == '$' && (str[i] >= '0' && str[i] <= '9'))
-		return (0);
-	if (str[i] >= 32 && str[i] <= 64)
+//	if (str[i - 1] == '$' && (str[i] >= '0' && str[i] <= '9'))
+//		return (0);
+	if (str[i - 2] == '$' && (str[i - 1] >= '0' && str[i - 1] <= '9'))
+		return (1);
+	if (str[i] >= 32 && str[i] <= 47)
+		return (1);
+	if (str[i] >= 58 && str[i] <= 64)
 		return (1);
 	if (str[i] >= 91 && str[i] <= 96)
 		return (1);

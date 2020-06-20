@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:26:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:27:16 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/19 17:22:02 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char		*g_map;
 
-static int	sep(char c, int i, char charset)
+static int	sep(char c, int i, char charset, char *str)
 {
-	if (c == charset && g_map[i] == '0')
+	if (c == charset && g_map[i] == '0' && !is_esc(str, i))
 		return (1);
 	return (0);
 }
@@ -30,7 +30,7 @@ static int	set_sep(char *str, char charset)
 	i = 0;
 	while (str[i])
 	{
-		if (sep(str[i], i, charset))
+		if (sep(str[i], i, charset, str))
 			count++;
 		i++;
 	}
@@ -47,7 +47,7 @@ static char	*finder(char *str, int i, char charset)
 		i++;
 	len = 0;
 	j = i;
-	while (str[i] && !sep(str[i], i, charset))
+	while (str[i] && !sep(str[i], i, charset, str))
 	{
 		len++;
 		i++;
@@ -79,10 +79,10 @@ char		**split_plus(char *str, char charset)
 	j = 0;
 	while (i < ft_strlen(str))
 	{
-		if (str[i] && !sep(str[i], i, charset))
+		if (str[i] && !sep(str[i], i, charset, str))
 		{
 			tab[j++] = finder(str, i, charset);
-			while (str[i] && !sep(str[i], i, charset))
+			while (str[i] && !sep(str[i], i, charset, str))
 				i++;
 		}
 		i++;

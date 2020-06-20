@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/18 17:53:48 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/19 17:14:43 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char		*clear_it(char *str)
 		ft_error('\0', "Malloc", NULL, 1);
 	j = 0;
 	k = 0;
+	//printf("[%s]\n", str);
 	while (str[j])
 	{
 		if (to_print(str, j))
@@ -81,6 +82,7 @@ char		*clear_it(char *str)
 	res[k] = '\0';
 	free_str(&g_map);
 	free_str(&str);
+//	printf("[%s]\n", res);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:40:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/18 17:57:42 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 12:32:38 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,42 @@ char		*r_dollar(char *str, int j)
 	return (res);
 }
 
+int			except_case(char *str, int i)
+{
+	char *map;
+
+	map = map_quote(str, 0);
+	if (str[i] == '$')
+	{
+		if (str[i + 1] >= 32 && str[i + 1] <= 47)
+			return (1);
+		if (str[i + 1] >= 58 && str[i + 1] <= 62)
+			return (1);
+		if (str[i + 1] == 64)
+			return (1);
+		if (str[i + 1] >= 91 && str[i + 1] <= 96)
+			return (1);
+		if (str[i + 1] >= 123 && str[i + 1] <= 126)
+			return (1);
+		if (!str[i + 1])
+			return (1);
+		if (map[i] == '1')
+			return (1);
+		if (is_esc(str, i))
+			return (1);
+		return (0);
+	}
+	return (1);
+}
+
 char		*get_dollar_str(char *str)
 {
-	int		j;
+	int	j;
 
 	j = 0;
-	if (str[j] == '$' && !str[j + 1])
-		return (str);
-	if (str[j] == '$' && str[j + 1] == '$')
-		return (str);
 	while (str[j])
 	{
-		if (str[j] == '$' && !quote_stop(str, j) && !is_esc(str, j))
+		if (!except_case(str, j))
 		{
 			str = r_dollar(str, j);
 			j = -1;

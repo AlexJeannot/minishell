@@ -45,3 +45,17 @@ echo "$1TEST"
 # ✓  "exit -9223372036854775808" 
 # ✗  "exit 9223372036854775808"
 ##
+
+echo \ \\; \\
+echo \ \\| \\
+echo \\ \\; \\
+echo \\ ; \\
+echo \\ \\| \\
+echo \\ | \\
+
+Command : export % | echo $?
+
+Minishell output
+-------------------------------------------------------------
+ %': not a valid identifier
+
