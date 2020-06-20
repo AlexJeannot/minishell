@@ -23,5 +23,5 @@ void	free_command_line(char *line)
 {
 	free_str(&line);
 	free_lst();
-	child_pid = -1;
+	g_child_pid = -1;
 }

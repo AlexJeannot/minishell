@@ -28,29 +28,29 @@ void		clear_lst_content(void)
 {
 	t_list *tmp;
 
-	tmp = lst_free;
-	while (lst_free)
+	tmp = g_lst_free;
+	while (g_lst_free)
 	{
-		free_str(&lst_free->cmd);
-		free_str_array(lst_free->raw);
-		free_str_array(lst_free->arg);
-		free_str_array(lst_free->rdc_filetab);
-		free_str_array(lst_free->rdo_filetab);
-		free_2d_int_array(lst_free->rdc_index);
-		free_2d_int_array(lst_free->rdo_index);
-		lst_free = lst_free->next;
+		free_str(&g_lst_free->cmd);
+		free_str_array(g_lst_free->raw);
+		free_str_array(g_lst_free->arg);
+		free_str_array(g_lst_free->rdc_filetab);
+		free_str_array(g_lst_free->rdo_filetab);
+		free_2d_int_array(g_lst_free->rdc_index);
+		free_2d_int_array(g_lst_free->rdo_index);
+		g_lst_free = g_lst_free->next;
 	}
-	lst_free = tmp;
+	g_lst_free = tmp;
 }
 
 void		clear_lst(void)
 {
 	t_list *tmp;
 
-	while (lst_free)
+	while (g_lst_free)
 	{
-		tmp = lst_free;
-		lst_free = lst_free->next;
+		tmp = g_lst_free;
+		g_lst_free = g_lst_free->next;
 		free(tmp);
 		tmp = NULL;
 	}

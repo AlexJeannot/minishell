@@ -17,7 +17,7 @@ void	exec_prompt(void)
 	char *dir;
 	char **split_result;
 
-	split_result = ft_split(pwd_path, '/');
+	split_result = ft_split(g_pwd_path, '/');
 	dir = split_result[str_array_length(split_result) - 1];
 	write(1, "\033[38;5;208m", 12);
 	write(1, dir, ft_strlen(dir));
@@ -76,11 +76,11 @@ int		exec_father(int exit_status, int read_pend, int read_pwdend)
 {
 	int ret_child;
 
-	waitpid(child_pid, &ret_child, 0);
+	waitpid(g_child_pid, &ret_child, 0);
 	if (WIFEXITED(ret_child))
 		exit_status = WEXITSTATUS(ret_child);
 	receive_env(read_pend, read_pwdend);
-	filtered_env = filter_env(global_env, filtered_env);
+	g_filtered_env = filter_env(g_global_env, g_filtered_env);
 	close(read_pend);
 	return (exit_status);
 }

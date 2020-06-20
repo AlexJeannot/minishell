@@ -71,8 +71,8 @@ int		ft_export(char **args)
 	{
 		status = verify_exported_array(args);
 		add_array = create_exported_var_array(args);
-		global_env = extend_array(global_env, add_array
-		, str_array_length(global_env), str_array_length(add_array));
+		g_global_env = extend_array(g_global_env, add_array
+		, str_array_length(g_global_env), str_array_length(add_array));
 	}
 	free_str_array(add_array);
 	return (status);

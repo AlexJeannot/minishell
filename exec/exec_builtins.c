@@ -67,8 +67,8 @@ char	**setup_builtins(char *exec)
 	char	**path_array;
 	char	**exec_array;
 
-	index_path = search_in_array(global_env, "PATH", '=');
-	split_result = ft_split(global_env[index_path], '=');
+	index_path = search_in_array(g_global_env, "PATH", '=');
+	split_result = ft_split(g_global_env[index_path], '=');
 	path_array = ft_split(split_result[1], ':');
 	exec_array = build_exec_array(exec, path_array);
 	free_str_array(split_result);
@@ -88,7 +88,7 @@ void	ft_builtins(char *exec, char **args)
 		args = add_file(args, lst->rdo_filename);
 	while (exec_array[count])
 	{
-		ret_exec = execve(exec_array[count], args, global_env);
+		ret_exec = execve(exec_array[count], args, g_global_env);
 		count++;
 	}
 	if (ret_exec == -1)

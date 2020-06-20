@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/20 18:06:39 by ajeannot          #+#    #+#             */
+/*   Updated: 2020/06/20 18:07:15 by ajeannot         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
 
@@ -8,7 +20,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <signal.h>
-#include <sys/wait.h>
+# include <sys/wait.h>
 # include <sys/stat.h>
 # include <time.h>
 # include "../gnl/get_next_line.h"
@@ -69,9 +81,12 @@ typedef struct		s_list
 	struct s_list*	next;
 }					t_list;
 
+/*
+** VARIABLES GLOBALES
+*/
 t_list* lst;
-char	**global_env;
-t_list *lst_free;
+char	**g_global_env;
+t_list	*g_lst_free;
 
 int     ft_strcmp(char *s1, char *s2);
 void	clear_lst();
@@ -79,21 +94,47 @@ void	parsing(char *line);
 void	get_dollar(void);
 void	clear_before_exec(void);
 void	print_lst(void);
-int		ft_strlen(const char *str);
 int		is_esc(char *str, int i);
 char*	map_quote(char *str);
-void	ft_error_rd(char* msg, char symbol);
 void	free_lst(void);
-void    display_str_array(char **input_array);
 
-
+/*
+** MANAGE_ARRAY.C
+*/
 char	**duplicate_array(char **input_array, char **free_array, char sep);
-int 	ft_exit(int status);
-void	ft_error(char symbol, char *cmd, char *msg, int status);
-void 	free_str(char **str);
-void 	free_str_array(char **input_array);
-void 	free_int_array(int *input_array);
-void	free_2d_int_array(int **input_array);
+
+/*
+** MANAGE_STR.C
+*/
+int		ft_strlen(const char *str);
+void	free_str(char **str);
+
+/*
+** MANAGE_STR_ARRAY.C
+*/
+void	display_str_array(char **input_array);
+void	free_str_array(char **input_array);
+
+/*
+** MANAGE_STR_DUP.C
+*/
 char	*ft_strdup(const char *input_str);
+
+/*
+** MANAGE_ERROR.C
+*/
+void	ft_error(char symbol, char *cmd, char *msg, int status);
+void	ft_error_rd(char *msg, char symbol);
+
+/*
+** MANAGE_EXIT.C
+*/
+int	ft_exit(int status);
+
+/*
+** MANAGE_INT_ARRAY.C
+*/
+void	free_int_array(int *input_array);
+void	free_2d_int_array(int **input_array);
 
 #endif

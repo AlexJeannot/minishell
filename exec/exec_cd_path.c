@@ -17,7 +17,7 @@ char	*previous_dir(void)
 	char	*path;
 	int		path_len;
 
-	path = ft_strdup(pwd_path);
+	path = ft_strdup(g_pwd_path);
 	path_len = ft_strlen(path);
 	while (path[path_len] != '/')
 		path_len--;
@@ -30,7 +30,7 @@ char	*relative_path(char *input_path)
 	char *actual_path;
 	char *final_path;
 
-	actual_path = ft_strdup(pwd_path);
+	actual_path = ft_strdup(g_pwd_path);
 	if (!(final_path = (char *)malloc(sizeof(char)
 	* (ft_strlen(actual_path) + ft_strlen(input_path) + 2))))
 		ft_error('\0', "Malloc", NULL, 1);
@@ -64,7 +64,7 @@ char	*select_path(char *input_path)
 	if (input_path == NULL)
 		output_path = get_env_value("HOME");
 	else if (input_path[0] == '.' && !(input_path[1]))
-		output_path = ft_strdup(pwd_path);
+		output_path = ft_strdup(g_pwd_path);
 	else if (ft_strcmp(input_path, "..") == 0)
 		output_path = previous_dir();
 	else if (input_path[0] == '~' && input_path[1] == '/')

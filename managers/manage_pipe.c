@@ -28,7 +28,7 @@ void	setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2], int pwd_fd[2])
 		while (lst->arg[count])
 		{
 			if (ft_strcmp(lst->arg[count], "PWD") == 0)
-				pwd_check = 1;
+				g_pwd_check = 1;
 			count++;
 		}
 	}
@@ -56,10 +56,10 @@ int		wait_for_child(int exit_status, int read_pend, int read_pwdend)
 {
 	int ret_pchild;
 
-	waitpid(child_pid, &ret_pchild, 0);
+	waitpid(g_child_pid, &ret_pchild, 0);
 	if (WIFEXITED(ret_pchild))
 		exit_status = WEXITSTATUS(ret_pchild);
 	receive_env(read_pend, read_pwdend);
-	filtered_env = filter_env(global_env, filtered_env);
+	g_filtered_env = filter_env(g_global_env, g_filtered_env);
 	return (exit_status);
 }

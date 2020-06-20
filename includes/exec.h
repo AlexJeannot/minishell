@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:26:45 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/20 17:33:04 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/20 17:44:55 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 **VARIABLES GLOBALES
 */
 
-int		errno;
-pid_t	child_pid;
-int     pwd_check;
-char    *pwd_path;
-char	**filtered_env;
+int		g_erno;
+pid_t	g_child_pid;
+int		g_pwd_check;
+char	*g_pwd_path;
+char	**g_filtered_env;
 
 /*
 **------------- ANNEXES -------------
@@ -47,7 +47,7 @@ char	**ft_split(char const *s, char c);
 /*
 **EXEC_BUILTINS.C
 */
-int	is_builtins(char *cmd);
+int		is_builtins(char *cmd);
 void	ft_builtins(char *exec, char **args);
 
 /*
@@ -84,14 +84,14 @@ void	display_exported_env(void);
 /*
 **EXEC_EXPORT_ERROR.C
 */
-int	is_valid_var(char *str);
-int	verify_exported_var(char *input_str);
-int	verify_exported_array(char **input_array);
+int		is_valid_var(char *str);
+int		verify_exported_var(char *input_str);
+int		verify_exported_array(char **input_array);
 
 /*
 **EXEC_EXPORT_MAIN.C
 */
-int	ft_export(char **args);
+int		ft_export(char **args);
 
 /*
 **EXEC_PROGRAM.C
@@ -106,12 +106,12 @@ void	ft_pwd(void);
 /*
 **EXEC_UNSET_ERROR.C
 */
-int	verify_unset_var(char **input_array);
+int		verify_unset_var(char **input_array);
 
 /*
 **EXEC_UNSET_MAIN.C
 */
-int	ft_unset(char **args);
+int		ft_unset(char **args);
 
 /*
 **------------- MANAGERS -------------
@@ -121,15 +121,15 @@ int	ft_unset(char **args);
 **MANAGE_ARRAY.C
 */
 char	**sort_array(char **input_array);
-int	search_in_array(char **input_array, char *str, char sep);
+int		search_in_array(char **input_array, char *str, char sep);
 char	**filter_env(char **input_array, char **free_array);
 
 /*
 **MANAGE_ARRAY_EXTEND.C
 */
 char	**extend_array_str(char **from_array, char *add_str, int from_len);
-char	**extend_array(char **from_array, char **add_array,
-        int from_len, int add_len);
+char	**extend_array(char **from_array, char **add_array
+	, int from_len, int add_len);
 
 /*
 **MANAGE_ENV.C
@@ -146,7 +146,7 @@ void	replace_exit_status(int status);
 /*
 **MANAGE_INT_ARRAY.C
 */
-int	int_array_length(int *input_array);
+int		int_array_length(int *input_array);
 void	display_int_array(int *input_array);
 
 /*
@@ -159,7 +159,7 @@ char	*ft_itoa(int nb);
 */
 void	setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2], int pwd_fd[2]);
 void	setup_child(int prev_fd, int prev_pipe, int p_fd[2], int pwd_fd[2]);
-int	wait_for_child(int exit_status, int read_pend, int read_pwdend);
+int		wait_for_child(int exit_status, int read_pend, int read_pwdend);
 
 /*
 **MANAGE_REDIRECTION.C
@@ -174,7 +174,7 @@ void	exec_file(int count);
 /*
 **MANAGE_STR_ARRAY.C
 */
-int	str_array_length(char **input_array);
+int		str_array_length(char **input_array);
 void	free_str_array(char **input_array);
 
 /*
@@ -198,10 +198,10 @@ int		find_car(char *str, char c);
 **MINISHELL_EXEC.C
 */
 void	exec_prompt(void);
-int	exec_instructions(void);
+int		exec_instructions(void);
 void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend);
-int	exec_father(int exit_status, int read_pend, int read_pwdend);
-int	exec_command_line(char *line, int exit_status);
+int		exec_father(int exit_status, int read_pend, int read_pwdend);
+int		exec_command_line(char *line, int exit_status);
 
 /*
 **MINISHELL_QUIT.C
@@ -214,7 +214,7 @@ void	free_command_line(char *line);
 */
 void	signal_manager(int sig);
 void	setup_command(int exit_status);
-int	*setup_pipe_and_process(int exit_status, int *read_fd);
+int		*setup_pipe_and_process(int exit_status, int *read_fd);
 
 /*
 **MINISHELL_SETUP_ENV.C
