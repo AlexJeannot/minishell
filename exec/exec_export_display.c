@@ -14,7 +14,7 @@
 
 char	*transform_with_value(char *input_str)
 {
-	int	count;
+	int		count;
 	char	*output_str;
 
 	count = 0;
@@ -54,7 +54,7 @@ char	*transform_str(char *input_str)
 
 char	**transform_array(char **input_array)
 {
-	int	count;
+	int		count;
 	char	**output_array;
 
 	count = 0;

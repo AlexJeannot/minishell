@@ -19,7 +19,7 @@ void	replace_var_in_array(char **output_array, char **add_array
 	output_array[index_from] = ft_strdup(add_array[count_add]);
 }
 
-int	add_var_in_array(char **output_array, char **add_array
+int		add_var_in_array(char **output_array, char **add_array
 	, int count_add, int index_add)
 {
 	output_array[index_add] = ft_strdup(add_array[count_add]);
@@ -27,10 +27,10 @@ int	add_var_in_array(char **output_array, char **add_array
 	return (index_add);
 }
 
-int	extend_array_with_var(char **output_array, char **add_array
+int		extend_array_with_var(char **output_array, char **add_array
 	, int count_add, int index_add)
 {
-	int	index_from;
+	int		index_from;
 	char	**split_result;
 
 	split_result = ft_split(add_array[count_add], '=');
@@ -48,7 +48,7 @@ int	extend_array_with_var(char **output_array, char **add_array
 
 char	**extend_array_str(char **from_array, char *add_str, int from_len)
 {
-	int	count;
+	int		count;
 	char	**output_array;
 
 	count = 0;
@@ -68,9 +68,9 @@ char	**extend_array_str(char **from_array, char *add_str, int from_len)
 char	**extend_array(char **from_array, char **add_array
 	, int from_len, int add_len)
 {
-	int	count_from;
-	int	count_add;
-	int	index_add;
+	int		count_from;
+	int		count_add;
+	int		index_add;
 	char	**output_array;
 
 	count_from = 0;

@@ -1,50 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_str.c                                       :+:      :+:    :+:   */
+/*   manage_redirection_file.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 12:17:09 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/16 17:55:10 by ajeannot         ###   ########.fr       */
+/*   Created: 2020/06/20 16:44:03 by ajeannot          #+#    #+#             */
+/*   Updated: 2020/06/20 16:48:40 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/exec.h"
 
-int		find_car(char *str, char c)
+void	exec_file(int count)
 {
-	int count;
+    int fd_file;
 
-	count = 0;
-	while (str[count])
+	if (lst->rdc_index[count][1] == 1)
 	{
-		if (str[count] == c)
-			return (count);
-		count++;
+		if ((fd_file = open(lst->rdc_filetab[count],
+		O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1)
+			ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 	}
-	return (-1);
-}
-
-int		ft_strlen(const char *str)
-{
-	int count;
-
-	count = 0;
-	if (str)
+	if (lst->rdc_index[count][1] == 2)
 	{
-		while (str[count])
-			count++;
-		return (count);
+		if ((fd_file = open(lst->rdc_filetab[count],
+		O_WRONLY | O_CREAT, 0644)) == -1)
+			ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 	}
-	return (-1);
-}
-
-void	free_str(char **str)
-{
-	if (*str)
-	{
-		free(*str);
-		*str = NULL;
-	}
+    close(fd_file);
 }

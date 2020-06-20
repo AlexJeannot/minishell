@@ -15,7 +15,7 @@
 char	*previous_dir(void)
 {
 	char	*path;
-	int	path_len;
+	int		path_len;
 
 	path = ft_strdup(pwd_path);
 	path_len = ft_strlen(path);

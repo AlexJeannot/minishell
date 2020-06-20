@@ -12,7 +12,7 @@
 
 #include "../includes/exec.h"
 
-int	nb_length(long nb)
+int		nb_length(long nb)
 {
 	int	length;
 
@@ -29,7 +29,7 @@ int	nb_length(long nb)
 
 char	*ft_itoa(int nb)
 {
-	int	length;
+	int		length;
 	char	*output_str;
 
 	length = nb_length(nb);

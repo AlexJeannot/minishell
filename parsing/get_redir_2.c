@@ -53,6 +53,18 @@ int		**create_index_array(char *str, char *type)
 	return (global_array);
 }
 
+int		**complete_rdc_index(char *str, int **rdc_index, int *i, int rdc_add)
+{
+	if (str[*i + 1] && str[*i + 1] == '>')
+	{
+		rdc_index[rdc_add][1] = 2;
+		*i = *i + 1;
+	}
+	else if (str[*i] == '>' && str[*i - 1] != '>')
+		rdc_index[rdc_add][1] = 1;
+	return (rdc_index);
+}
+
 void	get_rd_index(char *str, int **rdc_index, int **rdo_index, char *g_map)
 {
 	int i;
@@ -69,13 +81,7 @@ void	get_rd_index(char *str, int **rdc_index, int **rdo_index, char *g_map)
 		if (str[i] == '>' && !is_esc(str, i) && g_map[i] == '0')
 		{
 			rdc_index[rdc_add][0] = index;
-			if (str[i + 1] && str[i + 1] == '>')
-			{
-				rdc_index[rdc_add][1] = 2;
-				i++;
-			}
-			else if (str[i] == '>' && str[i - 1] != '>')
-				rdc_index[rdc_add][1] = 1;
+			rdc_index = complete_rdc_index(str, rdc_index, &i, rdc_add);
 			index++;
 			rdc_add++;
 		}

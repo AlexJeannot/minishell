@@ -35,8 +35,8 @@ int		add_exported_var(char *input_str, char **output_array, int add_count)
 
 char	**create_exported_var_array(char **input_array)
 {
-	int	array_count;
-	int	add_count;
+	int		array_count;
+	int		add_count;
 	char	**split_result;
 	char	**output_array;
 
@@ -60,7 +60,7 @@ char	**create_exported_var_array(char **input_array)
 
 int		ft_export(char **args)
 {
-	int	status;
+	int		status;
 	char	**add_array;
 
 	status = 0;

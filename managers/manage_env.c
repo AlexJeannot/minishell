@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 14:46:22 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/16 17:40:00 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/20 16:58:40 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*read_from_fd(int read_end)
 {
-	int ret;
-	char buf[101];
-	char *output_str;
+	int		ret;
+	char	buf[101];
+	char	*output_str;
 
 	output_str = NULL;
 	while ((ret = read(read_end, buf, 100)) > 0)
@@ -32,9 +32,9 @@ char	*read_from_fd(int read_end)
 
 char	*get_env_value(char *var)
 {
-	int count;
-	char *env_value;
-	char **split_result;
+	int		count;
+	char	*env_value;
+	char	**split_result;
 
 	count = 0;
 	while (global_env[count])

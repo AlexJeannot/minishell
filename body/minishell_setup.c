@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:00:39 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/17 17:38:38 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/20 16:33:56 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	setup_values(int *prev_fd, int *prev_pipe, int *r_pend, int *r_pwdend)
 	*r_pwdend = -1;
 }
 
-int		check_child_and_exit(int status, int prev_pipe, int r_pend, int r_pwdend)
+int		check_child_and_exit(int status
+		, int prev_pipe, int r_pend, int r_pwdend)
 {
 	if (prev_pipe == 0)
 		status = wait_for_child(status, r_pend, r_pwdend);

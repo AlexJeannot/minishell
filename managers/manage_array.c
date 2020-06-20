@@ -69,7 +69,7 @@ char	**sort_array(char **input_array)
 	return (input_array);
 }
 
-int	search_in_array(char **input_array, char *str, char sep)
+int		search_in_array(char **input_array, char *str, char sep)
 {
 	int		count;
 	char	**split_result;

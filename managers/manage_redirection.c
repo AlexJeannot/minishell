@@ -12,7 +12,7 @@
 
 #include "../includes/exec.h"
 
-int	check_rdo_exec(void)
+int		check_rdo_exec(void)
 {
 	int count;
 	int fd_file;
@@ -34,7 +34,6 @@ int	check_rdo_exec(void)
 void	manage_rdo_error(int ret_check)
 {
 	int count;
-	int fd_file;
 
 	count = 0;
 	if (lst->rdc_filetab)
@@ -42,19 +41,7 @@ void	manage_rdo_error(int ret_check)
 		while (lst->rdc_filetab[count] && lst->rdc_index[count][0]
 		< lst->rdo_index[ret_check][0])
 		{
-			if (lst->rdc_index[count][1] == 1)
-			{
-				if ((fd_file = open(lst->rdc_filetab[count],
-				O_WRONLY | O_TRUNC | O_CREAT, 0644)) == -1)
-					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
-			}
-			if (lst->rdc_index[count][1] == 2)
-			{
-				if ((fd_file = open(lst->rdc_filetab[count],
-				O_WRONLY | O_CREAT, 0644)) == -1)
-					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
-			}
-			close(fd_file);
+			exec_file(count);
 			count++;
 		}
 	}
@@ -74,12 +61,14 @@ void	create_file(void)
 		{
 			if (lst->rdc_index[count][1] == 1)
 			{
-				if ((fd_file = open(lst->rdc_filetab[count], O_TRUNC | O_CREAT, 0644)) == -1)
+				if ((fd_file = open(lst->rdc_filetab[count],
+					O_TRUNC | O_CREAT, 0644)) == -1)
 					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 			}
 			else if (lst->rdc_index[count][1] == 2)
 			{
-				if ((fd_file = open(lst->rdc_filetab[count], O_CREAT, 0644)) == -1)
+				if ((fd_file = open(lst->rdc_filetab[count],
+					O_CREAT, 0644)) == -1)
 					ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 			}
 			close(fd_file);
@@ -112,7 +101,6 @@ void	manage_redirection(void)
 
 	if ((ret_check = check_rdo_exec()) != -1)
 		manage_rdo_error(ret_check);
-	
 	create_file();
 	if (lst->rdc_type != 0)
 		red_stdout_in_file();

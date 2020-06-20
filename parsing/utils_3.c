@@ -75,6 +75,7 @@ int	ft_strlen_null(const char *str)
 	return (0);
 }
 
+/*
 int	except_case(char *str, int i)
 {
 	char *map;
@@ -100,5 +101,32 @@ int	except_case(char *str, int i)
 			return (1);
 		return (0);
 	}
+	return (1);
+}
+*/
+
+int	except_case(char *str, int i)
+{
+	char *map;
+
+	map = map_quote(str);
+	if (str[i] == '$')
+	{
+		if ((str[i + 1] >= 32 && str[i + 1] <= 47)
+			|| (str[i + 1] >= 58 && str[i + 1] <= 62)
+			|| (str[i + 1] == 64)
+			|| (str[i + 1] >= 91 && str[i + 1] <= 96)
+			|| (str[i + 1] >= 123 && str[i + 1] <= 126)
+			|| (!str[i + 1])
+			|| (map[i] == '1')
+			|| (is_esc(str, i)))
+		{
+			free_str(&map);
+			return (1);
+		}
+		free_str(&map);
+		return (0);
+	}
+	free_str(&map);
 	return (1);
 }

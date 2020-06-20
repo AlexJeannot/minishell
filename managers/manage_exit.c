@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:41:10 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/16 17:41:41 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/20 16:53:28 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		transform_status(char *input_str)
 {
-	int count;
-	int final_status;
-	unsigned long input_status;
+	int					count;
+	int					final_status;
+	unsigned long		input_status;
 
 	count = 0;
 	input_status = 0;
@@ -40,7 +40,7 @@ int		transform_status(char *input_str)
 	return (final_status);
 }
 
-int	ft_exit(int status)
+int		ft_exit(int status)
 {
 	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && child_pid != 0)
 	{

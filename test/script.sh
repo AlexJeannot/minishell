@@ -115,13 +115,14 @@ run_leaks()
     check=0
     echo $1 | valgrind --leak-check=full ../minishell > leaks_minishell.txt 2>&1
     cat < leaks_minishell.txt | grep "definitely lost:" | cut -c 30- > buffer
+    cat < buffer > boucle
     while read -r line
     do
         if [ $(echo $line | head -c 1) != '0' ]
         then
             check=1
         fi
-    done < buffer
+    done < boucle
     if [ $check = 1 ]
     then
         echo -e "$RED\n======================== TEST $test_number LEAKED ========================$RESET"
@@ -143,7 +144,8 @@ run_leaks()
 if [ "$1" = "clean" ]
 then
     rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
-    delete_file "a b ../a ../b buffer buffer2 prog diff_minishell.txt diff_bash.txt leaks_minishell.txt"
+    
+    delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
     exit
 fi
 
@@ -152,8 +154,6 @@ fi
 
 LC_ALL=C
 gcc test.c -o prog
-rm -rf diff_minishell.txt diff_bash.txt test_cd ~/test_cd test_files
-delete_file "a b ../a ../b"
 cd .. && make && cd test
 
 echo -e "$WHITE\n\nDisplay error messages ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
@@ -712,7 +712,7 @@ read user_input
 if [ $user_input != 'Y' ]
 then
     rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
-    delete_file "a b ../a ../b buffer buffer2 prog diff_minishell.txt diff_bash.txt leaks_minishell.txt"
+    delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
     exit
 fi
 
@@ -858,5 +858,5 @@ run_leaks 'ls'
 
 ################ END SHELL ################
 rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
-delete_file "a b ../a ../b buffer buffer2 prog diff_minishell.txt diff_bash.txt leaks_minishell.txt"
+    delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
 

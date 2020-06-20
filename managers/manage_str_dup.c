@@ -85,8 +85,8 @@ char	*ft_strncat(char *dest, char *src, unsigned int limit)
 
 char	*ft_strdup(const char *input_str)
 {
-	int	count;
-	int	str_size;
+	int		count;
+	int		str_size;
 	char	*output_str;
 
 	count = 0;

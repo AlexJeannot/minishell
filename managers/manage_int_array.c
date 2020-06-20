@@ -12,7 +12,7 @@
 
 #include "../includes/exec.h"
 
-int	int_array_length(int *input_array)
+int		int_array_length(int *input_array)
 {
 	int count;
 
