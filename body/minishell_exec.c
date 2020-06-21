@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:54:47 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/18 14:29:16 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/22 00:01:53 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int		exec_father(int exit_status, int read_pend, int read_pwdend)
 		exit_status = WEXITSTATUS(ret_child);
 	printf("FATHER BEFORE RECEIVE\n");
 	receive_env(read_pend, read_pwdend);
-	printf("FATHER AFTER RECEIVE\n");
 	g_filtered_env = filter_env(g_global_env, g_filtered_env);
 	close(read_pend);
 	return (exit_status);
