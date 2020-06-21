@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/05 18:08:28 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/16 17:28:31 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/22 00:07:12 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,15 @@ int		ft_export(char **args)
 
 	status = 0;
 	add_array = NULL;
-	printf("-------- ARGS --------\n");
-	display_str_array(args);
-	printf("-------- ARGS --------\n");
 	if (export_without_args(args))
 		display_exported_env();
 	else
 	{
-		printf("AVANT VERIFY EXPORTED\n");
 		status = verify_exported_array(args);
-		printf("APRES VERIFY EXPORTED\n");
 		add_array = create_exported_var_array(args);
-<<<<<<< HEAD
-		printf("APRES create_exported_var_array\n");
-		printf("-------- add_array --------\n");
-		display_str_array(add_array);
-		printf("-------- add_array --------\n");
 		g_global_env = extend_array(g_global_env, add_array
 		, str_array_length(g_global_env), str_array_length(add_array));
-		printf("APRES extend_array\n");
-=======
-		g_global_env = extend_array(g_global_env, add_array
-		, str_array_length(g_global_env), str_array_length(add_array));
->>>>>>> 43c1cd873d3b4546385fa225d35f1ee14f8ba7ab
 	}
 	free_str_array(add_array);
-	printf("FIN FT EXPORT\n");
 	return (status);
 }

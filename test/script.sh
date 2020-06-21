@@ -154,7 +154,7 @@ fi
 
 LC_ALL=C
 gcc test.c -o prog
-mkdir add_path && gcc ../ls.c -o ls
+mkdir add_path && cd add_path && gcc ../ls.c -o ls && cd ..
 cd .. && make && cd test
 
 echo -e "$WHITE\n\nDisplay error messages ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
@@ -613,8 +613,6 @@ run_test 'cd /error ; echo $?'
 run_test ' cd /error | echo $?'
 run_test 'cd ~/error ; echo $?'
 run_test ' cd ~/error | echo $?'
-run_test 'env ; echo $?'
-run_test 'env | echo $?'
 run_test 'export a ; unset a ; echo $?'
 run_test 'export a | unset a | echo $?'
 run_test 'unset a ; echo $?'
@@ -656,7 +654,7 @@ run_test 'echo test > a ; /bin/cat a'
 run_test 'echo test > a ; /bin/rm a'
 run_test '/bin/pwd'
 run_test 'unset PATH ; ls ; cd /bin ; ls'
-run_test 'export PATH=$PWD/add_path$PATH ; export | grep PATH ; ls'
+run_test 'export PATH=$PWD/add_path:$PATH ; export | grep PATH ; ls'
 
 
 

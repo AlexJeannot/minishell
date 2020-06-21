@@ -50,7 +50,6 @@ void	free_str_array(char **input_array)
 	{
 		while (input_array[count])
 		{
-			printf("input_array[count] = %s\n", input_array[count]);
 			free(input_array[count]);
 			input_array[count] = NULL;
 			count++;

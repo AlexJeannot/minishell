@@ -72,10 +72,8 @@ void	ft_cd(char **args)
 	if (str_array_length(args) > 1)
 		ft_error('\0', "cd", "Too many arguments", 1);
 	path = select_path(args[0]);
-	printf("path = %s\n", path);
 	if (path[ft_strlen(path) - 1] == '/' && ft_strlen(path) > 1)
 		path[ft_strlen(path) - 1] = '\0';
-	printf("path = %s\n", path);
 	result_chdir = chdir(path);
 	if (result_chdir == -1)
 	{

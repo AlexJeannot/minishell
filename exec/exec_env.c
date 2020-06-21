@@ -14,9 +14,9 @@
 
 void	ft_error_env(char *file)
 {
-	ft_putstr_fd("env: ", 2);
+	ft_putstr_fd("env: «", 2);
 	ft_putstr_fd(file, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd("»: No such file or directory\n", 2);
 	ft_exit(127);
 }
 

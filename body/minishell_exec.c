@@ -69,7 +69,6 @@ void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend)
 		close(w_pend);
 		close(w_pwdend);
 	}
-	printf("AVANT EXIT CHILD\n");
 	ft_exit(status);
 }
 
@@ -80,7 +79,6 @@ int		exec_father(int exit_status, int read_pend, int read_pwdend)
 	waitpid(g_child_pid, &ret_child, 0);
 	if (WIFEXITED(ret_child))
 		exit_status = WEXITSTATUS(ret_child);
-	printf("FATHER BEFORE RECEIVE\n");
 	receive_env(read_pend, read_pwdend);
 	g_filtered_env = filter_env(g_global_env, g_filtered_env);
 	close(read_pend);

@@ -15,10 +15,7 @@
 void	replace_var_in_array(char **output_array, char **add_array
 	, int count_add, int index_from)
 {
-	printf("ENTREE REPLACE VAR\n");
-	printf("VAR output_array[index_from] = %s\n", output_array[index_from]);
 	free_str(&output_array[index_from]);
-	printf("ft_strlen(add_array[count_add]) = %d\n", ft_strlen(add_array[count_add]));
 	output_array[index_from] = ft_strdup(add_array[count_add]);
 }
 
@@ -78,8 +75,6 @@ char	**extend_array(char **from_array, char **add_array
 
 	count_from = 0;
 	count_add = 0;
-	printf("from_len + add_len + 1 = %d\n", from_len + add_len + 1);
-	printf("str_array_length(from_array) = %d\n", str_array_length(from_array));
 	if (!(output_array = (char **)malloc(sizeof(char *)
 	* (from_len + add_len + 1))))
 		ft_error('\0', "Malloc", NULL, 1);
