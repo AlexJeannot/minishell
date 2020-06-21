@@ -14,7 +14,7 @@
 
 void	free_shlvl(char *shlvl_nb, char *shlvl_str, int shlvl_index)
 {
-	free_str(&global_env[shlvl_index]);
+	free_str(&g_global_env[shlvl_index]);
 	free_str(&shlvl_nb);
 	free_str(&shlvl_str);
 }
@@ -45,7 +45,7 @@ void	incr_shlvl(int shlvl_index, int shlvl, char *shlvl_str, char *shlvl_nb)
 	ft_strcpy(shlvl_export, "SHLVL=");
 	ft_strcat(shlvl_export, shlvl_nb);
 	free_shlvl(shlvl_nb, shlvl_str, shlvl_index);
-	global_env[shlvl_index] = shlvl_export;
+	g_global_env[shlvl_index] = shlvl_export;
 }
 
 void	setup_shlvl(void)
@@ -56,13 +56,13 @@ void	setup_shlvl(void)
 	char	*shlvl_nb;
 
 	if ((shlvl_str = get_env_value("SHLVL")) == NULL)
-		global_env = extend_array_str(global_env,
-				"SHLVL=1", str_array_length(global_env));
+		g_global_env = extend_array_str(g_global_env,
+				"SHLVL=1", str_array_length(g_global_env));
 	else
 	{
 		shlvl_final = 0;
 		shlvl_nb = NULL;
-		shlvl_index = search_in_array(global_env, "SHLVL", '=');
+		shlvl_index = search_in_array(g_global_env, "SHLVL", '=');
 		incr_shlvl(shlvl_index, shlvl_final, shlvl_str, shlvl_nb);
 	}
 }

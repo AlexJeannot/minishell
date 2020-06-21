@@ -17,7 +17,7 @@ void	exec_prompt(void)
 	char *dir;
 	char **split_result;
 
-	split_result = ft_split(pwd_path, '/');
+	split_result = ft_split(g_pwd_path, '/');
 	dir = split_result[str_array_length(split_result) - 1];
 	write(1, "\033[38;5;208m", 12);
 	write(1, dir, ft_strlen(dir));
@@ -69,6 +69,7 @@ void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend)
 		close(w_pend);
 		close(w_pwdend);
 	}
+	printf("AVANT EXIT CHILD\n");
 	ft_exit(status);
 }
 
@@ -76,11 +77,13 @@ int		exec_father(int exit_status, int read_pend, int read_pwdend)
 {
 	int ret_child;
 
-	waitpid(child_pid, &ret_child, 0);
+	waitpid(g_child_pid, &ret_child, 0);
 	if (WIFEXITED(ret_child))
 		exit_status = WEXITSTATUS(ret_child);
+	printf("FATHER BEFORE RECEIVE\n");
 	receive_env(read_pend, read_pwdend);
-	filtered_env = filter_env(global_env, filtered_env);
+	printf("FATHER AFTER RECEIVE\n");
+	g_filtered_env = filter_env(g_global_env, g_filtered_env);
 	close(read_pend);
 	return (exit_status);
 }

@@ -75,7 +75,7 @@ void	display_exported_env(void)
 {
 	char **displayable_env;
 
-	displayable_env = duplicate_array(global_env, NULL, '\0');
+	displayable_env = duplicate_array(g_global_env, NULL, '\0');
 	displayable_env = sort_array(displayable_env);
 	displayable_env = transform_array(displayable_env);
 	display_str_array(displayable_env);

@@ -66,7 +66,7 @@ int		*create_unset_index_array(char **input_array)
 	array_count = 0;
 	while (input_array[array_count])
 	{
-		if ((index = search_in_array(global_env
+		if ((index = search_in_array(g_global_env
 		, input_array[array_count], '=')) >= 0)
 		{
 			index_array[add_count] = index;
@@ -88,7 +88,7 @@ int		ft_unset(char **args)
 	{
 		status = verify_unset_var(args);
 		index_array = create_unset_index_array(args);
-		global_env = clear_env(global_env, index_array);
+		g_global_env = clear_env(g_global_env, index_array);
 		free_int_array(index_array);
 	}
 	return (status);

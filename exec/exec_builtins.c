@@ -67,8 +67,9 @@ char	**setup_builtins(char *exec)
 	char	**path_array;
 	char	**exec_array;
 
-	index_path = search_in_array(global_env, "PATH", '=');
-	split_result = ft_split(global_env[index_path], '=');
+	if ((index_path = search_in_array(g_global_env, "PATH", '=')) == -1)
+		return (NULL);
+	split_result = ft_split(g_global_env[index_path], '=');
 	path_array = ft_split(split_result[1], ':');
 	exec_array = build_exec_array(exec, path_array);
 	free_str_array(split_result);
@@ -82,15 +83,19 @@ void	ft_builtins(char *exec, char **args)
 	char	**exec_array;
 
 	count = 0;
-	exec_array = setup_builtins(exec);
-	if (str_array_length(args) == 1
-	&& ft_strcmp(args[0], "cat") == 0 && lst->rdo_filename)
-		args = add_file(args, lst->rdo_filename);
-	while (exec_array[count])
+	if ((exec_array = setup_builtins(exec)))
 	{
-		ret_exec = execve(exec_array[count], args, global_env);
-		count++;
+		if (str_array_length(args) == 1
+		&& ft_strcmp(args[0], "cat") == 0 && lst->rdo_filename)
+			args = add_file(args, lst->rdo_filename);
+		while (exec_array[count])
+		{
+			ret_exec = execve(exec_array[count], args, g_global_env);
+			count++;
+		}
 	}
+	else
+		ret_exec = execve(exec, args, g_global_env);
 	if (ret_exec == -1)
 		ft_error('\0', exec, "command not found", 127);
 }

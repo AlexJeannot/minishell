@@ -30,11 +30,11 @@ void	ft_error(char symbol, char *cmd, char *msg, int status)
 		if (msg)
 			write(1, msg, ft_strlen(msg));
 		else
-			write(1, strerror(errno), ft_strlen(strerror(errno)));
+			write(1, strerror(g_erno), ft_strlen(strerror(g_erno)));
 	}
 	write(1, "\n", 1);
 	free_lst();
-	free_str_array(filtered_env);
-	free_str_array(global_env);
+	free_str_array(g_filtered_env);
+	free_str_array(g_global_env);
 	exit(status);
 }

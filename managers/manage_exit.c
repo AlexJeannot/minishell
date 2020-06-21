@@ -42,7 +42,7 @@ int		transform_status(char *input_str)
 
 int		ft_exit(int status)
 {
-	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && child_pid != 0)
+	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && g_child_pid != 0)
 	{
 		//write(1, "exit\n", 5);
 		setup_command(status);
@@ -55,8 +55,11 @@ int		ft_exit(int status)
 			return (1);
 		}
 	}
-	free_str_array(filtered_env);
-	free_str_array(global_env);
+	printf("AVANT FREE FT EXIT\n");
+	free_str_array(g_filtered_env);
+	free_str_array(g_global_env);
+	printf("AVANT free_lst\n");
 	free_lst();
+	printf("FIN FT EXIT\n");
 	exit(status);
 }

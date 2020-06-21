@@ -82,15 +82,15 @@ t_value	new_value(char *str, int j)
 
 	v.name = get_env_name_2check(str, j);
 	i = 0;
-	while (global_env[i] && !ft_envcmp(global_env[i], v.name))
+	while (g_global_env[i] && !ft_envcmp(g_global_env[i], v.name))
 		i++;
 	j = 0;
-	while (global_env[i][j] != '=')
+	while (g_global_env[i][j] != '=')
 		j++;
 	len = 0;
 	v.i = i;
 	v.j = j + 1;
-	while (global_env[i][++j])
+	while (g_global_env[i][++j])
 		len++;
 	if (!(v.value = malloc(len + 1)))
 		ft_error('\0', "Malloc", NULL, 1);
@@ -104,8 +104,8 @@ char	*get_env_value_2(char *str, int j)
 
 	v = new_value(str, j);
 	v.y = 0;
-	while (global_env[v.i][v.j])
-		v.value[v.y++] = global_env[v.i][v.j++];
+	while (g_global_env[v.i][v.j])
+		v.value[v.y++] = g_global_env[v.i][v.j++];
 	v.value[v.y] = '\0';
 	return (v.value);
 }

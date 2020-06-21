@@ -143,7 +143,7 @@ run_leaks()
 
 if [ "$1" = "clean" ]
 then
-    rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
+    rm -rf add_path test_cd ~/test_cd test_files ../minishell.dSYM
     
     delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
     exit
@@ -154,6 +154,7 @@ fi
 
 LC_ALL=C
 gcc test.c -o prog
+mkdir add_path && gcc ../ls.c -o ls
 cd .. && make && cd test
 
 echo -e "$WHITE\n\nDisplay error messages ? [$GREEN Y$WHITE /$RED N $WHITE]$RESET"
@@ -202,6 +203,7 @@ run_test 'pwd ; echo $PWD ; echo OLDPWD ; unset PWD ; echo $PWD ; echo $OLDPWD ;
 
 #ENV
 run_test 'env' 'grep -v _=' 'sort'
+run_test 'env lala'
 export SHLVL=8 && run_test 'env' 'grep -a SHLVL'
 export SHLVL=test && run_test 'env' 'grep -a SHLVL'
 export SHLVL=0 && run_test 'env' 'grep -a SHLVL'
@@ -231,6 +233,7 @@ run_test 'export _testvar10= ; env | grep -a _testvar10'
 run_test 'export _testvar10=lala ; env | grep -a _testvar10'
 run_test 'export _testvar10=10; env | grep -a _testvar10'
 run_test 'export _testvar10=lala10 ; env | grep -a _testvar10'
+run_test 'export testvar=10 ; export testvar=20 ; env | grep -a testvar'
 
 
 #EXPORT
@@ -267,7 +270,8 @@ run_test 'export _testvar10= ; export | grep -a _testvar10'
 run_test 'export _testvar10=lala ; export | grep -a _testvar10'
 run_test 'export _testvar10=10; export | grep -a _testvar10'
 run_test 'export _testvar10=lala10 ; export | grep -a _testvar10'
-
+run_test 'export testvar=10 ; export testvar=20 ; export | grep -a testvar'
+run_test 'export testvar=lala ; export ; export testvar=10 ; export' 'grep -v _=' 'sort'
 
 #UNSET
 run_test 'unset'
@@ -298,7 +302,9 @@ run_test 'pwd'
 run_test 'pwd test'
 run_test 'pwd test lala'
 run_test 'pwd "test"'
-
+run_test 'pwd ; cd .. ; pwd ; cd / ; pwd ; cd . ; pwd ; cd ~/ ; pwd'
+run_test 'pwd .'
+run_test 'pwd ..'
 
 #CD
 mkdir test_cd
@@ -317,6 +323,16 @@ run_test 'pwd ; cd test_cd error ; pwd'
 run_test 'pwd ; cd error test_cd error ; pwd'
 run_test 'pwd ; cd ~/test_cd error ; pwd'
 run_test 'pwd ; cd error ~/test_cd error ; pwd'
+run_test 'pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. ; pwd ; cd .. pwd '
+run_test 'pwd ; cd .. | pwd'
+run_test 'pwd | cd | pwd ; cd | pwd'
+run_test 'pwd ; cd ../test ; pwd'
+run_test 'pwd ; cd ../error ; pwd'
+run_test 'pwd ; cd ./ ; pwd'
+run_test 'pwd ; cd ../ ; pwd'
+run_test 'pwd ; cd ... ; pwd'
+run_test 'pwd ; cd .error ; pwd'
+run_test 'pwd ; cd ..error ; pwd'
 rm -rf test_cd
 rm -rf ~/test_cd
 
@@ -381,7 +397,10 @@ run_test 'echo $99TEST'
 run_test 'echo $=TEST'
 run_test 'echo $1 "" $9 "" $4 "" $7'
 run_test 'echo $?TEST$?'
-
+run_test 'echo "$PWD"'
+run_test 'echo "$LALA"'
+run_test "echo \'$PWD\'"
+run_test "echo \'$LALA\'"
 
 
 #PIPE
@@ -482,11 +501,26 @@ run_test "echo \'\"\'\""
 run_test "echo \\'\"\\'\""
 run_test "echo \\'\"\\\\'\""
 run_test "echo \\'\"\\'\""
+run_test "echo lala;echo test;echo lala"
+run_test "echo lala|echo test|echo lala"
+run_test "echo lala;echo test|echo lala"
+run_test "echo lala|echo test;echo lala"
+run_test "echo lala ;   echo   test     ;echo      lala"
+run_test "echo lala             |echo       test |                            echo  lala"
+run_test "echo lala ;   echo test| echo        lala"
+run_test "echo        lala|echo test ;echo                                   lala"
+
 
 #REDIRECTIONS
 mkdir test_files
 run_test 'echo test > a ; cat < a'
 run_test 'echo lala >a ; cat <a'
+run_test 'echo test>a ; cat<a'
+run_test 'echo lala> a ; cat< a'
+run_test 'echo test >a ; cat <a'
+run_test 'echo lala> a ; cat< a'
+run_test 'echo test        >a ; cat<        a'
+run_test 'echo lala            >     a ; cat        <       a'
 run_test 'echo test > test_files/a ; cat < test_files/a'
 run_test 'echo lala >test_files/a ; cat <test_files/a'
 run_test 'echo test > b ; echo test add >> b ; cat < b'
@@ -566,7 +600,27 @@ echo "test" > a && run_test 'cat a ; echo $?' && rm a
 run_test 'cat a ; echo $?'
 run_test 'pwd ; echo $?'
 run_test 'export a | echo $?'
-run_test 'export % | echo $?' 
+run_test 'export % | echo $?'
+run_test 'echo lala ; echo $?'
+run_test 'echo lala | echo $?'
+run_test 'pwd ; echo $?'
+run_test 'pwd | echo $?'
+run_test 'cd / ; echo $?'
+run_test ' cd / | echo $?'
+run_test 'cd ~/ ; echo $?'
+run_test ' cd ~/ | echo $?'
+run_test 'cd /error ; echo $?'
+run_test ' cd /error | echo $?'
+run_test 'cd ~/error ; echo $?'
+run_test ' cd ~/error | echo $?'
+run_test 'env ; echo $?'
+run_test 'env | echo $?'
+run_test 'export a ; unset a ; echo $?'
+run_test 'export a | unset a | echo $?'
+run_test 'unset a ; echo $?'
+run_test 'unset a | echo $?'
+run_test 'unset a ; echo $?'
+run_test 'unset a | echo $?'
 run_test 'echo $? ; echo $? ; echo $?'
 run_test 'echo $? | echo $? | echo $?'
 run_test 'cd error ; echo $?'
@@ -586,12 +640,25 @@ run_test './prog a b c'
 run_test '$PWD/prog'
 run_test '$PWD/prog a'
 run_test '$PWD/prog b'
+mkdir test_prog
+run_test 'cd test_prog ; ../prog'
+run_test 'cd test_prog ; ../prog a'
+run_test 'cd test_prog ; ../prog a b'
+rm -rf test_prog
 
 
 #OTHERS
 run_test 'touch test_file ; rm test_file'
 run_test 'ls'
 run_test 'cat bible.txt'
+run_test '/bin/ls'
+run_test 'echo test > a ; /bin/cat a'
+run_test 'echo test > a ; /bin/rm a'
+run_test '/bin/pwd'
+run_test 'unset PATH ; ls ; cd /bin ; ls'
+run_test 'export PATH=$PWD/add_path$PATH ; export | grep PATH ; ls'
+
+
 
 
 #EMPTY ENV
@@ -711,7 +778,7 @@ echo -ne "$CYAN>> $RESET"
 read user_input
 if [ $user_input != 'Y' ]
 then
-    rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
+    rm -rf add_path test_cd ~/test_cd test_files ../minishell.dSYM
     delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
     exit
 fi
@@ -729,6 +796,9 @@ run_leaks 'echo $PWD'
 run_leaks 'echo $OLDPWD'
 run_leaks 'echo \$PWD'
 run_leaks 'echo \\$PWD'
+run_leaks "echo lala ;   echo   test     ;echo      lala"
+run_leaks "echo lala             |echo       test |                            echo  lala"
+run_leaks "echo lala ;   echo test| echo        lala"
 
 run_leaks 'pwd ; echo $PWD ; echo OLDPWD ; unset PWD ; echo $PWD ; echo $OLDPWD ; cd .. ; echo $OLDPWD ; pwd ; echo $OLDPWD ; cd .. ; pwd ; echo $OLDPWD'
 
@@ -844,6 +914,8 @@ run_leaks 'echo lala >> a >> a > a ; echo test >> a ; cat < a'
 run_leaks 'echo lala > a ; rm a ; echo lala > b ; rm b ; echo lala >> a >> b >> a ; cat a b'
 run_leaks 'echo test > a ; echo test > b ; echo lala >> a >> b >> a ; cat a b'
 run_leaks 'echo <b <a'
+run_leaks 'echo test        >a ; cat<        a'
+run_leaks 'echo lala            >     a ; cat        <       a'
 rm -rf test_files
 
 run_leaks 'export a ; echo $?'
@@ -857,6 +929,6 @@ run_leaks 'touch test_file ; rm test_file'
 run_leaks 'ls'
 
 ################ END SHELL ################
-rm -rf test_cd ~/test_cd test_files ../minishell.dSYM
-    delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
+rm -rf add_path test_cd ~/test_cd test_files ../minishell.dSYM
+delete_file "a b ../a ../b buffer ../buffer buffer2 prog diff_minishell.txt diff_bash.txt ../diff_minishell.txt ../diff_bash.txt leaks_minishell.txt boucle"
 

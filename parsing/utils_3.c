@@ -31,9 +31,9 @@ int	is_env(char *str, int j)
 
 	i = 0;
 	tmp = get_env_name_2check(str, j);
-	while (global_env[i])
+	while (g_global_env[i])
 	{
-		if (ft_envcmp(global_env[i], tmp))
+		if (ft_envcmp(g_global_env[i], tmp))
 		{
 			free_str(&tmp);
 			return (1);

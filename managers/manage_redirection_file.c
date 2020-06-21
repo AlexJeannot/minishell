@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:44:03 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/20 16:48:40 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/20 18:11:59 by ajeannot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exec_file(int count)
 {
-    int fd_file;
+	int	fd_file;
 
 	if (lst->rdc_index[count][1] == 1)
 	{
@@ -28,5 +28,5 @@ void	exec_file(int count)
 		O_WRONLY | O_CREAT, 0644)) == -1)
 			ft_error('\0', lst->rdc_filetab[count], NULL, 1);
 	}
-    close(fd_file);
+	close(fd_file);
 }
