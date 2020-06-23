@@ -15,7 +15,7 @@
 void	quit_shell_eof(char *line, int exit_status)
 {
 	free_str(&line);
-	write(1, "exit\n", 5);
+//	write(1, "exit\n", 5);
 	ft_exit(exit_status);
 }
 
