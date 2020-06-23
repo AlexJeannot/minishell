@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:41:27 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/20 13:09:45 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/23 11:13:31 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*get_endline(char *str, int j)
 		return (NULL);
 	while (!is_end_var_name(str, j))
 		j++;
+	if (str[j] == '}')
+		j++;
 	k = j;
 	while (str[j++])
 		len++;
@@ -62,9 +64,11 @@ char	*get_env_name_2check(char *str, int j)
 	char	*tmp;
 
 	j++;
+	if (str[j] == '{')
+		j++;
 	len = j;
 	i = 0;
-	while (str[j] && str[j] != ' ')
+	while (str[j] && !is_end_var_name(str, j))
 		j++;
 	if (!(tmp = malloc(j - len + 1)))
 		ft_error('\0', "Malloc", NULL, 1);

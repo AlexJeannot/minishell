@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 18:58:01 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/20 13:19:09 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/23 11:10:35 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	is_end_var_name(char *str, int i)
 		return (1);
 	if (str[i] >= 91 && str[i] <= 96)
 		return (1);
-	if (str[i] >= 123 && str[i] <= 126)
+	if (str[i] >= 124 && str[i] <= 126)
 		return (1);
 	if (!str[i])
 		return (1);
@@ -75,36 +75,6 @@ int	ft_strlen_null(const char *str)
 	return (0);
 }
 
-/*
-int	except_case(char *str, int i)
-{
-	char *map;
-
-	map = map_quote(str);
-	if (str[i] == '$')
-	{
-		if (str[i + 1] >= 32 && str[i + 1] <= 47)
-			return (1);
-		if (str[i + 1] >= 58 && str[i + 1] <= 62)
-			return (1);
-		if (str[i + 1] == 64)
-			return (1);
-		if (str[i + 1] >= 91 && str[i + 1] <= 96)
-			return (1);
-		if (str[i + 1] >= 123 && str[i + 1] <= 126)
-			return (1);
-		if (!str[i + 1])
-			return (1);
-		if (map[i] == '1')
-			return (1);
-		if (is_esc(str, i))
-			return (1);
-		return (0);
-	}
-	return (1);
-}
-*/
-
 int	except_case(char *str, int i)
 {
 	char *map;
@@ -116,7 +86,7 @@ int	except_case(char *str, int i)
 			|| (str[i + 1] >= 58 && str[i + 1] <= 62)
 			|| (str[i + 1] == 64)
 			|| (str[i + 1] >= 91 && str[i + 1] <= 96)
-			|| (str[i + 1] >= 123 && str[i + 1] <= 126)
+			|| (str[i + 1] >= 124 && str[i + 1] <= 126)
 			|| (!str[i + 1])
 			|| (map[i] == '1')
 			|| (is_esc(str, i)))
