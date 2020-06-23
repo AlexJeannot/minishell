@@ -44,7 +44,7 @@ int		ft_exit(int status)
 {
 	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && g_child_pid != 0)
 	{
-//		write(1, "exit\n", 5);
+		write(1, "exit\n", 5);
 		setup_command(status);
 		if (str_array_length(lst->arg) == 1)
 			status = transform_status(lst->arg[0]);

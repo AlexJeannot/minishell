@@ -22,6 +22,7 @@ void	signal_manager(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
+		write(STDOUT_FILENO, "\b\b  \b\b", 6);
 		if (g_child_pid && g_child_pid > 0)
 		{
 			write(1, "Quit: 3\n", 8);

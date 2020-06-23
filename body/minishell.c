@@ -23,9 +23,9 @@ int	main(int argc, char **argv, char **env)
 	setup_env(argv, env, &exit_status);
 	while (1)
 	{
-//		exec_prompt();
+		exec_prompt();
 		ret_gnl = get_next_line(0, &line);
-		if (line && line[0])
+		if (line && line[0] && ret_gnl == 1)
 			exit_status = exec_command_line(line, exit_status);
 		else if (ret_gnl == 0)
 			quit_shell_eof(line, exit_status);

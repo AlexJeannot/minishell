@@ -180,6 +180,9 @@ run_test 'echo'
 run_test 'echo -n -n lala'
 add_newline
 run_test 'echo \n'
+run_test 'echo lala\nlala'
+run_test 'echo "lala\nlala"'
+run_test "echo 'lala\nlala'"
 run_test 'echo "test""test" "lala"'
 run_test 'echo "test"test"" "lala"'
 run_test 'echo "test"\""test" "lala"'
@@ -199,11 +202,13 @@ run_test 'echo \$PWD'
 run_test 'echo \\$PWD'
 run_test 'echo $NOVAR'
 run_test 'pwd ; echo $PWD ; echo OLDPWD ; unset PWD ; echo $PWD ; echo $OLDPWD ; cd .. ; echo $OLDPWD ; pwd ; echo $OLDPWD ; cd .. ; pwd ; echo $OLDPWD'
-
+run_test 'echo ${PWD}'
+run_test 'echo ${PATH'
+run_test 'echo $PWD}'
 
 #ENV
 run_test 'env' 'grep -v _=' 'sort'
-run_test 'env lala'
+run_test 'env lala' 'grep -v env:'
 export SHLVL=8 && run_test 'env' 'grep -a SHLVL'
 export SHLVL=test && run_test 'env' 'grep -a SHLVL'
 export SHLVL=0 && run_test 'env' 'grep -a SHLVL'
