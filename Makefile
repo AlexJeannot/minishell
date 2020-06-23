@@ -68,44 +68,30 @@ SRCS = 	annexes/display_string.c \
 		clear_it/clear_before_exec.c \
 		clear_it/clear_before_exec_2.c \
 		clear_it/clear_stock_rd.c
-		#clear_it/clear_echo_bad_env.c 
 
-OBJS_CONV = $(SRCS:.c=.o)
-OBJS = $(addprefix $(OBJS_DIR),$(notdir $(OBJS_CONV)))
-OBJS_DIR = objs/
+INCL =	includes/exec.h \
+		includes/struct.h \
+		includes/parsing.h
 
-INCL = -I . -I/get_next_line/
+OBJS = $(SRCS:.c=.o)
+
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
-$(OBJS_DIR)%.o:	*/%.c
-			if [ -d "objs" ]; then : ; else mkdir objs; fi
-			echo $(notdir $@) "\033[0;32m ==> created\033[0m"
+%.o:		%.c
 			$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
-$(NAME):	$(OBJS)
-			echo Linking "\033[0;35m ==> in progress\033[0m"
+$(NAME):	$(OBJS) $(INCL)
 			$(CC) $(FLAGS) $(OBJS) -o $@
-			echo $(NAME) "\033[0;32m ==> done\033[0m"
 
 clean :
 			rm -rf $(OBJS)
-			echo object files "\033[0;31m ==> deleted\033[0m"
-			rm -rf $(OBJS_DIR)
-			echo object directory "\033[0;31m ==> deleted\033[0m"
 
 fclean : 	clean
 			rm -rf $(NAME)
-			echo $(NAME) "\033[0;31m ==> deleted\033[0m"
 
 re:			fclean all
 
-test : 		all
-			echo
-			echo
-			./$(NAME)
-
-.PHONY: 		clean fclean all re test
-.SILENT:
+.PHONY: 		clean fclean all re

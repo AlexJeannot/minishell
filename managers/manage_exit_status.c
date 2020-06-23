@@ -72,7 +72,6 @@ void	replace_exit_status(int status)
 		str_count = 0;
 		while (raw_array[array_count][str_count])
 		{
-			//map = map_quote(raw_array[array_count], 0);
 			map = map_quote(raw_array[array_count]);
 			if (raw_array[array_count][str_count] == '$'
 			&& map[str_count] != '1'

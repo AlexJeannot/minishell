@@ -66,7 +66,6 @@ char	*clear_it(char *str)
 	int		j;
 	int		k;
 
-	//g_map = map_quote(str, 1);
 	g_map = map_quote(str);
 	len = to_keep_len(str);
 	if (!(res = malloc(len + 1)))
