@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/20 13:05:00 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/24 09:52:24 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int		is_spe_carac(char *str, int i)
 		if (str[i] == 91 || (str[i] >= 93 && str[i] < 96))
 			return (1);
 		if (str[i] >= 123 && str[i] <= 126)
+			return (1);
+		if (str[i] >= 65 && str[i] <= 90)
+			return (1);
+		if (str[i] >= 97 && str[i] <= 122)
 			return (1);
 	}
 	return (0);
