@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:27:47 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/26 11:00:18 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 11:16:02 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ int		bracket_case(char *str, int j)
 	if (str[i + 1] != '{' && str[j] == '}')
 		return (0);
 	if (str[i + 1] == '{' && str[j] != '}')
-		ft_error('\0', NULL, "Error : multi-line opened by < \{ >", 1);
+		ft_error('\0', NULL, "Error : bad substitution with < \{ >", 1);
 	return (0);
 }

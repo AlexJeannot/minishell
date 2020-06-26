@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 18:06:39 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/26 10:55:59 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 11:01:41 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void				get_dollar(void);
 void				clear_before_exec(void);
 void				print_lst(void);
 void				free_lst(void);
-
 
 /*
 ** MANAGE_ARRAY.C

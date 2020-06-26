@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:41:10 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/26 09:46:04 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 11:10:21 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		transform_status(char *input_str)
 
 int		ft_exit(int status)
 {
-	if (g_lst && g_lst->cmd && ft_strcmp(g_lst->cmd, "exit") == 0 && g_child_pid != 0)
+	if (g_lst && g_lst->cmd && ft_strcmp(g_lst->cmd, "exit")
+		== 0 && g_child_pid != 0)
 	{
 		write(1, "exit\n", 5);
 		setup_command(status);

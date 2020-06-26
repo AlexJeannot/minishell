@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 15:09:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/26 10:47:23 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 11:05:09 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_simple_quote(char *str)
 			while (g_map[i] == '1')
 				i++;
 			if (g_map[i] != '3' || str[i] != '\'')
-				ft_error('\0', NULL, "Error : multi-line opened by < \' >\n", 1);
+				ft_error('\0', NULL, "Error : multi-line opened by <\'>\n", 1);
 		}
 		i++;
 	}
@@ -46,7 +46,7 @@ void	check_double_quote(char *str)
 			while (g_map[i] == '2')
 				i++;
 			if (g_map[i] != '4' || str[i] != '"')
-				ft_error('\0', NULL, "Error : multi-line opened by < \" >\n", 1);
+				ft_error('\0', NULL, "Error : multi-line opened by <\">\n", 1);
 		}
 		i++;
 	}
@@ -63,7 +63,7 @@ void	check_bs(char *str)
 		if (str[i] == '\\' && (!str[i + 1]) && g_map[i] == '0')
 		{
 			if (!is_esc(str, i))
-				ft_error('\0', NULL, "Error : multi-line opened by < \\ >\n", 1);
+				ft_error('\0', NULL, "Error : multi-line opened by <\\>\n", 1);
 			else
 				return ;
 		}
@@ -71,29 +71,12 @@ void	check_bs(char *str)
 	}
 }
 
-//void	check_brackets(char *str);
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (str[i])
-//	{
-//		if (str[i] == '{' && !is_esc(str, i))
-//			while (str[i] && str[i] != '}')
-//				i++;
-//			if (str[i] != '}')
-//				ft_error('\0', NULL, "Error with caracter < \{ >\n", 1);
-//		i++;
-//	}
-//}
-
 void	check(char *line)
 {
 	g_map = map_quote(line);
 	check_simple_quote(line);
 	check_double_quote(line);
 	check_bs(line);
-//	check_brackets(line);
 	check_rdc(line, g_map);
 	check_rdo(line, g_map);
 	free_str(&g_map);
