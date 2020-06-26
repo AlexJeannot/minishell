@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:18:22 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:20:02 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:31:01 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ t_list		*new_lst(void)
 	return (NULL);
 }
 
-bool		is_empty_lst(void)
+int			is_empty_lst(void)
 {
 	if (!lst)
-		return (true);
-	return (false);
+		return (1);
+	return (0);
 }
 
 void		clear_lst_content(void)

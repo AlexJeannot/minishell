@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 13:33:52 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/20 13:36:33 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:33:15 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	check_rdo(char *str, char *map);
 **		parsing/list_utils.c
 */
 t_list	*new_lst(void);
-bool	is_empty_lst();
+int		is_empty_lst();
 
 /*
 **      parsing/list_utils_2.c
