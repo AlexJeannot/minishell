@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:41:10 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/22 00:04:49 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:46:04 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ int		transform_status(char *input_str)
 
 int		ft_exit(int status)
 {
-	if (lst && lst->cmd && ft_strcmp(lst->cmd, "exit") == 0 && g_child_pid != 0)
+	if (g_lst && g_lst->cmd && ft_strcmp(g_lst->cmd, "exit") == 0 && g_child_pid != 0)
 	{
 		write(1, "exit\n", 5);
 		setup_command(status);
-		if (str_array_length(lst->arg) == 1)
-			status = transform_status(lst->arg[0]);
-		else if (str_array_length(lst->arg) > 1)
+		if (str_array_length(g_lst->arg) == 1)
+			status = transform_status(g_lst->arg[0]);
+		else if (str_array_length(g_lst->arg) > 1)
 		{
-			transform_status(lst->arg[0]);
+			transform_status(g_lst->arg[0]);
 			write(1, "bash: exit: too many arguments\n", 31);
 			return (1);
 		}

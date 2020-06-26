@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:00:39 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/20 16:33:56 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:39:50 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	setup_command(int exit_status)
 {
 	replace_exit_status(exit_status);
 	get_dollar();
-	lst->cmd = clean_cmd(lst->cmd);
-	lst->arg = clean_array(lst->arg);
-	lst->raw = clean_array(lst->raw);
+	g_lst->cmd = clean_cmd(g_lst->cmd);
+	g_lst->arg = clean_array(g_lst->arg);
+	g_lst->raw = clean_array(g_lst->raw);
 	clear_before_exec();
 }
 
@@ -46,7 +46,7 @@ void	setup_values(int *prev_fd, int *prev_pipe, int *r_pend, int *r_pwdend)
 {
 	*prev_fd = -1;
 	*prev_pipe = -1;
-	g_lst_free = lst;
+	g_lst_free = g_lst;
 	*r_pend = -1;
 	*r_pwdend = -1;
 }
@@ -56,8 +56,8 @@ int		check_child_and_exit(int status
 {
 	if (prev_pipe == 0)
 		status = wait_for_child(status, r_pend, r_pwdend);
-	if (lst->cmd && ft_strcmp(lst->cmd, "exit") == 0
-	&& lst->pipe != 1 && prev_pipe != 1)
+	if (g_lst->cmd && ft_strcmp(g_lst->cmd, "exit") == 0
+	&& g_lst->pipe != 1 && prev_pipe != 1)
 		status = ft_exit(status);
 	return (status);
 }
@@ -70,7 +70,7 @@ int		*setup_pipe_and_process(int exit_status, int *read_fd)
 	int	pwd_fd[2];
 
 	setup_values(&prev_fd, &prev_pipe, &p_fd[0], &pwd_fd[0]);
-	while (lst)
+	while (g_lst)
 	{
 		exit_status = check_child_and_exit(exit_status,
 		prev_pipe, p_fd[0], pwd_fd[0]);

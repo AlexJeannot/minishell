@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:50:53 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/16 17:51:09 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:42:45 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	setup_parent(int *prev_fd, int *prev_pipe, int p_fd[2], int pwd_fd[2])
 	if (*prev_fd >= 0)
 		close(*prev_fd);
 	*prev_fd = p_fd[0];
-	*prev_pipe = lst->pipe;
-	if (lst->cmd && ft_strcmp(lst->cmd, "unset") == 0)
+	*prev_pipe = g_lst->pipe;
+	if (g_lst->cmd && ft_strcmp(g_lst->cmd, "unset") == 0)
 	{
-		while (lst->arg[count])
+		while (g_lst->arg[count])
 		{
-			if (ft_strcmp(lst->arg[count], "PWD") == 0)
+			if (ft_strcmp(g_lst->arg[count], "PWD") == 0)
 				g_pwd_check = 1;
 			count++;
 		}
 	}
-	lst = lst->next;
+	g_lst = g_lst->next;
 }
 
 void	setup_child(int prev_fd, int prev_pipe, int p_fd[2], int pwd_fd[2])
@@ -45,7 +45,7 @@ void	setup_child(int prev_fd, int prev_pipe, int p_fd[2], int pwd_fd[2])
 			dup2(prev_fd, STDIN_FILENO);
 		close(prev_fd);
 	}
-	if (lst->pipe == 1 && lst->rdc_type == 0)
+	if (g_lst->pipe == 1 && g_lst->rdc_type == 0)
 	{
 		dup2(p_fd[1], STDOUT_FILENO);
 		close(p_fd[1]);

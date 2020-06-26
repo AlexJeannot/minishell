@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:47:48 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/22 00:03:26 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:42:27 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	ft_builtins(char *exec, char **args)
 	if ((exec_array = setup_builtins(exec)))
 	{
 		if (str_array_length(args) == 1
-		&& ft_strcmp(args[0], "cat") == 0 && lst->rdo_filename)
-			args = add_file(args, lst->rdo_filename);
+		&& ft_strcmp(args[0], "cat") == 0 && g_lst->rdo_filename)
+			args = add_file(args, g_lst->rdo_filename);
 		while (exec_array[count])
 		{
 			ret_exec = execve(exec_array[count], args, g_global_env);

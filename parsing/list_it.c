@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:04:17 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/02 12:45:40 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:47:38 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static void		new_elem_lst_2(t_list *elem)
 	t_list	*tmp;
 
 	if (is_empty_lst())
-		lst = elem;
+		g_lst = elem;
 	else
 	{
-		tmp = lst;
+		tmp = g_lst;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = elem;

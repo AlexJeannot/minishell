@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:40:54 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/20 13:12:23 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:48:28 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ char		**get_dollar_tab(char **tab)
 
 void		get_dollar(void)
 {
-	if (lst->cmd)
+	if (g_lst->cmd)
 	{
-		lst->cmd = get_dollar_str(lst->cmd);
-		lst->arg = get_dollar_tab(lst->arg);
-		lst->raw = get_dollar_tab(lst->raw);
+		g_lst->cmd = get_dollar_str(g_lst->cmd);
+		g_lst->arg = get_dollar_tab(g_lst->arg);
+		g_lst->raw = get_dollar_tab(g_lst->raw);
 	}
-	if (lst->rdc_filetab)
-		lst->rdc_filetab = get_dollar_tab(lst->rdc_filetab);
-	if (lst->rdo_filetab)
-		lst->rdo_filetab = get_dollar_tab(lst->rdo_filetab);
+	if (g_lst->rdc_filetab)
+		g_lst->rdc_filetab = get_dollar_tab(g_lst->rdc_filetab);
+	if (g_lst->rdo_filetab)
+		g_lst->rdo_filetab = get_dollar_tab(g_lst->rdo_filetab);
 }

@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:08:08 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/18 17:52:53 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:41:15 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ char		*clean_cmd(char *input_str)
 	if (input_str)
 	{
 		free_str(&input_str);
-		if (lst->raw[0])
-			input_str = ft_strdup(lst->raw[0]);
+		if (g_lst->raw[0])
+			input_str = ft_strdup(g_lst->raw[0]);
 	}
 	return (input_str);
 }

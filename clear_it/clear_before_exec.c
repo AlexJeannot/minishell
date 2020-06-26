@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/27 14:04:34 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/24 09:52:24 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:40:51 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,20 @@ char	*clear_it(char *str)
 
 void	clear_before_exec(void)
 {
-	if (lst->cmd)
-		clear_str(&lst->cmd);
-	if (lst->arg)
-		clear_tab(&lst->arg);
-	if (lst->raw)
-		clear_tab(&lst->raw);
-	if (lst->rdc_filetab)
+	if (g_lst->cmd)
+		clear_str(&g_lst->cmd);
+	if (g_lst->arg)
+		clear_tab(&g_lst->arg);
+	if (g_lst->raw)
+		clear_tab(&g_lst->raw);
+	if (g_lst->rdc_filetab)
 	{
-		clear_tab(&lst->rdc_filetab);
-		lst->rdc_filename = get_last(lst->rdc_filetab);
+		clear_tab(&g_lst->rdc_filetab);
+		g_lst->rdc_filename = get_last(g_lst->rdc_filetab);
 	}
-	if (lst->rdo_filetab)
+	if (g_lst->rdo_filetab)
 	{
-		clear_tab(&lst->rdo_filetab);
-		lst->rdo_filename = get_last(lst->rdo_filetab);
+		clear_tab(&g_lst->rdo_filetab);
+		g_lst->rdo_filename = get_last(g_lst->rdo_filetab);
 	}
 }

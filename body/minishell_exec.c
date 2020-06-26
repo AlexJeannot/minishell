@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 16:54:47 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/22 00:01:53 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:39:06 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ int		exec_instructions(void)
 	int status;
 
 	status = 0;
-	if (lst->cmd)
+	if (g_lst->cmd)
 	{
-		if (ft_strcmp(lst->cmd, "pwd") == 0)
+		if (ft_strcmp(g_lst->cmd, "pwd") == 0)
 			ft_pwd();
-		else if (ft_strcmp(lst->cmd, "echo") == 0)
-			ft_echo(lst->arg);
-		else if (ft_strcmp(lst->cmd, "env") == 0)
-			ft_env(lst->arg);
-		else if (ft_strcmp(lst->cmd, "cd") == 0)
-			ft_cd(lst->arg);
-		else if (ft_strcmp(lst->cmd, "export") == 0)
-			status = ft_export(lst->arg);
-		else if (ft_strcmp(lst->cmd, "unset") == 0)
-			status = ft_unset(lst->arg);
-		else if (ft_strcmp(lst->cmd, "exit") != 0)
-			ft_program(lst->cmd, lst->raw);
+		else if (ft_strcmp(g_lst->cmd, "echo") == 0)
+			ft_echo(g_lst->arg);
+		else if (ft_strcmp(g_lst->cmd, "env") == 0)
+			ft_env(g_lst->arg);
+		else if (ft_strcmp(g_lst->cmd, "cd") == 0)
+			ft_cd(g_lst->arg);
+		else if (ft_strcmp(g_lst->cmd, "export") == 0)
+			status = ft_export(g_lst->arg);
+		else if (ft_strcmp(g_lst->cmd, "unset") == 0)
+			status = ft_unset(g_lst->arg);
+		else if (ft_strcmp(g_lst->cmd, "exit") != 0)
+			ft_program(g_lst->cmd, g_lst->raw);
 	}
 	return (status);
 }
@@ -58,11 +58,11 @@ void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend)
 	if (is_prev_piped == 1)
 		status = 0;
 	setup_command(status);
-	if (lst->rdo_type != 0 || lst->rdc_type != 0)
+	if (g_lst->rdo_type != 0 || g_lst->rdc_type != 0)
 		manage_redirection();
-	if (ft_strcmp(lst->cmd, "exit") != 0)
+	if (ft_strcmp(g_lst->cmd, "exit") != 0)
 		status = exec_instructions();
-	if (lst->pipe == 0)
+	if (g_lst->pipe == 0)
 		send_env(w_pend, w_pwdend);
 	else
 	{

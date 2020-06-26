@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/16 17:42:09 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/16 17:48:10 by ajeannot         ###   ########.fr       */
+/*   Updated: 2020/06/26 09:45:04 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int		replace_symbol(char **raw_array, int array_count,
 	, str_count, status);
 	if (array_count == 0)
 	{
-		free_str(&lst->cmd);
-		lst->cmd = ft_strdup(raw_array[array_count]);
+		free_str(&g_lst->cmd);
+		g_lst->cmd = ft_strdup(raw_array[array_count]);
 	}
 	else
 	{
-		free_str(&lst->arg[array_count - 1]);
-		lst->arg[array_count - 1] = ft_strdup(raw_array[array_count]);
+		free_str(&g_lst->arg[array_count - 1]);
+		g_lst->arg[array_count - 1] = ft_strdup(raw_array[array_count]);
 	}
 	return (0);
 }
@@ -66,7 +66,7 @@ void	replace_exit_status(int status)
 	char	*map;
 
 	array_count = 0;
-	raw_array = lst->raw;
+	raw_array = g_lst->raw;
 	while (raw_array[array_count])
 	{
 		str_count = 0;
