@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/02 12:41:27 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/06/23 11:13:31 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 10:53:23 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_endline(char *str, int j)
 		return (NULL);
 	while (!is_end_var_name(str, j))
 		j++;
-	if (str[j] == '}')
+	if (bracket_case(str, j))
 		j++;
 	k = j;
 	while (str[j++])

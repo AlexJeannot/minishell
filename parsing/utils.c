@@ -6,7 +6,7 @@
 /*   By: cbouleng <cbouleng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 17:27:47 by cbouleng          #+#    #+#             */
-/*   Updated: 2020/05/25 17:28:59 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 11:00:18 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ void	ft_error_rd(char *msg, char symbol)
 	ft_exit(1);
 }
 
-void	prompt(void)
-{
-	write(1, "$ ", 2);
-}
-
 int		ft_strcmp(char *s1, char *s2)
 {
 	int i;
@@ -68,12 +63,18 @@ int		ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int		ft_tablen(char **tab)
+int		bracket_case(char *str, int j)
 {
 	int	i;
 
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
+	i = j;
+	while (str[i] != '$')
+		i--;
+	if (str[i + 1] == '{' && str[j] == '}')
+		return (1);
+	if (str[i + 1] != '{' && str[j] == '}')
+		return (0);
+	if (str[i + 1] == '{' && str[j] != '}')
+		ft_error('\0', NULL, "Error : multi-line opened by < \{ >", 1);
+	return (0);
 }

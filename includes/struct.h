@@ -6,7 +6,7 @@
 /*   By: ajeannot <ajeannot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 18:06:39 by ajeannot          #+#    #+#             */
-/*   Updated: 2020/06/26 09:35:54 by cbouleng         ###   ########.fr       */
+/*   Updated: 2020/06/26 10:55:59 by cbouleng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,13 @@ t_list				*g_lst;
 t_list				*g_lst_free;
 char				**g_global_env;
 char				*map_quote(char *str);
-int					ft_strcmp(char *s1, char *s2);
 void				clear_lst();
 void				parsing(char *line);
 void				get_dollar(void);
 void				clear_before_exec(void);
 void				print_lst(void);
-int					is_esc(char *str, int i);
 void				free_lst(void);
+
 
 /*
 ** MANAGE_ARRAY.C
@@ -115,7 +114,6 @@ char				*ft_strdup(const char *input_str);
 ** MANAGE_ERROR.C
 */
 void				ft_error(char symbol, char *cmd, char *msg, int status);
-void				ft_error_rd(char *msg, char symbol);
 
 /*
 ** MANAGE_EXIT.C
@@ -127,5 +125,13 @@ int					ft_exit(int status);
 */
 void				free_int_array(int *input_array);
 void				free_2d_int_array(int **input_array);
+
+/*
+** UTILS.C
+*/
+int					is_esc(char *str, int i);
+void				ft_error_rd(char *msg, char symbol);
+int					ft_strcmp(char *s1, char *s2);
+int					bracket_case(char *str, int j);
 
 #endif
