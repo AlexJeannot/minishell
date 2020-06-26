@@ -71,10 +71,11 @@ int		ft_search(char *str)
 
 char	*ft_settle(char *str, int pass)
 {
-	if (str && (pass == 1 || str[0]))
-	{
-		free(str);
-		str = NULL;
-	}
+	//if (str && (pass == 1 || str[0]))
+	//{
+	(void) pass;
+	free(str);
+	str = NULL;
+	//}
 	return (str);
 }

@@ -81,6 +81,7 @@ int		get_next_line(int fd, char **line)
 	{
 		*line = ft_dup(str, ft_id(str), NULL);
 		str = ft_dup(&str[ft_id(str) + 1], ft_len(&str[ft_id(str) + 1]), str);
+		free(str);
 		return (1);
 	}
 	*line = ft_dup(str, ft_id(str), NULL);
