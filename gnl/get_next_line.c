@@ -39,11 +39,12 @@ char	*ft_join(char *str_1, char *str_2, int len_1, int len_2)
 	return (output_str);
 }
 
-int		ft_error_input(int fd, char **line, int *pass)
+int		ft_error_input(int fd, char **line, int *pass, char **str)
 {
 	char	check_str[1];
 
 	*pass = 0;
+	*str = NULL;
 	if (fd < 0 || !line || read(fd, check_str, 0) == -1)
 		return (-1);
 	return (1);
@@ -66,8 +67,7 @@ int		get_next_line(int fd, char **line)
 	char		buf[101];
 	int			pass;
 
-	str = NULL;
-	if (ft_error_input(fd, line, &pass) == -1)
+	if (ft_error_input(fd, line, &pass, &str) == -1)
 		return (-1);
 	while (((ret = read(fd, buf, 100)) > 0) || (ret > -1 && str))
 	{

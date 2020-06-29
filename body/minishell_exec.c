@@ -75,9 +75,11 @@ void	exec_child(int is_prev_piped, int status, int w_pend, int w_pwdend)
 int		exec_father(int exit_status, int read_pend, int read_pwdend)
 {
 	int ret_child;
+	int	ret;
 
-	//waitpid(g_child_pid, &ret_child, 0);
-	while (wait(&ret_child) > 0);
+	ret = 1;
+	while (ret > 0)
+		ret = wait(&ret_child);
 	if (WIFEXITED(ret_child))
 		exit_status = WEXITSTATUS(ret_child);
 	receive_env(read_pend, read_pwdend);
